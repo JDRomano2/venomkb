@@ -47,8 +47,8 @@ module.exports = {
         production : {
             user : 'ubuntu',
             host : 'vkbprod',
-            ref  : 'origin/master',
-            repo : 'git@github.com:JDRomano2/venomkb.git',
+            ref  : 'origin/deployment',
+            repo : 'https://github.com/JDRomano2/venomkb.git',
             path : '/var/www/venomkb',
             'post-deploy' : 'source .env && npm install && npm run build && pm2 reload ecosystem.config.js --env production --update-env'
         },
