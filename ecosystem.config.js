@@ -46,7 +46,7 @@ module.exports = {
     deploy : {
         production : {
             user : 'ubuntu',
-            host : 'venomkb.org',
+            host : 'vkbprod',
             ref  : 'origin/master',
             repo : 'git@github.com:JDRomano2/venomkb.git',
             path : '/var/www/venomkb',
