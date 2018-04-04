@@ -42,12 +42,18 @@ const AboutFeatures = () =>
                         <li className="todo">IC<sub>50</sub> values</li>
                         <li className="todo">Binding target(s)</li>
                         <li className="todo">Protein isoforms in VenomKB</li>
+                        <li className="todo">Enzyme Commission (EC) number and hierarchy</li>
+                        <li className="todo">Link(s) to protein structure data files</li>
                     </ul>
                 </ul>
                 <li>Genomes</li>
                 <ul>
                     <li className="done">Link to species in VenomKB</li>
                     <li className="done">Link to sequencing project's homepage</li>
+                    <li className="todo">Summary statistics of genome</li>
+                    <li className="todo">Tools for evolutionary whole-genome analyses</li>
+                    <li className="todo">Genomic loci corresonding to known toxin genes</li>
+                    <li className="todo">Links to external databases and analysis tools</li>
                 </ul>
                 <li>Functional genomics data (<a href="http://venomkb.org/about/venomseq">VenomSeq - click here for information</a>)</li>
                 <ul>

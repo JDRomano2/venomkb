@@ -4,6 +4,7 @@ import App from '../components/App';
 import Home from '../components/Home';
 import About from '../components/About';
 import AboutFeatures from '../components/AboutFeatures';
+import AboutVenomseq from '../components/AboutVenomseq';
 import AboutOntology from '../components/AboutOntology';
 import AboutVenoms from '../components/AboutVenoms';
 import AboutApi from '../components/AboutApi';
@@ -21,6 +22,7 @@ export default (
         <IndexRoute component={Home} />
         <Route path="/about" component={About} />
         <Route path="/about/features" component={AboutFeatures} />
+        <Route path="/about/venomseq" component={AboutVenomseq} />
         <Route path="/about/ontology" component={AboutOntology} />
         <Route path="/about/whyvenoms" component={AboutVenoms} />
         <Route path="/about/api" components={AboutApi} />
