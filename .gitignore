@@ -41,6 +41,8 @@ npm-debug.log
 #ngrok
 ngrok
 
+# created for use by webpack-bundle-analyzer
+stats.json
 
 
 # Created by https://www.gitignore.io/api/osx,node,python,windows
