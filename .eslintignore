@@ -2,6 +2,6 @@
 dist
 node_modules
 coverage
-webpack.*.js
+#webpack.*.js
 *server.js
 index/components/CustomSelect/*
