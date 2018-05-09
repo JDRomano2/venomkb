@@ -6,15 +6,13 @@
   "scripts": {
     "start": "npm run dev",
     "api": "node ./index/bin/www",
+    "build": "rimraf dist && webpack --config ./webpack.prod.js --progress --profile --colors",
+    "build_dev": "rimraf dist && webpack --config ./webpack.dev.js --progress --profile --colors",
+    "dev": "concurrently \"npm run dev_server\" \"npm run api\"",
     "dev_server": "node venomkb.server.js",
-    "build": "rimraf dist && webpack --config ./webpack.config.js --progress --profile --colors",
-    "build2": "rimraf dist && webpack --config ./webpack.production.config.js --progress --profile --colors",
     "eslint": "eslint .",
-    "test": "mocha --compilers js:babel-register --recursive",
-    "test:watch": "npm test -- --watch",
     "prod_server": "node ./server/index.js",
-    "production": "concurrently \"npm run prod_server\" \"npm run api\"",
-    "dev": "concurrently \"npm run dev_server\" \"npm run api\""
+    "production": "concurrently \"npm run prod_server\" \"npm run api\""
   },
   "keywords": [
     "venomkb",
@@ -69,7 +67,6 @@
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^2.1.2",
     "html-webpack-plugin": "^2.30.1",
-    "mocha": "^3.5.3",
     "node-sass": "^3.7.0",
     "prop-types": "^15.6.1",
     "redux-devtools": "^3.4.1",
@@ -88,6 +85,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "tatonettilab.org:/opt/git/venomkb.git"
+    "url": "https://github.com/jdromano2/venomkb"
   }
 }

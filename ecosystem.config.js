@@ -44,6 +44,14 @@ module.exports = {
      * http://pm2.keymetrics.io/docs/usage/deployment/
      */
     deploy: {
+        dev: {
+            user: 'jdr2160',
+            host: 'localhost',
+            ref: 'origin/master',
+            repo: 'git@github.com:JDRomano2/venomkb.git',
+            path: '/User/jdr2160/developer/venomkb',
+            'post-deploy': 'npm install && npm run build_dev && pm2 reload ecosystem.config.js --env dev'
+        },
         production: {
             user: 'ubuntu',
             host: 'vkbprod',
@@ -52,24 +60,13 @@ module.exports = {
             path: '/var/www/venomkb',
             'post-deploy': 'source .env && npm install && npm run build && pm2 reload ecosystem.config.js --env production --update-env'
         },
-        dev: {
-            user: 'jdr2160',
-            host: 'localhost',
-            ref: 'origin/master',
-            repo: 'git@github.com:JDRomano2/venomkb.git',
-            path: '/User/jdr2160/developer/venomkb',
-            'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env dev',
-            env: {
-                NODE_ENV: 'development'
-            }
-        },
         test: {
             user: 'ubuntu',
             host: 'vkbtest',
             ref: 'origin/deployment',
             repo: 'https://github.com/JDRomano2/venomkb.git',
             path: '/var/www/venomkb',
-            'post-deploy': 'source .env && npm install && npm run build && pm2 reload ecosystem.config.js --env test --update-env'
+            'post-deploy': 'source .env && npm install && npm run build && pm2 reload ecosystem.config.js --env production --update-env'
         }
     }
 };
