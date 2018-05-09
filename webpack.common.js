@@ -10,6 +10,7 @@ module.exports = {
         'babel-polyfill',
         path.join(__dirname, 'venomkb.js')
     ],
+
     plugins: [
         new HtmlWebpackPlugin({
             template: 'venomkb.html',
@@ -17,14 +18,19 @@ module.exports = {
             filename: 'index.html'
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin('styles.css')
     ],
+
+    optimization: {
+        noEmitOnErrors: true
+    },
+
     output: {
         path: path.join(__dirname, '/index/dist'),
         filename: '[name].js',
         publicPath: '/'
     },
+
     module: {
         rules: [
             {
@@ -53,7 +59,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(zip|csv|tsv|pn)$/i,
+                test: /\.(zip|pn|csv|tsv)$/i,
                 exclude: /node_modules/,
                 use: [
                     'file-loader?name=[name].[ext]'

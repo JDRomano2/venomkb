@@ -16,7 +16,6 @@ import 'react-table/react-table.css';
 
 // Require things that webpack needs to move to dist
 import './index/styles/venomkb.css';
-import './index/img/favicons/favicons';
 import './index/img/images';
 
 getDbIndex().then((indexData) => {
