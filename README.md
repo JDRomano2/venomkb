@@ -4,6 +4,8 @@
 
 Web app version of VenomKB - a knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.
 
+Current version: `2.0.1-alpha`
+
 ## Installation
 
 ```
@@ -19,6 +21,8 @@ VenomKB's API is currently a `Mongoose.js` interface to a MongoDB database. Alth
 ### MongoDB setup
 
 We are working on creating a fully automated pipeline for bootstrapping the VenomKB database. When this is released, it will be part of the `venomkb` python package that accompanies the website (see `venomkb/`).
+
+In the meantime, you can prepare a rough approximation by downloading the data from VenomKB and putting it into a MongoDB database named `venomkb-staging`. This should contain the following collections: `dbindexitems`, `genomes`, `proteins`, and `species`. Once you have the database, you can connect the code to it by modifying the values in a file named `.env`, which contains secure configuration details (a sample file with example values can be seen at `.env-example`).
 
 ## Running the app
 
@@ -37,8 +41,6 @@ The application will be deposited into the `index/dist/` directory.
 ## Reserved Files
 
 Folder contains .eslintrc, .eslintignore and .babelrc files in addition to .gitignore. These files are to provide linting instructions, ignore files for linting, and ensure babel uses ES2015 and React transforms respectively.
-
-You will need to include a `.env` file containing secure configuration details; a sample file with example values can be seen at `.env-example`.
 
 ### Features
 

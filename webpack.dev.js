@@ -5,6 +5,7 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
 module.exports = merge(common, {
+    mode: 'development',
     devtool: 'eval-source-map',
     entry: [
         'webpack-dev-server/client?http://localhost:3000',
