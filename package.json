@@ -10,7 +10,6 @@
     "build_dev": "rimraf dist && webpack --config ./webpack.dev.js --progress --profile --colors",
     "dev": "concurrently \"npm run dev_server\" \"npm run api\"",
     "dev_server": "node venomkb.server.js",
-    "eslint": "eslint .",
     "prod_server": "node ./server/index.js",
     "production": "concurrently \"npm run prod_server\" \"npm run api\""
   },
@@ -21,7 +20,7 @@
     "react",
     "redux"
   ],
-  "author": "Joseph D. Romano, Victor Nwankwo",
+  "author": "Joseph D. Romano",
   "license": "MIT",
   "dependencies": {
     "babel-eslint": "^6.0.4",
