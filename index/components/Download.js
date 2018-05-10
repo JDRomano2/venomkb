@@ -2,9 +2,9 @@ import React from 'react';
 import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
 
 // Require static data files so Webpack knows to bundle them
-require('../assets/data/semantic_vextractor.csv');
-require('../assets/data/manual_venoms.tsv');
-require('../assets/data/vextractor.csv');
+require('../assets/data/semantic_vextractor.csv.zip');
+require('../assets/data/manual_venoms.tsv.zip');
+require('../assets/data/vextractor.csv.zip');
 
 require('../assets/data/proteins_06272017.json.zip');
 require('../assets/data/species_06272017.json.zip');
@@ -38,9 +38,9 @@ const Download = () =>
 		<Panel header={vkb1_title} bsStyle="success">
 			<div style={{display: 'flex', justifyContent: 'center'}}>
 				<ButtonToolbar>
-					<Button bsStyle="primary" href="vextractor.csv">vextractor.csv</Button>
-					<Button bsStyle="primary" href="semantic_vextractor.csv">semantic_vextractor.csv</Button>
-					<Button bsStyle="primary" href="manual_venoms.tsv">manual_venoms.tsv</Button>
+					<Button bsStyle="primary" href="vextractor.csv.zip">vextractor.csv</Button>
+					<Button bsStyle="primary" href="semantic_vextractor.csv.zip">semantic_vextractor.csv</Button>
+					<Button bsStyle="primary" href="manual_venoms.tsv.zip">manual_venoms.tsv</Button>
 				</ButtonToolbar>
 			</div>
 		</Panel>
