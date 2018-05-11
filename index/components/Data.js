@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import SearchBar from './SearchBar';
 import DataVirtualized from './DataVirtualized';
 
 class Data extends React.Component {

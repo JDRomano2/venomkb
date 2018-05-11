@@ -32,6 +32,7 @@ import NotFound from './index/components/NotFound';
 
 import DataContainer from './index/containers/DataContainer';
 import DataDetailContainer from './index/containers/DataDetailContainer';
+import DevTools from './index/containers/DevTools';
 
 const App = () => (
     <Switch>
@@ -92,6 +93,7 @@ getDbIndex().then((indexData) => {
             <ConnectedRouter history={history}>
                 <div>
                     <App/>
+                    <DevTools/>
                 </div>
             </ConnectedRouter>
         </Provider>,

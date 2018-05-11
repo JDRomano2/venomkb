@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Col } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import SequenceBox from '../components/SequenceBox';
 import OutLinks from '../components/OutLinks';
 import { connect } from 'react-redux';

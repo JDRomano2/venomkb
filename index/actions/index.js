@@ -41,6 +41,7 @@ export function fetchData(venomkb_id) {
     const dataType = venomkb_id.charAt(0);
     switch (dataType) {
         case 'P':
+            console.log('Fetching protein:', venomkb_id);
             return dispatch => {
                 dispatch(requestData(venomkb_id));
                 return fetch(`${API_BASE}proteins/${venomkb_id}`)

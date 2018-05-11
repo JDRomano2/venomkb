@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectData, fetchData } from '../actions';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Nav, NavItem, Button, Glyphicon } from 'react-bootstrap';
 import FileSaver from 'file-saver';
-// import SkyLight from 'react-skylight';
 
 import DataBasicView from '../components/DataBasicView';
 import DataJSONView from '../components/DataJSONView';
@@ -16,8 +15,8 @@ class DataDetailContainer extends Component {
         super(props);
 
         this.state = {
-            currentVenomkbId: this.props.params.index,
-            dataType: this.props.params.index.charAt(0),
+            currentVenomkbId: this.props.match.params.index,
+            dataType: this.props.match.params.index.charAt(0),
             viewType: '1'
         };
 
@@ -101,17 +100,11 @@ class DataDetailContainer extends Component {
                     <Button
                         bsSize="xsmall"
                         style={{'backgroundColor': '#A0B4B0'}}
-                        // onClick={this.refs.notifyIssue.show()}
                     >
                         <i>Found an error? Click here.</i>
                     </Button>
                 </div>
-                {/*
-                <SkyLight
-                    ref="notifyIssue"
-                    title="Report an issue with the data on this page"
-                />
-                */}
+
                 <div id="return-link">
                     <Link to={'/data'}>
                         <Glyphicon glyph="triangle-left" />Return to search
@@ -167,7 +160,7 @@ class DataDetailContainer extends Component {
 
 DataDetailContainer.propTypes = {
     currentData: PropTypes.object.isRequired,
-    selectedData: PropTypes.string.isRequired,
+    selectedData: PropTypes.string,
     description: PropTypes.string,
     out_links: PropTypes.object,
     isFetching: PropTypes.bool.isRequired,
@@ -179,7 +172,8 @@ DataDetailContainer.propTypes = {
     venom_ref: PropTypes.string,
     venom: PropTypes.object,
     species: PropTypes.array,
-    params: PropTypes.object,
+    // params: PropTypes.object,
+    match: PropTypes.object,
     taxonomic_lineage: PropTypes.array,
     pdb_image_url: PropTypes.string,
     pdb_structure_known: PropTypes.bool,
