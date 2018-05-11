@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import DevTools from './DevTools';
-import { Router } from 'react-router';
+import { ConnectedRouter } from 'react-router-redux';
 import routes from '../routes/routes.js';
 
 export default class Root extends Component {
@@ -13,10 +13,11 @@ export default class Root extends Component {
 
     render() {
         const { store, history } = this.props;
+        console.log('Attempting to render with ConnectedRouter.');
         return (
             <Provider store={store}>
                 <div>
-                    <Router history={history} routes={routes} />
+                    <ConnectedRouter history={history} routes={routes} />
                     <DevTools />
                 </div>
             </Provider>
