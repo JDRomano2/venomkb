@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
+console.log("Environment:", process.env.NODE_ENVIRONMENT);
 const prod = (process.env.NODE_ENVIRONMENT === 'production');
 const URL_BASE = process.env.URL_BASE;
 const API_BASE = prod ? `http://${URL_BASE}/api/` : 'http://localhost:3001/';
