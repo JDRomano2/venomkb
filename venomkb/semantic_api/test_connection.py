@@ -13,7 +13,6 @@ USER = config[ENVIRONMENT]['User']
 PASSWORD = config[ENVIRONMENT]['Password']
 PORT = config['DEFAULT']['Port']
 URI = "bolt://{0}:{1}".format(HOSTNAME, PORT)
-print(URI)
 
 
 class HelloWorldExample(object):
@@ -29,9 +28,9 @@ class HelloWorldExample(object):
       print(greeting)
 
   def purge(self):
-    result = tx.run("MATCH (n)"
-                    "DETACH DELETE n")
-    return result.single()[0]
+    with self._driver.session() as session:
+      del_all = session.write_transaction(self._purge_db_contents)
+      return del_all
 
   @staticmethod
   def _create_and_return_greeting(tx, message):
@@ -40,6 +39,13 @@ class HelloWorldExample(object):
                     "RETURN a.message + ', from node ' + id(a)", message=message)
     return result.single()[0]
 
+  @staticmethod
+  def _purge_db_contents(tx):
+    result = tx.run("MATCH (n)"
+                    "DETACH DELETE n")
+    return result
+
 
 hw = HelloWorldExample(URI, USER, PASSWORD)
 hw.print_greeting("Hello world!")
+hw.purge()
