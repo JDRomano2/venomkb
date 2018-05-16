@@ -27,7 +27,7 @@ module.exports = {
             script: './server/index.js',
             env_test: {
                 NODE_ENV: 'test',
-                API_HOSTNAME: 'http://54.165.86.64/api/'
+                API_HOSTNAME: 'http://54.165.12.182/api/'
             },
             env_production: {
                 NODE_ENV: 'production',
@@ -55,7 +55,7 @@ module.exports = {
         production: {
             user: 'ubuntu',
             host: 'vkbprod',
-            ref: 'origin/deployment',
+            ref: 'origin/master',
             repo: 'https://github.com/JDRomano2/venomkb.git',
             path: '/var/www/venomkb',
             'post-deploy': 'source .env && npm install && npm run build && pm2 reload ecosystem.config.js --env production --update-env'
@@ -63,7 +63,7 @@ module.exports = {
         test: {
             user: 'ubuntu',
             host: 'vkbtest',
-            ref: 'origin/deployment',
+            ref: 'origin/dev',
             repo: 'https://github.com/JDRomano2/venomkb.git',
             path: '/var/www/venomkb',
             'post-deploy': 'source .env && npm install && npm run build && pm2 reload ecosystem.config.js --env production --update-env'
