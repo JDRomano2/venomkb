@@ -15,8 +15,8 @@ module.exports = {
                 API_HOSTNAME: 'http://venomkb.org/api/'
             },
             env_test: {
-                NODE_ENV: 'development',
-                API_HOSTNAME: 'http://54.165.86.64/api/'
+                NODE_ENV: 'production',
+                API_HOSTNAME: 'http://venomkb.org/api/'
             },
             env_dev: {
                 NODE_ENV: 'development'
