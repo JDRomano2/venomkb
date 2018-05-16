@@ -1,7 +1,7 @@
 import * as types from './types';
 import fetch from 'isomorphic-fetch';
 
-const prod = (process.env.NODE_ENVIRONMENT === 'production');
+const prod = (process.env.NODE_ENV === 'production');
 const API_BASE = prod ? 'http://venomkb.org/api/' : 'http://localhost:3001/';
 
 // All data types merged
