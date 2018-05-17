@@ -108,6 +108,8 @@ class Neo4jWriter(object):
 if __name__ == '__main__':
   data = VenomkbData()
   neo = Neo4jWriter(URI, USER, PASSWORD)
+  specie = data.species[0]
+  print(specie["venom"]["proteins"])
 
   # add proteins
   for protein in data.proteins:
@@ -116,5 +118,6 @@ if __name__ == '__main__':
   # add species
   for specie in data.species:
     neo.print_species(str(specie["name"]), str(specie["venomkb_id"]))
+
 
   neo.purge()
