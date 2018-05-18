@@ -76,11 +76,31 @@ class Neo4jWriter(object):
       protein = session.write_transaction(self._add_protein, (name, venomkb_id))
       print(protein)
 
+  def print_category_nodes(self, name):
+      with self._driver.session() as session:
+        category = session.write_transaction(self._add_nodes_category, name)
+        print(category)
+
   def print_link(self, species, protein_id):
      with self._driver.session() as session:
       relationship = session.write_transaction(self._add_relationship, (species, protein_id))
       print(relationship)
 
+  def print_protein_peptide_relationship(self, protein_id):
+    with self._driver.session() as session:
+      relationship = session.write_transaction(self._add_protein_peptide_relationship, protein_id)
+      print(relationship)
+
+  def print_specie_organism_relationship(self, species_id):
+    with self._driver.session() as session:
+      relationship = session.write_transaction(self._add_species_organism_relationship, species_id)
+      print(relationship)
+
+
+  def print_is_a_relationship(self, category_a, category_b):
+    with self._driver.session() as session:
+      relationship = session.write_transaction(self._add_is_a_relationship, (category_a, category_b))
+      print(relationship)
 
   def purge(self):
     with self._driver.session() as session:
@@ -106,6 +126,13 @@ class Neo4jWriter(object):
     return result.single()[0]
 
   @staticmethod
+  def _add_nodes_category(tx, name):
+    result = tx.run("CREATE (a:Category) "
+                    "SET a.name = $name "
+                    "RETURN a.name +', from node ' + id(a)", name=name)
+    return result.single()[0]
+
+  @staticmethod
   def _add_relationship(tx, payload):
     (species, protein_id) = payload
     statement = """MATCH (a:Species) WHERE a.name = {species}
@@ -113,6 +140,35 @@ class Neo4jWriter(object):
                 CREATE (a)-[r:HAS_VENOM_COMPONENT]->(b)
                 RETURN r"""
     result = tx.run(statement, {"species": species, "protein_id": protein_id})
+    return result.single()[0]
+
+  @staticmethod
+  def _add_protein_peptide_relationship(tx, protein_id):
+    print(protein_id)
+    statement = """MATCH (a:Protein) WHERE a.vkbid = {protein_id}
+                MATCH (b:Category) WHERE b.name = {category}
+                CREATE (a)-[r:IS_INSTANCE_OF]->(b)
+                RETURN r"""
+    result = tx.run(statement, {"protein_id": protein_id, "category": "Peptide"})
+    return result.single()[0]
+
+  @staticmethod
+  def _add_species_organism_relationship(tx, species_id):
+    statement = """MATCH (a:Species) WHERE a.vkbid = {species_id}
+                MATCH (b:Category) WHERE b.name = {category}
+                CREATE (a)-[r:IS_INSTANCE_OF]->(b)
+                RETURN r"""
+    result = tx.run(statement, {"species_id": species_id, "category": "Venomous_Organism"})
+    return result.single()[0]
+
+  @staticmethod
+  def _add_is_a_relationship(tx, categories):
+    (category_a, category_b) = categories
+    statement = """MATCH (a:Category) WHERE a.name = {category_a}
+                MATCH (b:Category) WHERE b.name = {category_b}
+                CREATE (a)-[r:IS_A]->(b)
+                RETURN r"""
+    result = tx.run(statement, {"category_a": category_a, "category_b": category_b})
     return result.single()[0]
 
   @staticmethod
@@ -133,10 +189,35 @@ if __name__ == '__main__':
   for specie in data.species:
     neo.print_species(str(specie["name"]), str(specie["venomkb_id"]))
 
-  # add link
+  # add link between species and proteins
   for specie in data.species:
     name = str(specie["name"])
     for protein_specie in specie["venom"]["proteins"] :
       neo.print_link(name, protein_specie)
 
-  # neo.purge()
+  # add category node
+  categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
+  for category in categories:
+    neo.print_category_nodes(category)
+
+  # connect proteins to peptide
+  for protein in data.proteins:
+    neo.print_protein_peptide_relationship(str(protein["venomkb_id"]))
+
+ # connect species to Venomous_Organism
+  for specie in data.species:
+    neo.print_specie_organism_relationship(str(specie["venomkb_id"]))
+
+  # add relation is_a
+
+  neo.print_is_a_relationship("Peptide", "Biological_Macromolecule")
+  neo.print_is_a_relationship("Carbohydrate", "Biological_Macromolecule")
+  neo.print_is_a_relationship("Biological_Macromolecule", "Molecule")
+  neo.print_is_a_relationship("Inorganic_Molecule", "Molecule")
+  neo.print_is_a_relationship("Whole_Venom_Extract", "Mixture")
+  neo.print_is_a_relationship("Molecule", "Chemical_Compound")
+  neo.print_is_a_relationship("Mixture", "Chemical_Compound")
+  neo.print_is_a_relationship("Synthetic_Venom_Derivative", "Chemical_Compound")
+  neo.print_is_a_relationship("Chemical_Compound", "Venom")
+  neo.print_is_a_relationship("Venomous_Organism", "Thing")
+  neo.print_is_a_relationship("Venom", "Thing")
