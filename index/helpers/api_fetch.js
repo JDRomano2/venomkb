@@ -3,7 +3,8 @@ import fetch from 'isomorphic-fetch';
 console.log("Environment:", process.env.NODE_ENV);
 const prod = (process.env.NODE_ENV === 'production');
 //const URL_BASE = process.env.URL_BASE;
-const API_BASE = prod ? `http://venomkb.org/api/` : 'http://localhost:3001/';
+// const API_BASE = prod ? `http://venomkb.org/api/` : 'http://localhost:3001/';
+const API_BASE = process.env.API_BASE;
 console.log(`API_BASE: ${API_BASE}`);
 
 const PROTEINS_URL = API_BASE + 'proteins';

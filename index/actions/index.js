@@ -2,7 +2,8 @@ import * as types from './types';
 import fetch from 'isomorphic-fetch';
 
 const prod = (process.env.NODE_ENV === 'production');
-const API_BASE = prod ? 'http://venomkb.org/api/' : 'http://localhost:3001/';
+// const API_BASE = prod ? 'http://venomkb.org/api/' : 'http://localhost:3001/';
+const API_BASE = process.env.API_BASE;
 
 // All data types merged
 export function filterTable(filter) {
