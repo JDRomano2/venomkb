@@ -76,6 +76,12 @@ class Neo4jWriter(object):
       protein = session.write_transaction(self._add_protein, (name, venomkb_id))
       print(protein)
 
+  def print_link(self, species, protein_id):
+     with self._driver.session() as session:
+      relationship = session.write_transaction(self._add_relationship, (species, protein_id))
+      print(relationship)
+
+
   def purge(self):
     with self._driver.session() as session:
       del_all = session.write_transaction(self._purge_db_contents)
@@ -100,6 +106,16 @@ class Neo4jWriter(object):
     return result.single()[0]
 
   @staticmethod
+  def _add_relationship(tx, payload):
+    (species, protein_id) = payload
+    statement = """MATCH (a:Species) WHERE a.name = {species}
+                MATCH (b:Protein) WHERE b.vkbid = {protein_id}
+                CREATE (a)-[r:HAS_VENOM_COMPONENT]->(b)
+                RETURN r"""
+    result = tx.run(statement, {"species": species, "protein_id": protein_id})
+    return result.single()[0]
+
+  @staticmethod
   def _purge_db_contents(tx):
     result = tx.run("MATCH (n)"
                     "DETACH DELETE n")
@@ -108,8 +124,6 @@ class Neo4jWriter(object):
 if __name__ == '__main__':
   data = VenomkbData()
   neo = Neo4jWriter(URI, USER, PASSWORD)
-  specie = data.species[0]
-  print(specie["venom"]["proteins"])
 
   # add proteins
   for protein in data.proteins:
@@ -119,5 +133,10 @@ if __name__ == '__main__':
   for specie in data.species:
     neo.print_species(str(specie["name"]), str(specie["venomkb_id"]))
 
+  # add link
+  for specie in data.species:
+    name = str(specie["name"])
+    for protein_specie in specie["venom"]["proteins"] :
+      neo.print_link(name, protein_specie)
 
-  neo.purge()
+  # neo.purge()
