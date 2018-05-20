@@ -176,7 +176,7 @@ class DataBasicView extends Component {
                 );
             case 'S':
                 return (
-                    <div style={{'margin-top': '10px'}}>
+                    <div style={{'marginTop': '10px'}}>
                         <Col xs={12} md={7}>
                             <h1>{name}</h1>
                             Annotation score: <img
