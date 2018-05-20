@@ -1,9 +1,5 @@
 import fetch from 'isomorphic-fetch';
 
-console.log("(In helpers/api_fetch.js");
-console.log("process.env : ");
-console.log(process.env);
-
 console.log("Environment:", process.env.NODE_ENV);
 const prod = (process.env.NODE_ENV === 'production');
 //const URL_BASE = process.env.URL_BASE;

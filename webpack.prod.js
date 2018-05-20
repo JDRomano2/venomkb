@@ -20,7 +20,7 @@ module.exports = merge(common, {
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production'),
-            'process.env.API_BASE': JSON.stringify(process.env.API_BASE)
+            'process.env.API_BASE': JSON.stringify('http://venomkb.org/api/')
         })
     ]
 });
