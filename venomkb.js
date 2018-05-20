@@ -88,41 +88,15 @@ getDbIndex().then((indexData) => {
     });
     const history = createHistory();
 
-    if (process.env.NODE_ENV === 'production') {
-        ReactDOM.render(
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <div>
-                        <App/>
-                    </div>
-                </ConnectedRouter>
-            </Provider>,
-            document.getElementById('venomkb_root')
-        );
-    } else {
-        ReactDOM.render(
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <div>
-                        <App/>
-                        <DevTools/>
-                    </div>
-                </ConnectedRouter>
-            </Provider>,
-            document.getElementById('venomkb_root')
-        );
-    }
-
-    // if (module.hot) {
-    //     module.hot.accept('./index/containers/Root', () => {
-    //         const NewRoot = require('./index/containers/Root').default;
-    //         render(
-    //             <AppContainer>
-    //                 { /* Where we enter our application! Redirects to Root.js component */ }
-    //                 <NewRoot store={store} history={history} />
-    //             </AppContainer>,
-    //             document.getElementById('venomkb_root')
-    //         );
-    //     });
-    // }
+    ReactDOM.render(
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <div>
+                    <App/>
+                    <DevTools/>
+                </div>
+            </ConnectedRouter>
+        </Provider>,
+        document.getElementById('venomkb_root')
+    );
 });
