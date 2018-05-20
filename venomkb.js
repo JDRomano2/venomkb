@@ -88,9 +88,6 @@ getDbIndex().then((indexData) => {
     });
     const history = createHistory();
 
-    console.log("process.env : ");
-    console.log(process.env);
-
     if (process.env.NODE_ENV === 'production') {
         ReactDOM.render(
             <Provider store={store}>
