@@ -1,13 +1,15 @@
 import React from 'react';
 import { Alert, Panel, Button } from 'react-bootstrap';
 
+import { version } from '../../package.json';
+
 const About = () =>
     <div className="jumbotron">
         <div className="container">
             <h2>About VenomKB</h2>
 
             <Panel bsStyle="primary">
-                <h4>Current version: 2.0.0-beta</h4>
+                <h4>Current version: {version}</h4>
             </Panel>
 
             <p>
