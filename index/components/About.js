@@ -1,15 +1,27 @@
 import React from 'react';
-import { Alert, Panel, Button } from 'react-bootstrap';
+import {
+    Alert,
+    Panel,
+    Button,
+    ButtonToolbar
+} from 'react-bootstrap';
+import { Route, Switch, Redirect } from 'react-router';
 
 import { version } from '../../package.json';
 
-const About = () =>
+import AboutFeatures from './AboutFeatures';
+import AboutVenomseq from './AboutVenomseq';
+import AboutOntology from './AboutOntology';
+import AboutVenoms from './AboutVenoms';
+import AboutApi from './AboutApi';
+
+const AboutVenomKB = () =>
     <div className="jumbotron">
         <div className="container">
             <h2>About VenomKB</h2>
 
             <Panel bsStyle="primary">
-                <h4>Current version: {version}</h4>
+                <Panel.Body><h4>Current version: {version}</h4></Panel.Body>
             </Panel>
 
             <p>
@@ -35,6 +47,33 @@ const About = () =>
             </Alert>
         </div>
     </div>;
+
+const About = ({ match }) => (
+    <div>
+        <div className="jumbotron">
+            <h2>Select a topic to learn more</h2>
+
+            <ButtonToolbar>
+                <Button href="./venomkb">About VenomKB</Button>
+                <Button href="./features">Feature Map</Button>
+                <Button href="./venomseq">VenomSeq</Button>
+                <Button href="./whyvenoms">Why Venoms?</Button>
+                <Button href="./ontology">Venom Ontology</Button>
+                <Button>API</Button>
+            </ButtonToolbar>
+        </div>
+
+        <Switch>
+            <Route path={`${match.url}/venomkb`} component={AboutVenomKB}/>
+            <Route path={`${match.url}/features`} component={AboutFeatures}/>
+            <Route path={`${match.url}/venomseq`} component={AboutVenomseq}/>
+            <Route path={`${match.url}/ontology`} component={AboutOntology}/>
+            <Route path={`${match.url}/whyvenoms`} component={AboutVenoms}/>
+            <Route path={`${match.url}/api`} component={AboutApi}/>
+            <Redirect exact from='/' to={`${match.url}/venomkb`}/>
+        </Switch>
+    </div>
+)
 
 
 export default About;
