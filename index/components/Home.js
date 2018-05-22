@@ -21,11 +21,14 @@ const Home = () =>
 			<h3>News and Updates</h3>
 			<ul id="news-items">
 				<li id="news-item">
+					<b>May 22, 2017:</b> VenomKB has undergone a major makeover under the hood! You can expect the site to be faster and more responsive. For more details, check out <a href="https://github.com/JDRomano2/venomkb/releases/tag/2.0.1-alpha">the 2.0.1-alpha release on Github</a>. We are currently working on major upgrades to the API; stay tuned!
+				</li>
+				<li id="news-item">
 					<b>October 16, 2017:</b> We've added disease/condition annotations to proteins in VenomKB. Head over to <a href="/data">venomkb.org/data</a> to give it a try.
 				</li>
 				<li id="news-item">
 					<b>June 25, 2017:</b> VenomKB v2.0 is live! Take a few minutes to check out the new features we've added.
-					<p>If you would like to see the old version of VenomKB, click on the following link:<button className="btn btn-xs btn-default"><a href="http://54.211.253.123">VenomKB v1.0</a></button></p>
+					<p>If you would like to see the old version of VenomKB, click on the following link: <Button bsStle="default" bsSize="xsmall" href="http://54.211.253.123">VenomKB v1.0</Button></p>
 				</li>
 			</ul>
 		</div>

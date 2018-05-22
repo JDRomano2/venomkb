@@ -53,7 +53,7 @@ const About = ({ match }) => (
         <div className="jumbotron">
             <h2>Select a topic to learn more</h2>
 
-            <ButtonToolbar>
+            <ButtonToolbar style={{display: 'flex', justifyContent: 'center'}}>
                 <Button href="./venomkb">About VenomKB</Button>
                 <Button href="./features">Feature Map</Button>
                 <Button href="./venomseq">VenomSeq</Button>
