@@ -476,7 +476,7 @@ class TestNeoMethods(unittest.TestCase):
       self.assertEqual(properties[4], 1)
 
       # Species example Lachesana tarabaevi
-      properties = neo.print_information_species("Lachesana tarabaevi")
+      properties = neo.print_information_species("Conus striatus")
       self.assertEqual(properties[0], "Conus striatus")
       self.assertEqual(properties[1], "S2192124")
       self.assertEqual(properties[2], 5)
@@ -489,11 +489,11 @@ if __name__ == '__main__':
   # res = neo.print_pfam("P6421031")
   # print(res[0])
   # res = neo.print_pfam("P3214280")
-  # unittest.main()
+  unittest.main()
   # t1 = time.time()
 
-  data = VenomkbData()
-  neo = Neo4jWriter(URI, USER, PASSWORD)
+  # data = VenomkbData()
+  # neo = Neo4jWriter(URI, USER, PASSWORD)
 
   # # neo.purge()
 
@@ -545,13 +545,13 @@ if __name__ == '__main__':
   # for category in categories:
   #   neo.print_category_nodes(category)
 
-  # connect proteins to peptide
-  for protein in data.proteins:
-    neo.print_protein_peptide_relationship(str(protein["venomkb_id"]))
+  # # connect proteins to peptide
+  # for protein in data.proteins:
+  #   neo.print_protein_peptide_relationship(str(protein["venomkb_id"]))
 
-  # connect species to Venomous_Organism
-  for specie in data.species:
-    neo.print_specie_organism_relationship(str(specie["venomkb_id"]))
+  # # connect species to Venomous_Organism
+  # for specie in data.species:
+  #   neo.print_specie_organism_relationship(str(specie["venomkb_id"]))
 
   # # add relation is_a
 
