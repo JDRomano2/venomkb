@@ -68,7 +68,7 @@ class Neo4jWriter(object):
   def close(self):
     self._driver.close()
 
-  def print_generate_graph(self, proteins, species, categories):
+  def print_generate_graph(self, proteins, species_list, categories):
 
       self.purge()
 
@@ -90,7 +90,7 @@ class Neo4jWriter(object):
 
       pfam_added = []
       # add proteins
-      for protein in data.proteins:
+      for protein in proteins:
         self.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
 
         if 'Pfam' in protein["out_links"]:
@@ -113,8 +113,10 @@ class Neo4jWriter(object):
               self.print_predication_relation_and_node(protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
 
     # add species
-      for species in data.species:
+      for species in species_list:
         self.print_species(species["name"], species["venomkb_id"], species["annotation_score"])
+        for protein in species["venom"]["proteins"]:
+          self.print_link(species["name"], protein)
 
   def print_species(self, name, venomkb_id, score):
     with self._driver.session() as session:
@@ -359,6 +361,7 @@ class NeoSimpleStat(object):
                    MATCH (p)-[:IS_INSTANCE_OF]->(c:OntologyClass)
                    RETURN p.name, p.vkbid, p.score, count( distinct r), count(distinct c)"""
     result = tx.run(statement, {"species_name": species_name})
+    print("species", result)
     return result.single()
 
   @staticmethod
@@ -366,7 +369,7 @@ class NeoSimpleStat(object):
     statement ="""MATCH (p:Protein) WHERE p.vkbid={protein_id}
                MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p)
                MATCH (p)-[:IS_INSTANCE_OF]->(c:OntologyClass)
-               RETURN p.name , p.annotation_score, p.UnitProtKB_id, p.aa_sequence, count(s),  count(c), s.name,  c.name"""
+               RETURN p.name, p.score, p.UnitProtKB_id, p.aa_sequence, count(s),  count(c), s.name,  c.name"""
     result = tx.run(statement, {"protein_id": protein_id})
     return result.single()
 
@@ -400,8 +403,7 @@ class NeoSimpleStat(object):
 
   @staticmethod
   def _get_is_instance_of(tx):
-    statement = """MATCH (p:Protein)
-                   MATCH (s:Species)
+    statement = """MATCH (p:Protein), (s:Species)
                    MATCH (p)-[r:IS_INSTANCE_OF]->(m)
                    MATCH (s)-[q:IS_INSTANCE_OF]->(m)
                    RETURN count(p), count(s), count(DISTINCT r), count(DISTINCT q)"""
@@ -437,7 +439,6 @@ class TestNeoMethods(unittest.TestCase):
     def test_number_of_data(self):
       # test fetches data
       data = VenomkbData()
-      print(data)
       categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
 
       self.assertEqual(len(data.species), 632)
@@ -446,20 +447,22 @@ class TestNeoMethods(unittest.TestCase):
       # test number of nodes
       neo = NeoSimpleStat(URI, USER, PASSWORD)
       nb = neo.print_count_nodes()
-      self.assertEqual(nb[0], len(data.species))
-      self.assertEqual(nb[1], len(data.proteins))
-      self.assertEqual(nb[2], len(categories))
+      print(nb)
+      self.assertEqual(nb[5][1], len(data.species))
+      self.assertEqual(nb[4][1], len(data.proteins))
+      self.assertEqual(nb[1][1], len(categories))
 
       nb_predication = 0
-      for species in data.species:
-        nb_predication += len(species["literature_predications"])
-      self.assertEqual(nb[3], nb_predication)
+      for protein in data.proteins:
+        if 'literature_predications' in protein:
+          nb_predication += len(protein["literature_predications"])
+      self.assertEqual(nb[3][1], nb_predication)
 
       nb_gene_ontology = 0
       for protein in data.proteins:
         if 'go_annotations' in protein:
           nb_gene_ontology += len(protein["go_annotations"])
-      self.assertEqual(nb[4], nb_gene_ontology)
+      self.assertEqual(nb[0][1], nb_gene_ontology)
 
 
     def test_relationship_IS_INSTANCE_OF(self):
@@ -553,13 +556,13 @@ if __name__ == '__main__':
   # neo = NeoSimpleStat(URI, USER, PASSWORD)
   # neo.print_count_nodes()
   # neo.print_statistics()
-  # unittest.main()
-  t1 = time.time()
+  unittest.main()
+  # t1 = time.time()
 
-  data = VenomkbData()
-  categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
-  neo = Neo4jWriter(URI, USER, PASSWORD)
-  neo.print_generate_graph(data.species, data.proteins, categories)
+  # data = VenomkbData()
+  # categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
+  # neo = Neo4jWriter(URI, USER, PASSWORD)
+  # neo.print_generate_graph(data.proteins, data.species, categories)
 
   # # neo.purge()
   # neo.print_category_nodes("Venomous_Organism")
@@ -569,6 +572,6 @@ if __name__ == '__main__':
   # protein = data.proteins[0]
   # neo.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
   # neo.print_link(specie["name"],protein["venomkb_id"])
-  t2 = time.time()
-  total = t2 - t1
-  print("It takes ", total, t2, t1)
+  # t2 = time.time()
+  # total = t2 - t1
+  # print("It takes ", total, t2, t1)
