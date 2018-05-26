@@ -69,77 +69,137 @@ class Neo4jWriter(object):
     self._driver.close()
 
   def print_generate_graph(self, proteins, species_list, categories):
+    """This function create a neo4j graph.
 
-      self.purge()
+          Args:
+            proteins (array of object):  An array containing all the proteins that will be add to the graph. Each protein should at least
+            has a name, a venomkb_id, an annotation score, an aa_sequence and a UnitProtKB_id. A protein can also have literature predication,
+            separate nodes will be created and linked, and some gene ontologies, separate nodes will be created and linked.
 
-      # add category
-      for category in categories:
-        self.print_category_nodes(category)
+            species (array of object): An array of object containing all the species that will be add as nodes to the graph.
+            Each species should at least have a name, a venomkb_id, a score and a list a protein.
 
-      self.print_is_a_subclass_relationship("Peptide", "Biological_Macromolecule")
-      self.print_is_a_subclass_relationship("Carbohydrate", "Biological_Macromolecule")
-      self.print_is_a_subclass_relationship("Biological_Macromolecule", "Molecule")
-      self.print_is_a_subclass_relationship("Inorganic_Molecule", "Molecule")
-      self.print_is_a_subclass_relationship("Whole_Venom_Extract", "Mixture")
-      self.print_is_a_subclass_relationship("Molecule", "Chemical_Compound")
-      self.print_is_a_subclass_relationship("Mixture", "Chemical_Compound")
-      self.print_is_a_subclass_relationship("Synthetic_Venom_Derivative", "Chemical_Compound")
-      self.print_is_a_subclass_relationship("Chemical_Compound", "Venom")
-      self.print_is_a_subclass_relationship("Venomous_Organism", "Thing")
-      self.print_is_a_subclass_relationship("Venom", "Thing")
+            categories (array of string): an array containing all the ontology class.
 
-      pfam_added = []
-      # add proteins
-      for protein in proteins:
-        self.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
+          Returns:
+            A neo4j graph located in /neo4j-community-3.4/data/databases/graph.db
+      """
+    self.purge()
+    # add category
+    for category in categories:
+      self.print_category_nodes(category)
 
-        if 'Pfam' in protein["out_links"]:
-          pfam = protein["out_links"]["Pfam"]["attributes"]["name"]
-          if pfam not in pfam_added:
-            self.print_pfam_node(pfam)
-            pfam_added.append(pfam)
-          self.print_pfam_relationship(protein["venomkb_id"], pfam)
+    self.print_is_a_subclass_relationship("Peptide", "Biological_Macromolecule")
+    self.print_is_a_subclass_relationship("Carbohydrate", "Biological_Macromolecule")
+    self.print_is_a_subclass_relationship("Biological_Macromolecule", "Molecule")
+    self.print_is_a_subclass_relationship("Inorganic_Molecule", "Molecule")
+    self.print_is_a_subclass_relationship("Whole_Venom_Extract", "Mixture")
+    self.print_is_a_subclass_relationship("Molecule", "Chemical_Compound")
+    self.print_is_a_subclass_relationship("Mixture", "Chemical_Compound")
+    self.print_is_a_subclass_relationship("Synthetic_Venom_Derivative", "Chemical_Compound")
+    self.print_is_a_subclass_relationship("Chemical_Compound", "Venom")
+    self.print_is_a_subclass_relationship("Venomous_Organism", "Thing")
+    self.print_is_a_subclass_relationship("Venom", "Thing")
 
-        if 'go_annotations' in protein:
-          for elt in protein["go_annotations"]:
-            self.print_is_a_go_relation_and_node(protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
+    pfam_added = []
+    # add proteins
+    for protein in proteins:
+      self.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
 
-        if 'literature_predications' in protein:
-          if type(protein["literature_predications"][0])==list:
-            for elt in protein["literature_predications"][0]:
-              self.print_predication_relation_and_node(protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
-          else:
-            for elt in protein["literature_predications"]:
-              self.print_predication_relation_and_node(protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
+      if 'Pfam' in protein["out_links"]:
+        pfam = protein["out_links"]["Pfam"]["attributes"]["name"]
+        if pfam not in pfam_added:
+          self.print_pfam_node(pfam)
+          pfam_added.append(pfam)
+        self.print_pfam_relationship(protein["venomkb_id"], pfam)
 
-    # add species
-      for species in species_list:
-        self.print_species(species["name"], species["venomkb_id"], species["annotation_score"])
-        for protein in species["venom"]["proteins"]:
-          self.print_link(species["name"], protein)
+      if 'go_annotations' in protein:
+        for elt in protein["go_annotations"]:
+          self.print_is_a_go_relation_and_node(protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
+
+      if 'literature_predications' in protein:
+        if type(protein["literature_predications"][0])==list:
+          for elt in protein["literature_predications"][0]:
+            self.print_predication_relation_and_node(protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
+        else:
+          for elt in protein["literature_predications"]:
+            self.print_predication_relation_and_node(protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
+
+  # add species
+    for species in species_list:
+      self.print_species(species["name"], species["venomkb_id"], species["annotation_score"])
+      for protein in species["venom"]["proteins"]:
+        self.print_link(species["name"], protein)
 
   def print_species(self, name, venomkb_id, score):
+    """This function create a species node into the graph.
+
+          Args:
+            name (string): the species'name
+            venomkb_id (string): a unique identifier for the species, must start with a 'S'
+            score (int): an annotation score for the data between 1 and 5
+
+          Returns:
+            No return
+      """
     with self._driver.session() as session:
       species = session.write_transaction(self._add_species, (name, venomkb_id, score))
       print(species)
 
   def print_protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id):
+    """This function create a protein node into the graph.
+
+          Args:
+            name (string): the protein's name
+            venomkb_id (string): a unique identifier for the protein, must start with a 'P'
+            score (int): an annotation score for the data between 1 and 5
+            aa_sequence (string): amino acid sequence of the protein
+            UnitProtKB_id (string)
+
+          Returns:
+            No return
+      """
     with self._driver.session() as session:
       protein = session.write_transaction(self._add_protein, (name, venomkb_id, score, aa_sequence, UnitProtKB_id))
       print(protein)
 
   def print_category_nodes(self, name):
-      with self._driver.session() as session:
-        category = session.write_transaction(self._add_nodes_category, name)
-        print(category)
+    """This function create an ontology class node into the graph.
+
+          Args:
+            name (string): the name of the ontology class
+
+          Returns:
+            No return
+    """
+    with self._driver.session() as session:
+      category = session.write_transaction(self._add_nodes_category, name)
+      print(category)
 
   def print_pfam_node(self, pfam):
+    """This function create a protein family (alias pfam) into the graph.
+
+          Args:
+            name (string): the protein family's name
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       pfam = session.write_transaction(self._add_nodes_pfam, pfam)
       print(pfam)
 
   def print_link(self, species, protein_id):
-     with self._driver.session() as session:
+    """This function add a link between a species and a protein into the graph.
+
+          Args:
+            species (string): the name of the species that will be linked
+            protein_id (string): the venomkb_id of the protein that will be linked
+
+          Returns:
+            No return
+    """
+    with self._driver.session() as session:
       relationship = session.write_transaction(self._add_relationship, (species, protein_id))
       print(relationship)
 
