@@ -364,7 +364,7 @@ class Neo4jWriter(object):
     (name, venomkb_id, score, journal, link, species_id) = payload
     statement="""MATCH (s:Species) WHERE s.vkbid = {species_id}
             CREATE (a:Genome {name : {name}, vkbid: {venomkb_id}, score:{score}, journal: {journal}, link: {link}})
-            CREATE (s)-[r:HAS_GENOME]->(s)
+            CREATE (s)-[r:HAS_GENOME]->(a)
             RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
     result=tx.run(statement, name=name, venomkb_id=venomkb_id,
                 score=score, journal=journal, link=link, species_id=species_id)

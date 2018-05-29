@@ -117,13 +117,9 @@ class NeoSimpleStat(object):
     """
     with self._driver.session() as session:
       nb_nodes = session.write_transaction(self._get_count_nodes)
-      print(nb_nodes[0][1])
-      print("There are ", nb_nodes[0][1], "gene ontologies")
-      print("There are ", nb_nodes[1][1], "categories")
-      print("There are ", nb_nodes[2][1], "protein families")
-      print("There are ", nb_nodes[3][1], "predications")
-      print("There are ", nb_nodes[4][1], "proteins")
-      print("There are ", nb_nodes[5][1], "species")
+      nb_nodes = {"gene ontologies": nb_nodes[0][1], "genomes": nb_nodes[1][1], "categories": nb_nodes[2][1],
+                  "protein families": nb_nodes[3][1], "predications": nb_nodes[4][1], "proteins": nb_nodes[5][1], "species": nb_nodes[6][1]}
+      print (nb_nodes)
       return nb_nodes
 
   def print_information_species(self, species_name):
@@ -137,6 +133,7 @@ class NeoSimpleStat(object):
     """
     with self._driver.session() as session:
       species = session.write_transaction(self._get_info_species, species_name)
+      species = {"name" : species[0], "venomkb_id": species[1], "score": species[2], "nb_has_venom_component": species[3], "nb_is_instance_of": species[4]}
       return species
 
   def print_information_protein(self, protein_id):
@@ -150,8 +147,11 @@ class NeoSimpleStat(object):
             name of the species that is linked to the protein, ontology class name]
     """
     with self._driver.session() as session:
-      protein_info = session.write_transaction(self._get_info_protein, protein_id)
-      return protein_info
+      protein = session.write_transaction(self._get_info_protein, protein_id)
+      protein = {"name": protein[0], "score": protein[1], "UnitProtKB_id": protein[2],
+                 "aa_sequence": protein[3], "nb_has_venom_component": protein[4], "nb_is_instance_of": protein[5], "species_name": protein[6], "ontology_class": protein[7]}
+
+      return protein
 
   def print_pfam(self, protein_id):
     """This function print information the protein family
@@ -165,6 +165,19 @@ class NeoSimpleStat(object):
       pfam = session.write_transaction(self._get_pfam, protein_id)
       print(pfam)
       return pfam
+
+  def print_genome(self, species_name):
+    """This function print the genome name for a species if available
+          Args:
+            species_name (string) : the name of the given species
+
+          Returns:
+            genome (string) : the name of the genome if available, else None
+    """
+    with self._driver.session() as session:
+      genome = session.write_transaction(self._get_genome, species_name)
+      print(genome)
+      return genome
 
   def print_is_instance_relation(self):
     """This function print information the relationship "IS INSTANCE OF"
@@ -231,6 +244,14 @@ class NeoSimpleStat(object):
     return result.single()
 
   @staticmethod
+  def _get_genome(tx, species_name):
+    statement = """MATCH (s:Species) WHERE s.name={species_name}
+                MATCH (s)-[:HAS_GENOME]->(g:Genome)
+                RETURN g.name """
+    result = tx.run(statement, {"species_name": species_name})
+    return result.single()
+
+  @staticmethod
   def _get_proteins_count(tx):
     statement = "MATCH (p:Protein) RETURN count(p)"
     result = tx.run(statement)
@@ -283,19 +304,20 @@ class NeoSimpleStat(object):
 
 if __name__ == '__main__':
   # properties = neo.print_information_protein("P0307338")
-  # neo = NeoSimpleStat(URI, USER, PASSWORD)
+  neo = NeoSimpleStat(URI, USER, PASSWORD)
   # neo.print_count_nodes()
+  neo.print_genome("Lachesana tarabaevi")
   # res = neo.print_statistics()
   # print(res[0])
   # unittest.main()
   t1 = time.time()
 
-  data = VenomkbData()
-  categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
-  neo = ne.Neo4jWriter(URI, USER, PASSWORD)
-  for genome in data.genomes:
-      neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
-                  genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
+  # data = VenomkbData()
+  # categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
+  # neo = ne.Neo4jWriter(URI, USER, PASSWORD)
+  # for genome in data.genomes:
+  #     neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
+  #                 genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
 
 
   # neo.print_generate_graph(data.proteins, data.species, categories)
