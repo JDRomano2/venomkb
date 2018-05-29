@@ -278,9 +278,8 @@ if __name__ == '__main__':
   # neo.print_count_nodes()
   # res = neo.print_statistics()
   # print(res[0])
-  # print(res[0][0])
   # unittest.main()
-  # t1 = time.time()
+  t1 = time.time()
 
   data = VenomkbData()
   categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
@@ -295,6 +294,6 @@ if __name__ == '__main__':
   # protein = data.proteins[0]
   # neo.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
   # neo.print_link(specie["name"],protein["venomkb_id"])
-  # t2 = time.time()
-  # total = t2 - t1
-  # print("It takes ", total, t2, t1)
+  t2 = time.time()
+  total = t2 - t1
+  print("It takes ", total, " seconds")
