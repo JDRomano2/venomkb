@@ -15,8 +15,9 @@ from neo4j.v1 import GraphDatabase
 import time
 import unittest
 
-import neo_writer as ne
+from . import neo_writer as ne
 
+global ENVIRONMENT
 ENVIRONMENT = 'DEV'
 
 config = configparser.ConfigParser()

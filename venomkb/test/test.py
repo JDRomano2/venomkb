@@ -9,7 +9,9 @@ from __future__ import print_function, absolute_import
 
 import unittest
 import configparser
-import freeze_database as db
+import sys, os
+sys.path.insert(0, os.path.abspath(".."))
+import api
 
 ENVIRONMENT = 'DEV'
 
