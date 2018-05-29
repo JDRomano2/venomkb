@@ -20,7 +20,7 @@ import neo_writer as ne
 ENVIRONMENT = 'DEV'
 
 config = configparser.ConfigParser()
-config.read('./venomkb-neo4j.cfg')
+config.read('../semantic_api/venomkb-neo4j.cfg')
 
 HOSTNAME = config[ENVIRONMENT]['Hostname']
 USER = config[ENVIRONMENT]['User']
@@ -45,6 +45,7 @@ class VenomkbData(object):
     print("Fetching data from VenomKB's REST API.")
     self.proteins = VenomkbData.fetch_proteins()
     self.species = VenomkbData.fetch_species()
+    self.genomes = VenomkbData.fetch_genomes()
 
   @staticmethod
   def fetch_proteins():
@@ -57,6 +58,14 @@ class VenomkbData(object):
   @staticmethod
   def fetch_species():
     r = requests.get(VENOMKB_API + 'species')
+    print(r.status_code)
+    print(r.headers['content-type'])
+    print(r.encoding)
+    return r.json()
+
+  @staticmethod
+  def fetch_genomes():
+    r = requests.get(VENOMKB_API + 'genomes')
     print(r.status_code)
     print(r.headers['content-type'])
     print(r.encoding)
@@ -278,14 +287,18 @@ if __name__ == '__main__':
   # neo.print_count_nodes()
   # res = neo.print_statistics()
   # print(res[0])
-  # print(res[0][0])
   # unittest.main()
-  # t1 = time.time()
+  t1 = time.time()
 
   data = VenomkbData()
   categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
   neo = ne.Neo4jWriter(URI, USER, PASSWORD)
-  neo.print_generate_graph(data.proteins, data.species, categories)
+  for genome in data.genomes:
+      neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
+                  genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
+
+
+  # neo.print_generate_graph(data.proteins, data.species, categories)
 
   # # neo.purge()
   # neo.print_category_nodes("Venomous_Organism")
@@ -295,6 +308,6 @@ if __name__ == '__main__':
   # protein = data.proteins[0]
   # neo.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
   # neo.print_link(specie["name"],protein["venomkb_id"])
-  # t2 = time.time()
-  # total = t2 - t1
-  # print("It takes ", total, t2, t1)
+  t2 = time.time()
+  total = t2 - t1
+  print("It takes ", total, " seconds")
