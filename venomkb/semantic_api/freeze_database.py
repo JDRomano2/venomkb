@@ -15,6 +15,8 @@ from neo4j.v1 import GraphDatabase
 import time
 import unittest
 
+import neo_writer as ne
+
 ENVIRONMENT = 'DEV'
 
 config = configparser.ConfigParser()
@@ -60,189 +62,6 @@ class VenomkbData(object):
     print(r.encoding)
     return r.json()
 
-
-class Neo4jWriter(object):
-  def __init__(self, uri, user, password):
-    self._driver = GraphDatabase.driver(uri, auth=(user, password))
-
-  def close(self):
-    self._driver.close()
-
-  def print_species(self, name, venomkb_id, score):
-    with self._driver.session() as session:
-      species = session.write_transaction(self._add_species, (name, venomkb_id, score))
-      print(species)
-
-  def print_protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id):
-    with self._driver.session() as session:
-      protein = session.write_transaction(self._add_protein, (name, venomkb_id, score, aa_sequence, UnitProtKB_id))
-      print(protein)
-
-  def print_category_nodes(self, name):
-      with self._driver.session() as session:
-        category = session.write_transaction(self._add_nodes_category, name)
-        print(category)
-
-  def print_pfam_node(self, pfam):
-    with self._driver.session() as session:
-      pfam = session.write_transaction(self._add_nodes_pfam, pfam)
-      print(pfam)
-
-  def print_link(self, species, protein_id):
-     with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_relationship, (species, protein_id))
-      print(relationship)
-
-  def print_protein_peptide_relationship(self, protein_id):
-    with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_protein_peptide_relationship, protein_id)
-      print(relationship)
-
-  def print_specie_organism_relationship(self, species_id):
-    with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_species_organism_relationship, species_id)
-      print(relationship)
-
-
-  def print_is_a_relationship(self, category_a, category_b):
-    with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_is_a_relationship, (category_a, category_b))
-      print(relationship)
-
-  def print_pfam_relationship(self, protein_id, pfam):
-    with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_pfam_relation, (protein_id, pfam))
-      print(relationship)
-
-  def print_is_a_go_relation_and_node(self, protein_id, evidence,term, go_id, project):
-    with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_is_a_go_relation_and_node, (protein_id, evidence, term, go_id, project))
-      print(relationship)
-
-  def print_predication_relation_and_node(self, species_name,  s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid):
-    with self._driver.session() as session:
-      relationship = session.write_transaction(self._add_predication_relation_and_node, (species_name, s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid))
-      print(relationship)
-
-  def purge(self):
-    with self._driver.session() as session:
-      del_all = session.write_transaction(self._purge_db_contents)
-      return del_all
-
-
-
-  @staticmethod
-  def _add_species(tx, payload):
-    (name, venomkb_id, score) = payload
-    result = tx.run("CREATE (a:Species) "
-                    "SET a.name = $name "
-                    "SET a.vkbid = $venomkb_id "
-                    "SET a.score = $score "
-                    "RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)", name=name, venomkb_id=venomkb_id, score=score)
-    return result.single()[0]
-
-  @staticmethod
-  def _add_protein(tx, payload):
-    (name, venomkb_id , score, aa_sequence, UnitProtKB_id) = payload
-    result = tx.run("CREATE (a:Protein) "
-                    "SET a.name = $name "
-                    "SET a.vkbid = $venomkb_id "
-                    "SET a.annotation_score = $score "
-                    "SET a.aa_sequence = $aa_sequence "
-                    "SET a.UnitProtKB_id = $UnitProtKB_id "
-                    "RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)", name=name, venomkb_id=venomkb_id, score=score, aa_sequence=aa_sequence, UnitProtKB_id=UnitProtKB_id)
-    return result.single()[0]
-
-  @staticmethod
-  def _add_nodes_category(tx, name):
-    result = tx.run("CREATE (a:Category) "
-                    "SET a.name = $name "
-                    "RETURN a.name +', from node ' + id(a)", name=name)
-    return result.single()[0]
-
-  @staticmethod
-  def _add_nodes_pfam(tx, name):
-    result = tx.run("CREATE (a:Pfam) "
-                    "SET a.name = $name "
-                    "RETURN a.name +', from node ' + id(a)", name=name)
-    return result.single()[0]
-
-
-  @staticmethod
-  def _add_relationship(tx, payload):
-    (species, protein_id) = payload
-    statement = """MATCH (a:Species) WHERE a.name = {species}
-                MATCH (b:Protein) WHERE b.vkbid = {protein_id}
-                CREATE (a)-[r:HAS_VENOM_COMPONENT]->(b)
-                RETURN r"""
-    result = tx.run(statement, {"species": species, "protein_id": protein_id})
-    return result.single()[0]
-
-  @staticmethod
-  def _add_protein_peptide_relationship(tx, protein_id):
-    print(protein_id)
-    statement = """MATCH (a:Protein) WHERE a.vkbid = {protein_id}
-                MATCH (b:Category) WHERE b.name = {category}
-                CREATE (a)-[r:IS_INSTANCE_OF]->(b)
-                RETURN r"""
-    result = tx.run(statement, {"protein_id": protein_id, "category": "Peptide"})
-    return result.single()[0]
-
-  @staticmethod
-  def _add_species_organism_relationship(tx, species_id):
-    statement = """MATCH (a:Species) WHERE a.vkbid = {species_id}
-                MATCH (b:Category) WHERE b.name = {category}
-                CREATE (a)-[r:IS_INSTANCE_OF]->(b)
-                RETURN r"""
-    result = tx.run(statement, {"species_id": species_id, "category": "Venomous_Organism"})
-    return result.single()[0]
-
-  @staticmethod
-  def _add_is_a_relationship(tx, categories):
-    (category_a, category_b) = categories
-    statement = """MATCH (a:Category) WHERE a.name = {category_a}
-                MATCH (b:Category) WHERE b.name = {category_b}
-                CREATE (a)-[r:IS_A]->(b)
-                RETURN r"""
-    result = tx.run(statement, {"category_a": category_a, "category_b": category_b})
-    return result.single()[0]
-
-  @staticmethod
-  def _add_pfam_relation(tx, payload):
-    (protein_id, pfam) = payload
-    statement = """MATCH (a:Protein) WHERE a.vkbid = {protein_id}
-                MATCH (b:Pfam) WHERE b.name = {pfam}
-                CREATE (a)-[r:IS_A]->(b)
-                RETURN r"""
-    result = tx.run(statement, {"protein_id": protein_id, "pfam": pfam})
-    return result.single()[0]
-
-  @staticmethod
-  def _add_is_a_go_relation_and_node(tx, payload):
-    (protein_id, evidence, term, go_id, project) = payload
-    statement = """MATCH (prot:Protein) where prot.vkbid={protein_id}
-                CREATE (go:GeneOntology {goid:{go_id}, term:{term}, evidence:{evidence}, project:{project}})
-                CREATE((prot)-[:HAS_A_GO]->(go))
-                RETURN go"""
-    result = tx.run(statement, {"protein_id": protein_id, "go_id": go_id, "term": term, "evidence":evidence, "project":project})
-    return result.single()[0]
-
-  @staticmethod
-  def _add_predication_relation_and_node(tx, payload):
-    (species_name, s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid) = payload
-    statement = """MATCH (sp:Species) where sp.name={species_name}
-                CREATE (lp:Predication {s_name:{s_name}, s_cui:{s_cui}, s_type:{s_type}, o_cui:{o_cui}, o_name:{o_name}, o_type:{o_type}, predicate:{predicate}, pmid:{pmid}})
-                CREATE((prot)-[:HAS_A_PL]->(lp))
-                RETURN lp"""
-    result = tx.run(statement, {"species_name": species_name, "s_name": s_name, "s_cui": s_cui, "s_type":s_type, "o_name": o_name, "o_cui": o_cui, "o_type":o_type, "predicate":predicate, "pmid":pmid})
-    return result.single()[0]
-
-  @staticmethod
-  def _purge_db_contents(tx):
-    result = tx.run("MATCH (n)"
-                    "DETACH DELETE n")
-    return result
-
 class NeoSimpleStat(object):
   def __init__(self, uri, user, password):
     self._driver = GraphDatabase.driver(uri, auth=(user, password))
@@ -251,39 +70,156 @@ class NeoSimpleStat(object):
     self._driver.close()
 
   def print_count_proteins(self):
-      with self._driver.session() as session:
-        nb_proteins = session.write_transaction(self._get_proteins_count)
-        print("There are ", nb_proteins, " protein nodes.")
-        print(type(nb_proteins))
-        return nb_proteins
+    """This function count the number of protein nodes
+
+          Args:
+            No args
+
+          Returns:
+            nb_proteins (int) : number of protein nodes in the graph
+    """
+    with self._driver.session() as session:
+      nb_proteins = session.write_transaction(self._get_proteins_count)
+      print("There are ", nb_proteins, " protein nodes.")
+      return nb_proteins
 
   def print_count_species(self):
-      with self._driver.session() as session:
-        nb_species = session.write_transaction(self._get_species_count)
-        print("There are ", nb_species, " species nodes.")
-        return nb_species
+    """This function count the number of species nodes
+
+          Args:
+            No args
+
+          Returns:
+            nb_species (int) : number of species nodes in the graph
+    """
+    with self._driver.session() as session:
+      nb_species = session.write_transaction(self._get_species_count)
+      print("There are ", nb_species, " species nodes.")
+      return nb_species
+
+  def print_count_nodes(self):
+    """This function count the number of nodes per category
+
+          Args:
+            No args
+
+          Returns:
+            nb_nodes (array of tuple (category_name, number_of_nodes)) : the array is order by category_name.
+    """
+    with self._driver.session() as session:
+      nb_nodes = session.write_transaction(self._get_count_nodes)
+      print(nb_nodes[0][1])
+      print("There are ", nb_nodes[0][1], "gene ontologies")
+      print("There are ", nb_nodes[1][1], "categories")
+      print("There are ", nb_nodes[2][1], "protein families")
+      print("There are ", nb_nodes[3][1], "predications")
+      print("There are ", nb_nodes[4][1], "proteins")
+      print("There are ", nb_nodes[5][1], "species")
+      return nb_nodes
 
   def print_information_species(self, species_name):
+    """This function print information about a given species
+          Args:
+            species_name (string) : the name of the species
+
+          Returns:
+            species (array) : [name , venombk_id, score,
+            number of relation has_venom_component, number of relation is instance of]
+    """
     with self._driver.session() as session:
       species = session.write_transaction(self._get_info_species, species_name)
       return species
 
   def print_information_protein(self, protein_id):
+    """This function print information about a given protein
+          Args:
+            protein_id (string) : the venomkb_id of the protein
+
+          Returns:
+            protein_info (array) : [name , score, UnitProtKB_id, aa_sequence,
+            number of relation has_venom_component, number of relation is instance of
+            name of the species that is linked to the protein, ontology class name]
+    """
     with self._driver.session() as session:
-      protein_info = session.write_transaction(self._get_info_species, protein_id)
+      protein_info = session.write_transaction(self._get_info_protein, protein_id)
       return protein_info
+
+  def print_pfam(self, protein_id):
+    """This function print information the protein family
+          Args:
+            protein_id (string) : the venomkb_id of the protein
+
+          Returns:
+            pfam (string) : the family protein name if exists
+    """
+    with self._driver.session() as session:
+      pfam = session.write_transaction(self._get_pfam, protein_id)
+      print(pfam)
+      return pfam
+
+  def print_is_instance_relation(self):
+    """This function print information the relationship "IS INSTANCE OF"
+          Args:
+            No args
+          Returns:
+            relationship (array) : [nb of protein, nb of species
+            number of relation wwith protein, number of relation with species]
+    """
+    with self._driver.session() as session:
+      relationship = session.write_transaction(self._get_is_instance_of)
+      return relationship
+
+  def print_has_a_pl_relation(self):
+    """This function print information the relationship "HAS A PL"
+          Args:
+            No args
+          Returns:
+            relationship (array) : [nb of predication literature, nb of relationship HAS A PL]
+    """
+    with self._driver.session() as session:
+      relationship = session.write_transaction(self._get_has_a_pl)
+      return relationship
+
+  def print_statistics(self):
+    """This function print istatistics about the graph
+          Args:
+            No args
+          Returns:
+            stats (array of Record) : [[label, sample size, avg Property Count,
+            Min Property Count, Max Property Count, Avg RelationShip Count,
+            Min Relationship count, max relationship count]]
+    """
+    with self._driver.session() as session:
+      stats = session.write_transaction(self._get_statistics)
+      print(stats)
+      return stats
 
   @staticmethod
   def _get_info_species(tx, species_name):
-    statement =" MATCH (p:Species {name:{species_name}})-[:HAS_VENOM_COMPONENT]->(m) RETURN p.vkbid, p.score, count(m)"
+    statement =""" MATCH (p:Species) WHERE p.name={species_name}
+                   MATCH (p)-[r:HAS_VENOM_COMPONENT]->(m)
+                   MATCH (p)-[:IS_INSTANCE_OF]->(c:OntologyClass)
+                   RETURN p.name, p.vkbid, p.score, count( distinct r), count(distinct c)"""
     result = tx.run(statement, {"species_name": species_name})
-    return result.single()[0]
+    print("species", result)
+    return result.single()
 
   @staticmethod
   def _get_info_protein(tx, protein_id):
-    statement =" MATCH (p:Protein {vkbid:{protein_id}} RETURN p.name, p.annotation_score, p.UnitProtKB_id, p.aa_sequence"
+    statement ="""MATCH (p:Protein) WHERE p.vkbid={protein_id}
+               MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p)
+               MATCH (p)-[:IS_INSTANCE_OF]->(c:OntologyClass)
+               RETURN p.name, p.score, p.UnitProtKB_id, p.aa_sequence, count(s),  count(c), s.name,  c.name"""
     result = tx.run(statement, {"protein_id": protein_id})
-    return result.single()[0]
+    return result.single()
+
+  @staticmethod
+  def _get_pfam(tx, protein_id):
+    statement ="""MATCH (p:Protein) WHERE p.vkbid={protein_id}
+               MATCH (p)-[:IS_A]->(f:Pfam)
+               RETURN f.name """
+    result = tx.run(statement, {"protein_id": protein_id})
+    return result.single()
 
   @staticmethod
   def _get_proteins_count(tx):
@@ -297,98 +233,68 @@ class NeoSimpleStat(object):
     result = tx.run(statement)
     return result.single()[0]
 
+  @staticmethod
+  def _get_count_nodes(tx):
+    statement = """MATCH (n)
+                RETURN
+                DISTINCT labels(n),
+                count(*) order by labels(n)"""
+    return list(tx.run(statement))
 
-class TestNeoMethods(unittest.TestCase):
+  @staticmethod
+  def _get_is_instance_of(tx):
+    statement = """MATCH (p:Protein), (s:Species)
+                   MATCH (p)-[r:IS_INSTANCE_OF]->(m)
+                   MATCH (s)-[q:IS_INSTANCE_OF]->(m)
+                   RETURN count(DISTINCT p), count(DISTINCT s), count(DISTINCT r), count(DISTINCT q)"""
+    result = tx.run(statement)
+    return result.single()
 
-    def test_number_of_data(self):
-      # test fetches data
-      data = VenomkbData()
-      self.assertEqual(len(data.species), 632)
-      self.assertEqual(len(data.proteins), 6236)
+  @staticmethod
+  def _get_has_a_pl(tx):
+    statement = """MATCH (p:Predication)
+                   MATCH (m)-[r:HAS_A_PL]->(p)
+                   RETURN count(DISTINCT r), count( DISTINCT p)"""
+    result = tx.run(statement)
+    return result.single()
 
-      # test number of nodes
-      neo = NeoSimpleStat(URI, USER, PASSWORD)
-      self.assertEqual(neo.print_count_species(), len(data.species))
-      self.assertEqual(neo.print_count_proteins(), len(data.proteins))
-
-    def test_properties(self):
-      neo = NeoSimpleStat(URI, USER, PASSWORD)
-      # Species example : Lachesana tarabaevi
-
-
+  @staticmethod
+  def _get_statistics(tx):
+    statement = """MATCH (n)
+                RETURN
+                DISTINCT labels(n),
+                count(*) AS SampleSize,
+                avg(size(keys(n))) as Avg_PropertyCount,
+                min(size(keys(n))) as Min_PropertyCount,
+                max(size(keys(n))) as Max_PropertyCount,
+                avg(size( (n)-[]-() ) ) as Avg_RelationshipCount,
+                min(size( (n)-[]-() ) ) as Min_RelationshipCount,
+                max(size( (n)-[]-() ) ) as Max_RelationshipCount"""
+    return list(tx.run(statement))
 
 if __name__ == '__main__':
+  # properties = neo.print_information_protein("P0307338")
+  # neo = NeoSimpleStat(URI, USER, PASSWORD)
+  # neo.print_count_nodes()
+  # res = neo.print_statistics()
+  # print(res[0])
+  # print(res[0][0])
   # unittest.main()
-  t1 = time.time()
+  # t1 = time.time()
 
   data = VenomkbData()
-  neo = Neo4jWriter(URI, USER, PASSWORD)
-
-  # neo.purge()
-
-  pfam_added = []
-  # add proteins
-  for protein in data.proteins:
-
-    neo.print_protein(str(protein["name"]), str(protein["venomkb_id"]), protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
-
-    if 'Pfam' in protein["out_links"]:
-      pfam = protein["out_links"]["Pfam"]["attributes"]["name"]
-      if pfam not in pfam_added:
-        neo.print_pfam_node(pfam)
-        pfam_added.append(pfam)
-      neo.print_pfam_relationship(protein["venomkb_id"], pfam)
-
-    if 'go_annotations' in protein:
-      for elt in protein["go_annotations"]:
-        neo.print_is_a_go_relation_and_node(protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
-
-
-  # add species
-  for species in data.species:
-    neo.print_species(str(species["name"]), str(species["venomkb_id"]), species["annotation_score"])
-
-    if 'literature_predications' in species:
-      if type(species["literature_predications"][0])==list:
-        for elt in species["literature_predications"][0]:
-          neo.print_predication_relation_and_node(species["name"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
-      else:
-        for elt in species["literature_predications"]:
-          neo.print_predication_relation_and_node(species["name"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
-
-  # add link between species and proteins
-  for specie in data.species:
-    name = str(specie["name"])
-    for protein_specie in specie["venom"]["proteins"] :
-      neo.print_link(name, protein_specie)
-
-  # add category node
   categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
-  for category in categories:
-    neo.print_category_nodes(category)
+  neo = ne.Neo4jWriter(URI, USER, PASSWORD)
+  neo.print_generate_graph(data.proteins, data.species, categories)
 
-  # connect proteins to peptide
-  for protein in data.proteins:
-    neo.print_protein_peptide_relationship(str(protein["venomkb_id"]))
-
-  # connect species to Venomous_Organism
-  for specie in data.species:
-    neo.print_specie_organism_relationship(str(specie["venomkb_id"]))
-
-  # add relation is_a
-
-  neo.print_is_a_relationship("Peptide", "Biological_Macromolecule")
-  neo.print_is_a_relationship("Carbohydrate", "Biological_Macromolecule")
-  neo.print_is_a_relationship("Biological_Macromolecule", "Molecule")
-  neo.print_is_a_relationship("Inorganic_Molecule", "Molecule")
-  neo.print_is_a_relationship("Whole_Venom_Extract", "Mixture")
-  neo.print_is_a_relationship("Molecule", "Chemical_Compound")
-  neo.print_is_a_relationship("Mixture", "Chemical_Compound")
-  neo.print_is_a_relationship("Synthetic_Venom_Derivative", "Chemical_Compound")
-  neo.print_is_a_relationship("Chemical_Compound", "Venom")
-  neo.print_is_a_relationship("Venomous_Organism", "Thing")
-  neo.print_is_a_relationship("Venom", "Thing")
-
-  t2 = time.time()
-  total = t2 - t1
-  print("It takes ", total, t2, t1)
+  # # neo.purge()
+  # neo.print_category_nodes("Venomous_Organism")
+  # neo.print_category_nodes("Peptide")
+  # specie = data.species[0]
+  # neo.print_species(specie["name"], specie["venomkb_id"], specie["annotation_score"])
+  # protein = data.proteins[0]
+  # neo.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
+  # neo.print_link(specie["name"],protein["venomkb_id"])
+  # t2 = time.time()
+  # total = t2 - t1
+  # print("It takes ", total, t2, t1)
