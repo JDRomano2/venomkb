@@ -72,9 +72,10 @@ class Neo4jWriter(object):
     """This function create a neo4j graph.
 
           Args:
-            proteins (array of object):  An array containing all the proteins that will be add to the graph. Each protein should at least
-            has a name, a venomkb_id, an annotation score, an aa_sequence and a UnitProtKB_id. A protein can also have literature predication,
-            separate nodes will be created and linked, and some gene ontologies, separate nodes will be created and linked.
+            proteins (array of object):  An array containing all the proteins that will be add to the graph.
+            Each protein should at least has a name, a venomkb_id, an annotation score, an aa_sequence and a UnitProtKB_id.
+            A protein can also have literature predication, separate nodes will be created and linked, and some gene
+            ontologies, separate nodes will be created and linked.
 
             species (array of object): An array of object containing all the species that will be add as nodes to the graph.
             Each species should at least have a name, a venomkb_id, a score and a list a protein.
@@ -133,6 +134,7 @@ class Neo4jWriter(object):
 
   def print_species(self, name, venomkb_id, score):
     """This function create a species node into the graph.
+    It links the node to the Venomous_Organism node with a "is instance of" link.
 
           Args:
             name (string): the species'name
@@ -148,6 +150,7 @@ class Neo4jWriter(object):
 
   def print_protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id):
     """This function create a protein node into the graph.
+    It links the node to the Peptide node with a "is instance of" link
 
           Args:
             name (string): the protein's name
@@ -177,7 +180,7 @@ class Neo4jWriter(object):
       print(category)
 
   def print_pfam_node(self, pfam):
-    """This function create a protein family (alias pfam) into the graph.
+    """This function create a protein family (alias pfam) node into the graph.
 
           Args:
             name (string): the protein family's name
@@ -204,37 +207,108 @@ class Neo4jWriter(object):
       print(relationship)
 
   def print_protein_peptide_relationship(self, protein_id):
+    """This function add a link between a protein and the "Peptide" node which is an onlogy class.
+
+          Args:
+            protein_id (string): the venomkb_id of the protein that will be linked
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_protein_peptide_relationship, protein_id)
       print(relationship)
 
   def print_specie_organism_relationship(self, species_id):
+    """This function add a link between a species and the "Venomous Organism" node which is an onlogy class.
+
+          Args:
+            species_id (string): the venomkb_id of the species that will be linked
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_species_organism_relationship, species_id)
       print(relationship)
 
 
   def print_is_a_subclass_relationship(self, category_a, category_b):
+    """This function add a link between 2 onlogy classes : "a is a subclass of b"
+
+          Args:
+            category_a (string): the name of the onlogy class
+            category_b (string): the name of the onlogy class
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_is_a_relationship, (category_a, category_b))
       print(relationship)
 
   def print_pfam_relationship(self, protein_id, pfam):
+    """This function add a link a protein and a pfam.
+
+          Args:
+            protein_id (string): the venomkb_id of the protein
+            pfam (string): the name of protein family
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_pfam_relation, (protein_id, pfam))
       print(relationship)
 
-  def print_is_a_go_relation_and_node(self, protein_id, evidence,term, go_id, project):
+  def print_is_a_go_relation_and_node(self, protein_id, evidence, term, go_id, project):
+    """This function create a node for a gene ontology, and link this node to the correct protein.
+
+          Args:
+            protein_id (string): the venomkb_id of the protein
+            evidence (string): evidence of the gene ontology
+            term (string): term of the gene ontology
+            go_id (string): a specific id for the gene ontology
+            project (string): the name of the project in the gene ontology
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_is_a_go_relation_and_node, (protein_id, evidence, term, go_id, project))
       print(relationship)
 
   def print_predication_relation_and_node(self, protein_id,  s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid):
+    """This function create a node for a literature predication, and link this node to the correct protein.
+
+          Args:
+            protein_id (string): the venomkb_id of the protein
+            s_name (string):
+            s_cui (string):
+            s_type (string):
+            o_cui (string):
+            o_name (string):
+            o_type (string):
+            predicate (string):
+            pmid (string):
+
+          Returns:
+            No return
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_predication_relation_and_node, (protein_id, s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid))
       print(relationship)
 
   def purge(self):
+    """This function all elements from the database
+
+          Args:
+            No args
+
+          Returns:
+            The transactions that deleted all elements
+    """
+
     with self._driver.session() as session:
       del_all = session.write_transaction(self._purge_db_contents)
       return del_all
@@ -356,21 +430,43 @@ class NeoSimpleStat(object):
   def close(self):
     self._driver.close()
 
-
-
   def print_count_proteins(self):
-      with self._driver.session() as session:
-        nb_proteins = session.write_transaction(self._get_proteins_count)
-        print("There are ", nb_proteins, " protein nodes.")
-        return nb_proteins
+    """This function count the number of protein nodes
+
+          Args:
+            No args
+
+          Returns:
+            nb_proteins (int) : number of protein nodes in the graph
+    """
+    with self._driver.session() as session:
+      nb_proteins = session.write_transaction(self._get_proteins_count)
+      print("There are ", nb_proteins, " protein nodes.")
+      return nb_proteins
 
   def print_count_species(self):
-      with self._driver.session() as session:
-        nb_species = session.write_transaction(self._get_species_count)
-        print("There are ", nb_species, " species nodes.")
-        return nb_species
+    """This function count the number of species nodes
+
+          Args:
+            No args
+
+          Returns:
+            nb_species (int) : number of species nodes in the graph
+    """
+    with self._driver.session() as session:
+      nb_species = session.write_transaction(self._get_species_count)
+      print("There are ", nb_species, " species nodes.")
+      return nb_species
 
   def print_count_nodes(self):
+    """This function count the number of nodes per category
+
+          Args:
+            No args
+
+          Returns:
+            nb_nodes (array of tuple (category_name, number_of_nodes)) : the array is order by category_name.
+    """
     with self._driver.session() as session:
       nb_nodes = session.write_transaction(self._get_count_nodes)
       print(nb_nodes[0][1])
@@ -383,32 +479,77 @@ class NeoSimpleStat(object):
       return nb_nodes
 
   def print_information_species(self, species_name):
+    """This function print information about a given species
+          Args:
+            species_name (string) : the name of the species
+
+          Returns:
+            species (array) : [name , venombk_id, score,
+            number of relation has_venom_component, number of relation is instance of]
+    """
     with self._driver.session() as session:
       species = session.write_transaction(self._get_info_species, species_name)
       return species
 
   def print_information_protein(self, protein_id):
+    """This function print information about a given protein
+          Args:
+            protein_id (string) : the venomkb_id of the protein
+
+          Returns:
+            protein_info (array) : [name , score, UnitProtKB_id, aa_sequence,
+            number of relation has_venom_component, number of relation is instance of
+            name of the species that is linked to the protein, ontology class name]
+    """
     with self._driver.session() as session:
       protein_info = session.write_transaction(self._get_info_protein, protein_id)
       return protein_info
 
   def print_pfam(self, protein_id):
+    """This function print information the protein family
+          Args:
+            protein_id (string) : the venomkb_id of the protein
+
+          Returns:
+            pfam (string) : the family protein name if exists
+    """
     with self._driver.session() as session:
       pfam = session.write_transaction(self._get_pfam, protein_id)
       print(pfam)
       return pfam
 
   def print_is_instance_relation(self):
+    """This function print information the relationship "IS INSTANCE OF"
+          Args:
+            No args
+          Returns:
+            relationship (array) : [nb of protein, nb of species
+            number of relation wwith protein, number of relation with species]
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._get_is_instance_of)
       return relationship
 
   def print_has_a_pl_relation(self):
+    """This function print information the relationship "HAS A PL"
+          Args:
+            No args
+          Returns:
+            relationship (array) : [nb of predication literature, nb of relationship HAS A PL]
+    """
     with self._driver.session() as session:
       relationship = session.write_transaction(self._get_has_a_pl)
       return relationship
 
   def print_statistics(self):
+    """This function print istatistics about the graph
+          Args:
+            No args
+          Returns:
+            stats (array of Record) : [[label, sample size, avg Property Count,
+            Min Property Count, Max Property Count, Avg RelationShip Count,
+            Min Relationship count, max relationship count]]
+    """
     with self._driver.session() as session:
       stats = session.write_transaction(self._get_statistics)
       print(stats)
@@ -466,7 +607,7 @@ class NeoSimpleStat(object):
     statement = """MATCH (p:Protein), (s:Species)
                    MATCH (p)-[r:IS_INSTANCE_OF]->(m)
                    MATCH (s)-[q:IS_INSTANCE_OF]->(m)
-                   RETURN count(p), count(s), count(DISTINCT r), count(DISTINCT q)"""
+                   RETURN count(DISTINCT p), count(DISTINCT s), count(DISTINCT r), count(DISTINCT q)"""
     result = tx.run(statement)
     return result.single()
 
@@ -474,7 +615,7 @@ class NeoSimpleStat(object):
   def _get_has_a_pl(tx):
     statement = """MATCH (p:Predication)
                    MATCH (m)-[r:HAS_A_PL]->(p)
-                   RETURN count(DISTINCT r), count(p)"""
+                   RETURN count(DISTINCT r), count( DISTINCT p)"""
     result = tx.run(statement)
     return result.single()
 
@@ -613,10 +754,12 @@ class TestNeoMethods(unittest.TestCase):
 
 if __name__ == '__main__':
   # properties = neo.print_information_protein("P0307338")
-  # neo = NeoSimpleStat(URI, USER, PASSWORD)
+  neo = NeoSimpleStat(URI, USER, PASSWORD)
   # neo.print_count_nodes()
-  # neo.print_statistics()
-  unittest.main()
+  res = neo.print_statistics()
+  print(res[0])
+  print(res[0][0])
+  # unittest.main()
   # t1 = time.time()
 
   # data = VenomkbData()
