@@ -20,7 +20,7 @@ class Neo4jWriter(object):
   def close(self):
     self._driver.close()
 
-  def print_generate_graph(self, proteins, species_list, categories):
+  def generate_graph(self, proteins, species_list, categories, verbose=False):
     """This function create a neo4j graph.
 
           Args:
@@ -86,14 +86,14 @@ class Neo4jWriter(object):
             self.print_predication_relation_and_node(
                 protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
 
-  # add species
+    # add species
     for species in species_list:
       self.print_species(
-          species["name"], species["venomkb_id"], species["annotation_score"])
+          species["name"], species["venomkb_id"], species["annotation_score"], verbose=False)
       for protein in species["venom"]["proteins"]:
         self.print_link(species["name"], protein)
 
-  def print_species(self, name, venomkb_id, score):
+  def print_species(self, name, venomkb_id, score, verbose=False):
     """This function create a species node into the graph.
     It links the node to the Venomous_Organism node with a "is instance of" link.
 
@@ -108,7 +108,8 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       species = session.write_transaction(
           self._add_species, (name, venomkb_id, score))
-      print(species)
+      if verbose:
+        print(species)
 
   def print_protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id):
     """This function create a protein node into the graph.
