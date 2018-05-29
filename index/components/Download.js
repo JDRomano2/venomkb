@@ -1,18 +1,14 @@
 import React from 'react';
 import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
 
-// Require static data files so Webpack knows to bundle them
 require('../assets/data/semantic_vextractor.csv.zip');
 require('../assets/data/manual_venoms.tsv.zip');
 require('../assets/data/vextractor.csv.zip');
-
 require('../assets/data/proteins_06272017.json.zip');
 require('../assets/data/species_06272017.json.zip');
 require('../assets/data/genomes_06272017.json.zip');
 require('../assets/data/index_06272017.json.zip');
-
 require('../assets/data/venom_ontology.xml.zip');
-
 require('../assets/prov/venomkb.pn');
 
 const vkb1_title = (
@@ -36,6 +32,7 @@ const Download = () =>
 		<h2>Download</h2>
 
 		<Panel header={vkb1_title} bsStyle="success">
+		<Panel.Body>
 			<div style={{display: 'flex', justifyContent: 'center'}}>
 				<ButtonToolbar>
 					<Button bsStyle="primary" href="vextractor.csv.zip">vextractor.csv</Button>
@@ -43,9 +40,11 @@ const Download = () =>
 					<Button bsStyle="primary" href="manual_venoms.tsv.zip">manual_venoms.tsv</Button>
 				</ButtonToolbar>
 			</div>
+		</Panel.Body>
 		</Panel>
 
 		<Panel header={vkb2_title} bsStyle="success">
+		<Panel.Body>
 			<div>
 				<p><small>Last updated 06/27/2017:</small></p>
 			</div>
@@ -58,9 +57,11 @@ const Download = () =>
 					<Button bsStyle="primary" href="index_06272017.json.zip">Index</Button>
 				</ButtonToolbar>
 			</div>
+		</Panel.Body>
 		</Panel>
 
 		<Panel header={vo_title} bsStyle="success">
+		<Panel.Body>
 			<div>
 				<p><small>Last updated 06/27/2017:</small></p>
 			</div>
@@ -69,9 +70,11 @@ const Download = () =>
 					<Button bsStyle="primary" href="venom_ontology.xml.zip">Venom Ontology (OWL XML)</Button>
 				</ButtonToolbar>
 			</div>
+		</Panel.Body>
 		</Panel>
 
 		<Panel header={prov_title} bsStyle="success">
+		<Panel.Body>
 			<div>
 				<p><small>Last updated 02/13/2018:</small></p>
 			</div>
@@ -80,6 +83,7 @@ const Download = () =>
 					<Button bsStyle="primary" href="venomkb.pn">PROV-N</Button>
 				</ButtonToolbar>
 			</div>
+		</Panel.Body>
 		</Panel>
 	</div>;
 
