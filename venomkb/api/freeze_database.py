@@ -20,12 +20,10 @@ from . import neo_writer as ne
 ENVIRONMENT = 'DEV'
 
 CONFIG_FNAME = os.path.join(os.path.dirname(__file__), 'venomkb-neo4j.cfg')
-print(CONFIG_FNAME)
 config = configparser.ConfigParser()
 config.read(CONFIG_FNAME)
-print(config.keys())
 
-HOSTNAME = config['DEV']['Hostname']
+HOSTNAME = config[ENVIRONMENT]['Hostname']
 USER = config[ENVIRONMENT]['User']
 PASSWORD = config[ENVIRONMENT]['Password']
 PORT = config['DEFAULT']['Port']
