@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 // Schema to enforce consistent structure.
 const VenomSchema = new mongoose.Schema({
-  venomkb_id: String,
-  species: String
+    name: String,
+    proteins: [{ type: mongoose.Schema.ObjectId, ref: 'Protein' }],
 });
 
 module.exports = mongoose.model('Venom', VenomSchema);

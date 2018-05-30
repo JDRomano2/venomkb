@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const protein = require('../models/Protein.js');
+
+const Protein = require('../models/Protein.js');
 
 const vkbid_reg = /P\d{7}/;
 
@@ -37,7 +38,7 @@ router.get('/index', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   if (vkbid_reg.test(req.params.id)) {
     console.log("Find by VenomKB id");
-    protein.find({ 'venomkb_id': req.params.id }, (err, protein) => {
+    Protein.find({ 'venomkb_id': req.params.id }, (err, protein) => {
       if (err) return handleError(err);
       res.json(protein);
     });
@@ -49,6 +50,43 @@ router.get('/:id', (req, res, next) => {
     });
   }
 });
+
+/* GET /proteins/id */
+router.get('/name', (req, res, next) => {
+	if (vkbid_reg.test(req.params.id)) {
+		console.log("Find by VenomKB id");
+		protein.find({ 'venomkb_id': req.params.id }, (err, protein) => {
+			if (err) return handleError(err);
+			res.json(protein);
+		});
+	} else {
+		console.log("Find by id");
+		protein.findById(req.params.id, (err, proteins) => {
+			if (err) return next(err);
+			res.json(proteins);
+		});
+	}
+});
+
+// // * GET /proteins/id */
+// router.get('/name', (req, res, next) => {
+//   const path = req.query.path || ''
+// 	if (vkbid_reg.test(req.params.id)) {
+// 		console.log("Find by VenomKB id");
+//     Protein.getByMail(req.params.id, path)
+//       .then(protein => {
+//         res.json(protein)
+//       })
+//       .catch(utils.sendErrorMessage)
+
+// 	} else {
+// 		console.log("Find by id");
+// 		protein.findById(req.params.id, (err, proteins) => {
+// 			if (err) return next(err);
+// 			res.json(proteins);
+// 		});
+// 	}
+// });
 
 /* PUT /proteins/:id */
 router.put('/:id', (req, res, next) => {

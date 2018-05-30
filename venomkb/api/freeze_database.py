@@ -305,21 +305,29 @@ class NeoSimpleStat(object):
 
 if __name__ == '__main__':
   # properties = neo.print_information_protein("P0307338")
-  neo = NeoSimpleStat(URI, USER, PASSWORD)
+  # neo = NeoSimpleStat(URI, USER, PASSWORD)
   # neo.print_count_nodes()
-  neo.print_genome("Lachesana tarabaevi")
+  # neo.print_genome("Lachesana tarabaevi")
   # res = neo.print_statistics()
   # print(res[0])
   # unittest.main()
   t1 = time.time()
 
-  # data = VenomkbData()
   # categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
   # neo = ne.Neo4jWriter(URI, USER, PASSWORD)
   # for genome in data.genomes:
   #     neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
   #                 genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
 
+
+  data = VenomkbData()
+  out_species = []
+  for species in data.species:
+    if 'out_links' in species:
+      for key in species["out_links"]:
+        if key not in out_species:
+          out_species.append(key)
+  print(out_species)
 
   # neo.print_generate_graph(data.proteins, data.species, categories)
 
