@@ -9,21 +9,8 @@ from __future__ import print_function, absolute_import
 
 import unittest
 import configparser
-import sys, os
-sys.path.insert(0, os.path.abspath(".."))
-import api
 
-ENVIRONMENT = 'DEV'
-
-config = configparser.ConfigParser()
-config.read('./venomkb-neo4j.cfg')
-
-HOSTNAME = config[ENVIRONMENT]['Hostname']
-USER = config[ENVIRONMENT]['User']
-PASSWORD = config[ENVIRONMENT]['Password']
-PORT = config['DEFAULT']['Port']
-URI = "bolt://{0}:{1}".format(HOSTNAME, PORT)
-
+import context
 
 
 

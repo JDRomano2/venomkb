@@ -17,13 +17,15 @@ import unittest
 
 from . import neo_writer as ne
 
-global ENVIRONMENT
 ENVIRONMENT = 'DEV'
 
+CONFIG_FNAME = os.path.join(os.path.dirname(__file__), 'venomkb-neo4j.cfg')
+print(CONFIG_FNAME)
 config = configparser.ConfigParser()
-config.read('../semantic_api/venomkb-neo4j.cfg')
+config.read(CONFIG_FNAME)
+print(config.keys())
 
-HOSTNAME = config[ENVIRONMENT]['Hostname']
+HOSTNAME = config['DEV']['Hostname']
 USER = config[ENVIRONMENT]['User']
 PASSWORD = config[ENVIRONMENT]['Password']
 PORT = config['DEFAULT']['Port']

@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to VenomKB's documentation!
-===================================
+Documentation for VenomKB---Python back-end
+===========================================
 
 .. toctree::
    :maxdepth: 2
