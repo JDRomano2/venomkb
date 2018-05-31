@@ -1,29 +1,21 @@
 const mongoose = require('mongoose');
 
-const OutLinkSchema = new mongoose.Schema({
-    ressource: String,
-    primary_id: String,
-    attribute: String,
-});
-
-
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
-    venomkb_id: {type: String, unique: true},
-    species: String,
-    name: String,
-    lastUpdated: Number,
+    venomkb_id: { type: String, index:true },
+    lastUpdated: {type: Date, required:true},
+    species: {type: String, required: true},
+    name: {type: String, required: true},
     description: String,
     aa_sequence: String,
-    venom_ref: String,
+    venom_ref: {type: String, required: true},
     pdb_image_url: String,
-    pdb_structure_known: Boolean,
-    annotation_score: Number,
+    pdb_structure_known: {type:Boolean, required: true},
+    annotation_score: { type: Number, min: 1, max: 5, required: true },
     literature_predications: [{ type: mongoose.Schema.ObjectId, ref: 'Literature' }],
     literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
     go_annotations: [{ type: mongoose.Schema.ObjectId, ref: 'Annotation' }],
-    out_links: [OutLinkSchema]
-
+    out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
 });
 
 const Protein = mongoose.model('Protein', ProteinSchema);

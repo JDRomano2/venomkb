@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 
 // Schema to enforce consistent structure.
 const LiteratureSchema = new mongoose.Schema({
-    o_name: String,
-    o_type: String,
-    o_cui: String,
-    s_name: String,
-    s_type: String,
-    s_cui: String,
-    predicate: String,
-    id_pred: String,
-    pid: Number,
-    sid: Number,
-    vkb_protein_ref: String,
-    pmid: Number,
-    toxprot_id: String
+    s_name: { type: String, required: true },
+    s_cui: { type: String, required: true },
+    s_type: { type: String, required: true },
+    predicate: { type: String, required: true },
+    o_name: { type: String, required: true },
+    o_cui: { type: String, required: true },
+    o_type: { type: String, required: true },
+    id_pred: { type: String, required: true },
+    vkb_protein_ref: { type: String, required: true },
+    pmid: { type: Number, required: true },
+    toxprot_id: String,
+    PID: String,
+    SID: String
 });
 
 

@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 // Schema to enforce consistent structure.
 const ReferenceSchema = new mongoose.Schema({
-    doi: String,
-    title: String,
+    pmid: Number,
+    title: { type: String, required: true },
     first_author: String,
+    authors: { type: [String], default: undefined },
     journal_name: String,
-    date: String,
-    pmid: String
+    doi: { type: String, default: undefined },
+    citation: String,
+    date: Date
 });
 
 

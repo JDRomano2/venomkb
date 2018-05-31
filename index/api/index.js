@@ -27,6 +27,7 @@ mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@' + MONGO_I
   .then(() =>  console.log('connection to MongoDB succesful'))
   .catch((err) => console.error(err));
 
+// mongoose.connect('mongodb://localhost:27017/venomkb-staging')
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));
