@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 // Schema to enforce consistent structure.
 const AnnotationSchema = new mongoose.Schema({
+    term: { type: String, required: true },
+    id: { type: String, required: true },
     project: String,
-    term: String,
-    id: String,
     evidence: String
 });
 

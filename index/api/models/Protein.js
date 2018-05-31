@@ -21,19 +21,71 @@ const ProteinSchema = new mongoose.Schema({
 const Protein = mongoose.model('Protein', ProteinSchema);
 
 /**
- * Get an protein given its id
+ * returns all the proteins
+ */
+Protein.getAll = () => {
+  return new Promise((resolve, reject) => {
+    Protein.find({})
+      .exec((err, proteins) => {
+        if (err) reject(err)
+        resolve(proteins)
+      })
+  })
+}
+
+/**
+ * Get an protein given its venomkb_id
  * @param {ObjectId} id  id of the protein to get
  * @param {String} path path to populate (leave blank if none)
  */
-Protein.getByVenomKBId = (id, path) => {
+Protein.getByVenomKBId = (venomkb_id, path) => {
   return new Promise((resolve, reject) => {
-    Protein.findOne({ venomkb_id: id })
+    Protein.findOne({ venomkb_id: venomkb_id })
       .populate(path || '')
       .exec((err, protein) => {
         if (err) {
           reject(err);
         }
         resolve(protein);
+      });
+  });
+};
+
+
+/**
+ * Get an protein given its id
+ * @param {ObjectId} id  id of the protein to get
+ * @param {String} path path to populate (leave blank if none)
+ */
+Protein.getById = (id, path) => {
+  return new Promise((resolve, reject) => {
+    Protein.findOne({ _id: id })
+      .populate(path || '')
+      .exec((err, protein) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(protein);
+      });
+  });
+};
+
+/**
+ * Get an protein given its name
+ * @param {String} name  name of the protein to get
+ * @param {String} path path to populate (leave blank if none)
+ */
+Protein.getByName = (name, path) => {
+  return new Promise((resolve, reject) => {
+    Protein.find({ $text: { $search: name } } )
+      .populate(path || '')
+      .exec((err, proteins) => {
+        if (err) {
+          reject(err);
+        }
+        console.log(proteins.length);
+
+        resolve(proteins);
       });
   });
 };

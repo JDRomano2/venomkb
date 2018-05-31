@@ -16,18 +16,18 @@ const systemicEffects = require('./routes/systemicEffects');
 
 const app = express();
 
-const VENOMKB_STAGING_PW = process.env.VENOMKB_STAGING_PW;
-const MONGO_IP = process.env.MONGO_IP;
-console.log('VENOMKB_STAGING_PW: ', VENOMKB_STAGING_PW);
-console.log('MONGO_IP: ', MONGO_IP);
+// const VENOMKB_STAGING_PW = process.env.VENOMKB_STAGING_PW;
+// const MONGO_IP = process.env.MONGO_IP;
+// console.log('VENOMKB_STAGING_PW: ', VENOMKB_STAGING_PW);
+// console.log('MONGO_IP: ', MONGO_IP);
 
 // MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@' + MONGO_IP + '/venomkb-staging')
-  .then(() =>  console.log('connection to MongoDB succesful'))
-  .catch((err) => console.error(err));
+// mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@' + MONGO_IP + '/venomkb-staging')
+//   .then(() =>  console.log('connection to MongoDB succesful'))
+//   .catch((err) => console.error(err));
 
-// mongoose.connect('mongodb://localhost:27017/venomkb-staging')
+mongoose.connect('mongodb://localhost:27017/venomkb-staging')
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));
