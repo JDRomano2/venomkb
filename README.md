@@ -53,3 +53,12 @@ Folder contains .eslintrc, .eslintignore and .babelrc files in addition to .giti
 * Webpack production config so you can build the app and make it ready for production
 * Sass support, just import your styles wherever you need them (and to add Bootstrap support)
 * `eslint` to keep your js readable
+
+### Contact
+
+VenomKB is maintained by members of the [Tatonetti Lab](http://tatonettilab.org) at [Columbia University](http://www.columbia.edu).
+
+For more information, you can contact one of the developers by email:
+
+- Joseph D. Romano: [jdr2160@cumc.columbia.edu](mailto:jdr2160@cumc.columbia.edu)
+- Marine Saint Mezard: [marine.saint-mezard@ensta-paristech.fr](mailto:marine.saint-mezard@ensta-paristech.fr)
