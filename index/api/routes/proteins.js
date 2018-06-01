@@ -15,21 +15,21 @@ const vkbid_reg = /P\d{7}/;
  */
 /* GET /proteins listing. */
 router.get('/', (req, res, next) => {
-  Protein.getAll()
-      .then(proteins => {
-        res.json(proteins)
-      })
-    .catch(err => {
-      return sendStatusMessage(res, 500, err.message);
-    })
+    Protein.getAll()
+        .then(proteins => {
+            res.json(proteins)
+        })
+        .catch(err => {
+            return sendStatusMessage(res, 500, err.message);
+        })
 });
 
 /* GET /proteins/index */
 router.get('/index', (req, res, next) => {
-  protein.find({}, {venomkb_id: 1, name: 1, venom_ref: 1}).exec((err, proteins_ind) => {
-    if (err) return next(err);
-    res.json(proteins_ind);
-  });
+    protein.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, proteins_ind) => {
+        if (err) return next(err);
+        res.json(proteins_ind);
+    });
 });
 
 
@@ -40,19 +40,19 @@ router.get('/index', (req, res, next) => {
  */
 /* GET /proteins/name */
 router.get('/search', (req, res, next) => {
-  if (!req.query.name) {
-    console.log("You must enter a name");
-    return utils.sendStatusMessage(res, 400, "protein name not specified")
+    if (!req.query.name) {
+        console.log("You must enter a name");
+        return utils.sendStatusMessage(res, 400, "protein name not specified")
 
-  }
-  console.log("Find by name");
-  Protein.getByName(req.query.name)
-    .then(protein => {
-      res.json(protein)
-    })
-    .catch(err => {
-      return sendStatusMessage(res, 500, err.message);
-    })
+    }
+    console.log("Find by name");
+    Protein.getByName(req.query.name)
+        .then(protein => {
+            res.json(protein)
+        })
+        .catch(err => {
+            return sendStatusMessage(res, 500, err.message);
+        })
 });
 
 /**
@@ -62,36 +62,36 @@ router.get('/search', (req, res, next) => {
  */
 /* GET /proteins/id */
 router.get('/:id', (req, res, next) => {
-  if (!req.params.id){
-    return utils.sendStatusMessage(res, 400, "protein id not specified")
-  }
-  if (vkbid_reg.test(req.params.id)) {
-    console.log("Find by VenomKB id");
-    Protein.getByVenomKBId(req.params.id)
-    .then(protein =>{
-      res.json(protein)
-    })
-    .catch()
-  } else {
-    console.log("Find by id");
-    Protein.getById(req.params.id)
-    .then(protein =>{
-      res.json(protein)
-    })
-    .catch(err => {
-      return sendStatusMessage(res, 500, err.message);
-    })
-  }
+    if (!req.params.id) {
+        return utils.sendStatusMessage(res, 400, "protein id not specified")
+    }
+    if (vkbid_reg.test(req.params.id)) {
+        console.log("Find by VenomKB id");
+        Protein.getByVenomKBId(req.params.id)
+            .then(protein => {
+                res.json(protein)
+            })
+            .catch()
+    } else {
+        console.log("Find by id");
+        Protein.getById(req.params.id)
+            .then(protein => {
+                res.json(protein)
+            })
+            .catch(err => {
+                return sendStatusMessage(res, 500, err.message);
+            })
+    }
 });
 
 /* POST /proteins */
 router.post('/', (req, res, next) => {
-  protein.create(req.body,  (err, proteins) => {
-    if (err) return next(err);
-    console.log('New protein created:');
-    console.log(proteins);
-    res.json(proteins);
-  });
+    protein.create(req.body, (err, proteins) => {
+        if (err) return next(err);
+        console.log('New protein created:');
+        console.log(proteins);
+        res.json(proteins);
+    });
 });
 
 
@@ -101,20 +101,20 @@ router.post('/', (req, res, next) => {
 
 /* PUT /proteins/:id */
 router.put('/:id', (req, res, next) => {
-  protein.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
-    if (err) return next(err);
-    res.json(proteins);
-  });
+    protein.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
+        if (err) return next(err);
+        res.json(proteins);
+    });
 });
 
 /* DELETE /proteins/:id */
 router.delete('/:id', (req, res, next) => {
-  protein.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
-    if (err) return next(err);
-    console.log('protein deleted:');
-    console.log(proteins);
-    res.json(proteins);
-  });
+    protein.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
+        if (err) return next(err);
+        console.log('protein deleted:');
+        console.log(proteins);
+        res.json(proteins);
+    });
 });
 
 module.exports = router;

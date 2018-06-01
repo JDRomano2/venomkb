@@ -21,4 +21,80 @@ const SpeciesSchema = new mongoose.Schema({
     out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
 });
 
-module.exports = mongoose.model('Species', SpeciesSchema);
+const Species = mongoose.model('Species', SpeciesSchema);
+
+/**
+ * returns all the species
+ */
+Species.getAll = () => {
+    return new Promise((resolve, reject) => {
+        Species.find({})
+            .exec((err, species) => {
+                if (err) reject(err)
+                resolve(species)
+            })
+    })
+}
+
+/**
+ * Get an species given its venomkb_id
+ * @param {String} venomkb_id venomkb_id of the species to get
+ * @param {String} path path to populate (leave blank if none)
+ */
+Species.getByVenomKBId = (venomkb_id, path) => {
+    return new Promise((resolve, reject) => {
+        Species.findOne({ venomkb_id: venomkb_id })
+            .populate(path || '')
+            .exec((err, species) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(species);
+            });
+    });
+};
+
+
+/**
+ * Get an species given its id
+ * @param {ObjectId} id  id of the species to get
+ * @param {String} path path to populate (leave blank if none)
+ */
+Species.getById = (id, path) => {
+    return new Promise((resolve, reject) => {
+        Species.findOne({ _id: id })
+            .populate(path || '')
+            .exec((err, species) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(species);
+            });
+    });
+};
+
+/**
+ * Get an species given its name
+ * @param {String} name  name of the Species to get
+ * @param {String} path path to populate (leave blank if none)
+ */
+Species.getByName = (name, path) => {
+    return new Promise((resolve, reject) => {
+        Species.find({ $text: { $search: name } })
+            .populate(path || '')
+            .exec((err, species) => {
+                if (err) {
+                    reject(err);
+                }
+                console.log(species.length);
+
+                resolve(species);
+            });
+    });
+};
+
+module.exports = Species;
+
+
+
+
