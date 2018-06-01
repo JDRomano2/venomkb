@@ -1,6 +1,8 @@
-var assert = require('assert');
-var expect = require('expect');
-var enzyme = require('enzyme');
+import React from 'react';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { spy } from 'sinon';
+import App from '../index/components/App';
 
 // Making sure the test library works
 describe('Array', function() {
@@ -11,3 +13,12 @@ describe('Array', function() {
     });
 });
 
+// React automatic function calls for components
+spy(App.prototype, 'componentDidMount');
+
+describe('<App />', () => {
+    it('calls componentDidMount', () => {
+        const wrapper = mount(<App />);
+        expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
+    });
+});
