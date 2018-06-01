@@ -11,7 +11,8 @@
     "dev": "concurrently \"npm run dev_server\" \"npm run api\"",
     "dev_server": "node venomkb.server.js",
     "prod_server": "node ./server/index.js",
-    "production": "concurrently \"npm run prod_server\" \"npm run api\""
+    "production": "concurrently \"npm run prod_server\" \"npm run api\"",
+    "test": "mocha"
   },
   "keywords": [
     "venomkb",
@@ -67,6 +68,7 @@
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
+    "mocha": "^5.2.0",
     "prop-types": "^15.6.1",
     "redux-devtools": "^3.4.1",
     "redux-devtools-dispatch": "^2.2.1",
