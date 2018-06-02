@@ -12,7 +12,7 @@
     "dev_server": "node venomkb.server.js",
     "prod_server": "node ./server/index.js",
     "production": "concurrently \"npm run prod_server\" \"npm run api\"",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha ./test/mochacfg.js --compilers js:babel-register ./test/test.js"
   },
   "keywords": [
     "venomkb",
@@ -66,13 +66,16 @@
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
+    "ignore-styles": "^5.0.1",
     "mocha": "^5.2.0",
     "prop-types": "^15.6.1",
+    "react-test-renderer": "^16.4.0",
     "redux-devtools": "^3.4.1",
     "redux-devtools-dispatch": "^2.2.1",
     "redux-devtools-dock-monitor": "^1.1.3",
