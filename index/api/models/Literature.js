@@ -17,5 +17,25 @@ const LiteratureSchema = new mongoose.Schema({
     SID: String
 });
 
+Literature = mongoose.model('Literature', LiteratureSchema);
+//========================================
+// ADD
+//========================================
 
-module.exports = mongoose.model('Literature', LiteratureSchema);
+/**
+ * Add a literature to the database
+ * @param {Object} new_literature to be added
+ */
+Literature.add = new_literature => {
+    console.log("enter add fonction");
+    return new Promise((resolve, reject) => {
+        Literature.create(new_literature, (err, created_literature) => {
+            if (err) reject(err)
+            console.log("created literature", created_literature);
+
+            resolve(created_literature)
+        })
+    })
+}
+
+module.exports = Literature;

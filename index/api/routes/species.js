@@ -95,19 +95,36 @@ router.get('/:id', (req, res, next) => {
 });
 
 /**
- * Create new association
+ * Create new species
  * @param {Body} name
  * @param {Body} description
 */
 router.post("/", function (req, res) {
     // Check if all the necessary fields are there
-    console.log(req.body);
 
     if (!req.body.name) {
         return utils.sendStatusMessage(res, 400, "The name field is empty")
     }
+    if (!req.body.venomkb_id) {
+        return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
+    }
+    if (!req.body.lastUpdated) {
+        return utils.sendStatusMessage(res, 400, "The lastUpdated field is empty")
+    }
+    if (!req.body.venom_ref) {
+        return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
+    }
+     if (!req.body.venom.name) {
+        return utils.sendStatusMessage(res, 400, "The venom name field is empty")
+    }
+    if (!req.body.annotation_score) {
+        return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
+    }
+    if (!req.body.venom.proteins) {
+        return utils.sendStatusMessage(res, 400, "The venom protein field is empty")
+    }
 
-    // Check if the association already exists
+    // Check if the species already exists
     return Species.getByName(req.body.name)
         .then(species => {
             console.log("try to find species", species);
@@ -129,6 +146,7 @@ router.post("/", function (req, res) {
             })
         })
         .then((new_species) => {
+            // add taxonomic lineage
             if (req.body.taxonomic) {
                 return new_species.addTaxonomic(req.body.taxonomic)
             } else {
@@ -136,10 +154,25 @@ router.post("/", function (req, res) {
             }
         })
         .then((new_species) => {
-            console.log(new_species);
-
+            // add venom
             if (req.body.venom) {
                 return new_species.addVenom(req.body.venom)
+            } else {
+                return Promise.resolve(new_species);
+            }
+        })
+        .then((new_species) => {
+            // add out links
+            if (req.body.out_links) {
+                return new_species.addOutLinks(req.body.out_links)
+            } else {
+                return Promise.resolve(new_species);
+            }
+        })
+        .then((new_species) => {
+            // add out links
+            if (req.body.literature_predications) {
+                return new_species.addLiterature(req.body.literature_predications)
             } else {
                 return Promise.resolve(new_species);
             }

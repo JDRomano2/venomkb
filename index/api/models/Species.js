@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Taxonomic = require('./Taxonomic');
 const Protein = require('./Protein');
+const OutLink = require('./Outlink');
+const Literature = require('./Literature');
 
 const SpeciesSchema = new mongoose.Schema({
     venomkb_id: { type: String, index:true },
@@ -60,7 +62,6 @@ SpeciesSchema.methods.addTaxonomic = function(taxonomic) {
 
 SpeciesSchema.methods.addVenom = function(venom) {
     // Test wether venom is a object
-    console.log("vnom", venom);
 
     if (!typeof (venom) == "object")
         return Promise.reject({ message: "Venom sent not an object" })
@@ -96,6 +97,68 @@ SpeciesSchema.methods.addVenom = function(venom) {
         return Promise.reject({message: "Proteins field should be an array"})
     }
 }
+
+SpeciesSchema.methods.addOutLinks = function (out_links) {
+    // Test wether venom is a object
+    console.log("out link", typeof out_links, out_links);
+
+
+    const species = this;
+
+    // Add proteins
+    if ((out_links.constructor === Array)) {
+        const promises = [];
+        out_links.forEach(element => {
+            promises.push(new Promise((resolve, reject) => {
+                return OutLink.findOne(element).then((el) => {
+                    if (el) {
+                        return Promise.reject({ message: "Out links already exists :"+element.primary_id+" "+element.ressource });
+                    } else {
+                        return OutLink.add(element);
+                    }
+                }).then((out_link) => {
+                    species.out_links.push(out_link._id);
+                    console.log(species.out_links);
+                    resolve();
+                })
+            }))
+        })
+        return Promise.all(promises).then(() => {
+            return species.save()
+        });
+    } else {
+        return Promise.reject({ message: "Out links field should be an array" })
+    }
+}
+
+SpeciesSchema.methods.addLiterature = function (literatures) {
+    if (!(literatures.constructor === Array)) {
+        return Promise.reject({ message: "Literatures not a list" })
+    }
+
+    const species = this;
+
+    if (typeof literatures[0] == "object") {
+        const promises = [];
+        literatures.forEach(element => {
+            promises.push(new Promise((resolve, reject) => {
+                return Literature.add(element)
+                .then((literature) => {
+                    species.literature_predications.push(literature._id);
+                    console.log(species.literature_predications);
+                    resolve();
+                })
+            })
+            )
+        })
+        return Promise.all(promises).then(() => {
+            return species.save()
+        });
+    } else {
+        return Promise.reject({ message: "Literatures list must contain object" })
+    }
+}
+
 const Species = mongoose.model('Species', SpeciesSchema);
 
 /**
