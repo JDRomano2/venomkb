@@ -9,7 +9,7 @@ const LiteratureSchema = new mongoose.Schema({
     o_name: { type: String, required: true },
     o_cui: { type: String, required: true },
     o_type: { type: String, required: true },
-    id_pred: { type: String, required: true },
+    id_pred: { type: String, required: true, unique: true },
     vkb_protein_ref: { type: String, required: true },
     pmid: { type: Number, required: true },
     toxprot_id: String,

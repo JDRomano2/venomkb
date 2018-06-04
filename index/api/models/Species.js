@@ -22,6 +22,10 @@ const SpeciesSchema = new mongoose.Schema({
     out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
 });
 
+/**
+ * Add taxonomic_lineage to a species
+ * @param {Array} taxonomic an array of taxonomic object
+ */
 SpeciesSchema.methods.addTaxonomic = function(taxonomic) {
     // Test wether taxonomic is a list of object ids or objects
     if (!(taxonomic.constructor === Array)) {
@@ -60,6 +64,10 @@ SpeciesSchema.methods.addTaxonomic = function(taxonomic) {
     }
 }
 
+/**
+ * Add venom to a species
+ * @param {Object} venom a venom object, containing a name and a list of protein's venomkb_id
+ */
 SpeciesSchema.methods.addVenom = function(venom) {
     // Test wether venom is a object
 
@@ -98,14 +106,14 @@ SpeciesSchema.methods.addVenom = function(venom) {
     }
 }
 
+/**
+ * Add outlinks to a species
+ * @param {Array} out_links an array of out_links objects
+ */
 SpeciesSchema.methods.addOutLinks = function (out_links) {
-    // Test wether venom is a object
     console.log("out link", typeof out_links, out_links);
 
-
     const species = this;
-
-    // Add proteins
     if ((out_links.constructor === Array)) {
         const promises = [];
         out_links.forEach(element => {
@@ -131,6 +139,10 @@ SpeciesSchema.methods.addOutLinks = function (out_links) {
     }
 }
 
+/**
+ * Add literatures to a species
+ * @param {Array} literatures an array of literature_predications objects
+ */
 SpeciesSchema.methods.addLiterature = function (literatures) {
     if (!(literatures.constructor === Array)) {
         return Promise.reject({ message: "Literatures not a list" })
@@ -160,6 +172,11 @@ SpeciesSchema.methods.addLiterature = function (literatures) {
 }
 
 const Species = mongoose.model('Species', SpeciesSchema);
+
+//========================================
+// GET
+//========================================
+
 
 /**
  * returns all the species
@@ -246,6 +263,30 @@ Species.add = new_species => {
             console.log("created species", created_species);
 
             resolve(created_species)
+        })
+    })
+}
+
+//========================================
+// DELETE
+//========================================
+
+/**
+ * Delete a species
+ * @param {ObjectId} id species id who needs to be removed from the
+ */
+Species.delete = id => {
+    return new Promise((resolve, reject) => {
+        Species.getById(id).then(species => {
+            if (!species) {
+                reject({ status: "Empty" })
+            }
+            species.remove(err => {
+                if (err) {
+                    reject(err)
+                }
+                resolve()
+            })
         })
     })
 }

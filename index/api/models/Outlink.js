@@ -7,6 +7,28 @@ const OutLinkSchema = new mongoose.Schema({
 });
 
 const OutLink = mongoose.model('OutLink', OutLinkSchema);
+
+//========================================
+// GET
+//========================================
+
+/**
+ * Get a outlink given its id
+ * @param {ObjectId} id  id of the outlink to get
+ */
+OutLink.getById = (id) => {
+    return new Promise((resolve, reject) => {
+        OutLink.findOne({ _id: id })
+            .exec((err, out_link) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(out_link);
+            });
+    });
+};
+
+
 //========================================
 // ADD
 //========================================
@@ -28,6 +50,30 @@ OutLink.add = new_out_link => {
             if (err) reject(err)
             console.log("created out_link", created_out_link);
             resolve(created_out_link)
+        })
+    })
+}
+
+//========================================
+// DELETE
+//========================================
+
+/**
+ * Delete an out_link
+ * @param {ObjectId} id out_link id who needs to be removed from the database
+ */
+OutLink.delete = id => {
+    return new Promise((resolve, reject) => {
+        OutLink.getById(id).then(out_link => {
+            if (!species) {
+                reject({ status: "Empty" })
+            }
+            out_link.remove(err => {
+                if (err) {
+                    reject(err)
+                }
+                resolve()
+            })
         })
     })
 }

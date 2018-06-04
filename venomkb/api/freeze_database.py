@@ -313,23 +313,23 @@ if __name__ == '__main__':
   # unittest.main()
   t1 = time.time()
 
-  # categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
-  # neo = ne.Neo4jWriter(URI, USER, PASSWORD)
+  categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
+  neo = ne.Neo4jWriter(URI, USER, PASSWORD)
   # for genome in data.genomes:
   #     neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
   #                 genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
 
 
   data = VenomkbData()
-  out_species = []
-  for species in data.species:
-    if 'out_links' in species:
-      for key in species["out_links"]:
-        if key not in out_species:
-          out_species.append(key)
-  print(out_species)
+  # out_species = []
+  # for species in data.species:
+  #   if 'out_links' in species:
+  #     for key in species["out_links"]:
+  #       if key not in out_species:
+  #         out_species.append(key)
+  # print(out_species)
 
-  # neo.print_generate_graph(data.proteins, data.species, categories)
+  neo.print_generate_graph(data.proteins, data.species, categories)
 
   # # neo.purge()
   # neo.print_category_nodes("Venomous_Organism")

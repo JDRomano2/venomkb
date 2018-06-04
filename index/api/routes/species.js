@@ -170,7 +170,7 @@ router.post("/", function (req, res) {
             }
         })
         .then((new_species) => {
-            // add out links
+            // add literature predication
             if (req.body.literature_predications) {
                 return new_species.addLiterature(req.body.literature_predications)
             } else {
@@ -185,15 +185,6 @@ router.post("/", function (req, res) {
         })
 })
 
-/* POST /species */
-router.post('/', (req, res, next) => {
-    species.create(req.body, (err, spec) => {
-        if (err) return next(err);
-        console.log('New species created:');
-        console.log(spec);
-        res.json(spec);
-    });
-});
 
 /* GET /species/index */
 router.get('/index', (req, res, next) => {
@@ -221,6 +212,31 @@ router.get('/:id', (req, res, next) => {
     }
 });
 
+/**
+ * Delete species
+ * @param {Query} id id of the species to delete
+*/
+router.delete("/", (req, res) => {
+    if (!req.query.id) {
+        return res.status(400).send({
+            message: "Send a species id"
+        })
+    }
+
+    Species.delete(req.query.id)
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch(err => {
+            if (err.status == "Empty") {
+                res.status(400).send({
+                    message: "The species does not exist"
+                })
+            } else {
+                return res.status(500).json(err.message)
+            }
+        })
+})
 // /* PUT /species/:id */
 // router.put('/:id', (req, res, next) => {
 //     species.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {

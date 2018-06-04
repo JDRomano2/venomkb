@@ -106,6 +106,90 @@ router.get('/:id', (req, res, next) => {
     }
 });
 
+/**
+ * Create new protein
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/", function (req, res) {
+    // Check if all the necessary fields are there
+    console.log(req.body);
+
+    if (!req.body.name) {
+        return utils.sendStatusMessage(res, 400, "The name field is empty")
+    }
+    if (!req.body.venomkb_id) {
+        return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
+    }
+    if (!req.body.lastUpdated) {
+        return utils.sendStatusMessage(res, 400, "The lastUpdated field is empty")
+    }
+    if (!req.body.venom_ref) {
+        return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
+    }
+    if (!req.body.pdb_structure_known) {
+        return utils.sendStatusMessage(res, 400, "The pdb_structure_know field is empty")
+    }
+    if (!req.body.annotation_score) {
+        return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
+    }
+
+    // Check if the protein already exists
+    return Protein.getByVenomKBId(req.body.venomkb_id)
+        .then(protein => {
+            console.log("try to find protein", protein);
+
+            if (protein) {
+                return utils.sendStatusMessage(res, 400, "venomkb_id already exists")
+            }
+        })
+        .then(() => {
+            // Create a new protein
+            return Protein.add({
+                name: req.body.name,
+                lastUpdated: req.body.lastUpdated,
+                venomkb_id: req.body.venomkb_id,
+                common_name: req.body.common_name,
+                venom_ref: req.body.venom_ref,
+                annotation_score: req.body.annotation_score,
+                pdb_structure_known: req.body.pdb_structure_known
+            })
+        })
+        .then((new_protein) => {
+            // add out links
+            if (req.body.out_links) {
+                return new_protein.addOutLinks(req.body.out_links)
+            } else {
+                return Promise.resolve(new_protein);
+            }
+        })
+        .then((new_protein) => {
+            // add literature predication
+            if (req.body.literature_predications) {
+                return new_protein.addLiterature(req.body.literature_predications)
+            } else {
+                return Promise.resolve(new_protein);
+            }
+        })
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch((err) => {
+            utils.sendErrorMessage(res, err);
+        })
+})
+
+
+/* GET /species/index */
+router.get('/index', (req, res, next) => {
+    species.find({}, { venomkb_id: 1, name: 1 }).exec((err, species_ind) => {
+        if (err) return next(err);
+        res.json(species_ind);
+    });
+});
+
+
+
 /* POST /proteins */
 router.post('/', (req, res, next) => {
     protein.create(req.body, (err, proteins) => {
