@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const genome = require('../models/Genome.js');
 const Genome = require('../models/Genome.js');
+const utils = require("../utils.js")
 
 const vkbid_reg = /G\d{7}/;
 

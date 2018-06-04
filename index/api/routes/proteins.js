@@ -56,6 +56,28 @@ router.get('/search', (req, res, next) => {
 });
 
 /**
+ * Find all protein that have a given pattern in their name and return the number
+ * @param {Query} name full name or part of the name of the protein
+ * @returns the number of protein matched
+ */
+/* GET /proteins/name */
+router.get('/count', (req, res, next) => {
+    if (!req.query.name) {
+        console.log("You must enter a name");
+        return utils.sendStatusMessage(res, 400, "protein name not specified")
+
+    }
+    console.log("Find by name");
+    Protein.getByName(req.query.name)
+        .then(proteins => {
+            res.json(proteins.length)
+        })
+        .catch(err => {
+            return sendStatusMessage(res, 500, err.message);
+        })
+});
+
+/**
  * Find a protein given its id or venomkb_id
  * @param {Params} id object id or venomkb_id of the protein
  * @returns the protein

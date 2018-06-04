@@ -1,5 +1,5 @@
 module.exports = {
-    sendErrorMessage(err) {
+    sendErrorMessage(res, err) {
         console.log(err.message);
         return res.status(500).json(err.message);
     },

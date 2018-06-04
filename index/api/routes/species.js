@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const species = require('../models/Species.js');
 const Species = require('../models/Species.js');
+const utils = require("../utils.js")
+
 
 const vkbid_reg = /S\d{7}/;
 
@@ -43,6 +45,27 @@ router.get('/search', (req, res, next) => {
 });
 
 /**
+ * Find all species that have a given pattern in their name
+ * @param {Query} name full name or part of the name of the species
+ * @returns the number of species matched
+ */
+/* GET /species/name */
+router.get('/search', (req, res, next) => {
+    if (!req.query.name) {
+        console.log("You must enter a name");
+        return utils.sendStatusMessage(res, 400, "species name not specified")
+
+    }
+    console.log("Find by name");
+    Species.getByName(req.query.name)
+        .then(species => {
+            res.json(species.length)
+        })
+        .catch(err => {
+            return sendStatusMessage(res, 500, err.message);
+        })
+});
+/**
  * Find a species given its id or venomkb_id
  * @param {Params} id object id or venomkb_id of the species
  * @returns the species
@@ -71,6 +94,63 @@ router.get('/:id', (req, res, next) => {
     }
 });
 
+/**
+ * Create new association
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/", function (req, res) {
+    // Check if all the necessary fields are there
+    console.log(req.body);
+
+    if (!req.body.name) {
+        return utils.sendStatusMessage(res, 400, "The name field is empty")
+    }
+
+    // Check if the association already exists
+    return Species.getByName(req.body.name)
+        .then(species => {
+            console.log("try to find species", species);
+
+            if (species) {
+                return utils.sendStatusMessage(res, 400, "Species name already exists")
+            }
+        })
+        .then(() => {
+            // Create a new species
+            return Species.add({
+                name: req.body.name,
+                lastUpdated: req.body.lastUpdated,
+                venomkb_id: req.body.venomkb_id,
+                common_name: req.body.common_name,
+                venom_ref: req.body.venom_ref,
+                annotation_score: req.body.annotation_score,
+                "venom.name": req.body.venom.name
+            })
+        })
+        .then((new_species) => {
+            if (req.body.taxonomic) {
+                return new_species.addTaxonomic(req.body.taxonomic)
+            } else {
+                return Promise.resolve(new_species);
+            }
+        })
+        .then((new_species) => {
+            console.log(new_species);
+
+            if (req.body.venom) {
+                return new_species.addVenom(req.body.venom)
+            } else {
+                return Promise.resolve(new_species);
+            }
+        })
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch((err) => {
+            utils.sendErrorMessage(res, err);
+        })
+})
 
 /* POST /species */
 router.post('/', (req, res, next) => {
