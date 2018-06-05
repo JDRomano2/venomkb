@@ -1,8 +1,24 @@
 const mongoose = require('mongoose');
 const OutLink = require('./Outlink');
-const Literature = require('./Literature');
 const Reference = require('./Reference');
 const Annotation = require('./Annotation');
+
+const LiteratureSchema = new mongoose.Schema({
+  s_name: { type: String, required: true },
+  s_cui: { type: String, required: true },
+  s_type: { type: String, required: true },
+  predicate: { type: String, required: true },
+  o_name: { type: String, required: true },
+  o_cui: { type: String, required: true },
+  o_type: { type: String, required: true },
+  id_pred: { type: String, required: true, unique: true },
+  vkb_protein_ref: { type: String, required: true },
+  pmid: { type: Number, required: true },
+  toxprot_id: String,
+  PID: String,
+  SID: String
+});
+
 
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
@@ -15,7 +31,7 @@ const ProteinSchema = new mongoose.Schema({
     description: String,
     aa_sequence: String,
     pdb_image_url: String,
-    literature_predications: [{ type: mongoose.Schema.ObjectId, ref: 'Literature' }],
+    literature_predications: [LiteratureSchema],
     literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
     go_annotations: [{ type: mongoose.Schema.ObjectId, ref: 'Annotation' }],
     out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
@@ -31,7 +47,18 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
     const promises = [];
     out_links.forEach(element => {
       promises.push(new Promise((resolve, reject) => {
-        return OutLink.add(element).then((out_link) => {
+        if (element.shared) {
+          return OutLink.findOne(element).then((el)=>{
+            if (el) {
+              return Promise.resolve(el)
+            }
+            else {
+              return OutLink.add(element)
+            }
+          })
+
+        }
+        .then((out_link) => {
           protein.out_links.push(out_link._id);
           resolve();
         }).catch(reject)
@@ -58,20 +85,10 @@ ProteinSchema.methods.addLiterature = function (literatures) {
   const protein = this;
 
   if (typeof literatures[0] == "object") {
-    const promises = [];
     literatures.forEach(element => {
-      promises.push(new Promise((resolve, reject) => {
-        return Literature.add(element)
-          .then((literature) => {
-            protein.literature_predications.push(literature._id);
-            resolve();
-          }).catch(reject)
-      })
-      )
+      protein.literature_predications.push(element)
     })
-    return Promise.all(promises).then(() => {
-      return protein.save()
-    });
+    return protein.save()
   } else {
     return Promise.reject({ message: "Literatures list must contain object" })
   }

@@ -155,7 +155,7 @@ router.post("/", function (req, res) {
                 pdb_structure_known: req.body.pdb_structure_known,
                 description: req.body.description,
                 aa_sequence: req.body.aa_sequence,
-                pdb_image_url: req.boby_pdb_image_url
+                pdb_image_url: req.body.pdb_image_url
             }
             return Protein.add(new_protein)
         })

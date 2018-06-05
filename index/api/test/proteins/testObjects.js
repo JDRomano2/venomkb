@@ -4,16 +4,20 @@ module.exports = {
         "description": "Disintegrin crotatroxin: inhibits fibrinogen interaction with platelets. Acts by binding to the alpha-IIb/beta-3 (ITGA2B/ITGB3) on the platelet surface and inhibits aggregation induced by ADP, thrombin, platelet-activating factor and collagen.",
         "out_links": [
             {
-            ressource: "Pfam",
-            primary_id: "Disintegrin"
+                ressource: "Pfam",
+                primary_id: "Disintegrin",
+                shared: true
             },
             {
                 ressource: "PRINTS",
-                primary_id: "DISINTEGRIN"
+                primary_id: "DISINTEGRIN",
+                shared: true
+
             },
             {
                 ressource: "UniProtKB",
-                primary_id: "P68520"
+                primary_id: "P68520",
+                shared: false
             },
 
         ],
@@ -37,7 +41,6 @@ module.exports = {
                 "vkb_protein_ref": "P0581495",
                 "pmid": 18387648,
                 "toxprot_id": "P68520",
-                "PMID": 18387648,
                 "s_cui": "C0042479"
             },
             {
@@ -53,7 +56,6 @@ module.exports = {
                 "vkb_protein_ref": "P0581495",
                 "pmid": 18387648,
                 "toxprot_id": "P68520",
-                "PMID": 18387648,
                 "s_cui": "C0042479"
             }
         ],
@@ -93,4 +95,51 @@ module.exports = {
             }
         ]
     },
+    protein_simple: {
+        "lastUpdated": 1528228926262,
+        "venomkb_id": "P4385666",
+        "venom_ref": "V5672796",
+        "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    },
+    p_without_name: {
+        "lastUpdated": 1528229327149,
+        "venomkb_id": "P6359717",
+        "venom_ref": "V9806705",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    },
+    p_without_venomkb_id: {
+        "lastUpdated": 1528229327149,
+        "venom_ref": "V9806705",
+        "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    }, p_without_venom_ref: {
+        "lastUpdated": 1528229327149,
+        "venomkb_id": "P6359717",
+        "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    }, p_without_lastUpadated: {
+        "venomkb_id": "P6359717",
+        "venom_ref": "V9806705",
+        "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    }, p_without_annotation_score: {
+        "venomkb_id": "P6359717",
+        "venom_ref": "V9806705",
+        "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    }, p_without_pdb_structure_know: {
+        "venomkb_id": "P6359717",
+        "venom_ref": "V9806705",
+        "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
+        "pdb_structure_known": false,
+        "annotation_score": 5,
+    }
+
 }

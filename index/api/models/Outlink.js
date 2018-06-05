@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const OutLinkSchema = new mongoose.Schema({
     ressource: {type: String, required: true},
     primary_id: {type: String, required: true},
+    shared: {type: Boolean, required: true},
     attribute: String,
+
 });
 
 const OutLink = mongoose.model('OutLink', OutLinkSchema);
