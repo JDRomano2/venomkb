@@ -27,12 +27,10 @@ Literature = mongoose.model('Literature', LiteratureSchema);
  * @param {Object} new_literature to be added
  */
 Literature.add = new_literature => {
-    console.log("enter add fonction");
+    console.log("enter add literature fonction");
     return new Promise((resolve, reject) => {
         Literature.create(new_literature, (err, created_literature) => {
             if (err) reject(err)
-            console.log("created literature", created_literature);
-
             resolve(created_literature)
         })
     })

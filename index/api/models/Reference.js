@@ -12,5 +12,24 @@ const ReferenceSchema = new mongoose.Schema({
     date: Date
 });
 
+Reference = mongoose.model('Reference', ReferenceSchema);
 
-module.exports = mongoose.model('Reference', ReferenceSchema);
+//========================================
+// ADD
+//========================================
+
+/**
+ * Add an reference to the database
+ * @param {Object} new_reference to be added
+ */
+Reference.add = new_reference => {
+    console.log("enter add reference fonction");
+    return new Promise((resolve, reject) => {
+        Reference.create(new_reference, (err, created_reference) => {
+            if (err) reject(err)
+            resolve(created_reference)
+        })
+    })
+}
+
+module.exports = Reference;

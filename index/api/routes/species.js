@@ -125,7 +125,7 @@ router.post("/", function (req, res) {
     }
 
     // Check if the species already exists
-    return Species.getByName(req.body.name)
+    return Species.getByVenomKBId(req.body.venomkb_id)
         .then(species => {
             console.log("try to find species", species);
 
@@ -147,8 +147,8 @@ router.post("/", function (req, res) {
         })
         .then((new_species) => {
             // add taxonomic lineage
-            if (req.body.taxonomic) {
-                return new_species.addTaxonomic(req.body.taxonomic)
+            if (req.body.taxonomic_lineage) {
+                return new_species.addTaxonomic(req.body.taxonomic_lineage)
             } else {
                 return Promise.resolve(new_species);
             }
@@ -169,14 +169,14 @@ router.post("/", function (req, res) {
                 return Promise.resolve(new_species);
             }
         })
-        .then((new_species) => {
-            // add literature predication
-            if (req.body.literature_predications) {
-                return new_species.addLiterature(req.body.literature_predications)
-            } else {
-                return Promise.resolve(new_species);
-            }
-        })
+        // .then((new_species) => {
+        //     // add literature predication
+        //     if (req.body.literature_predications) {
+        //         return new_species.addLiterature(req.body.literature_predications)
+        //     } else {
+        //         return Promise.resolve(new_species);
+        //     }
+        // })
         .then(() => {
             res.sendStatus(200)
         })

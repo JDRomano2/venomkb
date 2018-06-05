@@ -27,7 +27,8 @@ mongoose.Promise = global.Promise;
 //   .then(() =>  console.log('connection to MongoDB succesful'))
 //   .catch((err) => console.error(err));
 
-mongoose.connect('mongodb://localhost:27017/venomkb-staging')
+const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb-staging'
+mongoose.connect(bdd_location)
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));

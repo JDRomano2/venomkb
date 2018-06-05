@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const OutLink = require('./Outlink');
 const Literature = require('./Literature');
+const Reference = require('./Reference');
+const Annotation = require('./Annotation');
 
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
@@ -24,8 +26,6 @@ const ProteinSchema = new mongoose.Schema({
  * @param {Array} out_links an array of out_links objects
  */
 ProteinSchema.methods.addOutLinks = function (out_links) {
-  console.log("out link", typeof out_links, out_links);
-
   const protein = this;
   if ((out_links.constructor === Array)) {
     const promises = [];
@@ -34,7 +34,7 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
         return OutLink.add(element).then((out_link) => {
           protein.out_links.push(out_link._id);
           resolve();
-        })
+        }).catch(reject)
       }))
     })
     return Promise.all(promises).then(() => {
@@ -64,9 +64,8 @@ ProteinSchema.methods.addLiterature = function (literatures) {
         return Literature.add(element)
           .then((literature) => {
             protein.literature_predications.push(literature._id);
-            console.log(protein.literature_predications);
             resolve();
-          })
+          }).catch(reject)
       })
       )
     })
@@ -75,6 +74,68 @@ ProteinSchema.methods.addLiterature = function (literatures) {
     });
   } else {
     return Promise.reject({ message: "Literatures list must contain object" })
+  }
+}
+
+/**
+ * Add literature references to a protein
+ * @param {Array} references an array of literature_reference objects
+ */
+ProteinSchema.methods.addReference = function (references) {
+  if (!(references.constructor === Array)) {
+    return Promise.reject({ message: "References not a list" })
+  }
+
+  const protein = this;
+
+  if (typeof references[0] == "object") {
+    const promises = [];
+    references.forEach(element => {
+      promises.push(new Promise((resolve, reject) => {
+        return Reference.add(element)
+          .then((reference) => {
+            protein.literature_references.push(reference._id);
+            resolve();
+          }).catch(reject)
+      })
+      )
+    })
+    return Promise.all(promises).then(() => {
+      return protein.save()
+    });
+  } else {
+    return Promise.reject({ message: "References list must contain object" })
+  }
+}
+
+/**
+ * Add literature gene annotation to a protein
+ * @param {Array} go_annotation an array of go_annotation objects
+ */
+ProteinSchema.methods.addAnnotation = function (annotations) {
+  if (!(annotations.constructor === Array)) {
+    return Promise.reject({ message: "Annotation not a list" })
+  }
+
+  const protein = this;
+
+  if (typeof annotations[0] == "object") {
+    const promises = [];
+    annotations.forEach(element => {
+      promises.push(new Promise((resolve, reject) => {
+        return Annotation.add(element)
+          .then((annotation) => {
+            protein.go_annotations.push(annotation._id);
+            resolve();
+          }).catch(reject)
+      })
+      )
+    })
+    return Promise.all(promises).then(() => {
+      return protein.save()
+    });
+  } else {
+    return Promise.reject({ message: "Annotations list must contain object" })
   }
 }
 const Protein = mongoose.model('Protein', ProteinSchema);
@@ -142,8 +203,6 @@ Protein.getByName = (name, path) => {
         if (err) {
           reject(err);
         }
-        console.log(proteins.length);
-
         resolve(proteins);
       });
   });
@@ -158,12 +217,10 @@ Protein.getByName = (name, path) => {
  * @param {Object} new_protein to be added
  */
 Protein.add = new_protein => {
-  console.log("enter add fonction");
 
   return new Promise((resolve, reject) => {
     Protein.create(new_protein, (err, created_protein) => {
       if (err) reject(err)
-      console.log("created protein", created_protein);
 
       resolve(created_protein)
     })

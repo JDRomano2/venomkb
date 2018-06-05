@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 const Taxonomic = require('./Taxonomic');
 const Protein = require('./Protein');
-const OutLink = require('./Outlink');
 const Literature = require('./Literature');
+
+
+const OutLinkSchema = new mongoose.Schema({
+    ressource: { type: String, required: true },
+    primary_id: { type: String, required: true },
+    attribute: String,
+});
 
 const SpeciesSchema = new mongoose.Schema({
     venomkb_id: { type: String, index:true },
@@ -19,7 +25,7 @@ const SpeciesSchema = new mongoose.Schema({
     },
     literature_predications: [{ type: mongoose.Schema.ObjectId, ref: 'Literature' }],
     taxonomic_lineage: [{ type: mongoose.Schema.ObjectId, ref: 'Taxonomic' }],
-    out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
+    out_links: [OutLinkSchema]
 });
 
 /**
@@ -46,10 +52,8 @@ SpeciesSchema.methods.addTaxonomic = function(taxonomic) {
                         }
                     }).then((taxonomic_element) => {
                         species.taxonomic_lineage.push(taxonomic_element._id);
-                        console.log(species.taxonomic_lineage);
-
                         resolve();
-                    })
+                    }).catch(reject)
                 })
             )
         })
@@ -92,10 +96,8 @@ SpeciesSchema.methods.addVenom = function(venom) {
                         reject({message: "The protein venomkbId: " + element + " was not found in the database ... Please add it before"})
                     }
                     species.venom.proteins.push(protein._id)
-                    console.log(species.venom.proteins);
-
                     resolve();
-                })
+                }).catch(reject)
             }))
         })
         return Promise.all(promises).then(() => {
@@ -111,29 +113,14 @@ SpeciesSchema.methods.addVenom = function(venom) {
  * @param {Array} out_links an array of out_links objects
  */
 SpeciesSchema.methods.addOutLinks = function (out_links) {
-    console.log("out link", typeof out_links, out_links);
 
     const species = this;
     if ((out_links.constructor === Array)) {
-        const promises = [];
         out_links.forEach(element => {
-            promises.push(new Promise((resolve, reject) => {
-                return OutLink.findOne(element).then((el) => {
-                    if (el) {
-                        return Promise.reject({ message: "Out links already exists :"+element.primary_id+" "+element.ressource });
-                    } else {
-                        return OutLink.add(element);
-                    }
-                }).then((out_link) => {
-                    species.out_links.push(out_link._id);
-                    console.log(species.out_links);
-                    resolve();
-                })
-            }))
-        })
-        return Promise.all(promises).then(() => {
-            return species.save()
+            species.out_links.push(element)
         });
+        console.log(species);
+        return species.save()
     } else {
         return Promise.reject({ message: "Out links field should be an array" })
     }
@@ -157,9 +144,8 @@ SpeciesSchema.methods.addLiterature = function (literatures) {
                 return Literature.add(element)
                 .then((literature) => {
                     species.literature_predications.push(literature._id);
-                    console.log(species.literature_predications);
                     resolve();
-                })
+                }).catch(reject)
             })
             )
         })
@@ -255,13 +241,9 @@ Species.getByName = (name, path) => {
  * @param {Object} new_species to be added
  */
 Species.add = new_species => {
-    console.log("enter add fonction");
-
     return new Promise((resolve, reject) => {
         Species.create(new_species, (err, created_species) => {
             if (err) reject(err)
-            console.log("created species", created_species);
-
             resolve(created_species)
         })
     })

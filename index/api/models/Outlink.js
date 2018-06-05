@@ -38,7 +38,7 @@ OutLink.getById = (id) => {
  * @param {Object} new_out_link to be added
  */
 OutLink.add = new_out_link => {
-    console.log("enter add fonction");
+    console.log("enter add out link fonction");
     if (!new_out_link.ressource)
         return Promise.reject({ message: "Out links sent requires a ressource field" })
 
@@ -48,7 +48,6 @@ OutLink.add = new_out_link => {
     return new Promise((resolve, reject) => {
         OutLink.create(new_out_link, (err, created_out_link) => {
             if (err) reject(err)
-            console.log("created out_link", created_out_link);
             resolve(created_out_link)
         })
     })
