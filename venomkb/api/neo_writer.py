@@ -34,63 +34,63 @@ class Neo4jWriter(object):
     self.purge()
     # add category
     for category in categories:
-      self.category_nodes(category, verbose=False)
+      self.category_nodes(category, verbose)
 
     self.is_a_subclass_relationship(
-        "Peptide", "Biological_Macromolecule", verbose=False)
+        "Peptide", "Biological_Macromolecule", verbose)
     self.is_a_subclass_relationship(
-        "Carbohydrate", "Biological_Macromolecule", verbose=False)
+        "Carbohydrate", "Biological_Macromolecule", verbose)
     self.is_a_subclass_relationship(
-        "Biological_Macromolecule", "Molecule", verbose=False)
-    self.is_a_subclass_relationship("Inorganic_Molecule", "Molecule", verbose=False)
-    self.is_a_subclass_relationship("Whole_Venom_Extract", "Mixture", verbose=False)
-    self.is_a_subclass_relationship("Molecule", "Chemical_Compound", verbose=False)
-    self.is_a_subclass_relationship("Mixture", "Chemical_Compound", verbose=False)
+        "Biological_Macromolecule", "Molecule", verbose)
+    self.is_a_subclass_relationship("Inorganic_Molecule", "Molecule", verbose)
+    self.is_a_subclass_relationship("Whole_Venom_Extract", "Mixture", verbose)
+    self.is_a_subclass_relationship("Molecule", "Chemical_Compound", verbose)
+    self.is_a_subclass_relationship("Mixture", "Chemical_Compound", verbose)
     self.is_a_subclass_relationship(
-        "Synthetic_Venom_Derivative", "Chemical_Compound", verbose=False)
-    self.is_a_subclass_relationship("Chemical_Compound", "Venom", verbose=False)
-    self.is_a_subclass_relationship("Venomous_Organism", "Thing", verbose=False)
-    self.is_a_subclass_relationship("Venom", "Thing", verbose=False)
+        "Synthetic_Venom_Derivative", "Chemical_Compound", verbose)
+    self.is_a_subclass_relationship("Chemical_Compound", "Venom", verbose)
+    self.is_a_subclass_relationship("Venomous_Organism", "Thing", verbose)
+    self.is_a_subclass_relationship("Venom", "Thing", verbose)
 
     pfam_added = []
     # add proteins
     for protein in proteins:
       self.protein(protein["name"], protein["venomkb_id"], protein["annotation_score"],
-                   protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"], verbose=False)
+                   protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"], verbose)
 
       if 'Pfam' in protein["out_links"]:
         pfam = protein["out_links"]["Pfam"]["attributes"]["name"]
         if pfam not in pfam_added:
           self.pfam_node(pfam)
           pfam_added.append(pfam)
-        self.pfam_relationship(protein["venomkb_id"], pfam, verbose=False)
+        self.pfam_relationship(protein["venomkb_id"], pfam, verbose)
 
       if 'go_annotations' in protein:
         for elt in protein["go_annotations"]:
           self.is_a_go_relation_and_node(
-              protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"], verbose=False)
+              protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"], verbose)
 
       if 'literature_predications' in protein:
         if type(protein["literature_predications"][0]) == list:
           for elt in protein["literature_predications"][0]:
             self.predication_relation_and_node(
-                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"], verbose=False)
+                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"], verbose)
         else:
           for elt in protein["literature_predications"]:
             self.predication_relation_and_node(
-                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"], verbose=False)
+                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"], verbose)
 
     # add species
     for species in species_list:
       self.species(
-          species["name"], species["venomkb_id"], species["annotation_score"], verbose=False)
+          species["name"], species["venomkb_id"], species["annotation_score"], verbose)
       for protein in species["venom"]["proteins"]:
-        self.link(species["name"], protein, verbose=False)
+        self.link(species["name"], protein, verbose)
 
     # add genomes
     for genome in genomes:
       self.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
-                  genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=False)
+                  genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose)
 
   def species(self, name, venomkb_id, score, verbose=False):
     """This function create a species node into the graph.

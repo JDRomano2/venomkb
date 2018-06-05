@@ -329,7 +329,7 @@ if __name__ == '__main__':
   #         out_species.append(key)
   # print(out_species)
 
-  neo.print_generate_graph(data.proteins, data.species, data.genomes, categories, verbose=False)
+  neo.generate_graph(data.proteins, data.species, data.genomes, categories, verbose=False)
 
   # # neo.purge()
   # neo.print_category_nodes("Venomous_Organism")
