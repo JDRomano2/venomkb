@@ -16,6 +16,9 @@ const ex1 = {
     "select": "Species",
     "aggregate": { "count": "Species" }
 }
+// MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein) WHERE p.name CONTAINS 'Phospholipase' OR p.name CONTAINS 'phospholipase'
+// RETURN count(distinct s)
+
 
 
 class NeoAdapter {
@@ -85,8 +88,22 @@ class Query {
         });
     }
 
-    generateCypherQuery() {
+    buildMatch() {
 
+    }
+
+    buildReturn() {
+
+    }
+
+    validateCypher() {
+
+    }
+
+    generateCypherQuery() {
+        buildMatch();
+        buildReturn();
+        validateCypher();
     }
 
     logQuery() {
