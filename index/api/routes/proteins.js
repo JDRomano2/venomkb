@@ -140,7 +140,7 @@ router.post("/", function (req, res) {
             console.log("try to find protein", protein);
 
             if (protein) {
-                return utils.sendStatusMessage(res, 400, "venomkb_id already exists")
+                return Promise.reject({message: "venomkb_id already exists"})
             }
         })
         .then(() => {

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Taxonomic = require('./Taxonomic');
 const Protein = require('./Protein');
-const Literature = require('./Literature');
 
 
 const OutLinkSchema = new mongoose.Schema({

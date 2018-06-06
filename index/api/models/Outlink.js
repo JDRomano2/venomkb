@@ -30,6 +30,19 @@ OutLink.getById = (id) => {
     });
 };
 
+/**
+ * returns all the Outlink
+ */
+OutLink.getAll = () => {
+    return new Promise((resolve, reject) => {
+        OutLink.find({})
+            .exec((err, out_links) => {
+                if (err) reject(err)
+                resolve(out_links)
+            })
+    })
+}
+
 
 //========================================
 // ADD

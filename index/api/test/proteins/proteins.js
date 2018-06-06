@@ -12,6 +12,7 @@ const server = require("../../index.js");
 chai.use(chaiHttp);
 
 const Protein = require('../../models/Protein')
+const OutLink = require('../../models/Outlink')
 const objects = require("./testObjects");
 
 // Require the agent defined in the initialize
@@ -67,12 +68,12 @@ describe("Protein model tests", () => {
                 })
                 .catch(done)
         })
-        it("Should return 400 when try to add a protein that already exists in the database", (done) => {
+        it("Should return 500 when try to add a protein that already exists in the database", (done) => {
             agent
                 .post('/proteins')
                 .send(objects.protein_simple)
                 .then(res => {
-                    expect(res.statusCode).to.equal(400)
+                    expect(res.statusCode).to.equal(500)
                     done();
                 })
                 .catch(done)
@@ -145,6 +146,38 @@ describe("Protein model tests", () => {
                     done()
                 })
                 .catch(done)
+        })
+    })
+
+    describe("Outlink model test", ()=>{
+        it("Should add protein with same pfam", (done) => {
+            agent
+                .post('/proteins')
+                .send(objects.protein_pfam)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should get the added protein and check the number of out_links", (done) => {
+            Protein.getByVenomKBId(objects.protein_pfam.venomkb_id)
+                .then((protein) => {
+                    console.log("test out liink", protein);
+
+                    expect(protein.name).to.equal(objects.protein_pfam.name)
+                    expect(protein.out_links.length).to.equal(objects.protein_pfam.out_links.length)
+                    done()
+                })
+                .catch(done)
+        })
+        it("Should get all the outlinks from the database", (done) => {
+            OutLink.getAll()
+            .then((out_links_list) => {
+                expect(out_links_list.length).to.equal(4)
+                done()
+            })
+            .catch(done)
         })
     })
 });
