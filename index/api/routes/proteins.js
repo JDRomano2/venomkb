@@ -140,7 +140,7 @@ router.post("/", function (req, res) {
             console.log("try to find protein", protein);
 
             if (protein) {
-                return utils.sendStatusMessage(res, 400, "venomkb_id already exists")
+                return Promise.reject({message: "venomkb_id already exists"})
             }
         })
         .then(() => {
@@ -155,7 +155,7 @@ router.post("/", function (req, res) {
                 pdb_structure_known: req.body.pdb_structure_known,
                 description: req.body.description,
                 aa_sequence: req.body.aa_sequence,
-                pdb_image_url: req.boby_pdb_image_url
+                pdb_image_url: req.body.pdb_image_url
             }
             return Protein.add(new_protein)
         })

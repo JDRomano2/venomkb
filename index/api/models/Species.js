@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Taxonomic = require('./Taxonomic');
 const Protein = require('./Protein');
-const Literature = require('./Literature');
 
 
 const OutLinkSchema = new mongoose.Schema({
@@ -119,7 +118,6 @@ SpeciesSchema.methods.addOutLinks = function (out_links) {
         out_links.forEach(element => {
             species.out_links.push(element)
         });
-        console.log(species);
         return species.save()
     } else {
         return Promise.reject({ message: "Out links field should be an array" })

@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const OutLinkSchema = new mongoose.Schema({
     ressource: {type: String, required: true},
     primary_id: {type: String, required: true},
+    shared: {type: Boolean, required: true},
     attribute: String,
+
 });
 
 const OutLink = mongoose.model('OutLink', OutLinkSchema);
@@ -27,6 +29,19 @@ OutLink.getById = (id) => {
             });
     });
 };
+
+/**
+ * returns all the Outlink
+ */
+OutLink.getAll = () => {
+    return new Promise((resolve, reject) => {
+        OutLink.find({})
+            .exec((err, out_links) => {
+                if (err) reject(err)
+                resolve(out_links)
+            })
+    })
+}
 
 
 //========================================

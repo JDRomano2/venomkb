@@ -13,7 +13,6 @@ chai.use(chaiHttp);
 
 const Species = require("../models/Species")
 const Protein = require("../models/Protein")
-const Literature = require('../models/Literature')
 const Taxonomic = require('../models/Taxonomic')
 const Annotation = require('../models/Annotation')
 const Genome = require('../models/Genome')
@@ -33,11 +32,7 @@ describe('Initialize tests', () => {
             done(err)
         })
     })
-    it("erase all literatures", (done) => {
-        Literature.remove({}, err => {
-            done(err)
-        })
-    })
+
     it("erase all taxonomic", (done) => {
         Taxonomic.remove({}, err => {
             done(err)
