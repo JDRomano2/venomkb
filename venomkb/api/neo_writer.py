@@ -2,13 +2,14 @@ from neo4j.v1 import GraphDatabase
 import configparser
 
 class Neo4jWriter(object):
-  def __init__(self, uri, user, password):
+  def __init__(self, uri, user, password, verbose=False):
     self._driver = GraphDatabase.driver(uri, auth=(user, password))
+    self.verbose = verbose
 
   def close(self):
     self._driver.close()
 
-  def generate_graph(self, proteins, species_list, genomes, categories, verbose=False):
+  def generate_graph(self, proteins, species_list, genomes, classes):
     """This function create a neo4j graph.
 
           Args:
@@ -31,68 +32,81 @@ class Neo4jWriter(object):
           Returns:
             A neo4j graph located in /neo4j-community-3.4/data/databases/graph.db
       """
-    self.purge()
-    # add category
-    for category in categories:
-      self.category_nodes(category, verbose)
+    self.purge()  # start by nuking the contents of the graph database
 
-    self.is_a_subclass_relationship(
-        "Peptide", "Biological_Macromolecule", verbose)
-    self.is_a_subclass_relationship(
-        "Carbohydrate", "Biological_Macromolecule", verbose)
-    self.is_a_subclass_relationship(
-        "Biological_Macromolecule", "Molecule", verbose)
-    self.is_a_subclass_relationship("Inorganic_Molecule", "Molecule", verbose)
-    self.is_a_subclass_relationship("Whole_Venom_Extract", "Mixture", verbose)
-    self.is_a_subclass_relationship("Molecule", "Chemical_Compound", verbose)
-    self.is_a_subclass_relationship("Mixture", "Chemical_Compound", verbose)
-    self.is_a_subclass_relationship(
-        "Synthetic_Venom_Derivative", "Chemical_Compound", verbose)
-    self.is_a_subclass_relationship("Chemical_Compound", "Venom", verbose)
-    self.is_a_subclass_relationship("Venomous_Organism", "Thing", verbose)
-    self.is_a_subclass_relationship("Venom", "Thing", verbose)
+    # Create ontology classes
+    for ontology_class in classes:
+      self.ont_class_nodes(ontology_class, verbose)
+
+    # Hierarchical relations
+    self.is_a_subclass_relationship("Protein", "Biological_Macromolecule")
+    self.is_a_subclass_relationship("Carbohydrate", "Biological_Macromolecule")
+    self.is_a_subclass_relationship("Biological_Macromolecule", "Molecule")
+    self.is_a_subclass_relationship("Inorganic_Molecule", "Molecule")
+    self.is_a_subclass_relationship("Venom", "Mixture")
+    self.is_a_subclass_relationship("Molecule", "Chemical_Compound")
+    self.is_a_subclass_relationship("Mixture", "Chemical_Compound")
+    self.is_a_subclass_relationship("Synthetic_Venom_Derivative", "Chemical_Compound")
+    self.is_a_subclass_relationship("Chemical_Compound", "Venom")
+    self.is_a_subclass_relationship("Species", "Thing")
+    self.is_a_subclass_relationship("Genome", "Thing")
+
+    # Explicit nonhierarchical relations
+    self.add_ontology_class_relationship("Venom", "Molecule", "HAS_VENOM_COMPONENT")
+    self.add_ontology_class_relationship("Molecule", "Venom", "HAS_DERIVATIVE_COMPOUND")
+    self.add_ontology_class_relationship("Venom", "Species", "SPECIES_OF_ORIGIN")
+    self.add_ontology_class_relationship("Species", "Venom", "HAS_VENOM")
+    self.add_ontology_class_relationship("Synthetic_Venom_Derivative", "Molecule", "IS_DERIVATIVE_OF")
+    self.add_ontology_class_relationship("Molecule", "Synthetic_Venom_Derivative", "HAS_DERIVATIVE_COMPOUND")
+
+    # Imputed nonhierarchical relations
+    # (i.e., "shortcuts for venomkb")
+    self.add_ontology_class_relationship("Species", "Protein", "SPECIES_HAS_PROTEIN")
+    self.add_ontology_class_relationship("Protein", "Species", "PROTEIN_FROM_SPECIES")
+    self.add_ontology_class_relationship("Species", "Genome", "SPECIES_HAS_GENOME")
+    self.add_ontology_class_relationship("Genome", "Species", "GENOME_FROM_SPECIES")
 
     pfam_added = []
     # add proteins
     for protein in proteins:
       self.protein(protein["name"], protein["venomkb_id"], protein["annotation_score"],
-                   protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"], verbose)
+                   protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
 
       if 'Pfam' in protein["out_links"]:
         pfam = protein["out_links"]["Pfam"]["attributes"]["name"]
         if pfam not in pfam_added:
           self.pfam_node(pfam)
           pfam_added.append(pfam)
-        self.pfam_relationship(protein["venomkb_id"], pfam, verbose)
+        self.pfam_relationship(protein["venomkb_id"], pfam)
 
       if 'go_annotations' in protein:
         for elt in protein["go_annotations"]:
           self.is_a_go_relation_and_node(
-              protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"], verbose)
+              protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
 
       if 'literature_predications' in protein:
         if type(protein["literature_predications"][0]) == list:
           for elt in protein["literature_predications"][0]:
             self.predication_relation_and_node(
-                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"], verbose)
+                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
         else:
           for elt in protein["literature_predications"]:
             self.predication_relation_and_node(
-                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"], verbose)
+                protein["venomkb_id"], elt["s_name"], elt["s_cui"], elt["s_type"], elt["o_name"], elt["o_cui"], elt["o_type"], elt["predicate"], elt["PMID"])
 
     # add species
     for species in species_list:
       self.species(
-          species["name"], species["venomkb_id"], species["annotation_score"], verbose)
+          species["name"], species["venomkb_id"], species["annotation_score"])
       for protein in species["venom"]["proteins"]:
-        self.link(species["name"], protein, verbose)
+        self.link(species["name"], protein)
 
     # add genomes
     for genome in genomes:
       self.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
-                  genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose)
+                  genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"])
 
-  def species(self, name, venomkb_id, score, verbose=False):
+  def species(self, name, venomkb_id, score):
     """This function create a species node into the graph.
     It links the node to the Venomous_Organism node with a "is instance of" link.
 
@@ -109,10 +123,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       species = session.write_transaction(
           self._add_species, (name, venomkb_id, score))
-      if verbose:
+      if self.verbose:
         print(species)
 
-  def protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id, verbose=False):
+  def protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id):
     """This function create a protein node into the graph.
     It links the node to the Peptide node with a "is instance of" link
 
@@ -131,10 +145,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       protein = session.write_transaction(
           self._add_protein, (name, venomkb_id, score, aa_sequence, UnitProtKB_id))
-      if verbose:
+      if this.verbose:
         print(protein)
 
-  def genome(self, name, venomkb_id, score, journal, link, species_id, verbose=False):
+  def genome(self, name, venomkb_id, score, journal, link, species_id):
     """This function create a genome node into the graph.
     It links the node to the node with a "is instance of" link
     It links the node to the correct species node with as "has genome" link
@@ -155,10 +169,10 @@ class Neo4jWriter(object):
       genome = session.write_transaction(
           self._add_genome, (name, venomkb_id, score,
                               journal, link, species_id))
-      if verbose:
+      if this.verbose:
         print(genome)
 
-  def category_nodes(self, name, verbose=False):
+  def ont_class_nodes(self, name):
     """This function create an ontology class node into the graph.
 
           Args:
@@ -171,10 +185,10 @@ class Neo4jWriter(object):
     """
     with self._driver.session() as session:
       category = session.write_transaction(self._add_nodes_category, name)
-      if verbose:
+      if this.verbose:
         print(category)
 
-  def pfam_node(self, pfam, verbose=False):
+  def pfam_node(self, pfam):
     """This function create a protein family (alias pfam) node into the graph.
 
           Args:
@@ -187,10 +201,10 @@ class Neo4jWriter(object):
     """
     with self._driver.session() as session:
       pfam = session.write_transaction(self._add_nodes_pfam, pfam)
-      if verbose:
+      if this.verbose:
         print(pfam)
 
-  def link(self, species, protein_id, verbose=False):
+  def link(self, species, protein_id):
     """This function add a link between a species and a protein into the graph.
 
           Args:
@@ -205,10 +219,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_relationship, (species, protein_id))
-      if verbose:
+      if this.verbose:
         print(relationship)
 
-  def protein_peptide_relationship(self, protein_id, verbose=False):
+  def protein_peptide_relationship(self, protein_id):
     """This function add a link between a protein and the "Peptide" node which is an onlogy class.
 
           Args:
@@ -222,10 +236,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_protein_peptide_relationship, protein_id)
-      if verbose :
+      if this.verbose:
        print(relationship)
 
-  def specie_organism_relationship(self, species_id, verbose=False):
+  def specie_organism_relationship(self, species_id):
     """This function add a link between a species and the "Venomous Organism" node which is an onlogy class.
 
           Args:
@@ -239,10 +253,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_species_organism_relationship, species_id)
-      if verbose:
+      if this.verbose:
         print(relationship)
 
-  def is_a_subclass_relationship(self, category_a, category_b, verbose=False):
+  def is_a_subclass_relationship(self, category_a, category_b):
     """This function add a link between 2 onlogy classes : "a is a subclass of b"
 
           Args:
@@ -257,10 +271,21 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_is_a_relationship, (category_a, category_b))
-      if verbose:
+      if this.verbose:
         print(relationship)
 
-  def pfam_relationship(self, protein_id, pfam, verbose=False):
+  def add_ontology_class_relationship(self,
+                                      class_a,
+                                      class_b,
+                                      rel_label):
+    with self._driver.session() as session:
+      relationship = session.write_transaction(
+        self._run_ontology_class_relationship, (class_a, class_b, rel_label)
+      )
+      if this.verbose:
+        print(relationship)
+
+  def pfam_relationship(self, protein_id, pfam):
     """This function add a link a protein and a pfam.
 
           Args:
@@ -275,10 +300,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_pfam_relation, (protein_id, pfam))
-      if verbose:
+      if this.verbose:
         print(relationship)
 
-  def is_a_go_relation_and_node(self, protein_id, evidence, term, go_id, project, verbose=False):
+  def is_a_go_relation_and_node(self, protein_id, evidence, term, go_id, project):
     """This function create a node for a gene ontology, and link this node to the correct protein.
 
           Args:
@@ -296,10 +321,10 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_is_a_go_relation_and_node, (protein_id, evidence, term, go_id, project))
-      if verbose:
+      if this.verbose:
         print(relationship)
 
-  def predication_relation_and_node(self, protein_id,  s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid, verbose=False):
+  def predication_relation_and_node(self, protein_id,  s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid):
     """This function create a node for a literature predication, and link this node to the correct protein.
 
           Args:
@@ -321,7 +346,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_predication_relation_and_node, (
           protein_id, s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid))
-      if verbose:
+      if this.verbose:
         print(relationship)
 
   def purge(self):
@@ -333,9 +358,11 @@ class Neo4jWriter(object):
           Returns:
             The transactions that deleted all elements
     """
-
     with self._driver.session() as session:
       del_all = session.write_transaction(self._purge_db_contents)
+      if this.verbose:
+        print("PURGE DATABASE")
+        print()
       return del_all
 
   @staticmethod
@@ -421,6 +448,22 @@ class Neo4jWriter(object):
                 RETURN r"""
     result = tx.run(
         statement, {"category_a": category_a, "category_b": category_b})
+    return result.single()[0]
+
+  @staticmethod
+  def _run_ontology_class_relationship(tx, payload):
+    (class_a, class_b, relationship) = payload
+    statement = """MATCH (a:OntologyClass {name : {class_a}},
+                (b:OntologyClass {name : {class_b}})
+                CREATE (a)-[r:{relationship}]->(b)
+                RETURN r"""
+    result = tx.run(
+      statement, {
+        "class_a": class_a,
+        "class_b": class_b,
+        "relationship": relationship
+      }
+    )
     return result.single()[0]
 
   @staticmethod

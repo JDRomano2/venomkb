@@ -304,41 +304,34 @@ class NeoSimpleStat(object):
     return list(tx.run(statement))
 
 if __name__ == '__main__':
-  # properties = neo.print_information_protein("P0307338")
-  # neo = NeoSimpleStat(URI, USER, PASSWORD)
-  # neo.print_count_nodes()
-  # neo.print_genome("Lachesana tarabaevi")
-  # res = neo.print_statistics()
-  # print(res[0])
-  # unittest.main()
-  t1 = time.time()
+  VERBOSE = True
 
-  categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
-  neo = ne.Neo4jWriter(URI, USER, PASSWORD)
-  # for genome in data.genomes:
-  #     neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
-  #                 genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
+  t_start = time.time()
 
+  neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=VERBOSE)
+
+  ontology_classes = [
+    "Peptide",
+    "Carbohydrate",
+    "Biological_Macromolecule",
+    "Inorganic_Molecule",
+    "Whole_Venom_Extract",
+    "Mixture",
+    "Molecule",
+    "Synthetic_Venom_Derivative",
+    "Venomous_Organism",
+    "Chemical_Compound",
+    "Venom",
+    "Thing"
+  ]
 
   data = VenomkbData()
-  # out_species = []
-  # for species in data.species:
-  #   if 'out_links' in species:
-  #     for key in species["out_links"]:
-  #       if key not in out_species:
-  #         out_species.append(key)
-  # print(out_species)
 
-  neo.generate_graph(data.proteins, data.species, data.genomes, categories, verbose=False)
+  neo.generate_graph(data.proteins,
+                     data.species,
+                     data.genomes,
+                     ontology_classes)
 
-  # # neo.purge()
-  # neo.print_category_nodes("Venomous_Organism")
-  # neo.print_category_nodes("Peptide")
-  # specie = data.species[0]
-  # neo.print_species(specie["name"], specie["venomkb_id"], specie["annotation_score"])
-  # protein = data.proteins[0]
-  # neo.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
-  # neo.print_link(specie["name"],protein["venomkb_id"])
-  t2 = time.time()
-  total = t2 - t1
-  print("It takes ", total, " seconds")
+  t_end = time.time()
+  total = t_end - t_start
+  print("Graph representation of VenomKB built in {0} seconds".format(total))
