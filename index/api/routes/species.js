@@ -130,20 +130,23 @@ router.post("/", function (req, res) {
             console.log("try to find species", species);
 
             if (species) {
-                return utils.sendStatusMessage(res, 400, "Species name already exists")
+                return Promise.reject({ message: "venomkb_id already exists" })
             }
         })
         .then(() => {
             // Create a new species
-            return Species.add({
+            var new_species = {
                 name: req.body.name,
                 lastUpdated: req.body.lastUpdated,
                 venomkb_id: req.body.venomkb_id,
                 common_name: req.body.common_name,
                 venom_ref: req.body.venom_ref,
                 annotation_score: req.body.annotation_score,
-                "venom.name": req.body.venom.name
-            })
+                "venom.name": req.body.venom.name,
+                common_name: req.body.common_name,
+                species_image_url: req.species_image_url
+            }
+            return Species.add(new_species)
         })
         .then((new_species) => {
             // add taxonomic lineage

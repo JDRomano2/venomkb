@@ -11,7 +11,7 @@ const LiteratureSchema = new mongoose.Schema({
 	o_name: { type: String, required: true },
 	o_cui: { type: String, required: true },
 	o_type: { type: String, required: true },
-	id_pred: { type: String, required: true},
+	id_pred: { type: String, required: true, unique: true, sparse: true},
 	vkb_protein_ref: { type: String, required: true },
 	pmid: { type: Number, required: true },
 	toxprot_id: String,
@@ -241,6 +241,23 @@ Protein.add = new_protein => {
 			if (err) reject(err)
 
 			resolve(created_protein)
+		})
+	})
+}
+
+
+//========================================
+// UPDATE
+//========================================
+/**
+ * Update a protein to the database
+ * @param {Object} updated_protein
+ */
+Protein.update = (venomkb_id, updated_protein) => {
+	return new Promise((resolve, reject) => {
+		Protein.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_protein, err => {
+			if (err) return reject(err)
+			resolve()
 		})
 	})
 }
