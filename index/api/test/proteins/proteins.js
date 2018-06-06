@@ -149,6 +149,41 @@ describe("Protein model tests", () => {
         })
     })
 
+    describe("Protein update test", () => {
+        it("Should update a protein previously added", (done) => {
+            agent
+                .post('/proteins/update'+objects.protein_simple_updated.venomkb_id)
+                .send(objects.protein_simple_updated)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should get the added protein and check then updates", (done) => {
+            Protein.getByVenomKBId(objects.protein_simple.venomkb_id)
+                .then((protein) => {
+                    expect(protein.name).to.equal(objects.protein_simple_updated.name)
+                    expect(protein.venomkb_id).to.equal(objects.protein_simple_updated.venomkb_id)
+                    expect(protein.annotation_score).to.equal(objects.protein_simple_updated.annotation_score)
+                    expect(protein.venom_ref).to.equal(objects.protein_simple_updated.venom_ref)
+                    expect(protein.pdb_structure_known).to.equal(objects.protein_simple_updated.pdb_structure_known)
+                    expect(protein.aa_sequence).to.equal(objects.protein_simple_updated.aa_sequence)
+                    expect(protein.description).to.equal(objects.protein_simple_updated.description)
+                    expect(protein.pdb_image_url).to.equal(objects.protein_simple_updated.pdb_image_url)
+                })
+                .catch(done)
+        })
+        it("Should get all the outlinks from the database", (done) => {
+            OutLink.getAll()
+                .then((out_links_list) => {
+                    expect(out_links_list.length).to.equal(4)
+                    done()
+                })
+                .catch(done)
+        })
+    })
+
     describe("Outlink model test", ()=>{
         it("Should add protein with same pfam", (done) => {
             agent
@@ -163,8 +198,6 @@ describe("Protein model tests", () => {
         it("Should get the added protein and check the number of out_links", (done) => {
             Protein.getByVenomKBId(objects.protein_pfam.venomkb_id)
                 .then((protein) => {
-                    console.log("test out liink", protein);
-
                     expect(protein.name).to.equal(objects.protein_pfam.name)
                     expect(protein.out_links.length).to.equal(objects.protein_pfam.out_links.length)
                     done()
@@ -179,5 +212,28 @@ describe("Protein model tests", () => {
             })
             .catch(done)
         })
+    })
+
+    describe("Literature predication model test", () => {
+        it("Should add protein with same literature predicaiton and a different", (done) => {
+            agent
+                .post('/proteins')
+                .send(objects.protein_predications)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should get the added protein and check the number of predication", (done) => {
+            Protein.getByVenomKBId(objects.protein_predications.venomkb_id)
+                .then((protein) => {
+                    expect(protein.name).to.equal(objects.protein_predications.name)
+                    expect(protein.literature_predications.length).to.equal(objects.protein_predications.literature_predications.length)
+                    done()
+                })
+                .catch(done)
+        })
+
     })
 });

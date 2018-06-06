@@ -128,5 +128,82 @@ module.exports = {
             }
         ],
         "annotation_score": 5
+    },
+    species_test_venomkb_id: {
+        "lastUpdated": 1528309273219,
+        "name": "Conus magus",
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "venom_ref": "S5672796",
+        "annotation_score": 5,
+        "venom": {
+            "name": "Conus magus venom"
+        }
+    },
+    species_test_name : {
+        "lastUpdated": 1528309273219,
+        "name": "Crotalus atrox",
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "venom_ref": "V7206224",
+        "annotation_score": 5,
+        "venom": {
+            "name": "Conus magus venom"
+        }
+    },
+    s_without_name : {
+        "lastUpdated": 1528309273219,
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "venom_ref": "V7206224",
+        "annotation_score": 5,
+        "venom": {
+            "name": "Conus magus venom"
+        }
+    }, s_without_venomkb_id: {
+        "lastUpdated": 1528309273219,
+        "name": "Conus magus",
+        "common_name": "Magus cone",
+        "venom_ref": "V7206224",
+        "annotation_score": 5,
+        "venom": {
+            "name": "Conus magus venom"
+        }
+    }, s_without_venom_ref: {
+        "lastUpdated": 1528309273219,
+        "name": "Conus magus",
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "annotation_score": 5,
+        "venom": {
+            "name": "Conus magus venom"
+        }
+    }, s_without_annotation_score: {
+        "lastUpdated": 1528309273219,
+        "name": "Conus magus",
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "venom_ref": "V7206224",
+        "venom": {
+            "name": "Conus magus venom"
+        }
+    }, s_without_venom_name: {
+        "lastUpdated": 1528309273219,
+        "name": "Conus magus",
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "annotation_score": 5,
+        "venom_ref": "V7206224",
+        "venom": {
+        }
+    }, s_without_lastupdated: {
+        "name": "Conus magus",
+        "common_name": "Magus cone",
+        "venomkb_id": "S7206224",
+        "annotation_score": 5,
+        "venom_ref": "V7206224",
+        "venom": {
+            "name": "Conus magus venom"
+        }
     }
 }

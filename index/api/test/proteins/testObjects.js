@@ -103,6 +103,14 @@ module.exports = {
         "pdb_structure_known": false,
         "annotation_score": 5,
     },
+    protein_simple_updated: {
+        "lastUpdated": 1528228926262,
+        "venomkb_id": "P4385666",
+        "venom_ref": "V5672796",
+        "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
+        "pdb_structure_known": true,
+        "annotation_score": 4,
+    },
     p_without_name: {
         "lastUpdated": 1528229327149,
         "venomkb_id": "P6359717",
@@ -188,6 +196,65 @@ module.exports = {
                 "evidence": "ECO:0000501"
             }
         ]
+    }, protein_predications: {
+        "lastUpdated": 1528300012586,
+        "description": "Catalyzes an oxidative deamination of predominantly hydrophobic and aromatic L-amino acids, thus producing hydrogen peroxide that may contribute to the diverse toxic effects of this enzyme. Unlike most snake L-amino-acid oxidases, this enzyme exhibits potent activity against L-Lys. Has also potent activity against L-Met, L-Leu, L-His, L-Lys and L-Ile. Its activity on platelet aggregation is controversial. It has potent inhibitory activity on platelet aggregation induced by ADP and the thromboxane analog U46619, but not by thrombin, mucetin, ristocetin and stejnulxin (PubMed:17543361), but it has also been shown to induce platelet aggregation through the formation of hydrogen peroxide (PubMed:7886693). It binds to bacteria and shows antibacterial activities by generating hydrogen peroxide. Binding and antibacterial activities are higher against Gram-positive than against Gram-negative bacteria. May also have an ability to induce hemorrhage, hemolysis, edema, apoptosis.",
+        "out_links": [
+            {
+            "ressource": "Pfam",
+            "primary_id": "Amino_oxidase",
+            "shared": true
+            },
+            {
+                "ressource": "UniProtKB",
+                "primary_id": "P81383",
+                "shared": false
+
+            }
+        ],
+        "aa_sequence": "MNDFLLLLLVLFLGVPRSENHVINLEECFQEPEYENWLATASHGLTKTLNPKKIVIVGAGISGLTAAKLFREAGHEVVILEASDRVGGRIKTHREDGWYVDVGPMRVPQTHRIVREYIKKFNISLNPFRQTDENAWYLIKHVRQKMSANNPENFGYQLNPNERGKSASQLFDETLDKVTDDCTLQKEKYDSFSTKEYLIKEGKLSTGAVEMIGDFLNEEAGFHNSFLISVMDHFLFLNNSFDEITGGFDQLPERFFKDMDSIVHLNSTVEKIVHINNKVTVFYEGLSTNMRLVADYVLITATARATRLIKFVPPLSIPKTRALRSLIYASATKIILVCTDKFWEKDGIHGGRSITDLPSRVIYYPNHDFTNGIGVLLASYTWYSDSEFYTTLSDEKCVDVVMDDLVEIHNVSKDYLKSVCGKHVVQKWALDQYSMGAFSTYTPYQITHYSQMLAQNEGRIYFAGEYTAHPHGWIETSMKSAIREAINIHNA",
+        "venomkb_id": "P6100259",
+        "venom_ref": "V5462960",
+        "name": "L-amino-acid oxidase",
+        "pdb_image_url": "http://www.rcsb.org/pdb/images/2IID_bio_r_250.jpg",
+        "pdb_structure_known": false,
+        "literature_predications": [
+            {
+                "o_name": "Platelet aggregation",
+                "predicate": "CAUSES",
+                "o_type": "celf",
+                "id_pred": "9gshQPyRQC2g26MeHsbjsQ==",
+                "PID": 581496,
+                "s_type": "gngm",
+                "o_cui": "C0032176",
+                "s_name": "Thrombin",
+                "SID": 102366111,
+                "vkb_protein_ref": "P6100259",
+                "pmid": 17543361,
+                "toxprot_id": "P81383",
+                "PMID": 17543361,
+                "s_cui": "C0040018"
+            },
+            {
+                "o_name": "Family",
+                "predicate": "PART_OF",
+                "o_type": "humn",
+                "id_pred": "hAq5lMPtTpGSIkW3hRDgNQ==",
+                "PID": 3540346,
+                "s_type": "bacs",
+                "o_cui": "C0015576",
+                "s_name": "Venoms",
+                "SID": 108210905,
+                "vkb_protein_ref": "P0581495",
+                "pmid": 18387648,
+                "toxprot_id": "P68520",
+                "s_cui": "C0042479"
+            }
+
+        ],
+
+        "annotation_score": 5
+
     }
 
 }

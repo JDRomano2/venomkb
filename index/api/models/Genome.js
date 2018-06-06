@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Schema to enforce consistent structure.
 const GenomeSchema = new mongoose.Schema({
-    venomkb_id: {type: String, index:true},
+    venomkb_id: {type: String, index:true, unique: true},
     species: String,
     lastUpdates: {type: Date, required: true},
     assembly_platform: String,
