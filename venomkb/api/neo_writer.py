@@ -1,4 +1,5 @@
 from neo4j.v1 import GraphDatabase
+import ipdb
 import configparser
 
 class Neo4jWriter(object):
@@ -14,7 +15,7 @@ class Neo4jWriter(object):
 
           Args:
             proteins (array of object):  An array containing all the proteins that will be add to the graph.
-            Each protein should at least have a name, a venomkb_id, an annotation score, an aa_sequence and a UnitProtKB_id.
+            Each protein should at least have a name, a venomkb_id, an annotation score, an aa_sequence and a UniProtKB_id.
             A protein can also have literature predication, separate nodes will be created and linked, and some gene
             ontologies, separate nodes will be created and linked.
 
@@ -36,7 +37,7 @@ class Neo4jWriter(object):
 
     # Create ontology classes
     for ontology_class in classes:
-      self.ont_class_nodes(ontology_class, verbose)
+      self.ont_class_nodes(ontology_class)
 
     # Hierarchical relations
     self.is_a_subclass_relationship("Protein", "Biological_Macromolecule")
@@ -126,7 +127,7 @@ class Neo4jWriter(object):
       if self.verbose:
         print(species)
 
-  def protein(self, name, venomkb_id, score, aa_sequence, UnitProtKB_id):
+  def protein(self, name, venomkb_id, score, aa_sequence, UniProtKB_id):
     """This function create a protein node into the graph.
     It links the node to the Peptide node with a "is instance of" link
 
@@ -135,7 +136,7 @@ class Neo4jWriter(object):
             venomkb_id (string): a unique identifier for the protein, must start with a 'P'
             score (int): an annotation score for the data between 1 and 5
             aa_sequence (string): amino acid sequence of the protein
-            UnitProtKB_id (string)
+            UniProtKB_id (string)
             verbose (boolean) : if true, print the result of the transaction
 
 
@@ -144,8 +145,8 @@ class Neo4jWriter(object):
       """
     with self._driver.session() as session:
       protein = session.write_transaction(
-          self._add_protein, (name, venomkb_id, score, aa_sequence, UnitProtKB_id))
-      if this.verbose:
+          self._add_protein, (name, venomkb_id, score, aa_sequence, UniProtKB_id))
+      if self.verbose:
         print(protein)
 
   def genome(self, name, venomkb_id, score, journal, link, species_id):
@@ -169,7 +170,7 @@ class Neo4jWriter(object):
       genome = session.write_transaction(
           self._add_genome, (name, venomkb_id, score,
                               journal, link, species_id))
-      if this.verbose:
+      if self.verbose:
         print(genome)
 
   def ont_class_nodes(self, name):
@@ -185,7 +186,7 @@ class Neo4jWriter(object):
     """
     with self._driver.session() as session:
       category = session.write_transaction(self._add_nodes_category, name)
-      if this.verbose:
+      if self.verbose:
         print(category)
 
   def pfam_node(self, pfam):
@@ -201,7 +202,7 @@ class Neo4jWriter(object):
     """
     with self._driver.session() as session:
       pfam = session.write_transaction(self._add_nodes_pfam, pfam)
-      if this.verbose:
+      if self.verbose:
         print(pfam)
 
   def link(self, species, protein_id):
@@ -219,7 +220,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_relationship, (species, protein_id))
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def protein_peptide_relationship(self, protein_id):
@@ -236,7 +237,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_protein_peptide_relationship, protein_id)
-      if this.verbose:
+      if self.verbose:
        print(relationship)
 
   def specie_organism_relationship(self, species_id):
@@ -253,7 +254,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_species_organism_relationship, species_id)
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def is_a_subclass_relationship(self, category_a, category_b):
@@ -271,7 +272,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_is_a_relationship, (category_a, category_b))
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def add_ontology_class_relationship(self,
@@ -282,7 +283,7 @@ class Neo4jWriter(object):
       relationship = session.write_transaction(
         self._run_ontology_class_relationship, (class_a, class_b, rel_label)
       )
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def pfam_relationship(self, protein_id, pfam):
@@ -300,7 +301,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_pfam_relation, (protein_id, pfam))
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def is_a_go_relation_and_node(self, protein_id, evidence, term, go_id, project):
@@ -321,7 +322,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(
           self._add_is_a_go_relation_and_node, (protein_id, evidence, term, go_id, project))
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def predication_relation_and_node(self, protein_id,  s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid):
@@ -346,7 +347,7 @@ class Neo4jWriter(object):
     with self._driver.session() as session:
       relationship = session.write_transaction(self._add_predication_relation_and_node, (
           protein_id, s_name, s_cui, s_type, o_cui, o_name, o_type, predicate, pmid))
-      if this.verbose:
+      if self.verbose:
         print(relationship)
 
   def purge(self):
@@ -360,7 +361,7 @@ class Neo4jWriter(object):
     """
     with self._driver.session() as session:
       del_all = session.write_transaction(self._purge_db_contents)
-      if this.verbose:
+      if self.verbose:
         print("PURGE DATABASE")
         print()
       return del_all
@@ -368,7 +369,7 @@ class Neo4jWriter(object):
   @staticmethod
   def _add_species(tx, payload):
     (name, venomkb_id, score) = payload
-    statement = """MATCH (b:OntologyClass) WHERE b.name = "Venomous_Organism"
+    statement = """MATCH (b:OntologyClass) WHERE b.name = "Species"
                     CREATE (a:Species {name : {name}, vkbid: {venomkb_id}, score:{score}})
                     CREATE (a)-[r:IS_INSTANCE_OF]->(b)
                     RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
@@ -377,13 +378,13 @@ class Neo4jWriter(object):
 
   @staticmethod
   def _add_protein(tx, payload):
-    (name, venomkb_id, score, aa_sequence, UnitProtKB_id) = payload
-    statement = """MATCH (b:OntologyClass) WHERE b.name = "Peptide"
-                    CREATE (a:Protein {name : {name}, vkbid: {venomkb_id}, score:{score}, aa_sequence: {aa_sequence}, UnitProtKB_id: {UnitProtKB_id}})
+    (name, venomkb_id, score, aa_sequence, UniProtKB_id) = payload
+    statement = """MATCH (b:OntologyClass) WHERE b.name = "Protein"
+                    CREATE (a:Protein {name : {name}, vkbid: {venomkb_id}, score:{score}, aa_sequence: {aa_sequence}, UniProtKB_id: {UniProtKB_id}})
                     CREATE (a)-[r:IS_INSTANCE_OF]->(b)
                     RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
     result = tx.run(statement, name=name, venomkb_id=venomkb_id,
-                    score=score, aa_sequence=aa_sequence, UnitProtKB_id=UnitProtKB_id)
+                    score=score, aa_sequence=aa_sequence, UniProtKB_id=UniProtKB_id)
     return result.single()[0]
 
   @staticmethod
@@ -424,7 +425,7 @@ class Neo4jWriter(object):
   @staticmethod
   def _add_protein_peptide_relationship(tx, protein_id):
     statement = """MATCH (a:Protein {vkbid : {protein_id}}),
-                (b:OntologyClass {name : "Peptide"})
+                (b:OntologyClass {name : "Protein"})
                 CREATE (a)-[r:IS_INSTANCE_OF]->(b)
                 RETURN r"""
     result = tx.run(statement, {"protein_id": protein_id})
@@ -433,7 +434,7 @@ class Neo4jWriter(object):
   @staticmethod
   def _add_species_organism_relationship(tx, species_id):
     statement = """MATCH (a:Species {vkbid : {species_id}}),
-                (b:OntologyClass {name : "Venomous_Organism"})
+                (b:OntologyClass {name : "Species"})
                 CREATE (a)-[r:IS_INSTANCE_OF]->(b)
                 RETURN r"""
     result = tx.run(statement, {"species_id": species_id})
@@ -444,7 +445,7 @@ class Neo4jWriter(object):
     (category_a, category_b) = categories
     statement = """MATCH (a:OntologyClass {name : {category_a}}),
                 (b:OntologyClass {name : {category_b}})
-                CREATE (a)-[r:IS_A_SUBCLASS_OF]->(b)
+                CREATE (a)-[r:IS_SUBCLASS_OF]->(b)
                 RETURN r"""
     result = tx.run(
         statement, {"category_a": category_a, "category_b": category_b})
@@ -453,15 +454,14 @@ class Neo4jWriter(object):
   @staticmethod
   def _run_ontology_class_relationship(tx, payload):
     (class_a, class_b, relationship) = payload
-    statement = """MATCH (a:OntologyClass {name : {class_a}},
-                (b:OntologyClass {name : {class_b}})
-                CREATE (a)-[r:{relationship}]->(b)
-                RETURN r"""
+    statement = """MATCH (a:OntologyClass {{name : {{class_a}} }}),
+                (b:OntologyClass {{name : {{class_b}} }})
+                CREATE (a)-[r:{0}]->(b)
+                RETURN r""".format(relationship)
     result = tx.run(
       statement, {
         "class_a": class_a,
-        "class_b": class_b,
-        "relationship": relationship
+        "class_b": class_b
       }
     )
     return result.single()[0]
@@ -481,7 +481,7 @@ class Neo4jWriter(object):
     (protein_id, evidence, term, go_id, project) = payload
     statement = """MATCH (prot:Protein) where prot.vkbid={protein_id}
                 CREATE (go:GeneOntology {goid:{go_id}, term:{term}, evidence:{evidence}, project:{project}})
-                CREATE((prot)-[:HAS_A_GO]->(go))
+                CREATE((prot)-[:HAS_GO_ANNOTATION]->(go))
                 RETURN go"""
     result = tx.run(statement, {"protein_id": protein_id, "go_id": go_id,
                                 "term": term, "evidence": evidence, "project": project})
@@ -493,7 +493,7 @@ class Neo4jWriter(object):
      o_name, o_type, predicate, pmid) = payload
     statement = """MATCH (p:Protein) where p.vkbid={protein_id}
                 CREATE (lp:Predication {s_name:{s_name}, s_cui:{s_cui}, s_type:{s_type}, o_cui:{o_cui}, o_name:{o_name}, o_type:{o_type}, predicate:{predicate}, pmid:{pmid}})
-                CREATE((p)-[:HAS_A_PL]->(lp))
+                CREATE((p)-[:HAS_PREDICATION]->(lp))
                 RETURN lp"""
     result = tx.run(statement, {"protein_id": protein_id, "s_name": s_name, "s_cui": s_cui, "s_type": s_type,
                                 "o_name": o_name, "o_cui": o_cui, "o_type": o_type, "predicate": predicate, "pmid": pmid})

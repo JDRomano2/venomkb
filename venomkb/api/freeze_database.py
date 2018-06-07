@@ -303,26 +303,34 @@ class NeoSimpleStat(object):
                 max(size( (n)-[]-() ) ) as Max_RelationshipCount"""
     return list(tx.run(statement))
 
-if __name__ == '__main__':
+
+def RUN_MAIN():
   VERBOSE = True
 
   t_start = time.time()
 
   neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=VERBOSE)
 
+  # CRITICAL NOTE:
+  # Some of these classes follow different naming from the actual ontology
+  # Venomous_Organism -> Species
+  # Peptide -> Protein
+  # Whole_Venom_Extract -> Venom
+  # HOWEVER, THEIR SEMANTICS ARE ESSENTIALLY THE SAME
   ontology_classes = [
-    "Peptide",
+    "Protein",
     "Carbohydrate",
     "Biological_Macromolecule",
     "Inorganic_Molecule",
-    "Whole_Venom_Extract",
+    "Venom",
     "Mixture",
     "Molecule",
     "Synthetic_Venom_Derivative",
-    "Venomous_Organism",
+    "Species",
     "Chemical_Compound",
     "Venom",
-    "Thing"
+    "Thing",
+    "Genome"  # <-- This isn't part of the ontology (yet)!
   ]
 
   data = VenomkbData()
@@ -335,3 +343,10 @@ if __name__ == '__main__':
   t_end = time.time()
   total = t_end - t_start
   print("Graph representation of VenomKB built in {0} seconds".format(total))
+
+if __name__ == '__main__':
+  # TO RUN IN DEVELOPMENT MODE:
+  # (from ipython shell in root venomkb directory)
+  # > from venomkb.api import *
+  # > RUN_MAIN()
+  RUN_MAIN()
