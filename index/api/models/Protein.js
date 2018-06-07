@@ -149,6 +149,20 @@ ProteinSchema.methods.addLiterature = function (literatures) {
 	}
 }
 
+ProteinSchema.methods.updateLiterature = function(literatures) {
+	if (!(literatures.constructor === Array)) {
+		return Promise.reject({ message: "Literatures not a list" })
+	}
+
+	const protein = this;
+
+	protein.literature_predications = []
+	return protein.save()
+	.then(() => {
+		return protein.addLiterature(literatures)
+	})
+}
+
 /**
  * Add literature references to a protein
  * @param {Array} references an array of literature_reference objects
@@ -181,44 +195,47 @@ ProteinSchema.methods.addReference = function (references) {
 }
 
 /**
- * Update outlinks to a protein
- * @param {Array} out_links an array of out_links objects
+ * Update references to a protein
+ * @param {Array} references an array of references objects
  */
 
-ProteinSchema.methods.updateOutlink = function (out_links) {
+ProteinSchema.methods.updateReference = function(references) {
+	if (!(references.constructor === Array)) {
+		return Promise.reject({ message: "References not a list" })
+	}
 	const protein = this;
-	if ((out_links.constructor === Array)) {
+	if (typeof references[0] == "object") {
 		const promises = [];
-		out_links.forEach(element => {
+		references.forEach(element => {
 			promises.push(new Promise((resolve, reject) => {
-				return OutLink.findOne(element).exec().then(found => {
+				return Reference.findOne(element).exec().then(found => {
 					if (found) {
 						return found.update()
 					}
 					else {
-						return OutLink.add(element).then((out_link) => {
-							protein.out_links.push(out_link._id);
+						return Reference.add(element).then((reference) => {
+							protein.literature_references.push(reference._id);
 							resolve();
 						}).catch(reject)
 					}
 				})
 			}))
 		})
-		protein.out_links.forEach(element_id => {
+		protein.literature_references.forEach(element_id => {
 			promises.push(new Promise((resolve, reject) => {
-				return OutLink.findOne(element_id).populate('proteins').exec().then((out_link) => {
-					out_links.findIndex((element) => {
-						return element.resource == out_link.ressource &&
-							element.primary_id == out_link.primary_id
+				return Reference.findOne(element_id).populate('proteins').exec().then((reference) => {
+					references.findIndex((element) => {
+						return element.pmid == reference.pmid &&
+							element.authors == reference.authors
 					})
 					if (index == -1) {
-						if (out_link.proteins.length == 1) {
-							return out_link.remove().then(() => {
-								protein.out_links.splice(index, 1)
+						if (reference.proteins.length == 1) {
+							return reference.remove().then(() => {
+								protein.literature_references.splice(index, 1)
 								resolve()
 							}).catch(reject)
 						}
-						protein.out_links.splice(index, 1)
+						protein.literature_references.splice(index, 1)
 						resolve()
 					}
 
@@ -229,7 +246,7 @@ ProteinSchema.methods.updateOutlink = function (out_links) {
 			return protein.save()
 		});
 	} else {
-		return Promise.reject({ message: "Out links field should be an array" })
+		return Promise.reject({ message: "References list must contain object" })
 	}
 
 }
@@ -238,7 +255,7 @@ ProteinSchema.methods.updateOutlink = function (out_links) {
  * Add literature gene annotation to a protein
  * @param {Array} go_annotation an array of go_annotation objects
  */
-ProteinSchema.methods.addAnnotation = function (annotations) {
+ProteinSchema.methods.addGOAnnotation = function (annotations) {
 	if (!(annotations.constructor === Array)) {
 		return Promise.reject({ message: "Annotation not a list" })
 	}
@@ -264,6 +281,21 @@ ProteinSchema.methods.addAnnotation = function (annotations) {
 		return Promise.reject({ message: "Annotations list must contain object" })
 	}
 }
+
+ProteinSchema.methods.updateGOAnnotation = function (annotations) {
+	if (!(annotations.constructor === Array)) {
+		return Promise.reject({ message: "Annotation not a list" })
+	}
+
+	const protein = this;
+
+	protein.go_annotations = []
+	return protein.save()
+		.then(() => {
+			return protein.addGOAnnotation(annotations)
+		})
+}
+
 const Protein = mongoose.model('Protein', ProteinSchema);
 
 /**
