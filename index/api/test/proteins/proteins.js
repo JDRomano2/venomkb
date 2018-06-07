@@ -243,9 +243,10 @@ describe("Protein model tests", () => {
                     expect(protein.name).to.equal(objects.protein_simple_updated2.name)
                     expect(protein.venomkb_id).to.equal(objects.protein_simple_updated2.venomkb_id)
                     expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated2.go_annotations.length)
-                    expect(protein.literature_predications.length).to.equal(objects.protein_simple_updated2.literature_predications.length)
+                    expect(protein.literature_predications).to.be.empty
                     expect(protein.literature_references.length).to.equal(objects.protein_simple_updated2.literature_references.length)
-                    expect(protein.out_links).to.equal(objects.protein_simple_updated2.out_links)
+                    expect(protein.out_links.length).to.equal(objects.protein_simple_updated2.out_links.length)
+                    done()
                 })
                 .catch(done)
         })

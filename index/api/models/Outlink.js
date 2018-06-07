@@ -84,13 +84,9 @@ OutLink.add = new_out_link => {
  * Update a Outlink to the database
  * @param {Object} updated_out_link
  */
-OutLink.update = (venomkb_id, updated_out_link) => {
-    return new Promise((resolve, reject) => {
-        OutLink.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_out_link, err => {
-            if (err) return reject(err)
-            resolve()
-        })
-    })
+OutLink.update = (id, updated_out_link) => {
+    return OutLink.findOneAndUpdate({ _id: id }, updated_out_link).exec()
+
 }
 
 //========================================

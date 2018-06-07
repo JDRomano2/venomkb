@@ -78,7 +78,7 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
  * @param {Array} out_links an array of out_links objects
  */
 
-ProteinSchema.methods.updateOutlink = function (out_links) {
+ProteinSchema.methods.updateOutLinks = function (out_links) {
 	const protein = this;
 	if ((out_links.constructor === Array)) {
 		const promises = [];
@@ -86,7 +86,7 @@ ProteinSchema.methods.updateOutlink = function (out_links) {
 			promises.push(new Promise((resolve, reject) => {
 				return OutLink.findOne(element).exec().then(found=>{
 					if (found) {
-						return found.update()
+						return OutLink.update(found._id, element).then(resolve).catch(reject)
 					}
 					else {
 						return OutLink.add(element).then((out_link) => {
@@ -100,8 +100,8 @@ ProteinSchema.methods.updateOutlink = function (out_links) {
 		protein.out_links.forEach(element_id =>{
 			promises.push(new Promise((resolve, reject) => {
 				return OutLink.findOne(element_id).populate('proteins').exec().then((out_link) => {
-					out_links.findIndex((element) => {
-						return element.resource == out_link.ressource &&
+					let index = out_links.findIndex((element) => {
+						return element.resource == out_link.resource &&
 						element.primary_id == out_link.primary_id
 					})
 					if (index == -1 ) {
@@ -112,9 +112,8 @@ ProteinSchema.methods.updateOutlink = function (out_links) {
 							}).catch(reject)
 						}
 						protein.out_links.splice(index, 1)
-						resolve()
 					}
-
+					resolve()
 				})
 			}))
 		})
@@ -153,10 +152,13 @@ ProteinSchema.methods.updateLiterature = function(literatures) {
 	if (!(literatures.constructor === Array)) {
 		return Promise.reject({ message: "Literatures not a list" })
 	}
+	console.log("hello", literatures);
 
 	const protein = this;
 
 	protein.literature_predications = []
+	if (literatures.length === 0)
+		return protein.save()
 	return protein.save()
 	.then(() => {
 		return protein.addLiterature(literatures)
@@ -204,13 +206,13 @@ ProteinSchema.methods.updateReference = function(references) {
 		return Promise.reject({ message: "References not a list" })
 	}
 	const protein = this;
-	if (typeof references[0] == "object") {
+	if (references.length === 0 || typeof references[0] == "object") {
 		const promises = [];
 		references.forEach(element => {
 			promises.push(new Promise((resolve, reject) => {
 				return Reference.findOne(element).exec().then(found => {
 					if (found) {
-						return found.update()
+						return Reference.update(found._id, element).then(resolve).catch(reject)
 					}
 					else {
 						return Reference.add(element).then((reference) => {
@@ -224,7 +226,7 @@ ProteinSchema.methods.updateReference = function(references) {
 		protein.literature_references.forEach(element_id => {
 			promises.push(new Promise((resolve, reject) => {
 				return Reference.findOne(element_id).populate('proteins').exec().then((reference) => {
-					references.findIndex((element) => {
+					let index = references.findIndex((element) => {
 						return element.pmid == reference.pmid &&
 							element.authors == reference.authors
 					})
@@ -236,9 +238,8 @@ ProteinSchema.methods.updateReference = function(references) {
 							}).catch(reject)
 						}
 						protein.literature_references.splice(index, 1)
-						resolve()
 					}
-
+					resolve()
 				})
 			}))
 		})
@@ -290,6 +291,8 @@ ProteinSchema.methods.updateGOAnnotation = function (annotations) {
 	const protein = this;
 
 	protein.go_annotations = []
+	if (annotations.length === 0)
+		return protein.save()
 	return protein.save()
 		.then(() => {
 			return protein.addGOAnnotation(annotations)
@@ -394,12 +397,7 @@ Protein.add = new_protein => {
  * @param {Object} updated_protein
  */
 Protein.update = (venomkb_id, updated_protein) => {
-	return new Promise((resolve, reject) => {
-		Protein.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_protein, err => {
-			if (err) return reject(err)
-			resolve()
-		})
-	})
+	return Protein.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_protein).exec()
 }
 
 

@@ -254,20 +254,20 @@ router.post("/update/:id", function (req, res) {
             return Protein.update(req.body.venomkb_id, new_protein)
         })
         .then((new_protein) => {
+
             // add out links
             if (req.body.out_links) {
                 return new_protein.updateOutLinks(req.body.out_links)
             } else {
-                return Promise.resolve(new_protein);
+                return new_protein.updateOutLinks([])
             }
         })
         .then((new_protein) => {
-
             // add literature predication
             if (req.body.literature_predications) {
                 return new_protein.updateLiterature(req.body.literature_predications)
             } else {
-                return Promise.resolve(new_protein);
+                return new_protein.updateLiterature([])
             }
         })
         .then((new_protein) => {
@@ -275,7 +275,7 @@ router.post("/update/:id", function (req, res) {
             if (req.body.literature_references) {
                 return new_protein.updateReference(req.body.literature_references)
             } else {
-                return Promise.resolve(new_protein);
+                return new_protein.updateReference([])
             }
         })
         .then((new_protein) => {
@@ -283,7 +283,7 @@ router.post("/update/:id", function (req, res) {
             if (req.body.go_annotations) {
                 return new_protein.updateGOAnnotation(req.body.go_annotations)
             } else {
-                return Promise.resolve(new_protein);
+                return new_protein.updateGOAnnotation([])
             }
         })
         .then(() => {

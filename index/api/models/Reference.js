@@ -48,13 +48,8 @@ Reference.add = new_reference => {
  * Update a Reference to the database
  * @param {Object} updated_reference
  */
-Reference.update = (venomkb_id, updated_reference) => {
-    return new Promise((resolve, reject) => {
-        Reference.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_reference, err => {
-            if (err) return reject(err)
-            resolve()
-        })
-    })
+Reference.update = (id, updated_reference) => {
+    return Reference.findOneAndUpdate({ _id: id }, updated_reference).exec()
 }
 
 module.exports = Reference;

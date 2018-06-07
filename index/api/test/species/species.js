@@ -38,7 +38,7 @@ describe("Species model tests", () => {
                     expect(species.venom_ref).to.equal(objects.species_test.venom_ref)
                     expect(species.venom.name).to.equal(objects.species_test.venom.name)
                     expect(species.common_name).to.equal(objects.species_test.common_name)
-                    expect(species.venom.species.length).to.equal(objects.species_test.venom.species.length)
+                    expect(species.venom.proteins.length).to.equal(objects.species_test.venom.proteins.length)
                     expect(species.taxonomic_lineage.length).to.equal(objects.species_test.taxonomic_lineage.length)
                     expect(species.out_links.length).to.equal(objects.species_test.out_links.length)
                     done()

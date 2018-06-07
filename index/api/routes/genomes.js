@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
       res.json(genomes)
     })
     .catch(err => {
-      return sendStatusMessage(res, 500, err.message);
+      return utils.sendStatusMessage(res, 500, err.message);
     })
 });
 
@@ -48,7 +48,7 @@ router.get('/search', (req, res, next) => {
       res.json(genome)
     })
     .catch(err => {
-      return sendStatusMessage(res, 500, err.message);
+      return utils.sendStatusMessage(res, 500, err.message);
     })
 });
 
@@ -76,7 +76,7 @@ router.get('/:id', (req, res, next) => {
         res.json(genome)
       })
       .catch(err => {
-        return sendStatusMessage(res, 500, err.message);
+        return utils.sendStatusMessage(res, 500, err.message);
       })
   }
 });
