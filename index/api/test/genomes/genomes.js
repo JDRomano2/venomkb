@@ -21,8 +21,18 @@ describe("Genome model tests", () => {
     describe("Genome add tests", () => {
         it("Should add a genome in the database", (done) => {
             agent
-                .post('/genomes')
-                .send(objects.genome_test)
+                .post('/proteins')
+                .send(objects.protein_linked)
+                .then(res => {
+                    return agent
+                    .post('/species')
+                    .send(objects.species_linked)
+                })
+                .then(res => {
+                    return agent
+                    .post('/genomes')
+                    .send(objects.genome_test)
+                })
                 .then(res => {
                     expect(res.statusCode).to.equal(200)
                     done();
@@ -35,8 +45,8 @@ describe("Genome model tests", () => {
                     expect(genome.name).to.equal(objects.genome_test.name)
                     expect(genome.venomkb_id).to.equal(objects.genome_test.venomkb_id)
                     expect(genome.annotation_score).to.equal(objects.genome_test.annotation_score)
-                    expect(genome.species_ref.length).to.equal(objects.genome_test.species_ref.length)
-                    expect(genome.literature_references.length).to.equal(objects.genome_test.literature_references.length)
+                    expect(genome.species_ref).to.be.an("object")
+                    expect(genome.literature_reference).to.be.an("object")
                     expect(genome.out_links.length).to.equal(objects.genome_test.out_links.length)
                     done()
                 })

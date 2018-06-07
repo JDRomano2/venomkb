@@ -6,14 +6,14 @@ const OutLink = require('./Outlink');
 
 // Schema to enforce consistent structure.
 const GenomeSchema = new mongoose.Schema({
-    venomkb_id: {type: String, index:true, unique: true},
-    lastUpdates: {type: Date, required: true},
+    venomkb_id: { type: String, index: true, unique: true },
+    lastUpdated: { type: Date, required: true },
     annotation_score: { type: Number, min: 1, max: 5, required: true },
-    name: {type: String, required: true},
-    species: {type: mongoose.Schema.ObjectId, ref: 'Species'},
+    name: { type: String, required: true },
+    species_ref: { type: mongoose.Schema.ObjectId, ref: 'Species' },
     assembly_platform: String,
     project_homepage: String,
-    literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
+    literature_reference: { type: mongoose.Schema.ObjectId, ref: 'Reference' },
     out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
 });
 
@@ -21,7 +21,7 @@ const GenomeSchema = new mongoose.Schema({
  * Add outlinks to a genome
  * @param {Array} out_links an array of out_links objects
  */
-GenomeSchema.methods.addOutLinks = function (out_links) {
+GenomeSchema.methods.addOutLink = function (out_links) {
     const genome = this;
     if ((out_links.constructor === Array)) {
         const promises = [];
@@ -47,7 +47,7 @@ GenomeSchema.methods.addOutLinks = function (out_links) {
             }))
         })
         return Promise.all(promises).then(() => {
-            return protein.save()
+            return genome.save()
         });
     } else {
         return Promise.reject({ message: "Out links field should be an array" })
@@ -58,30 +58,17 @@ GenomeSchema.methods.addOutLinks = function (out_links) {
  * Add literature references to a genome
  * @param {Array} references an array of literature_reference objects
  */
-GenomeSchema.methods.addReference = function (references) {
-    if (!(references.constructor === Array)) {
-        return Promise.reject({ message: "References not a list" })
-    }
-
+GenomeSchema.methods.addReference = function (reference) {
     const genome = this;
 
-    if (typeof references[0] == "object") {
-        const promises = [];
-        references.forEach(element => {
-            promises.push(new Promise((resolve, reject) => {
-                return Reference.add(element)
-                    .then((reference) => {
-                        genome.literature_references.push(reference._id);
-                        resolve();
-                    }).catch(reject)
+    if (typeof reference == "object") {
+        return Reference.add(reference)
+            .then((new_reference) => {
+                genome.literature_reference = new_reference._id;
+                return genome.save()
             })
-            )
-        })
-        return Promise.all(promises).then(() => {
-            return protein.save()
-        });
     } else {
-        return Promise.reject({ message: "References list must contain object" })
+        return Promise.reject({ message: "Reference must be an object" })
     }
 }
 
@@ -90,22 +77,22 @@ GenomeSchema.methods.addReference = function (references) {
  * @param {String} species_venomkb_id the venomkb_id of the species
 */
 GenomeSchema.methods.addSpecies = function (species_venomkb_id) {
-    if(!species_venomkb_id) {
+    if (!species_venomkb_id) {
         return Promise.reject({ message: "Need a species venomkb_id" })
     }
 
     const genome = this;
     Species.getByVenomKBId(species_venomkb_id)
-    .then((species) =>{
-        if (species) {
-            genome.species.push(species)
-            return genome.save()
+        .then((species) => {
+            if (species) {
+                genome.species_ref = species._id
+                return genome.save()
+            }
+            else {
+                return Promise.reject({ message: "Species not found" })
+            }
         }
-        else {
-            return Promise.reject({ message: "Species not found" })
-        }
-    }
-)
+        )
 
 }
 

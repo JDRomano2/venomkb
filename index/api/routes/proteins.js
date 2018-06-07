@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
             res.json(proteins)
         })
         .catch(err => {
-            return sendStatusMessage(res, 500, err.message);
+            return utils.sendStatusMessage(res, 500, err.message);
         })
 });
 
@@ -51,7 +51,7 @@ router.get('/search', (req, res, next) => {
             res.json(protein)
         })
         .catch(err => {
-            return sendStatusMessage(res, 500, err.message);
+            return utils.sendStatusMessage(res, 500, err.message);
         })
 });
 
@@ -73,7 +73,7 @@ router.get('/count', (req, res, next) => {
             res.json(proteins.length)
         })
         .catch(err => {
-            return sendStatusMessage(res, 500, err.message);
+            return utils.sendStatusMessage(res, 500, err.message);
         })
 });
 
@@ -101,7 +101,7 @@ router.get('/:id', (req, res, next) => {
                 res.json(protein)
             })
             .catch(err => {
-                return sendStatusMessage(res, 500, err.message);
+                return utils.sendStatusMessage(res, 500, err.message);
             })
     }
 });

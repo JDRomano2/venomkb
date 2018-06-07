@@ -134,6 +134,14 @@ router.post("/", function (req, res) {
     })
     .then((new_genome) => {
       // add literature reference
+      if (req.body.out_links) {
+        return new_genome.addOutLink(req.body.out_links)
+      } else {
+        return Promise.resolve(new_genome);
+      }
+    })
+    .then((new_genome) => {
+      // add literature reference
       if (req.body.species_ref) {
         return new_genome.addSpecies(req.body.species_ref)
       } else {

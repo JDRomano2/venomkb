@@ -63,22 +63,22 @@ describe("Species model tests", () => {
                 })
                 .catch(done)
         })
-        it("Should return 500 when try to add a species with name that already exists in the database", (done) => {
+        it("Should return 400 when try to add a species with name that already exists in the database", (done) => {
             agent
                 .post('/species')
                 .send(objects.species_name)
                 .then(res => {
-                    expect(res.statusCode).to.equal(500)
+                    expect(res.statusCode).to.equal(400)
                     done();
                 })
                 .catch(done)
         })
-        it("Should return 500 when try to add a species with venomkb_id that already exists in the database", (done) => {
+        it("Should return 400 when try to add a species with venomkb_id that already exists in the database", (done) => {
             agent
                 .post('/species')
                 .send(objects.species_venomkb_id)
                 .then(res => {
-                    expect(res.statusCode).to.equal(500)
+                    expect(res.statusCode).to.equal(400)
                     done();
                 })
                 .catch(done)
