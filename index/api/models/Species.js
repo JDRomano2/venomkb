@@ -4,7 +4,7 @@ const Protein = require('./Protein');
 
 
 const OutLinkSchema = new mongoose.Schema({
-    ressource: { type: String, required: true },
+    resource: { type: String, required: true },
     primary_id: { type: String, required: true },
     attribute: String,
 });

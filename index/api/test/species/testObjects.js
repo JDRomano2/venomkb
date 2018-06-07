@@ -3,7 +3,7 @@ module.exports = {
         "lastUpdated": 1528172348255,
         "name": "Crotalus atrox",
         "out_links": [{
-            "ressource": "ncbi_taxonomy",
+            "resource": "ncbi_taxonomy",
             "primary_id": "8730"
         }],
         "common_name": "Western diamondback rattlesnake",

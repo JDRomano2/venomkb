@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
 
 const OutLinkSchema = new mongoose.Schema({
-    ressource: {type: String, required: true},
+    resource: {type: String, required: true},
     primary_id: {type: String, required: true},
     shared: {type: Boolean, required: true},
     attribute: String,
 
+});
+
+OutLinkSchema.virtual('proteins', {
+    ref: 'Protein', // The model to use
+    localField: '_id', // Find people where `localField`
+    foreignField: 'out_links', // is equal to `foreignField`
+    // If `justOne` is true, 'members' will be a single doc as opposed to
+    // an array. `justOne` is false by default.
+    justOne: false
 });
 
 const OutLink = mongoose.model('OutLink', OutLinkSchema);
@@ -54,8 +63,8 @@ OutLink.getAll = () => {
  */
 OutLink.add = new_out_link => {
     console.log("enter add out link fonction");
-    if (!new_out_link.ressource)
-        return Promise.reject({ message: "Out links sent requires a ressource field" })
+    if (!new_out_link.resource)
+        return Promise.reject({ message: "Out links sent requires a resource field" })
 
     if (!new_out_link.primary_id)
         return Promise.reject({ message: "Out links sent requires a primary_id" })
@@ -64,6 +73,22 @@ OutLink.add = new_out_link => {
         OutLink.create(new_out_link, (err, created_out_link) => {
             if (err) reject(err)
             resolve(created_out_link)
+        })
+    })
+}
+
+//========================================
+// UPDATE
+//========================================
+/**
+ * Update a Outlink to the database
+ * @param {Object} updated_out_link
+ */
+OutLink.update = (venomkb_id, updated_out_link) => {
+    return new Promise((resolve, reject) => {
+        OutLink.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_out_link, err => {
+            if (err) return reject(err)
+            resolve()
         })
     })
 }

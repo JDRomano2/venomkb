@@ -15,7 +15,7 @@ const Species = require('../../models/Species')
 const objects = require("./testObjects");
 
 // Require the agent defined in the initialize
-const agent = require("../init");
+const agent = require("../proteins/proteins");
 
 describe("Species model tests", () => {
     describe("Species add tests", () => {
@@ -146,3 +146,5 @@ describe("Species model tests", () => {
         })
     })
 })
+
+module.exports = agent

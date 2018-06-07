@@ -149,42 +149,8 @@ describe("Protein model tests", () => {
         })
     })
 
-    describe("Protein update test", () => {
-        it("Should update a protein previously added", (done) => {
-            agent
-                .post('/proteins/update'+objects.protein_simple_updated.venomkb_id)
-                .send(objects.protein_simple_updated)
-                .then(res => {
-                    expect(res.statusCode).to.equal(200)
-                    done();
-                })
-                .catch(done)
-        })
-        it("Should get the added protein and check then updates", (done) => {
-            Protein.getByVenomKBId(objects.protein_simple.venomkb_id)
-                .then((protein) => {
-                    expect(protein.name).to.equal(objects.protein_simple_updated.name)
-                    expect(protein.venomkb_id).to.equal(objects.protein_simple_updated.venomkb_id)
-                    expect(protein.annotation_score).to.equal(objects.protein_simple_updated.annotation_score)
-                    expect(protein.venom_ref).to.equal(objects.protein_simple_updated.venom_ref)
-                    expect(protein.pdb_structure_known).to.equal(objects.protein_simple_updated.pdb_structure_known)
-                    expect(protein.aa_sequence).to.equal(objects.protein_simple_updated.aa_sequence)
-                    expect(protein.description).to.equal(objects.protein_simple_updated.description)
-                    expect(protein.pdb_image_url).to.equal(objects.protein_simple_updated.pdb_image_url)
-                })
-                .catch(done)
-        })
-        it("Should get all the outlinks from the database", (done) => {
-            OutLink.getAll()
-                .then((out_links_list) => {
-                    expect(out_links_list.length).to.equal(4)
-                    done()
-                })
-                .catch(done)
-        })
-    })
 
-    describe("Outlink model test", ()=>{
+    describe("Outlink model test", () => {
         it("Should add protein with same pfam", (done) => {
             agent
                 .post('/proteins')
@@ -206,34 +172,85 @@ describe("Protein model tests", () => {
         })
         it("Should get all the outlinks from the database", (done) => {
             OutLink.getAll()
-            .then((out_links_list) => {
-                expect(out_links_list.length).to.equal(4)
-                done()
-            })
-            .catch(done)
+                .then((out_links_list) => {
+                    expect(out_links_list.length).to.equal(4)
+                    done()
+                })
+                .catch(done)
         })
     })
 
-    describe("Literature predication model test", () => {
-        it("Should add protein with same literature predicaiton and a different", (done) => {
+
+    describe("Protein update test", () => {
+        it("Should update a protein previously added", (done) => {
             agent
-                .post('/proteins')
-                .send(objects.protein_predications)
+                .post('/proteins/update/'+objects.protein_simple_updated.venomkb_id)
+                .send(objects.protein_simple_updated)
                 .then(res => {
                     expect(res.statusCode).to.equal(200)
                     done();
                 })
                 .catch(done)
         })
-        it("Should get the added protein and check the number of predication", (done) => {
-            Protein.getByVenomKBId(objects.protein_predications.venomkb_id)
+        it("Should get the protein and check then updates", (done) => {
+            Protein.getByVenomKBId(objects.protein_simple.venomkb_id)
                 .then((protein) => {
-                    expect(protein.name).to.equal(objects.protein_predications.name)
-                    expect(protein.literature_predications.length).to.equal(objects.protein_predications.literature_predications.length)
+                    expect(protein.name).to.equal(objects.protein_simple_updated.name)
+                    expect(protein.venomkb_id).to.equal(objects.protein_simple_updated.venomkb_id)
+                    expect(protein.annotation_score).to.equal(objects.protein_simple_updated.annotation_score)
+                    expect(protein.venom_ref).to.equal(objects.protein_simple_updated.venom_ref)
+                    expect(protein.pdb_structure_known).to.equal(objects.protein_simple_updated.pdb_structure_known)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should add 2 out_links, 2 go, a reference, and 2 predications to a protein that already exist", (done) => {
+            agent
+                .post('/proteins/update/' + objects.protein_simple_updated1.venomkb_id)
+                .send(objects.protein_simple_updated1)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should check new properties have been correctly added", (done) => {
+            Protein.getByVenomKBId(objects.protein_simple_updated1.venomkb_id)
+                .then((protein) => {
+                    expect(protein.name).to.equal(objects.protein_simple_updated1.name)
+                    expect(protein.venomkb_id).to.equal(objects.protein_simple_updated1.venomkb_id)
+                    expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated1.go_annotations.length)
+                    expect(protein.literature_predications.length).to.equal(objects.protein_simple_updated1.literature_predications.length)
+                    expect(protein.literature_references.length).to.equal(objects.protein_simple_updated1.literature_references.length)
+                    expect(protein.out_links.length).to.equal(objects.protein_simple_updated1.out_links.length)
                     done()
                 })
                 .catch(done)
         })
-
+        it("Should remove 1 go and 2 predications to a protein that already exists", (done) => {
+            agent
+                .post('/proteins/update/' + objects.protein_simple_updated2.venomkb_id)
+                .send(objects.protein_simple_updated2)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should get the protein and check remove properties", (done) => {
+            Protein.getByVenomKBId(objects.protein_simple_updated2.venomkb_id)
+                .then((protein) => {
+                    expect(protein.name).to.equal(objects.protein_simple_updated2.name)
+                    expect(protein.venomkb_id).to.equal(objects.protein_simple_updated2.venomkb_id)
+                    expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated2.go_annotations.length)
+                    expect(protein.literature_predications.length).to.equal(objects.protein_simple_updated2.literature_predications.length)
+                    expect(protein.literature_references.length).to.equal(objects.protein_simple_updated2.literature_references.length)
+                    expect(protein.out_links).to.equal(objects.protein_simple_updated2.out_links)
+                })
+                .catch(done)
+        })
     })
+
 });
+
+module.exports = agent

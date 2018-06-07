@@ -11,7 +11,7 @@ const LiteratureSchema = new mongoose.Schema({
 	o_name: { type: String, required: true },
 	o_cui: { type: String, required: true },
 	o_type: { type: String, required: true },
-	id_pred: { type: String, required: true, unique: true, sparse: true},
+	id_pred: { type: String, required: true, unique: true, sparse: true },
 	vkb_protein_ref: { type: String, required: true },
 	pmid: { type: Number, required: true },
 	toxprot_id: String,
@@ -73,6 +73,60 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
 	}
 }
 
+/**
+ * Update outlinks to a protein
+ * @param {Array} out_links an array of out_links objects
+ */
+
+ProteinSchema.methods.updateOutlink = function (out_links) {
+	const protein = this;
+	if ((out_links.constructor === Array)) {
+		const promises = [];
+		out_links.forEach(element=> {
+			promises.push(new Promise((resolve, reject) => {
+				return OutLink.findOne(element).exec().then(found=>{
+					if (found) {
+						return found.update()
+					}
+					else {
+						return OutLink.add(element).then((out_link) => {
+							protein.out_links.push(out_link._id);
+							resolve();
+						}).catch(reject)
+					}
+				})
+			}))
+		})
+		protein.out_links.forEach(element_id =>{
+			promises.push(new Promise((resolve, reject) => {
+				return OutLink.findOne(element_id).populate('proteins').exec().then((out_link) => {
+					out_links.findIndex((element) => {
+						return element.resource == out_link.ressource &&
+						element.primary_id == out_link.primary_id
+					})
+					if (index == -1 ) {
+						if (out_link.proteins.length == 1 ) {
+							return out_link.remove().then(()=> {
+								protein.out_links.splice(index,1)
+								resolve()
+							}).catch(reject)
+						}
+						protein.out_links.splice(index, 1)
+						resolve()
+					}
+
+				})
+			}))
+		})
+		return Promise.all(promises).then(() => {
+			return protein.save()
+		});
+	} else {
+		return Promise.reject({ message: "Out links field should be an array" })
+	}
+
+}
+
 
 /**
  * Add literatures to a protein
@@ -124,6 +178,60 @@ ProteinSchema.methods.addReference = function (references) {
 	} else {
 		return Promise.reject({ message: "References list must contain object" })
 	}
+}
+
+/**
+ * Update outlinks to a protein
+ * @param {Array} out_links an array of out_links objects
+ */
+
+ProteinSchema.methods.updateOutlink = function (out_links) {
+	const protein = this;
+	if ((out_links.constructor === Array)) {
+		const promises = [];
+		out_links.forEach(element => {
+			promises.push(new Promise((resolve, reject) => {
+				return OutLink.findOne(element).exec().then(found => {
+					if (found) {
+						return found.update()
+					}
+					else {
+						return OutLink.add(element).then((out_link) => {
+							protein.out_links.push(out_link._id);
+							resolve();
+						}).catch(reject)
+					}
+				})
+			}))
+		})
+		protein.out_links.forEach(element_id => {
+			promises.push(new Promise((resolve, reject) => {
+				return OutLink.findOne(element_id).populate('proteins').exec().then((out_link) => {
+					out_links.findIndex((element) => {
+						return element.resource == out_link.ressource &&
+							element.primary_id == out_link.primary_id
+					})
+					if (index == -1) {
+						if (out_link.proteins.length == 1) {
+							return out_link.remove().then(() => {
+								protein.out_links.splice(index, 1)
+								resolve()
+							}).catch(reject)
+						}
+						protein.out_links.splice(index, 1)
+						resolve()
+					}
+
+				})
+			}))
+		})
+		return Promise.all(promises).then(() => {
+			return protein.save()
+		});
+	} else {
+		return Promise.reject({ message: "Out links field should be an array" })
+	}
+
 }
 
 /**

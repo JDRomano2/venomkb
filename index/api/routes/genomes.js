@@ -82,6 +82,72 @@ router.get('/:id', (req, res, next) => {
 });
 
 
+/**
+ * Create new genome
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/", function (req, res) {
+  // Check if all the necessary fields are there
+
+  if (!req.body.name) {
+    return utils.sendStatusMessage(res, 400, "The name field is empty")
+  }
+  if (!req.body.venomkb_id) {
+    return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
+  }
+  if (!req.body.lastUpdated) {
+    return utils.sendStatusMessage(res, 400, "The lastUpdated field is empty")
+  }
+  if (!req.body.annotation_score) {
+    return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
+  }
+
+  // Check if the genome already exists
+  return Genome.getByVenomKBId(req.body.venomkb_id)
+    .then(genome => {
+      console.log("try to find genome", genome);
+
+      if (genome) {
+        return Promise.reject({ message: "venomkb_id already exists" })
+      }
+    })
+    .then(() => {
+      // Create a new genome
+      var new_genome = {
+        name: req.body.name,
+        lastUpdated: req.body.lastUpdated,
+        venomkb_id: req.body.venomkb_id,
+        annotation_score: req.body.annotation_score,
+        assembly_platform: req.body.assembly_platform,
+        project_homepage: req.project_homepage
+      }
+      return Genome.add(new_genome)
+    })
+    .then((new_genome) => {
+      // add literature reference
+      if (req.body.literature_reference) {
+        return new_genome.addReference(req.body.literature_reference)
+      } else {
+        return Promise.resolve(new_genome);
+      }
+    })
+    .then((new_genome) => {
+      // add literature reference
+      if (req.body.species_ref) {
+        return new_genome.addSpecies(req.body.species_ref)
+      } else {
+        return Promise.resolve(new_genome);
+      }
+    })
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      utils.sendErrorMessage(res, err);
+    })
+})
+
 /* POST /genomes */
 router.post('/', (req, res, next) => {
   genome.create(req.body,  (err, genomes) => {
