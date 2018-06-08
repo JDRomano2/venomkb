@@ -82,10 +82,11 @@ SpeciesSchema.methods.updateTaxonomic = function (taxonomic_lineage) {
             promises.push(new Promise((resolve, reject) => {
                 return Taxonomic.findOne(element).exec().then(found => {
                     if (found) {
-                        console.log("taxonomic found")
                         return Taxonomic.update(found._id, element).then(resolve).catch(reject)
                     }
                     else {
+                        console.log("adddddeeeeedddd");
+
                         return Taxonomic.add(element).then((taxonomic) => {
                             species.taxonomic_lineage.push(taxonomic._id);
                             resolve();
