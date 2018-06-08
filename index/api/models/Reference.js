@@ -24,6 +24,18 @@ ReferenceSchema.virtual('proteins', {
 Reference = mongoose.model('Reference', ReferenceSchema);
 
 //========================================
+// GET
+//========================================
+/**
+ * Update a Reference to the database
+ * @param {Object} updated_reference
+ */
+Reference.getByPmid = (pmid) => {
+    return Reference.findOne({ pmid: pmid }).exec()
+}
+
+
+//========================================
 // ADD
 //========================================
 

@@ -198,9 +198,6 @@ module.exports = {
                 "resource": "Pfam",
                 "primary_id": "Reprolysin",
                 "shared": true
-
-
-
             },
             {
                 "resource": "SMART",
@@ -224,6 +221,37 @@ module.exports = {
                 "term": "C:extracellular region",
                 "id": "GO:0005576",
                 "evidence": "ECO:0000501"
+            }]
+    }, protein_simple_updated3: {
+        "lastUpdated": 1528228926262,
+        "venomkb_id": "P4385666",
+        "venom_ref": "V5672796",
+        "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
+        "pdb_structure_known": true,
+        "annotation_score": 4,
+        "out_links": [
+            {
+                "resource": "Pfam",
+                "primary_id": "Reprolysin",
+                "shared": true
+            },
+
+        ],
+        "literature_references": [
+            {
+                "doi": "10.1006/abbi.1994.1026",
+                "title": "CDNA sequences for four snake venom metalloproteinases: structure, classification, and their relationship to mammalian reproductive proteins.",
+                "first_author": "Hite L.A.",
+                "journal_name": "Arch. Biochem. Biophys.",
+                "date": "1994",
+                "pmid": "8311451"
+            }],
+        "go_annotations": [
+            {
+                "project": "UniProtKB-SubCell",
+                "term": "C:extracellular region",
+                "id": "GO:0005576",
+                "evidence": "ECO:0000502"
             }]
     },
     p_without_name: {
@@ -316,9 +344,9 @@ module.exports = {
         "description": "Catalyzes an oxidative deamination of predominantly hydrophobic and aromatic L-amino acids, thus producing hydrogen peroxide that may contribute to the diverse toxic effects of this enzyme. Unlike most snake L-amino-acid oxidases, this enzyme exhibits potent activity against L-Lys. Has also potent activity against L-Met, L-Leu, L-His, L-Lys and L-Ile. Its activity on platelet aggregation is controversial. It has potent inhibitory activity on platelet aggregation induced by ADP and the thromboxane analog U46619, but not by thrombin, mucetin, ristocetin and stejnulxin (PubMed:17543361), but it has also been shown to induce platelet aggregation through the formation of hydrogen peroxide (PubMed:7886693). It binds to bacteria and shows antibacterial activities by generating hydrogen peroxide. Binding and antibacterial activities are higher against Gram-positive than against Gram-negative bacteria. May also have an ability to induce hemorrhage, hemolysis, edema, apoptosis.",
         "out_links": [
             {
-            "resource": "Pfam",
-            "primary_id": "Amino_oxidase",
-            "shared": true
+                "resource": "Pfam",
+                "primary_id": "Amino_oxidase",
+                "shared": true
             },
             {
                 "resource": "UniProtKB",

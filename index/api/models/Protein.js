@@ -210,8 +210,9 @@ ProteinSchema.methods.updateReference = function(references) {
 		const promises = [];
 		references.forEach(element => {
 			promises.push(new Promise((resolve, reject) => {
-				return Reference.findOne(element).exec().then(found => {
+				return Reference.getByPmid(element.pmid).then(found => {
 					if (found) {
+						console.log("reference found")
 						return Reference.update(found._id, element).then(resolve).catch(reject)
 					}
 					else {

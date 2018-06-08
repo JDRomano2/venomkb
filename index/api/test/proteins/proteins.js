@@ -240,12 +240,39 @@ describe("Protein model tests", () => {
         it("Should get the protein and check remove properties", (done) => {
             Protein.getByVenomKBId(objects.protein_simple_updated2.venomkb_id)
                 .then((protein) => {
+                    console.log(protein)
                     expect(protein.name).to.equal(objects.protein_simple_updated2.name)
                     expect(protein.venomkb_id).to.equal(objects.protein_simple_updated2.venomkb_id)
                     expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated2.go_annotations.length)
                     expect(protein.literature_predications).to.be.empty
                     expect(protein.literature_references.length).to.equal(objects.protein_simple_updated2.literature_references.length)
                     expect(protein.out_links.length).to.equal(objects.protein_simple_updated2.out_links.length)
+                    done()
+                })
+                .catch(done)
+        })
+        it("Should remove 1 out_link and update a go and a reference to a protein that already exists", (done) => {
+            agent
+                .post('/proteins/update/' + objects.protein_simple_updated3.venomkb_id)
+                .send(objects.protein_simple_updated3)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done();
+                })
+                .catch(done)
+        })
+        it("Should get the protein and check remove properties", (done) => {
+            Protein.getByVenomKBId(objects.protein_simple_updated3.venomkb_id, "literature_references go_annotations" )
+                .then((protein) => {
+                    console.log(protein)
+                    expect(protein.name).to.equal(objects.protein_simple_updated3.name)
+                    expect(protein.venomkb_id).to.equal(objects.protein_simple_updated3.venomkb_id)
+                    expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated3.go_annotations.length)
+                    expect(protein.literature_predications).to.be.empty
+                    expect(protein.literature_references.length).to.equal(objects.protein_simple_updated3.literature_references.length)
+                    expect(protein.literature_references[0].title).to.equal(objects.protein_simple_updated3.literature_references[0].title)
+                    expect(protein.out_links.length).to.equal(objects.protein_simple_updated3.out_links.length)
+                    expect(protein.go_annotations[0].evidence).to.equal(objects.protein_simple_updated3.go_annotations[0].evidence)
                     done()
                 })
                 .catch(done)

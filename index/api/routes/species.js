@@ -188,6 +188,92 @@ router.post("/", function (req, res) {
         })
 })
 
+/**
+ * Update a species
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/update/:id", function (req, res) {
+    // Check if all the necessary fields are there
+
+    if (!req.body.name) {
+        return utils.sendStatusMessage(res, 400, "The name field is empty")
+    }
+    if (!req.body.venomkb_id) {
+        return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
+    }
+    if (!req.body.lastUpdated) {
+        return utils.sendStatusMessage(res, 400, "The lastUpdated field is empty")
+    }
+    if (!req.body.venom_ref) {
+        return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
+    }
+    if (!req.body.venom.name) {
+        return utils.sendStatusMessage(res, 400, "The venom name field is empty")
+    }
+    if (!req.body.annotation_score) {
+        return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
+    }
+    if (!req.body.venom.proteins) {
+        return utils.sendStatusMessage(res, 400, "The venom protein field is empty")
+    }
+
+    // Check if the species exists
+    return Species.getByVenomKBId(req.body.venomkb_id)
+
+        .then(species => {
+
+            if (!species) {
+                return Promise.reject({ message: "Species not found, cannot update a species that doesn't exist" })
+            }
+        })
+        .then(() => {
+
+            // Create a new protein
+            var new_species = {
+                name: req.body.name,
+                lastUpdated: req.body.lastUpdated,
+                venomkb_id: req.body.venomkb_id,
+                common_name: req.body.common_name,
+                venom_ref: req.body.venom_ref,
+                annotation_score: req.body.annotation_score,
+                "venom.name": req.body.venom.name,
+                common_name: req.body.common_name,
+                species_image_url: req.species_image_url
+            }
+            return Species.update(req.body.venomkb_id, new_species)
+        })
+        .then((new_species) => {
+            // update taxonomic lineage
+            if (req.body.taxonomic_lineage) {
+                return new_species.updateTaxonomic(req.body.taxonomic_lineage)
+            } else {
+                return new_species.updateTaxonomic([])
+            }
+        })
+        .then((new_species) => {
+            // update venom
+            if (req.body.venom) {
+                return new_species.updateVenom(req.body.venom)
+            } else {
+                return Promise.resolve(new_species);
+            }
+        })
+        .then((new_species) => {
+            // add out links
+            if (req.body.out_links) {
+                return new_species.updateOutLinks(req.body.out_links)
+            } else {
+                return Promise.resolve(new_species);
+            }
+        })
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch((err) => {
+            utils.sendErrorMessage(res, err);
+        })
+})
 
 /* GET /species/index */
 router.get('/index', (req, res, next) => {
@@ -198,22 +284,7 @@ router.get('/index', (req, res, next) => {
 });
 
 
-/* GET /species/id */
-router.get('/:id', (req, res, next) => {
-    if (vkbid_reg.test(req.params.id)) {
-        console.log("Find by VenomKB id");
-        species.find({ 'venomkb_id': req.params.id }, (err, spec) => {
-            if (err) return handleError(err);
-            res.json(spec);
-        });
-    } else {
-        console.log("Find by id");
-        species.findById(req.params.id, (err, spec) => {
-            if (err) return next(err);
-            res.json(spec);
-        });
-    }
-});
+
 
 /**
  * Delete species

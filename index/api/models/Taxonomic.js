@@ -7,6 +7,15 @@ const TaxonomicSchema = new mongoose.Schema({
     rankName: String
 });
 
+TaxonomicSchema.virtual('species', {
+    ref: 'Species', // The model to use
+    localField: '_id', // Find people where `localField`
+    foreignField: 'taxonomic_lineage', // is equal to `foreignField`
+    // If `justOne` is true, 'members' will be a single doc as opposed to
+    // an array. `justOne` is false by default.
+    justOne: false
+});
+
 const Taxonomic = mongoose.model('Taxonomic', TaxonomicSchema);
 
 
@@ -50,6 +59,17 @@ Taxonomic.add = new_taxonomic => {
     })
 }
 
+
+//========================================
+// UPDATE
+//========================================
+/**
+ * Update a taxonomic to the database
+ * @param {Object} updated_taxonomic
+ */
+Taxonomic.update = (_id, updated_taxonomic) => {
+    return Taxonomic.findOneAndUpdate({ _id: _id }, updated_taxonomic).exec()
+}
 
 //========================================
 // DELETE
