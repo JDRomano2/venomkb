@@ -11,7 +11,7 @@ const OutLinkSchema = new mongoose.Schema({
 
 const SpeciesSchema = new mongoose.Schema({
     venomkb_id: { type: String, index: true, unique: true },
-    lastUpdated: { type: Date, required: true },
+    lastUpdated: { type: Date, default: Date.now},
     venom_ref: { type: String, required: true },
     name: { type: String, required: true, unique: true },
     annotation_score: { type: Number, min: 1, max: 5, required: true },
@@ -82,11 +82,14 @@ SpeciesSchema.methods.updateTaxonomic = function (taxonomic_lineage) {
             promises.push(new Promise((resolve, reject) => {
                 return Taxonomic.findOne(element).exec().then(found => {
                     if (found) {
-                        return Taxonomic.update(found._id, element).then(resolve).catch(reject)
+                        if (species.taxonomic_lineage.indexOf(found._id) == -1) {
+                            console.log("founnnnnndddd");
+                            species.taxonomic_lineage.push(found._id);
+                            resolve()
+                        }
                     }
                     else {
                         console.log("adddddeeeeedddd");
-
                         return Taxonomic.add(element).then((taxonomic) => {
                             species.taxonomic_lineage.push(taxonomic._id);
                             resolve();

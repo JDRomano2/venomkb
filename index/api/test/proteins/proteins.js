@@ -122,17 +122,7 @@ describe("Protein model tests", () => {
         it("Should return 400 when try to add a protein without a pdb_structure_known", (done) => {
             agent
                 .post('/proteins')
-                .send(objects.p_without_pdb_structure_know)
-                .then(res => {
-                    expect(res.statusCode).to.equal(400)
-                    done();
-                })
-                .catch(done)
-        })
-        it("Should return 400 when try to add a protein without a lastUpdated", (done) => {
-            agent
-                .post('/proteins')
-                .send(objects.p_without_lastUpadated)
+                .send(objects.p_without_pdb_structure_known)
                 .then(res => {
                     expect(res.statusCode).to.equal(400)
                     done();

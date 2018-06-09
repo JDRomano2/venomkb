@@ -114,16 +114,7 @@ describe("Genome model tests", () => {
                 .catch(done)
         })
 
-        it("Should return 400 when try to add a genome without a lastUpdated", (done) => {
-            agent
-                .post('/genomes')
-                .send(objects.g_without_lastupadated)
-                .then(res => {
-                    expect(res.statusCode).to.equal(400)
-                    done();
-                })
-                .catch(done)
-        })
+
     })
 })
 

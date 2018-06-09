@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 const OutLink = require('./Outlink');
 const Reference = require('./Reference');
-const Annotation = require('./Annotation');
+
+// Schema to enforce consistent structure.
+const GOAnnotationSchema = new mongoose.Schema({
+	term: { type: String, required: true },
+	id: { type: String, required: true },
+	project: String,
+	evidence: String
+});
 
 const LiteratureSchema = new mongoose.Schema({
 	s_name: { type: String, required: true },
@@ -22,7 +29,7 @@ const LiteratureSchema = new mongoose.Schema({
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
 	venomkb_id: { type: String, index: true, unique: true },
-	lastUpdated: { type: Date, required: true },
+	lastUpdated: { type: Date, default: Date.now},
 	name: { type: String, required: true },
 	venom_ref: { type: String, required: true },
 	pdb_structure_known: { type: Boolean, required: true },
@@ -32,7 +39,7 @@ const ProteinSchema = new mongoose.Schema({
 	pdb_image_url: String,
 	literature_predications: [LiteratureSchema],
 	literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
-	go_annotations: [{ type: mongoose.Schema.ObjectId, ref: 'Annotation' }],
+	go_annotations: [GOAnnotationSchema],
 	out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
 });
 
@@ -265,20 +272,10 @@ ProteinSchema.methods.addGOAnnotation = function (annotations) {
 	const protein = this;
 
 	if (typeof annotations[0] == "object") {
-		const promises = [];
 		annotations.forEach(element => {
-			promises.push(new Promise((resolve, reject) => {
-				return Annotation.add(element)
-					.then((annotation) => {
-						protein.go_annotations.push(annotation._id);
-						resolve();
-					}).catch(reject)
-			})
-			)
+				protein.go_annotations.push(element);
 		})
-		return Promise.all(promises).then(() => {
 			return protein.save()
-		});
 	} else {
 		return Promise.reject({ message: "Annotations list must contain object" })
 	}

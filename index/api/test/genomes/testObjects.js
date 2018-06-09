@@ -1,6 +1,5 @@
 module.exports = {
     genome_test: {
-        "lastUpdated": 1528312461802,
         "assembly_platform": "",
         "annotation_score": 4,
         "name": "Apis mellifera complete genome",
@@ -350,7 +349,6 @@ module.exports = {
         }],
         "species_ref": "S4876300"
     }, species_linked: {
-        "lastUpdated": 1528318675314,
         "name": "Apis mellifera",
         "common_name": "Honeybee",
         "venomkb_id": "S4876300",
@@ -365,7 +363,6 @@ module.exports = {
         "species_image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Apis_mellifera_Tanzania.jpg",
         "annotation_score": 4
     }, protein_linked: {
-        "lastUpdated": 1528318955677,
         "description": null,
         "aa_sequence": "MSVIAILAMVVGVQAELKQINVIFRHGDRIPDEKNEMYPKDPYLYYDFYPLERGELTNSGKMREYQLGQFLRERYGDFLGDIYTEESVSALSSFYDRTKMSLQLVLAALYPPNKLQQWNEDLNWQPIATKYLRRYEDNIFLPEDCLLFTIELDRVLESPRGKYEFSKYDKLKKKLEEWTGKNITTPWDYYYIYHTLVAEQSYGLTLPSWTNNIFPRGELFDATVFTYNITNSTPLLKKLYGGPLLRIFTKHMLDVVSGTQKKKRKIYLFSGHESNIASVLHALQLYYPHVPEYSSSIIMELHNIEGTHYVKIVYYLGIPSEARELQLPGCEVLCPLYKYLQLIENVIPSNEELICDKRFVDESANNLSIEELDFVKLNLIRIAGTENK",
         "venomkb_id": "P6912376",
@@ -420,7 +417,6 @@ module.exports = {
         }],
         "species_ref": "S6678150"
     }, g_without_name: {
-        "lastUpdated": 1528314802041,
         "assembly_platform": "",
         "annotation_score": 3,
         "project_homepage": "",
@@ -445,7 +441,6 @@ module.exports = {
         }],
         "species_ref": "S6678150"
     }, g_without_venomkb_id: {
-        "lastUpdated": 1528314802041,
         "assembly_platform": "",
         "annotation_score": 3,
         "name": "Conus bullatus complete genome",
@@ -470,7 +465,6 @@ module.exports = {
         }],
         "species_ref": "S6678150"
     }, g_without_score_annotation: {
-        "lastUpdated": 1528314802041,
         "assembly_platform": "",
         "name": "Conus bullatus complete genome",
         "project_homepage": "",
@@ -495,7 +489,6 @@ module.exports = {
         }],
         "species_ref": "S6678150"
     }, genome_venomkb_id: {
-        "lastUpdated": 1528314802041,
         "assembly_platform": "",
         "annotation_score": 3,
         "name": "Conus bullatus complete genome",

@@ -1,70 +1,168 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const systemiceffect = require('../models/SystemicEffect.js');
+const SystemicEffect = require('../models/SystemicEffect.js');
+const utils = require("../utils.js")
 
-const vkbid_reg = /E\d{7}/;
+const vkbid_reg = /G\d{7}/;
 
-/* GET /systemiceffects listing. */
+/**
+ * Get a list of all systemic_effects
+ * @returns an array of systemic_effect object
+ */
+/* GET /systemic_effects listing. */
 router.get('/', (req, res, next) => {
-  //systemiceffect.find({}).sort({ updatedAt: -1 }).exec((err, systemiceffects) => {
-  systemiceffect.find({}).exec((err, systemiceffects) => {
-    if (err) return next(err);
-    res.json(systemiceffects);
-  });
+  SystemicEffect.getAll()
+    .then(systemic_effects => {
+      res.json(systemic_effects)
+    })
+    .catch(err => {
+      return utils.sendStatusMessage(res, 500, err.message);
+    })
 });
 
-/* POST /systemiceffects */
-router.post('/', (req, res, next) => {
-  systemiceffect.create(req.body,  (err, systemiceffects) => {
-    if (err) return next(err);
-    console.log('New systemiceffect created:');
-    console.log(systemiceffects);
-    res.json(systemiceffects);
-  });
-});
-
-/* GET /systemiceffects/index */
+/* GET /systemic_effects/index */
 router.get('/index', (req, res, next) => {
-  systemiceffect.find({}, {venomkb_id: 1, name: 1, venom_ref: 1}).exec((err, systemiceffects_ind) => {
+  systemic_effect.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, systemic_effects_ind) => {
     if (err) return next(err);
-    res.json(systemiceffects_ind);
+    res.json(systemic_effects_ind);
   });
 });
 
+/**
+ * Find all systemic_effect that have a given pattern in their name
+ * @param {Query} name full name or part of the name of the systemic_effect
+ * @returns the systemic_effect if only one result, an array of systemic_effect object in other case
+ */
+/* GET /systemic_effects/name */
+router.get('/search', (req, res, next) => {
+  if (!req.query.name) {
+    console.log("You must enter a name");
+    return utils.sendStatusMessage(res, 400, "systemic_effect name not specified")
 
-/* GET /systemiceffects/id */
+  }
+  console.log("Find by name");
+  SystemicEffect.getByName(req.query.name)
+    .then(systemic_effect => {
+      res.json(systemic_effect)
+    })
+    .catch(err => {
+      return utils.sendStatusMessage(res, 500, err.message);
+    })
+});
+
+/**
+ * Find a systemic_effect given its id or venomkb_id
+ * @param {Params} id object id or venomkb_id of the systemic_effect
+ * @returns the systemic_effect
+ */
+/* GET /systemic_effects/id */
 router.get('/:id', (req, res, next) => {
+  if (!req.params.id) {
+    return utils.sendStatusMessage(res, 400, "systemic_effect id not specified")
+  }
   if (vkbid_reg.test(req.params.id)) {
     console.log("Find by VenomKB id");
-    systemiceffect.find({ 'venomkb_id': req.params.id }, (err, systemiceffect) => {
-      if (err) return handleError(err);
-      res.json(systemiceffect);
-    });
+    SystemicEffect.getByVenomKBId(req.params.id)
+      .then(systemic_effect => {
+        res.json(systemic_effect)
+      })
+      .catch()
   } else {
     console.log("Find by id");
-    systemiceffect.findById(req.params.id, (err, systemiceffects) => {
-      if (err) return next(err);
-      res.json(systemiceffects);
-    });
+    SystemicEffect.getById(req.params.id)
+      .then(systemic_effect => {
+        res.json(systemic_effect)
+      })
+      .catch(err => {
+        return utils.sendStatusMessage(res, 500, err.message);
+      })
   }
 });
 
-/* PUT /systemiceffects/:id */
-router.put('/:id', (req, res, next) => {
-  systemiceffect.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
+
+/**
+ * Create new systemic_effect
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/", function (req, res) {
+  // Check if all the necessary fields are there
+
+  if (!req.body.name) {
+    return utils.sendStatusMessage(res, 400, "The name field is empty")
+  }
+  if (!req.body.venomkb_id) {
+    return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
+  }
+
+
+  // Check if the systemic_effect already exists
+  return SystemicEffect.getByVenomKBId(req.body.venomkb_id)
+    .then(systemic_effect => {
+      console.log("try to find systemic_effect", systemic_effect);
+
+      if (systemic_effect) {
+        return Promise.reject({ message: "venomkb_id already exists" })
+      }
+    })
+    .then(() => {
+      // Create a new systemic_effect
+      var new_systemic_effect = {
+        name: req.body.name,
+        venomkb_id: req.body.venomkb_id,
+      }
+      return SystemicEffect.add(new_systemic_effect)
+    })
+    .then((new_systemic_effect) => {
+      // add protein annotation
+      if (req.body.protein_annotations) {
+        return new_systemic_effect.addProteinAnnotation(req.body.literature_reference)
+      } else {
+        return Promise.resolve(new_systemic_effect);
+      }
+    })
+    .then((new_systemic_effect) => {
+      // add out_links
+      if (req.body.out_links) {
+        return new_systemic_effect.addOutLink(req.body.out_links)
+      } else {
+        return Promise.resolve(new_systemic_effect);
+      }
+    })
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      utils.sendErrorMessage(res, err);
+    })
+})
+
+/* POST /systemic_effects */
+router.post('/', (req, res, next) => {
+  systemic_effect.create(req.body, (err, systemic_effects) => {
     if (err) return next(err);
-    res.json(systemiceffects);
+    console.log('New systemic_effect created:');
+    console.log(systemic_effects);
+    res.json(systemic_effects);
   });
 });
 
-/* DELETE /systemiceffects/:id */
-router.delete('/:id', (req, res, next) => {
-  systemiceffect.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
+/* PUT /systemic_effects/:id */
+router.put('/:id', (req, res, next) => {
+  systemic_effect.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
     if (err) return next(err);
-    console.log('systemiceffect deleted:');
-    console.log(systemiceffects);
-    res.json(systemiceffects);
+    res.json(systemic_effects);
+  });
+});
+
+/* DELETE /systemic_effects/:id */
+router.delete('/:id', (req, res, next) => {
+  systemic_effect.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
+    if (err) return next(err);
+    console.log('systemic_effect deleted:');
+    console.log(systemic_effects);
+    res.json(systemic_effects);
   });
 });
 

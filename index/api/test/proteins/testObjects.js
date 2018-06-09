@@ -1,6 +1,5 @@
 module.exports = {
     protein_test: {
-        "lastUpdated": 1527620793625,
         "description": "Disintegrin crotatroxin: inhibits fibrinogen interaction with platelets. Acts by binding to the alpha-IIb/beta-3 (ITGA2B/ITGB3) on the platelet surface and inhibits aggregation induced by ADP, thrombin, platelet-activating factor and collagen.",
         "out_links": [
             {
@@ -96,7 +95,6 @@ module.exports = {
         ]
     },
     protein_simple: {
-        "lastUpdated": 1528228926262,
         "venomkb_id": "P4385666",
         "venom_ref": "V5672796",
         "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
@@ -104,7 +102,6 @@ module.exports = {
         "annotation_score": 5,
     },
     protein_simple_updated: {
-        "lastUpdated": 1528228926262,
         "venomkb_id": "P4385666",
         "venom_ref": "V5672796",
         "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
@@ -112,7 +109,6 @@ module.exports = {
         "annotation_score": 4,
     },
     protein_simple_updated1: {
-        "lastUpdated": 1528228926262,
         "venomkb_id": "P4385666",
         "venom_ref": "V5672796",
         "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
@@ -187,7 +183,6 @@ module.exports = {
             }]
     },
     protein_simple_updated2: {
-        "lastUpdated": 1528228926262,
         "venomkb_id": "P4385666",
         "venom_ref": "V5672796",
         "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
@@ -223,7 +218,6 @@ module.exports = {
                 "evidence": "ECO:0000501"
             }]
     }, protein_simple_updated3: {
-        "lastUpdated": 1528228926262,
         "venomkb_id": "P4385666",
         "venom_ref": "V5672796",
         "name": "Zinc metalloproteinase-disintegrin-like atrolysin-A",
@@ -255,27 +249,18 @@ module.exports = {
             }]
     },
     p_without_name: {
-        "lastUpdated": 1528229327149,
         "venomkb_id": "P6359717",
         "venom_ref": "V9806705",
         "pdb_structure_known": false,
         "annotation_score": 5,
     },
     p_without_venomkb_id: {
-        "lastUpdated": 1528229327149,
         "venom_ref": "V9806705",
         "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
         "pdb_structure_known": false,
         "annotation_score": 5,
     }, p_without_venom_ref: {
-        "lastUpdated": 1528229327149,
         "venomkb_id": "P6359717",
-        "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
-        "pdb_structure_known": false,
-        "annotation_score": 5,
-    }, p_without_lastUpadated: {
-        "venomkb_id": "P6359717",
-        "venom_ref": "V9806705",
         "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
         "pdb_structure_known": false,
         "annotation_score": 5,
@@ -284,15 +269,12 @@ module.exports = {
         "venom_ref": "V9806705",
         "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
         "pdb_structure_known": false,
-        "annotation_score": 5,
-    }, p_without_pdb_structure_know: {
+    }, p_without_pdb_structure_known: {
         "venomkb_id": "P6359717",
         "venom_ref": "V9806705",
         "name": "Kunitz-type serine protease inhibitor homolog beta-bungarotoxin BF B1 chain",
-        "pdb_structure_known": false,
         "annotation_score": 5,
     }, protein_pfam: {
-        "lastUpdated": 1528261887952,
         "description": "Inhibits adhesion of cells expressing alpha-4/beta-1 (ITGA4/ITGB1) and alpha-4/beta-7 (ITGA4/ITGB7) integrins to the natural ligands vascular cell adhesion molecule 1 (VCAM-1) and mucosal addressin cell adhesion molecule 1 (MADCAM-1). It is also a weaker inhibitor of alpha-5/beta-1 (ITGA5/ITGB1) and alpha-2b/beta-3 (ITGA2B/ITGB3) integrins. The inhibitory activity of EC3 towards alpha-4 integrins is associated with the MLD sequence of EC3B subunit. The ability of EC3 to inhibit ITGA5/ITGB1 resides in both subunits A and B.",
         "out_links": [
             {
@@ -340,7 +322,6 @@ module.exports = {
             }
         ]
     }, protein_predications: {
-        "lastUpdated": 1528300012586,
         "description": "Catalyzes an oxidative deamination of predominantly hydrophobic and aromatic L-amino acids, thus producing hydrogen peroxide that may contribute to the diverse toxic effects of this enzyme. Unlike most snake L-amino-acid oxidases, this enzyme exhibits potent activity against L-Lys. Has also potent activity against L-Met, L-Leu, L-His, L-Lys and L-Ile. Its activity on platelet aggregation is controversial. It has potent inhibitory activity on platelet aggregation induced by ADP and the thromboxane analog U46619, but not by thrombin, mucetin, ristocetin and stejnulxin (PubMed:17543361), but it has also been shown to induce platelet aggregation through the formation of hydrogen peroxide (PubMed:7886693). It binds to bacteria and shows antibacterial activities by generating hydrogen peroxide. Binding and antibacterial activities are higher against Gram-positive than against Gram-negative bacteria. May also have an ability to induce hemorrhage, hemolysis, edema, apoptosis.",
         "out_links": [
             {

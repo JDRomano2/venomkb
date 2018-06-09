@@ -134,16 +134,7 @@ describe("Species model tests", () => {
                 })
                 .catch(done)
         })
-        it("Should return 400 when try to add a species without a lastUpdated", (done) => {
-            agent
-                .post('/species')
-                .send(objects.p_without_lastupadated)
-                .then(res => {
-                    expect(res.statusCode).to.equal(400)
-                    done();
-                })
-                .catch(done)
-        })
+
     })
 })
 

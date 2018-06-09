@@ -120,9 +120,6 @@ router.post("/", function (req, res) {
     if (!req.body.venomkb_id) {
         return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
     }
-    if (!req.body.lastUpdated) {
-        return utils.sendStatusMessage(res, 400, "The lastUpdated field is empty")
-    }
     if (!req.body.venom_ref) {
         return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
     }
@@ -212,9 +209,6 @@ router.post("/update/:id", function (req, res) {
     }
     if (!req.body.venomkb_id) {
         return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
-    }
-    if (!req.body.lastUpdated) {
-        return utils.sendStatusMessage(res, 400, "The lastUpdated field is empty")
     }
     if (!req.body.venom_ref) {
         return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")

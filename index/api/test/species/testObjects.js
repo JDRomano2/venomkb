@@ -1,6 +1,5 @@
 module.exports = {
     species_test: {
-        "lastUpdated": 1528172348255,
         "name": "Crotalus atrox",
         "out_links": [{
             "resource": "ncbi_taxonomy",
@@ -130,7 +129,6 @@ module.exports = {
         "annotation_score": 5
     },
     species_test_venomkb_id: {
-        "lastUpdated": 1528309273219,
         "name": "Conus magus",
         "common_name": "Magus cone",
         "venomkb_id": "S7206224",
@@ -141,7 +139,6 @@ module.exports = {
         }
     },
     species_test_name: {
-        "lastUpdated": 1528309273219,
         "name": "Crotalus atrox",
         "common_name": "Magus cone",
         "venomkb_id": "S7206224",
@@ -152,7 +149,6 @@ module.exports = {
         }
     },
     s_without_name: {
-        "lastUpdated": 1528309273219,
         "common_name": "Magus cone",
         "venomkb_id": "S7206224",
         "venom_ref": "V7206224",
@@ -161,7 +157,6 @@ module.exports = {
             "name": "Conus magus venom"
         }
     }, s_without_venomkb_id: {
-        "lastUpdated": 1528309273219,
         "name": "Conus magus",
         "common_name": "Magus cone",
         "venom_ref": "V7206224",
@@ -170,7 +165,6 @@ module.exports = {
             "name": "Conus magus venom"
         }
     }, s_without_venom_ref: {
-        "lastUpdated": 1528309273219,
         "name": "Conus magus",
         "common_name": "Magus cone",
         "venomkb_id": "S7206224",
@@ -179,7 +173,6 @@ module.exports = {
             "name": "Conus magus venom"
         }
     }, s_without_annotation_score: {
-        "lastUpdated": 1528309273219,
         "name": "Conus magus",
         "common_name": "Magus cone",
         "venomkb_id": "S7206224",
@@ -188,7 +181,6 @@ module.exports = {
             "name": "Conus magus venom"
         }
     }, s_without_venom_name: {
-        "lastUpdated": 1528309273219,
         "name": "Conus magus",
         "common_name": "Magus cone",
         "venomkb_id": "S7206224",
@@ -206,7 +198,6 @@ module.exports = {
             "name": "Conus magus venom"
         }
     }, protein_linked: {
-        "lastUpdated": 1528406273398,
         "description": "This peptide both inhibits the activity of the angiotensin-converting enzyme (ACE) and enhances the action of bradykinin by inhibiting the peptidases that inactivate it. It acts as an indirect hypotensive agent (By similarity).",
         "out_links": [{ resource: 'UniProtKB', primary_id: 'P0C7J9', shared: false },
         {
@@ -253,7 +244,6 @@ module.exports = {
         ]
     }, s_simple: {
 
-        "lastUpdated": 1528405133342,
         "name": "Crotalus adamanteus",
 
         "common_name": "Eastern diamondback rattlesnake",
@@ -267,7 +257,6 @@ module.exports = {
         "annotation_score": 5
     }, s_simple_updated: {
 
-        "lastUpdated": 1528405133342,
         "name": "Crotalus adamanteus",
 
         "common_name": "Eastern diamondback rattlesnake",
@@ -281,7 +270,6 @@ module.exports = {
         "annotation_score": 5,
         "out_links": [{ resource: 'ncbi_taxonomy', primary_id: '8729', shared: false }],
     }, s_simple_updated1 :{
-        "lastUpdated": 1528405133342,
         "name": "Crotalus adamanteus",
 
         "common_name": "Eastern diamondback rattlesnake",

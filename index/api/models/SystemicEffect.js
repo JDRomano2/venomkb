@@ -10,7 +10,8 @@ const ProteinAnnotationSchema = new mongoose.Schema({
 const SystemicEffectSchema = new mongoose.Schema({
     venomkb_id: {type: String, required: true, unique:true},
     name: {type: String, required: true},
-    protein_annotations: [{ type: mongoose.Schema.ObjectId, ref: 'ProteinAnnotation'}],
+    lastUpdated: {type: Date, default: Date.now},
+    protein_annotations: [ProteinAnnotationSchema],
     out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
 });
 const SystemicEffect = mongoose.model('SystemicEffect', SystemicEffectSchema);
