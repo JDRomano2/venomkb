@@ -68,22 +68,29 @@ function createSpecies(species) {
 }
 
 function createGenome(genome) {
-    return new Promise((resolve, reject) => {
-        request.post({
-            url: 'http://localhost:3001/genomes',
-            form: genome,
-            json: true
-        },
-            function (error, response, body) {
-                if (error) {
-                    console.log(error);
-                }
-                resolve(body)
-            }
-        );
+    return axios.post('http://localhost:3001/genomes', genome, { timeout: 100000, maxContentLength: 200000 }).then(response => {
+        return Promise.resolve()
+    }).catch(error => {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            // console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log("REQUEST ERROR");
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+        console.log('\n\n\n\n\n');
+        return Promise.reject()
     })
 }
-
 
 async function populate() {
     let counter = 0;
@@ -121,6 +128,17 @@ async function populate() {
         }
     }
 
+    for (let genome of genomes) {
+        if (genome.out_links) {
+            genome.out_links = utils.formatOutLinksGenome(genome.out_links)
+        }
+
+        try {
+            let hello = await createGenome(genome)
+        } catch (error) {
+            console.log("ERROR");
+        }
+    }
 
 console.log("FINISH!!!");
 

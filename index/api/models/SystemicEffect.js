@@ -16,6 +16,71 @@ const SystemicEffectSchema = new mongoose.Schema({
 });
 const SystemicEffect = mongoose.model('SystemicEffect', SystemicEffectSchema);
 
+/**
+ * Add protein annotation
+ * @param {Array} protein_annotations an array of protein annotation objects
+ */
+SystemicEffectSchema.methods.addProteinAnnotation = function (protein_annotations) {
+    if (!(protein_annotations.constructor === Array)) {
+        return Promise.reject({ message: "protein annotations not a list" })
+    }
+
+    const systemicEffect = this;
+
+    if (typeof protein_annotations[0] == "object") {
+        protein_annotations.forEach(element => {
+            systemicEffect.protein_annotations.push(element)
+        })
+        return systemicEffect.save()
+    } else {
+        return Promise.reject({ message: "Protein annotations list must contain object" })
+    }
+}
+
+/**
+ * Add outlinks to a systemic effect
+ * @param {Array} out_links an array of out_links objects
+ */
+SystemicEffectSchema.methods.addOutLinks = function (out_links) {
+    if (!(out_links.constructor === Array)) {
+        return Promise.reject({ message: "Literatures not a list" })
+    }
+
+    const systemicEffect = this;
+    if (typeof out_links[0] == "object") {
+        const promises = [];
+        out_links.forEach(element => {
+            promises.push(new Promise((resolve, reject) => {
+                if (element.shared) {
+                    return OutLink.findOne(element).exec().then((el) => {
+                        if (el) {
+                            return Promise.resolve(el)
+                        }
+                        return OutLink.add(element)
+                    }).then((out_link) => {
+                        systemicEffect.out_links.push(out_link._id);
+                        resolve();
+                    }).catch(reject)
+                }
+                if (!element.primary_id)
+                    return reject({ message: "NOT SHARED " + element.primary_id })
+                return OutLink.add(element)
+
+                    .then((out_link) => {
+                        systemicEffect.out_links.push(out_link._id);
+                        resolve();
+                    }).catch(reject)
+
+            }))
+        })
+        return Promise.all(promises).then(() => {
+            return protein.save()
+        });
+    } else {
+        return Promise.reject({ message: "Out Link list must contain object" })
+    }
+}
+
 //========================================
 // GET
 //========================================
@@ -59,13 +124,6 @@ SystemicEffect.getAll = () => {
  * @param {Object} new_systemic_effect to be added
  */
 SystemicEffect.add = new_systemic_effect => {
-    console.log("enter add out link fonction");
-    if (!new_systemic_effect.resource)
-        return Promise.reject({ message: "Out links sent requires a resource field" })
-
-    if (!new_systemic_effect.primary_id)
-        return Promise.reject({ message: "Out links sent requires a primary_id" })
-
     return new Promise((resolve, reject) => {
         SystemicEffect.create(new_systemic_effect, (err, created_systemic_effect) => {
             if (err) reject(err)
@@ -74,28 +132,6 @@ SystemicEffect.add = new_systemic_effect => {
     })
 }
 
-//========================================
-// DELETE
-//========================================
 
-/**
- * Delete an systemic_effect
- * @param {ObjectId} id systemic_effect id who needs to be removed from the database
- */
-SystemicEffect.delete = id => {
-    return new Promise((resolve, reject) => {
-        SystemicEffect.getById(id).then(systemic_effect => {
-            if (!species) {
-                reject({ status: "Empty" })
-            }
-            systemic_effect.remove(err => {
-                if (err) {
-                    reject(err)
-                }
-                resolve()
-            })
-        })
-    })
-}
 module.exports = SystemicEffect
 
