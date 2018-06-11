@@ -202,7 +202,6 @@ describe("Species update test", () => {
     it("Should check new properties have been correctly added", (done) => {
         Species.getByVenomKBId(objects.s_simple_updated1.venomkb_id)
             .then((species) => {
-                console.log(species);
 
                 expect(species.name).to.equal(objects.s_simple_updated1.name)
                 expect(species.venomkb_id).to.equal(objects.s_simple_updated1.venomkb_id)

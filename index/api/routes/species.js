@@ -124,7 +124,6 @@ router.post("/", function (req, res) {
     // Check if the species already exists
     return Species.getByVenomKBId(req.body.venomkb_id)
         .then(species => {
-            console.log("try to find species", species);
 
             if (species) {
                 return Promise.reject({ message: "venomkb_id already exists" })

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const protein = require('../models/Protein.js');
 const Protein = require('../models/Protein.js');
 const utils = require("../utils.js")
 
@@ -124,9 +123,10 @@ router.post("/", function (req, res) {
         return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
     }
 
-    if (typeof req.body.pdb_structure_known === Boolean) {
+    if (typeof req.body.pdb_structure_known != "boolean") {
         return utils.sendStatusMessage(res, 400, "The pdb_structure_know field is empty")
     }
+
     if (!req.body.annotation_score) {
         return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
     }
@@ -134,8 +134,6 @@ router.post("/", function (req, res) {
     // Check if the protein already exists
     return Protein.getByVenomKBId(req.body.venomkb_id)
         .then(protein => {
-            console.log("try to find protein", protein);
-
             if (protein) {
                 return Promise.reject({ message: "venomkb_id already exists" })
             }
@@ -166,6 +164,7 @@ router.post("/", function (req, res) {
         })
         .then((new_protein) => {
             // add literature predication
+
             if (req.body.literature_predications) {
                 return new_protein.addLiterature(req.body.literature_predications)
             } else {
@@ -174,7 +173,7 @@ router.post("/", function (req, res) {
         })
         .then((new_protein) => {
             // add literature reference
-            if (req.body.literature_references) {
+            if (req.body.literature_references && req.body.literature_references.length > 0) {
                 return new_protein.addReference(req.body.literature_references)
             } else {
                 return Promise.resolve(new_protein);
@@ -287,50 +286,5 @@ router.post("/update/:id", function (req, res) {
             utils.sendErrorMessage(res, err);
         })
 })
-
-
-
-
-
-/* GET /species/index */
-router.get('/index', (req, res, next) => {
-    species.find({}, { venomkb_id: 1, name: 1 }).exec((err, species_ind) => {
-        if (err) return next(err);
-        res.json(species_ind);
-    });
-});
-
-
-
-/* POST /proteins */
-router.post('/', (req, res, next) => {
-    protein.create(req.body, (err, proteins) => {
-        if (err) return next(err);
-        res.json(proteins);
-    });
-});
-
-
-
-
-
-
-/* PUT /proteins/:id */
-router.put('/:id', (req, res, next) => {
-    protein.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
-        if (err) return next(err);
-        res.json(proteins);
-    });
-});
-
-/* DELETE /proteins/:id */
-router.delete('/:id', (req, res, next) => {
-    protein.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
-        if (err) return next(err);
-        console.log('protein deleted:');
-        console.log(proteins);
-        res.json(proteins);
-    });
-});
 
 module.exports = router;

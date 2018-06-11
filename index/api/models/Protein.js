@@ -28,8 +28,8 @@ const LiteratureSchema = new mongoose.Schema({
 
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
-	venomkb_id: { type: String, index: true, unique: true },
 	lastUpdated: { type: Date, default: Date.now},
+	venomkb_id: { type: String, index: true, unique: true },
 	name: { type: String, required: true },
 	venom_ref: { type: String, required: true },
 	pdb_structure_known: { type: Boolean, required: true },
@@ -48,8 +48,12 @@ const ProteinSchema = new mongoose.Schema({
  * @param {Array} out_links an array of out_links objects
  */
 ProteinSchema.methods.addOutLinks = function (out_links) {
+	if (!(out_links.constructor === Array)) {
+		return Promise.reject({ message: "Literatures not a list" })
+	}
+
 	const protein = this;
-	if ((out_links.constructor === Array)) {
+	if (typeof out_links[0] == "object") {
 		const promises = [];
 		out_links.forEach(element => {
 			promises.push(new Promise((resolve, reject) => {
@@ -64,7 +68,10 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
 						resolve();
 					}).catch(reject)
 				}
+				if (!element.primary_id)
+					return reject({ message: "NOT SHARED " + element.primary_id })
 				return OutLink.add(element)
+
 					.then((out_link) => {
 						protein.out_links.push(out_link._id);
 						resolve();
@@ -76,7 +83,7 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
 			return protein.save()
 		});
 	} else {
-		return Promise.reject({ message: "Out links field should be an array" })
+		return Promise.reject({ message: "Out Link list must contain object" })
 	}
 }
 
@@ -159,7 +166,6 @@ ProteinSchema.methods.updateLiterature = function(literatures) {
 	if (!(literatures.constructor === Array)) {
 		return Promise.reject({ message: "Literatures not a list" })
 	}
-	console.log("hello", literatures);
 
 	const protein = this;
 
@@ -177,7 +183,7 @@ ProteinSchema.methods.updateLiterature = function(literatures) {
  * @param {Array} references an array of literature_reference objects
  */
 ProteinSchema.methods.addReference = function (references) {
-	if (!(references.constructor === Array)) {
+	if (references.constructor != Array) {
 		return Promise.reject({ message: "References not a list" })
 	}
 
@@ -185,6 +191,7 @@ ProteinSchema.methods.addReference = function (references) {
 
 	if (typeof references[0] == "object") {
 		const promises = [];
+
 		references.forEach(element => {
 			promises.push(new Promise((resolve, reject) => {
 				return Reference.add(element)
@@ -219,7 +226,6 @@ ProteinSchema.methods.updateReference = function(references) {
 			promises.push(new Promise((resolve, reject) => {
 				return Reference.getByPmid(element.pmid).then(found => {
 					if (found) {
-						console.log("reference found")
 						return Reference.update(found._id, element).then(resolve).catch(reject)
 					}
 					else {

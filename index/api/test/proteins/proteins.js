@@ -28,7 +28,9 @@ describe("Protein model tests", () => {
                 expect(res.statusCode).to.equal(200)
                 done();
             })
-            .catch(done)
+            .catch((err) => {
+                done(err);
+            })
         })
         it("Should find the added protein in the database", (done) => {
             Protein.getByVenomKBId(objects.protein_test.venomkb_id)
@@ -230,7 +232,6 @@ describe("Protein model tests", () => {
         it("Should get the protein and check remove properties", (done) => {
             Protein.getByVenomKBId(objects.protein_simple_updated2.venomkb_id)
                 .then((protein) => {
-                    console.log(protein)
                     expect(protein.name).to.equal(objects.protein_simple_updated2.name)
                     expect(protein.venomkb_id).to.equal(objects.protein_simple_updated2.venomkb_id)
                     expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated2.go_annotations.length)
@@ -254,7 +255,6 @@ describe("Protein model tests", () => {
         it("Should get the protein and check remove properties", (done) => {
             Protein.getByVenomKBId(objects.protein_simple_updated3.venomkb_id, "literature_references go_annotations" )
                 .then((protein) => {
-                    console.log(protein)
                     expect(protein.name).to.equal(objects.protein_simple_updated3.name)
                     expect(protein.venomkb_id).to.equal(objects.protein_simple_updated3.venomkb_id)
                     expect(protein.go_annotations.length).to.equal(objects.protein_simple_updated3.go_annotations.length)

@@ -83,13 +83,11 @@ SpeciesSchema.methods.updateTaxonomic = function (taxonomic_lineage) {
                 return Taxonomic.findOne(element).exec().then(found => {
                     if (found) {
                         if (species.taxonomic_lineage.indexOf(found._id) == -1) {
-                            console.log("founnnnnndddd");
                             species.taxonomic_lineage.push(found._id);
                             resolve()
                         }
                     }
                     else {
-                        console.log("adddddeeeeedddd");
                         return Taxonomic.add(element).then((taxonomic) => {
                             species.taxonomic_lineage.push(taxonomic._id);
                             resolve();

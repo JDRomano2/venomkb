@@ -62,12 +62,11 @@ OutLink.getAll = () => {
  * @param {Object} new_out_link to be added
  */
 OutLink.add = new_out_link => {
-    console.log("enter add out link fonction");
     if (!new_out_link.resource)
         return Promise.reject({ message: "Out links sent requires a resource field" })
 
     if (!new_out_link.primary_id)
-        return Promise.reject({ message: "Out links sent requires a primary_id" })
+        return Promise.reject({ message: "Out links sent requires a primary_id " + new_out_link })
 
     return new Promise((resolve, reject) => {
         OutLink.create(new_out_link, (err, created_out_link) => {

@@ -44,7 +44,6 @@ Reference.getByPmid = (pmid) => {
  * @param {Object} new_reference to be added
  */
 Reference.add = new_reference => {
-    console.log("enter add reference fonction");
     return new Promise((resolve, reject) => {
         Reference.create(new_reference, (err, created_reference) => {
             if (err) reject(err)
