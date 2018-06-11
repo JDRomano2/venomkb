@@ -9,7 +9,7 @@ import ipdb
 import cPickle as pickle
 from tqdm import tqdm
 from collections import defaultdict
-from pymongo import MongoClient
+# from pymongo import MongoClient
 
 from venomkb_builder import VenomKB
 from vkb_collections import *
@@ -131,3 +131,4 @@ for k, v in tqdm(data):
         "external_links": []
     }
     VENOMKB.systemiceffects.insert_one(current_doc)
+    print(current_doc)

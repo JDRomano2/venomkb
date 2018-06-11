@@ -4,13 +4,12 @@ const mongoose = require('mongoose');
 const SystemicEffect = require('../models/SystemicEffect.js');
 const utils = require("../utils.js")
 
-const vkbid_reg = /G\d{7}/;
+const vkbid_reg = /E\d{7}/;
 
 /**
  * Get a list of all systemic_effects
  * @returns an array of systemic_effect object
  */
-/* GET /systemic_effects listing. */
 router.get('/', (req, res, next) => {
   SystemicEffect.getAll()
     .then(systemic_effects => {
@@ -34,7 +33,6 @@ router.get('/index', (req, res, next) => {
  * @param {Query} name full name or part of the name of the systemic_effect
  * @returns the systemic_effect if only one result, an array of systemic_effect object in other case
  */
-/* GET /systemic_effects/name */
 router.get('/search', (req, res, next) => {
   if (!req.query.name) {
     console.log("You must enter a name");
@@ -56,7 +54,6 @@ router.get('/search', (req, res, next) => {
  * @param {Params} id object id or venomkb_id of the systemic_effect
  * @returns the systemic_effect
  */
-/* GET /systemic_effects/id */
 router.get('/:id', (req, res, next) => {
   if (!req.params.id) {
     return utils.sendStatusMessage(res, 400, "systemic_effect id not specified")
@@ -80,6 +77,26 @@ router.get('/:id', (req, res, next) => {
   }
 });
 
+/**
+ * Find all systemic effects that have a given pattern in their name
+ * @param {Query} name full name or part of the name of the systemic effect
+  * @returns the systemic effect if only one result, an array of systemic effects object in other case
+ */
+router.get('/search', (req, res, next) => {
+  if (!req.query.name) {
+    console.log("You must enter a name");
+    return utils.sendStatusMessage(res, 400, "systemic_effect name not specified")
+
+  }
+  console.log("Find by name");
+  SystemicEffect.getByName(req.query.name)
+		.then(systemic_effect => {
+      res.json(systemic_effect)
+		})
+		.catch(err => {
+			return utils.sendStatusMessage(res, 500, err.message)
+		})
+});
 
 /**
  * Create new systemic_effect
@@ -116,8 +133,9 @@ router.post("/", function (req, res) {
     })
     .then((new_systemic_effect) => {
       // add protein annotation
+
       if (req.body.protein_annotations) {
-        return new_systemic_effect.addProteinAnnotation(req.body.literature_reference)
+        return new_systemic_effect.addProteinAnnotation(req.body.protein_annotations)
       } else {
         return Promise.resolve(new_systemic_effect);
       }
@@ -138,15 +156,7 @@ router.post("/", function (req, res) {
     })
 })
 
-/* POST /systemic_effects */
-router.post('/', (req, res, next) => {
-  systemic_effect.create(req.body, (err, systemic_effects) => {
-    if (err) return next(err);
-    console.log('New systemic_effect created:');
-    console.log(systemic_effects);
-    res.json(systemic_effects);
-  });
-});
+
 
 /* PUT /systemic_effects/:id */
 router.put('/:id', (req, res, next) => {

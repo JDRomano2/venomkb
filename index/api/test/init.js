@@ -18,6 +18,7 @@ const Annotation = require('../models/Annotation')
 const Genome = require('../models/Genome')
 const Outlink = require('../models/Outlink')
 const Reference = require('../models/Reference')
+const SystemicEffect = require('../models/SystemicEffect')
 
 const agent = chai.request.agent(server);
 
@@ -55,6 +56,11 @@ describe('Initialize tests', () => {
     })
     it("erase all references", (done) => {
         Reference.remove({}, err => {
+            done(err)
+        })
+    })
+     it("erase all systemic effect", (done) => {
+        SystemicEffect.remove({}, err => {
             done(err)
         })
     })

@@ -215,6 +215,27 @@ module.exports = {
         }
         res.push(new_out_link)
         return res
+    },
+
+    formatSystemicEffect(systemic_effect) {
+        let res = {
+            name: systemic_effect.name,
+            venomkb_id: systemic_effect.venomkb_id,
+            protein_annotations: []
+        }
+        if (systemic_effect.proteins) {
+            for (let protein of systemic_effect.proteins) {
+                let protein_annotation = {
+                    protein: protein,
+                    eco_id: systemic_effect.eco_id
+                }
+                res.protein_annotations.push(protein_annotation)
+            }
+        }
+        if (systemic_effect.external_links) {
+            console.log(systemic_effect);
+        }
+        return res
     }
 
 };

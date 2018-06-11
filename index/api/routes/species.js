@@ -47,7 +47,7 @@ router.get('/search', (req, res, next) => {
 /**
  * Find all species that have a given pattern in their name
  * @param {Query} name full name or part of the name of the species
- * @returns the number of species matched
+ * @returns the species matched
  */
 /* GET /species/name */
 router.get('/search', (req, res, next) => {
@@ -65,6 +65,7 @@ router.get('/search', (req, res, next) => {
             return utils.sendStatusMessage(res, 500, err.message);
         })
 });
+
 /**
  * Find a species given its id or venomkb_id
  * @param {Params} id object id or venomkb_id of the species
