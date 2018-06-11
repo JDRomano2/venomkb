@@ -122,7 +122,7 @@ async function populate() {
     }
 
 
-console.log("BANDE D'ENCULES !!!");
+console.log("FINISH!!!");
 
 
     // species.forEach(async function (species_element) {
