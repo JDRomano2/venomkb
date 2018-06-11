@@ -6,6 +6,7 @@ const Species = require('./models/Species')
 const genomes = require('./genomes_06272017')
 const species_list = require('./species_06272017')
 const proteins = require('./proteins_06272017')
+const systemic_effects = require('./systemic')
 
 const axios = require('axios')
 
@@ -92,6 +93,34 @@ function createGenome(genome) {
     })
 }
 
+function createSystemicEffect(effect) {
+    return axios
+		.post("http://localhost:3001/systemic-effects", effect, { timeout: 100000, maxContentLength: 200000 })
+		.then(response => {
+			return Promise.resolve()
+		})
+		.catch(error => {
+			if (error.response) {
+				// The request was made and the server responded with a status code
+				// that falls out of the range of 2xx
+				console.log(error.response.data)
+				console.log(error.response.status)
+				// console.log(error.response.headers);
+			} else if (error.request) {
+				// The request was made but no response was received
+				// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+				// http.ClientRequest in node.js
+				console.log("REQUEST ERROR")
+			} else {
+				// Something happened in setting up the request that triggered an Error
+				console.log("Error", error.message)
+			}
+			console.log(error.config)
+			console.log("\n\n\n\n\n")
+			return Promise.reject()
+		})
+}
+
 async function populate() {
     let counter = 0;
     for (let protein of proteins) {
@@ -135,6 +164,17 @@ async function populate() {
 
         try {
             let hello = await createGenome(genome)
+        } catch (error) {
+            console.log("ERROR");
+        }
+    }
+
+    for (let effect of systemic_effects) {
+        effect_formatted = utils.formatSystemicEffect(effect)
+
+
+        try {
+            let hello = await createSystemicEffect(effect_formatted)
         } catch (error) {
             console.log("ERROR");
         }

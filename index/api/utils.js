@@ -232,9 +232,7 @@ module.exports = {
                 res.protein_annotations.push(protein_annotation)
             }
         }
-        if (systemic_effect.external_links) {
-            console.log(systemic_effect);
-        }
+
         return res
     }
 
