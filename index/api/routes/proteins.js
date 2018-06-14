@@ -12,7 +12,6 @@ const vkbid_reg = /P\d{7}/;
  * Get a list of all proteins
  * @returns an array of protein object
  */
-/* GET /proteins listing. */
 router.get('/', (req, res, next) => {
     Protein.getAll()
         .then(proteins => {
@@ -23,7 +22,22 @@ router.get('/', (req, res, next) => {
         })
 });
 
-/* GET /proteins/index */
+/**
+ * Get a list of  20 proteins
+ * @param {Query} limit full name or part of the name of the protein
+ * @returns an array of protein object
+ */
+router.get('/limit', (req, res, next) => {
+    var limit = parseInt(req.query.limit)
+    Protein.getByDate(limit)
+		.then(proteins => {
+			res.json(proteins.splice(limit, limit+20))
+		})
+		.catch(err => {
+			return utils.sendStatusMessage(res, 500, err.message)
+		})
+});
+
 router.get('/index', (req, res, next) => {
     protein.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, proteins_ind) => {
         if (err) return next(err);

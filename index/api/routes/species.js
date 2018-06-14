@@ -47,7 +47,7 @@ router.get('/search', (req, res, next) => {
 /**
  * Find all species that have a given pattern in their name
  * @param {Query} name full name or part of the name of the species
- * @returns the species matched
+ * @returns the number of species matched
  */
 /* GET /species/name */
 router.get('/search', (req, res, next) => {
