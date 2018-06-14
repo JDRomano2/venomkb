@@ -9,78 +9,7 @@ const USER = 'neo4j';
 const PASSWORD = 'ooH77ZR4';
 const URI = 'bolt://localhost:7687'
 
-const ex1 = {
-    "select": "Species",
-    "declare": {
-        "Protein": {
-            "name": {"contains": "phospholipase"}
-        }
-    },
-    "aggregate": {
-        "count": "Species"
-    }
-}
-// Ask: 'How many species have at least one protein with the word "Phospholipase" in its name?
-//
-// Query:
-// MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
-// WHERE p.name CONTAINS 'Phospholipase' OR p.name CONTAINS 'phospholipase'
-// RETURN count(distinct s)
-//
-// Expect: '139'
-
-const ex2 = {
-    "select": "Species",
-    "aggregate": {
-        "count": "Protein",
-        "sort": "desc",
-        "limit": 1
-    }
-}
-// Ask: 'What species has the most proteins?'
-//
-// Query:
-// MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
-// RETURN s.name, count(p) ORDER BY count(p) DESC LIMIT 1
-//
-// Expect: 'Haplopelma hainanum'
-
-const ex3 = {
-    "select": {"Species": "name"},
-    "declare": {
-        "Protein": {
-            "name": {"contains": "Phospholipase A2"}
-        }
-    }
-}
-// Ask: 'Which species have a Phospholipase A2 in their venom?
-//
-// Query:
-// MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
-// WHERE p.name CONTAINS 'Phospholipase A2'
-// RETURN s.name
-//
-// Expect: A list containing 81 species
-
-const ex4 = {
-    "select": "Pfam",
-    "declare": {
-        "Species": {
-            "name": {"contains": "Conus"}
-        }
-    },
-    "aggregate": {
-        "distinct": "Pfam"
-    }
-}
-// Ask: 'Which protein families are in venom of species in the genus Conus?'
-//
-// Query:
-// MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)-[IS_A]->(f:Pfam)
-// WHERE s.name CONTAINS 'Conus'
-// RETURN DISTINCT f.name
-//
-// Expect: A list containing 24 Pfams
+const examples = require("./examples");
 
 
 class NeoAdapter {
@@ -95,11 +24,11 @@ class NeoAdapter {
 
 
 class Query {
-    constructor(query_json) {
+    constructor(query_json, neo4j_adapter) {
         this.json = query_json;
-        this.rawOntologyClasses = [];
+        this.neo4j_adapter = neo4j_adapter;
+        this.ontologyClasses = [];
         this.constraints = [];
-        this.ontologyClasses = {};
 
         // validate JSON (naive)
         if (!('select' in this.json)) {
@@ -132,8 +61,8 @@ class Query {
      * @param {string} newClass Name of an ontology class
      */
     pushOntologyClassIfNotExist(newClass) {
-        if (this.rawOntologyClasses.indexOf(newClass) === -1) {
-            this.rawOntologyClasses.push(newClass);
+        if (this.ontologyClasses.indexOf(newClass) === -1) {
+            this.ontologyClasses.push(newClass);
         }
     }
 
@@ -153,36 +82,75 @@ class Query {
         Query.collectFromSelect(this.json["select"]).map((sl) => {
             this.pushOntologyClassIfNotExist(sl);
         });
+        // NOTE: This doesn't do everything we want it to yet!
+
+        // Next, find any remaining ontology classes in this.json["aggregate"]
+        // that we haven't yet encountered
+        // TODO
+
+
     }
 
     /**
      *
      */
     collectConstraints() {
-        this.json["declare"].map((constr) => {
-            this.constraints.push(constr);
+        // We just push each of the key-value pairs in this.json["declare"]
+        // into this.constraints, meaning we have a list of constraints
+
+        // This will require editing as we go along...
+        Object.keys(this.json["declare"]).map((constr_key) => {
+            this.constraints.push({constr_key: this.json["declare"][constr_key]})
         });
     }
 
     /**
      *
+     * @memberof Query
      */
     buildMatch() {
-
+        // This method looks at this.ontologyClasses and writes
+        // a MATCH clause that contains a subgraph with each of these classes
+        // included.
+        return undefined;
     }
 
     /**
      *
+     *  @memberof Query
      */
     buildReturn() {
-
+        // Look at this.constraints and add all constraints that can be handled
+        // by cypher into the text of a RETURN clause
+        return undefined;
     }
 
     /**
      *
+     *
+     * @memberof Query
      */
     validateCypher() {
 
+    }
+
+    /**
+     *
+     *
+     * @memberof Query
+     */
+    joinClauses() {
+        // This is basically a string join operation, but we might run
+        // into issues as we go
+    }
+
+    /**
+     *
+     *
+     * @memberof Query
+     */
+    validateCypher() {
+        // Deferring implementation until we have the other stuff working
     }
 
     /**
@@ -191,11 +159,14 @@ class Query {
     generateCypherQuery() {
         // Cypher queries consist of two major components: a MATCH clause, and a
         // RETURN clause.
-        buildMatch();
-        buildReturn();
+        this.buildMatch();
+        this.buildReturn();
+
+        this.joinClauses();
+
         // We also need to apply some validation to make sure that we've
         // constructed a valid cypher query.
-        validateCypher();
+        this.validateCypher();
     }
 
     /**
@@ -203,6 +174,15 @@ class Query {
      */
     logQuery() {
         console.log(JSON.stringify(this.json, null, 2));
+    }
+
+    executeQuery() {
+        return undefined;
+    }
+
+    finishAggregation() {
+        // TODO
+        return undefined;
     }
 
     /**
@@ -216,35 +196,41 @@ class Query {
      * A query must be stored in `this.json`, but this should be taken care of
      * by the constructor.
      */
-    buildSubgraph() {
+    retrieveSubgraph() {
         // Determine the ontology classes spanning the subgraph
         this.collectOntologyClasses();
+        // -> set ontologyClasses to ['Species', 'Protein']
 
         // Apply constraints to ontology classes when provided, such as
         // filtering by name
         this.collectConstraints();
+        // -> set constraints to [{"Protein": {"name": {"contains": "Phospholipase"} } }]
 
         // Build a string corresponding to the cypher query
+        // (Probably the most complicated method in this class)
         this.generateCypherQuery();
 
         // Run the query on the graph database
+        // (utilizes adapter we previously specified)
         this.executeQuery();
 
         // Apply any final filtering steps or transformations that aren't yet
-        // taken care of
+        // taken care of. We can build features into this as we encounter
+        // scenarios that can't be handled by the cypher query alone.
         this.finishAggregation();
-    }
-
-    finishAggregation() {
-        // TODO
     }
 }
 
 
 // Test the class out
-const neo = new NeoAdapter(USER, PASSWORD);
+// const neo = new NeoAdapter(USER, PASSWORD);
 
+// const q1 = new Query(examples.ex1, neo);
 
-const q1 = new Query(ex1);
-q1.buildSubgraph();
-console.log(q1['ontologyClasses']);
+// q1.retrieveSubgraph();
+// console.log(q1['ontologyClasses']);
+
+module.exports = {
+    NeoAdapter,
+    Query
+}
