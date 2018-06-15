@@ -373,6 +373,23 @@ Protein.getByName = (name, path) => {
 	});
 };
 
+/**
+ * Get an array of protein sorted by date
+ * @param {Number} limit  length of the result
+ */
+Protein.getByDate = (limit) => {
+	return new Promise((resolve, reject) => {
+		Protein.find({},{venomkb_id: 1, name: 1, venom_ref: 1, annotation_score:1 })
+			.sort({ date: -1 })
+			.limit(limit+20)
+			.exec((err, proteins) => {
+				if (err) {
+					reject(err)
+				}
+				resolve(proteins)
+			})
+	});
+};
 //========================================
 // ADD
 //========================================
@@ -391,6 +408,7 @@ Protein.add = new_protein => {
 		})
 	})
 }
+
 
 
 //========================================
