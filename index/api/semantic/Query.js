@@ -65,6 +65,23 @@ class Query {
 
     /**
      *
+     * @param {*} json
+     */
+    static validateUserInput(json) {
+        validateJsonSchema(json);
+        validateSemantics(json);
+    }
+
+    static validateJsonSchema(json) {
+        // Todo
+    }
+
+    static validateSemantics(json) {
+        // Todo
+    }
+
+    /**
+     *
      * @param {string} newClass Name of an ontology class
      */
     pushOntologyClassIfNotExist(newClass) {
