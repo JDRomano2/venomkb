@@ -30,6 +30,13 @@ class Query {
         this.ontologyClasses = [];
         this.constraints = [];
 
+        // {
+        //     "class": "Protein",
+        //     "attribute": "name",
+        //     "operator": "contains",
+        //     "value": "Phospholipase"
+        // }
+
         // validate JSON (naive)
         if (!('select' in this.json)) {
             throw "Error: Semantic query must include \"select\" object.";
