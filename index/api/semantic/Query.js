@@ -30,6 +30,13 @@ class Query {
         this.ontologyClasses = [];
         this.constraints = [];
 
+        // {
+        //     "class": "Protein",
+        //     "attribute": "name",
+        //     "operator": "contains",
+        //     "value": "Phospholipase"
+        // }
+
         // validate JSON (naive)
         if (!('select' in this.json)) {
             throw "Error: Semantic query must include \"select\" object.";
@@ -54,6 +61,23 @@ class Query {
             default:
                 throw "Error---Type of \"select\" is not supported.";
         }
+    }
+
+    /**
+     *
+     * @param {*} json
+     */
+    static validateUserInput(json) {
+        validateJsonSchema(json);
+        validateSemantics(json);
+    }
+
+    static validateJsonSchema(json) {
+        // Todo
+    }
+
+    static validateSemantics(json) {
+        // Todo
     }
 
     /**
