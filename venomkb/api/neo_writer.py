@@ -204,6 +204,24 @@ class Neo4jWriter(object):
       pfam = session.write_transaction(self._add_nodes_pfam, pfam)
       if self.verbose:
         print(pfam)
+  
+  def systemic_effect_node(self, name, venomkb_id, protein):
+    """This function create a systemic effect node into the graph and linked it to the correct protein
+
+          Args:
+            name (string): the systemic effect name
+            venomkb_id (string): venonkb_id of the systemic effect 
+            protein (string): the veno,kb_id of the protein that should be linked
+            verbose (boolean) : if true, print the result of the transaction
+
+
+          Returns:
+            No return
+    """
+    with self._driver.session() as session:
+      systemic_effect = session.write_transaction(self._add_nodes_systemic_effect, ( name, venomkb_id, protein))
+      if self.verbose:
+        print(systemic_effect)
 
   def link(self, species, protein_id):
     """This function add a link between a species and a protein into the graph.

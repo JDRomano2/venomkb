@@ -4,7 +4,7 @@
   "description": "A knowledge base for aggregating and identifying therapeutic uses of animal venoms and venom compounds.",
   "main": "venomkb.js",
   "scripts": {
-    "test": "NODE_ENV='test' mocha index/api/test --exit --recursive",
+    "test": "cross-env NODE_ENV='test' mocha index/api/test --exit --recursive",
     "start": "npm run dev",
     "api": "node ./index/bin/www",
     "build": "rimraf dist && webpack --config ./webpack.prod.js --progress --profile --colors",
@@ -68,6 +68,7 @@
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "concurrently": "^3.5.1",
+    "cross-env": "^5.2.0",
     "errorhandler": "^1.5.0",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",

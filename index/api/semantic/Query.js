@@ -86,9 +86,10 @@ class Query {
 
         // Next, find any remaining ontology classes in this.json["aggregate"]
         // that we haven't yet encountered
-        // TODO
-
-
+        if ("aggregate" in this.json) {
+            if ("count" in this.json["aggregate"])
+                this.pushOntologyClassIfNotExist(this.json["aggregate"]["count"])
+        }
     }
 
     /**
@@ -99,9 +100,17 @@ class Query {
         // into this.constraints, meaning we have a list of constraints
 
         // This will require editing as we go along...
-        Object.keys(this.json["declare"]).map((constr_key) => {
-            this.constraints.push({constr_key: this.json["declare"][constr_key]})
-        });
+        if ("declare" in this.json) {
+            var object = this.json["declare"][Object.keys(this.json["declare"])][0]
+            var new_constraint = {
+                class: Object.keys(this.json["declare"])[0],
+                attribute: object.attribute,
+                operator: object.operator,
+                value: object.value,
+
+            }
+            this.constraints.push(new_constraint)
+        }
     }
 
     /**

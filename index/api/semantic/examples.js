@@ -4,9 +4,13 @@ module.exports = {
     ex1: {
         "select": "Species",
         "declare": {
-            "Protein": {
-                "name": {"contains": "phospholipase"}
-            }
+            "Protein": [
+                {
+                    "attribute": "name",
+                    "operator": "contains",
+                    "value": "phospholipase"
+                }
+            ]
         },
         "aggregate": {
             "count": "Species"
@@ -16,7 +20,7 @@ module.exports = {
     //
     // Query:
     // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
-    // WHERE p.name CONTAINS 'Phospholipase' OR p.name CONTAINS 'phospholipase'
+    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
     // RETURN count(distinct s)
     //
     // Expect: '139'
@@ -40,9 +44,13 @@ module.exports = {
     ex3: {
         "select": {"Species": "name"},
         "declare": {
-            "Protein": {
-                "name": {"contains": "Phospholipase A2"}
-            }
+            "Protein": [
+                {
+                    "attribute": "name",
+                    "operator": "contains",
+                    "value": "Phospholipase A2"
+                }
+            ]
         }
     },
     // Ask: 'Which species have a Phospholipase A2 in their venom?
@@ -57,10 +65,15 @@ module.exports = {
     ex4: {
         "select": "Pfam",
         "declare": {
-            "Species": {
-                "name": {"contains": "Conus"}
-            }
+            "Species": [
+                {
+                    "attribute": "name",
+                    "operator": "contains",
+                    "value": "Conus"
+                }
+            ]
         },
+        
         "aggregate": {
             "distinct": "Pfam"
         }
