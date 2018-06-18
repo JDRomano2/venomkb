@@ -417,6 +417,17 @@ class Neo4jWriter(object):
     return result.single()[0]
 
   @staticmethod
+  def _add_nodes_systemic_effect(tx, payload):
+    (name, venomkb_id, protein) = payload
+    statement="""MATCH (p:Protein) WHERE p.vkbid = {protein}
+            CREATE (a:SystemicEffect {name : {name}, vkbid: {venomkb_id})
+            CREATE (p)-[r:HAS_SYSTEMIC_EFFECT]->(a)
+            RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
+    result=tx.run(statement, name=name, venomkb_id=venomkb_id,
+                protein=protein)
+    return result.single()[0]
+
+  @staticmethod
   def _add_nodes_category(tx, name):
     statement = """CREATE (a:OntologyClass {name : {name}})
                    RETURN a.name +', from node ' + id(a)"""

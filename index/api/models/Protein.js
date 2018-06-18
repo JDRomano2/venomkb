@@ -40,7 +40,7 @@ const ProteinSchema = new mongoose.Schema({
 	literature_predications: [LiteratureSchema],
 	literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
 	go_annotations: [GOAnnotationSchema],
-	out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
+	out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
 });
 
 /**

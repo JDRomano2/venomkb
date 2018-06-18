@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
+const OutLink = require('../models/Outlink')
 const Protein = require('../models/Protein.js');
 const utils = require("../utils.js")
 
@@ -102,14 +103,16 @@ router.get('/:id', (req, res, next) => {
     }
     if (vkbid_reg.test(req.params.id)) {
         console.log("Find by VenomKB id");
-        Protein.getByVenomKBId(req.params.id)
+        console.log("coucou", req.query);
+        
+        Protein.getByVenomKBId(req.params.id, req.query.populate)
             .then(protein => {
                 res.json(protein)
             })
             .catch()
     } else {
         console.log("Find by id");
-        Protein.getById(req.params.id)
+        Protein.getById(req.params.id, req.query.populate)
             .then(protein => {
                 res.json(protein)
             })

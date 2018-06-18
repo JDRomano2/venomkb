@@ -14,7 +14,7 @@ const GenomeSchema = new mongoose.Schema({
     assembly_platform: String,
     project_homepage: String,
     literature_reference: { type: mongoose.Schema.ObjectId, ref: 'Reference' },
-    out_links: [{ type: mongoose.Schema.ObjectId, ref: 'Outlink' }]
+    out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
 });
 
 /**
