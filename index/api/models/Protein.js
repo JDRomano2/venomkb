@@ -29,7 +29,7 @@ const LiteratureSchema = new mongoose.Schema({
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
 	lastUpdated: { type: Date, default: Date.now},
-	venomkb_id: { type: String, index: true, unique: true },
+	venomkb_id: { type: String, index: true },
 	name: { type: String, required: true },
 	venom_ref: { type: String, required: true },
 	pdb_structure_known: { type: Boolean, required: true },

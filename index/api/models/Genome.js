@@ -6,7 +6,7 @@ const OutLink = require('./Outlink');
 
 // Schema to enforce consistent structure.
 const GenomeSchema = new mongoose.Schema({
-    venomkb_id: { type: String, index: true, unique: true },
+    venomkb_id: { type: String, index: true },
     lastUpdated: { type: Date, default: Date.now},
     annotation_score: { type: Number, min: 1, max: 5, required: true },
     name: { type: String, required: true },
