@@ -19,11 +19,15 @@ const SpeciesSchema = new mongoose.Schema({
     species_image_url: String,
     venom: {
         name: { type: String, required: true },
-        proteins: [{ type: mongoose.Schema.ObjectId, ref: 'Protein' }],
+        //proteins: [{ type: mongoose.Schema.ObjectId, ref: 'Protein' }],
+        proteins: [{ type: String, required: true }]
 
     },
-    taxonomic_lineage: [{ type: mongoose.Schema.ObjectId, ref: 'Taxonomic' }],
-    out_links: [OutLinkSchema]
+    //taxonomic_lineage: [{ type: mongoose.Schema.ObjectId, ref: 'Taxonomic' }],
+    taxonomic_lineage: [],
+    //out_links: [OutLinkSchema],
+    out_links: {},
+    literature_references: []
 });
 
 /**
