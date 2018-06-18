@@ -280,6 +280,21 @@ Species.getById = (id, path) => {
 };
 
 /**
+ * Get an array of species index
+ */
+Species.getIndex = () => {
+    return new Promise((resolve, reject) => {
+        Species.find({}, { venomkb_id: 1, name: 1, annotation_score: 1 })
+            .exec((err, species) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(species)
+            })
+    });
+};
+
+/**
  * Get an species given its name
  * @param {String} name  name of the Species to get
  * @param {String} path path to populate (leave blank if none)

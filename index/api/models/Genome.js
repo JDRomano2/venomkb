@@ -155,6 +155,21 @@ Genome.getById = (id, path) => {
 };
 
 /**
+ * Get an array of genome index
+ */
+Genome.getIndex = () => {
+    return new Promise((resolve, reject) => {
+        Genome.find({}, { venomkb_id: 1, name: 1, annotation_score: 1 })
+            .exec((err, genomes) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(genomes)
+            })
+    });
+};
+
+/**
  * Get an genome given its name
  * @param {String} name  name of the genome to get
  * @param {String} path path to populate (leave blank if none)

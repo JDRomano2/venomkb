@@ -390,6 +390,21 @@ Protein.getByDate = (limit) => {
 			})
 	});
 };
+
+/**
+ * Get an array of protein
+ */
+Protein.getIndex = () => {
+	return new Promise((resolve, reject) => {
+		Protein.find({}, { venomkb_id: 1, name: 1, annotation_score: 1 })
+			.exec((err, proteins) => {
+				if (err) {
+					reject(err)
+				}
+				resolve(proteins)
+			})
+	});
+};
 //========================================
 // ADD
 //========================================
