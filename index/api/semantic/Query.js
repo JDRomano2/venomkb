@@ -34,6 +34,9 @@ class Query {
         this.ontologyClasses = [];
         this.constraints = [];
 
+        // just for dev 
+        this.query_match = "";
+
         // {
         //     "class": "Protein",
         //     "attribute": "name",
@@ -162,22 +165,32 @@ class Query {
         
 
         return resultPromise.then(result => {
+            console.log(result);
+            
             const singleRecord = result.records[0]
             const relationship = singleRecord.get(0);
 
-            // console.log(relationship);
+            console.log(relationship);
             
-            const query_match = "MATCH (p:"+this.ontologyClasses[0]+")-[:"+relationship+"]->(s:"+this.ontologyClasses[1]+") "
+            const query_match = "MATCH (" + item[class1] + ":" + class1 + ")-[:" + relationship + "]->(" + item[class2] + ":" + class2 +") "
             
-            const constraint = this["constraints"][0]
-            console.log(constraint);
+            console.log(this["constraints"]);
             
-            const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
-            
-            // on application exit:
-            console.log(query_match + query_where);
-            
-            return Promise.resolve(query_match + query_where);
+            if (this["constraints"].length>0) {
+                const constraint = this["constraints"][0]
+                console.log(constraint);
+                
+                const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
+                
+                // on application exit:
+                console.log(query_match + query_where);
+                this.query_match = query_match+ query_where
+                return Promise.resolve(query_match + query_where);
+                
+            }
+            console.log(query_match);
+            this.query_match = query_match
+            return Promise.resolve(query_match );
         });
     }
     
@@ -289,12 +302,12 @@ class Query {
 
 
 // Test the class out
-// const neo = new NeoAdapter(USER, PASSWORD);
+const neo = new NeoAdapter(USER, PASSWORD);
 
-// const q1 = new Query(examples.ex1, neo);
+const q4 = new Query(examples.ex4, neo);
 
-// q1.retrieveSubgraph();
-// console.log(q1['ontologyClasses']);
+q4.retrieveSubgraph();
+console.log(q4['ontologyClasses']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {

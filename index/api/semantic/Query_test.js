@@ -62,12 +62,23 @@ describe('Initialize query', () => {
     })
 });
 
-describe('First example', () => {
-	it('Should build a match string', async (done) => {
-		// expect(await q1.buildMatch()).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)  WHERE p.name contains 'phospholipase'")
-		expect(q1.buildReturn()).to.equal("RETURN count(distinct s)")
+describe('Test generate cypher query', () => {
+	it('Should build a match string', (done) => {
+		expect(q1["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)  WHERE p.name contains 'phospholipase'")
+		expect(q2["query_match"]).to.equal("MATCH (s:Species)-[: SPECIES_HAS_PROTEIN]->(p:Protein)")
+		expect(q3["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species) WHERE p.name contains 'Phospholipase A2'")
+		done()
 	})
 })
+
+describe('Second example', () => {
+	it('Should build a match string', (done) => {
+		expect(q1["query_match"]).to.equal("MATCH(s: Species) - [: SPECIES_HAS_PROTEIN] -> (p: Protein)")
+		expect(q1["query_match"]).to.equal("RETURN count(distinct s)")
+		done()
+	})
+})
+
 
 // Things we should test for:
 // Each class attribute in Query (constraints, ontologyClasses, etc.) is valid
