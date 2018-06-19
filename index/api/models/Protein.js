@@ -392,7 +392,7 @@ Protein.getByDate = (limit) => {
 };
 
 /**
- * Get an array of protein
+ * Get an array of protein index
  */
 Protein.getIndex = () => {
 	return new Promise((resolve, reject) => {

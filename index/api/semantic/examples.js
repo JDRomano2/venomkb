@@ -19,9 +19,9 @@ module.exports = {
     // Ask: 'How many species have at least one protein with the word "Phospholipase" in its name?
     //
     // Query:
-    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
-    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
-    // RETURN count(distinct s)
+    // MATCH(p: Protein)- [: PROTEIN_FROM_SPECIES] -> (s: Species)
+    // WHERE p.name contains 'phospholipase'
+    // RETURN count(distinct p), count(distinct s)
     //
     // Expect: '139'
 

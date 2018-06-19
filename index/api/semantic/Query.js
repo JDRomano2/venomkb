@@ -6,10 +6,14 @@
 const neo4j = require('../../../node_modules/neo4j-driver').v1
 
 const USER = 'neo4j';
-const PASSWORD = 'ooH77ZR4';
+const PASSWORD = 'Gazaupouy12!';
 const URI = 'bolt://localhost:7687'
 
 const examples = require("./examples");
+let item = {
+    Protein: "p",
+    Species: "s"
+}
 
 
 class NeoAdapter {
@@ -145,16 +149,43 @@ class Query {
         // This method looks at this.ontologyClasses and writes
         // a MATCH clause that contains a subgraph with each of these classes
         // included.
-        return undefined;
-    }
+        const session = this.neo4j_adapter.session
+        const driver = this.neo4j_adapter.driver
+        const class1 = this.ontologyClasses[0]
+        const class2 = this.ontologyClasses[1]
+        // case of direct relation ship 
+        const query_relation = "MATCH ("+item[class1] +": "+class1+")-[r]->("+item[class2] +": "+ class2+") return distinct(type(r))"
+        const resultPromise = session.writeTransaction(tx => tx.run(
+            query_relation));
 
+        // console.log(query_relation);
+        
+
+        return resultPromise.then(result => {
+            const singleRecord = result.records[0]
+            const relationship = singleRecord.get(0);
+
+            // console.log(relationship);
+            
+            const query_match = "MATCH (p:"+this.ontologyClasses[0]+")-[:"+relationship+"]->(s:"+this.ontologyClasses[1]+") "
+            
+            const constraint = this["constraints"][0]
+            console.log(constraint);
+            
+            const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
+            
+            // on application exit:
+            console.log(query_match + query_where);
+            
+            return Promise.resolve(query_match + query_where);
+        });
+    }
+    
     /**
      *
      *  @memberof Query
      */
     buildReturn() {
-        // Look at this.constraints and add all constraints that can be handled
-        // by cypher into the text of a RETURN clause
         return undefined;
     }
 
@@ -189,10 +220,12 @@ class Query {
     /**
      *
      */
-    generateCypherQuery() {
+    async generateCypherQuery() {
         // Cypher queries consist of two major components: a MATCH clause, and a
         // RETURN clause.
-        this.buildMatch();
+        var query_match = await this.buildMatch();
+        console.log("hehehfzbdjeffnenfce", query_match);
+        
         this.buildReturn();
 
         this.joinClauses();
@@ -262,6 +295,7 @@ class Query {
 
 // q1.retrieveSubgraph();
 // console.log(q1['ontologyClasses']);
+// console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {
     NeoAdapter,

@@ -410,7 +410,8 @@ class Neo4jWriter(object):
     (name, venomkb_id, score, journal, link, species_id) = payload
     statement="""MATCH (s:Species) WHERE s.vkbid = {species_id}
             CREATE (a:Genome {name : {name}, vkbid: {venomkb_id}, score:{score}, journal: {journal}, link: {link}})
-            CREATE (s)-[r:HAS_GENOME]->(a)
+            CREATE (s)-[r:SPECIES_HAS_GENOME]->(a)
+            CREATE (a)-[q:GENOME_FROM_SPECIES]->(s)
             RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
     result=tx.run(statement, name=name, venomkb_id=venomkb_id,
                 score=score, journal=journal, link=link, species_id=species_id)
@@ -446,7 +447,8 @@ class Neo4jWriter(object):
     (species, protein_id) = payload
     statement = """MATCH (a:Species {name: {species}}),
                 (b:Protein {vkbid : {protein_id}})
-                CREATE (a)-[r:HAS_VENOM_COMPONENT]->(b)
+                CREATE (b)-[r:PROTEIN_FROM_SPECIES]->(a)
+                CREATE (a)-[s:SPECIES_HAS_PROTEIN]->(b)
                 RETURN r"""
     result = tx.run(statement, {"species": species, "protein_id": protein_id})
     return result.single()[0]

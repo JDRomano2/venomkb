@@ -349,4 +349,5 @@ if __name__ == '__main__':
   # (from ipython shell in root venomkb directory)
   # > from venomkb.api import *
   # > RUN_MAIN()
-  RUN_MAIN()
+  # RUN_MAIN()
+  list = ["Protein", "Species"]
