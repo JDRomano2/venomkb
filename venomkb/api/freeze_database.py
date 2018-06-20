@@ -47,6 +47,7 @@ class VenomkbData(object):
     self.proteins = VenomkbData.fetch_proteins()
     self.species = VenomkbData.fetch_species()
     self.genomes = VenomkbData.fetch_genomes()
+    self.systemic_effects = VenomkbData.fetch_systemicEffects()
 
   @staticmethod
   def fetch_proteins():
@@ -67,6 +68,13 @@ class VenomkbData(object):
   @staticmethod
   def fetch_genomes():
     r = requests.get(VENOMKB_API + 'genomes')
+    print(r.status_code)
+    print(r.headers['content-type'])
+    print(r.encoding)
+    return r.json()
+  @staticmethod
+  def fetch_systemicEffects():
+    r = requests.get(VENOMKB_API + 'systemic-effects')
     print(r.status_code)
     print(r.headers['content-type'])
     print(r.encoding)
@@ -350,4 +358,14 @@ if __name__ == '__main__':
   # > from venomkb.api import *
   # > RUN_MAIN()
   # RUN_MAIN()
-  list = ["Protein", "Species"]
+  neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=True)
+  data = VenomkbData()
+  s= (data.systemic_effects[4])
+  print (json.dumps(s, indent=4, sort_keys=True))
+
+  for systemic_effect in data.systemic_effects:
+    neo.systemic_effect_node(systemic_effect["name"], systemic_effect["venomkb_id"],systemic_effect["eco_id"])
+
+    venomkb_id = systemic_effect["venomkb_id"]
+    for protein in systemic_effect["proteins"] :
+      neo.protein_systemic_relationship(protein, venomkb_id)

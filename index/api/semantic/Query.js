@@ -12,7 +12,11 @@ const URI = 'bolt://localhost:7687'
 const examples = require("./examples");
 let item = {
     Protein: "p",
-    Species: "s"
+    Species: "s",
+    Pfam: "f",
+    SystemicEffect: "se",
+    OntologyClass: "c",
+    Genome: "g"
 }
 
 
@@ -154,44 +158,48 @@ class Query {
         // included.
         const session = this.neo4j_adapter.session
         const driver = this.neo4j_adapter.driver
-        const class1 = this.ontologyClasses[0]
-        const class2 = this.ontologyClasses[1]
-        // case of direct relation ship 
-        const query_relation = "MATCH ("+item[class1] +": "+class1+")-[r]->("+item[class2] +": "+ class2+") return distinct(type(r))"
-        const resultPromise = session.writeTransaction(tx => tx.run(
-            query_relation));
 
-        // console.log(query_relation);
-        
-
-        return resultPromise.then(result => {
-            console.log(result);
+        if (this.ontologyClasses.length == 2) {
             
-            const singleRecord = result.records[0]
-            const relationship = singleRecord.get(0);
-
-            console.log(relationship);
+            const class1 = this.ontologyClasses[0]
+            const class2 = this.ontologyClasses[1]
+            // case of direct relation ship 
+            const query_relation = "MATCH ("+item[class1] +": "+class1+")-[r]->("+item[class2] +": "+ class2+") return distinct(type(r))"
+            const resultPromise = session.writeTransaction(tx => tx.run(
+                query_relation));
+    
+            // console.log(query_relation);
             
-            const query_match = "MATCH (" + item[class1] + ":" + class1 + ")-[:" + relationship + "]->(" + item[class2] + ":" + class2 +") "
-            
-            console.log(this["constraints"]);
-            
-            if (this["constraints"].length>0) {
-                const constraint = this["constraints"][0]
-                console.log(constraint);
+    
+            return resultPromise.then(result => {
+                console.log(result);
                 
-                const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
+                const singleRecord = result.records[0]
+                const relationship = singleRecord.get(0);
+    
+                console.log(relationship);
                 
-                // on application exit:
-                console.log(query_match + query_where);
-                this.query_match = query_match+ query_where
-                return Promise.resolve(query_match + query_where);
+                const query_match = "MATCH (" + item[class1] + ":" + class1 + ")-[:" + relationship + "]->(" + item[class2] + ":" + class2 +") "
                 
-            }
-            console.log(query_match);
-            this.query_match = query_match
-            return Promise.resolve(query_match );
-        });
+                console.log(this["constraints"]);
+                
+                if (this["constraints"].length>0) {
+                    const constraint = this["constraints"][0]
+                    console.log(constraint);
+                    
+                    const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
+                    
+                    // on application exit:
+                    console.log(query_match + query_where);
+                    this.query_match = query_match+ query_where
+                    return Promise.resolve(query_match + query_where);
+                    
+                }
+                console.log(query_match);
+                this.query_match = query_match
+                return Promise.resolve(query_match );
+            });
+        }
     }
     
     /**
@@ -304,10 +312,10 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD);
 
-const q4 = new Query(examples.ex4, neo);
+const q2 = new Query(examples.ex2, neo);
 
-q4.retrieveSubgraph();
-console.log(q4['ontologyClasses']);
+q2.retrieveSubgraph();
+console.log(q2['ontologyClasses']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {

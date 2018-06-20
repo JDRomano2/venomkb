@@ -22,7 +22,7 @@ module.exports = {
     // MATCH(p: Protein)- [: PROTEIN_FROM_SPECIES] -> (s: Species)
     // WHERE p.name contains 'phospholipase'
     // RETURN count(distinct p), count(distinct s)
-    //
+    // //
     // Expect: '139'
 
     ex2: {
@@ -36,7 +36,7 @@ module.exports = {
     // Ask: 'What species has the most proteins?'
     //
     // Query:
-    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)
+    //MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)
     // RETURN s.name, count(p) ORDER BY count(p) DESC LIMIT 1
     //
     // Expect: 'Haplopelma hainanum'

@@ -205,13 +205,13 @@ class Neo4jWriter(object):
       if self.verbose:
         print(pfam)
   
-  def systemic_effect_node(self, name, venomkb_id, protein):
-    """This function create a systemic effect node into the graph and linked it to the correct protein
+  def systemic_effect_node(self, name, venomkb_id, eco_id):
+    """This function create a systemic effect node into the graph
 
           Args:
             name (string): the systemic effect name
-            venomkb_id (string): venonkb_id of the systemic effect 
-            protein (string): the veno,kb_id of the protein that should be linked
+            venomkb_id (string): venomkb_id of the systemic effect 
+            eco_id (string): 
             verbose (boolean) : if true, print the result of the transaction
 
 
@@ -219,7 +219,7 @@ class Neo4jWriter(object):
             No return
     """
     with self._driver.session() as session:
-      systemic_effect = session.write_transaction(self._add_nodes_systemic_effect, ( name, venomkb_id, protein))
+      systemic_effect = session.write_transaction(self._add_nodes_systemic_effect, ( name, venomkb_id, eco_id))
       if self.verbose:
         print(systemic_effect)
 
@@ -257,6 +257,24 @@ class Neo4jWriter(object):
           self._add_protein_peptide_relationship, protein_id)
       if self.verbose:
        print(relationship)
+  
+  def protein_systemic_relationship(self, protein_id, systemic_id):
+    """This function add a link between a protein and q systemic effect.
+
+          Args:
+            protein_id (string): the venomkb_id of the protein that will be linked
+            systemic_id (string): the venomkb_id of the systemic_effect that will be linked
+            verbose (boolean) : if true, print the result of the transaction
+
+
+          Returns:
+            No return
+    """
+    with self._driver.session() as session:
+      relationship = session.write_transaction(
+          self._add_protein_systemic_relationship, (protein_id, systemic_id))
+      if self.verbose:
+        print(relationship)
 
   def specie_organism_relationship(self, species_id):
     """This function add a link between a species and the "Venomous Organism" node which is an onlogy class.
@@ -419,13 +437,10 @@ class Neo4jWriter(object):
 
   @staticmethod
   def _add_nodes_systemic_effect(tx, payload):
-    (name, venomkb_id, protein) = payload
-    statement="""MATCH (p:Protein) WHERE p.vkbid = {protein}
-            CREATE (a:SystemicEffect {name : {name}, vkbid: {venomkb_id})
-            CREATE (p)-[r:HAS_SYSTEMIC_EFFECT]->(a)
+    (name, venomkb_id, eco_id) = payload
+    statement="""CREATE (a:SystemicEffect {name : {name}, vkbid: {venomkb_id}, eco_id: {eco_id}})
             RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
-    result=tx.run(statement, name=name, venomkb_id=venomkb_id,
-                protein=protein)
+    result=tx.run(statement, name=name, venomkb_id=venomkb_id, eco_id=eco_id)
     return result.single()[0]
 
   @staticmethod
@@ -460,6 +475,17 @@ class Neo4jWriter(object):
                 CREATE (a)-[r:IS_INSTANCE_OF]->(b)
                 RETURN r"""
     result = tx.run(statement, {"protein_id": protein_id})
+    return result.single()[0]
+
+  @staticmethod
+  def _add_protein_systemic_relationship(tx, payload):
+    (protein_id, systemic_id) = payload
+    statement = """MATCH (p:Protein {vkbid : {protein_id}}),
+                (se:SystemicEffect {vkbid : {systemic_id}})
+                CREATE (p)-[r:INFLUENCES_SYSTEMIC_EFFECT]->(se)
+                CREATE (p)-[q:INFLUENCED_BY_PROTEIN]->(se)
+                RETURN r"""
+    result = tx.run(statement, {"protein_id": protein_id, "systemic_id": systemic_id})
     return result.single()[0]
 
   @staticmethod
