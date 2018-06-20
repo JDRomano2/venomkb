@@ -73,17 +73,106 @@ module.exports = {
                 }
             ]
         },
-        
+
         "aggregate": {
-            "distinct": "Pfam"
+            "distinct": "name"
         }
-    }
+    },
     // Ask: 'Which protein families are in venom of species in the genus Conus?'
     //
     // Query:
-    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)-[IS_A]->(f:Pfam)
+    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)-[:IS_A]->(f:Pfam)
     // WHERE s.name CONTAINS 'Conus'
     // RETURN DISTINCT f.name
     //
     // Expect: A list containing 24 Pfams
+
+    ex5: {
+        "select": "Pfam",
+        "declare": {
+            "Species": [
+                {
+                    "attribute": "name",
+                    "operator": "equals",
+                    "value": "Crotalus adamanteus"
+                }
+            ]
+        },
+        "aggregate": {
+            "bincount": {
+                "attribute": "name",
+                "order": "descending"
+            }
+        }
+    },
+    // Ask: 'Count all the occurrences of PFAM ids in each of the proteins in
+    // Crotalus adamanteus' venom'
+    //
+    // Query:
+    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)-[:IS_A]->(f:Pfam)
+    // WHERE s.name =~ 'Crotalus adamanteus'
+    // RETURN f.name
+    //
+    // THEN:
+    // Apply 'bincount' function (in javascript); returning the output to user
+    //
+    // Expect:
+
+    ex6: {
+        "select": "Species",
+        "declare": {
+            "Pfam": [
+                {
+                    "attribute": "name",
+                    "operator": "equals",
+                    "value": "Reprolysin"
+                }
+            ]
+        },
+        "aggregate": {
+            "distinct": "name"
+        }
+    },
+    // Ask: 'Which species in VenomKB have at lest one protein from the
+    // "Reprolysin" family?'
+    //
+    // Query:
+    // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)-[:IS_A]->(f:Pfam)
+    // WHERE f.name =~ 'Reprolysin'
+    // RETURN distinct f.name
+
+    ex7: {
+        "select": "Species",
+        "declare": {
+            "Species": [
+                {
+                    "attribute": "name",
+                    "operator": "contains",
+                    "value": "Conus"
+                }
+            ],
+            "SystemicEffect": [
+                {
+                    "attribute": "name",
+                    "operator": "equals",
+                    "value": "Neuralgia"
+                }
+            ]
+        },
+        "aggregate": {
+            "exists": true
+        }
+    }
+    // Ask: 'Do any proteins from Conus species treat Neuralgia?'
+    //
+    // Query:
+    // MATCH (s:Species)-[:HAS_PROTEIN]->(p:Protein)-[:INFLUENCES_SYSTEMIC_EFFECT]->(e:SystemicEffect)
+    // WHERE s.name CONTAINS 'Conus' AND e.name =~ 'Neuralgia'
+    // RETURN s
+    //
+    // Then:
+    // In javascript, is the length of the return value greater than zero?
+    //
+    // Expect:
+    // boolean True
 }
