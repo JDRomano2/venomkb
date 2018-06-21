@@ -40,6 +40,7 @@ class Query {
 
         // just for dev 
         this.query_match = "";
+        this.relationship = [];
 
         // {
         //     "class": "Protein",
@@ -149,57 +150,115 @@ class Query {
     }
 
     /**
-     *
-     * @memberof Query
-     */
-    buildMatch() {
-        // This method looks at this.ontologyClasses and writes
-        // a MATCH clause that contains a subgraph with each of these classes
-        // included.
+    *
+    * @memberof Query
+    */
+    findDirectRelation() {
         const session = this.neo4j_adapter.session
         const driver = this.neo4j_adapter.driver
 
         if (this.ontologyClasses.length == 2) {
+
+            const class1 = this.ontologyClasses[0]
+            const class2 = this.ontologyClasses[1]
+            // case of direct relation ship 
+            const query_relation = "MATCH (" + item[class1] + ": " + class1 + ")-[r]->(" + item[class2] + ": " + class2 + ") return distinct(type(r))"
+            const resultPromise = session.writeTransaction(tx => tx.run(
+                query_relation));
+
+            // console.log(query_relation);
+
+            return resultPromise
+        }
+    }
+
+    /**
+    *
+    * @memberof Query
+    */
+    async findShortestPath() {
+        const session = this.neo4j_adapter.session
+        const driver = this.neo4j_adapter.driver
+
+        if (this.ontologyClasses.length == 2) {
+            console.log("entrer find path");
             
             const class1 = this.ontologyClasses[0]
             const class2 = this.ontologyClasses[1]
             // case of direct relation ship 
-            const query_relation = "MATCH ("+item[class1] +": "+class1+")-[r]->("+item[class2] +": "+ class2+") return distinct(type(r))"
+            const query_relation = "MATCH(c1: OntologyClass { name: '"+class1+"'}), (c2: OntologyClass { name: '"+ class2+ "'}), p = shortestPath((c1) - [*] - (c2)) RETURN p"
+            
             const resultPromise = session.writeTransaction(tx => tx.run(
                 query_relation));
-    
-            // console.log(query_relation);
-            
-    
-            return resultPromise.then(result => {
-                console.log(result);
                 
-                const singleRecord = result.records[0]
-                const relationship = singleRecord.get(0);
-    
-                console.log(relationship);
+                // console.log(query_relation);
                 
-                const query_match = "MATCH (" + item[class1] + ":" + class1 + ")-[:" + relationship + "]->(" + item[class2] + ":" + class2 +") "
-                
-                console.log(this["constraints"]);
-                
-                if (this["constraints"].length>0) {
-                    const constraint = this["constraints"][0]
-                    console.log(constraint);
-                    
-                    const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
-                    
-                    // on application exit:
-                    console.log(query_match + query_where);
-                    this.query_match = query_match+ query_where
-                    return Promise.resolve(query_match + query_where);
-                    
-                }
-                console.log(query_match);
-                this.query_match = query_match
-                return Promise.resolve(query_match );
-            });
+                console.log("query relation", query_relation);
+            return resultPromise
         }
+    }
+
+    /**
+    *
+    * @memberof Query
+    */
+    async findMultipleRelation(result) {
+        var result_object = result.records[0].toObject()
+        var path_global = result_object.p.segments
+        
+        for (let i = 0; i < result_object.p.length; i++) {
+            this.relationship.push([
+                result_object.p.segments[i].start.properties.name,
+                result_object.p.segments[i].relationship.type,
+                result_object.p.segments[i].end.properties.name
+            ])
+        }
+    }
+
+    /**
+     *
+     * @memberof Query
+     */
+    async buildMatch() {
+        // This method looks at this.ontologyClasses and writes
+        // a MATCH clause that contains a subgraph with each of these classes
+        // included.
+
+        const class1 = this.ontologyClasses[0]
+        const class2 = this.ontologyClasses[1]
+        
+        // var result = await this.findDirectRelation()
+        
+        var result = await this.findShortestPath()
+        var tables_relationship = await this.findMultipleRelation(result)
+        console.log(this.relationship);
+        
+       
+            
+        if (false) {
+            const singleRecord = result.records[0]
+            const relationship = singleRecord.get(0);
+
+            
+            const query_match = "MATCH (" + item[class1] + ":" + class1 + ")-[:" + relationship + "]->(" + item[class2] + ":" + class2 +") "
+            
+            
+        }
+
+            if (this["constraints"].length>0) {
+                const constraint = this["constraints"][0]
+                
+                const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
+                
+                // on application exit:
+                console.log(query_match + query_where);
+                this.query_match = query_match+ query_where
+                return Promise.resolve(query_match + query_where);
+                
+            }
+            this.query_match = query_match
+
+            return Promise.resolve(query_match );
     }
     
     /**
@@ -312,10 +371,10 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD);
 
-const q2 = new Query(examples.ex2, neo);
+const q1 = new Query(examples.ex1, neo);
 
-q2.retrieveSubgraph();
-console.log(q2['ontologyClasses']);
+q1.retrieveSubgraph();
+console.log(q1['ontologyClasses']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {

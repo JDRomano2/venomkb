@@ -10,7 +10,7 @@ class Neo4jWriter(object):
   def close(self):
     self._driver.close()
 
-  def generate_graph(self, proteins, species_list, genomes, classes):
+  def generate_graph(self, proteins, species_list, genomes, systemic_effects, classes):
     """This function create a neo4j graph.
 
           Args:
@@ -106,6 +106,12 @@ class Neo4jWriter(object):
     for genome in genomes:
       self.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
                   genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"])
+
+    for systemic_effect in data.systemic_effects:
+      self.systemic_effect_node( systemic_effect["name"], systemic_effect["venomkb_id"], systemic_effect["eco_id"])
+      venomkb_id = systemic_effect["venomkb_id"]
+      for protein in systemic_effect["proteins"]:
+        self.protein_systemic_relationship(protein, venomkb_id)
 
   def species(self, name, venomkb_id, score):
     """This function create a species node into the graph.

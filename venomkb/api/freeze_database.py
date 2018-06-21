@@ -346,6 +346,7 @@ def RUN_MAIN():
   neo.generate_graph(data.proteins,
                      data.species,
                      data.genomes,
+                     data.systemic_effects,
                      ontology_classes)
 
   t_end = time.time()
@@ -357,15 +358,7 @@ if __name__ == '__main__':
   # (from ipython shell in root venomkb directory)
   # > from venomkb.api import *
   # > RUN_MAIN()
-  # RUN_MAIN()
-  neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=True)
-  data = VenomkbData()
-  s= (data.systemic_effects[4])
-  print (json.dumps(s, indent=4, sort_keys=True))
+  RUN_MAIN()
+ 
 
-  for systemic_effect in data.systemic_effects:
-    neo.systemic_effect_node(systemic_effect["name"], systemic_effect["venomkb_id"],systemic_effect["eco_id"])
-
-    venomkb_id = systemic_effect["venomkb_id"]
-    for protein in systemic_effect["proteins"] :
-      neo.protein_systemic_relationship(protein, venomkb_id)
+  
