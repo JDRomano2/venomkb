@@ -13,7 +13,9 @@ module.exports = {
             ]
         },
         "aggregate": {
-            "count": "Species"
+            "count": "Species",
+            "distinct" : "Species"
+        
         }
     },
     // Ask: 'How many species have at least one protein with the word "Phospholipase" in its name?
@@ -21,7 +23,7 @@ module.exports = {
     // Query:
     // MATCH(p: Protein)- [: PROTEIN_FROM_SPECIES] -> (s: Species)
     // WHERE p.name contains 'phospholipase'
-    // RETURN count(distinct p), count(distinct s)
+    // RETURN count(distinct s)
     // //
     // Expect: '139'
 
@@ -37,7 +39,7 @@ module.exports = {
     //
     // Query:
     //MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)
-    // RETURN s.name, count(p) ORDER BY count(p) DESC LIMIT 1
+    //RETURN s count(p) ORDER BY count(p) DESC LIMIT 1
     //
     // Expect: 'Haplopelma hainanum'
 
@@ -73,7 +75,6 @@ module.exports = {
                 }
             ]
         },
-
         "aggregate": {
             "distinct": "name"
         }

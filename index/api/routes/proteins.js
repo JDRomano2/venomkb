@@ -40,7 +40,7 @@ router.get('/limit', (req, res, next) => {
 });
 
 router.get('/index', (req, res, next) => {
-    protein.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, proteins_ind) => {
+    Protein.find({}, { venomkb_id: 1, name: 1, annotation_score: 1 }).exec((err, proteins_ind) => {
         if (err) return next(err);
         res.json(proteins_ind);
     });

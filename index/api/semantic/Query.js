@@ -41,6 +41,9 @@ class Query {
         // just for dev 
         this.query_match = "";
         this.relationship = [];
+        this.query_where = "";
+        this.query_return = "";
+        this.select = [];
 
         // {
         //     "class": "Protein",
@@ -150,6 +153,59 @@ class Query {
     }
 
     /**
+     *
+     */
+    collectSelect() {
+        if (typeof this.json.select == "string") { 
+            
+            var object = this.json.select
+            var obj = {}
+            if (Object.values(this.json.aggregate).indexOf(object) != -1 ) {
+                obj[object] = null;
+                this.select.push(obj)
+            }
+            else {
+                obj[object] = [];
+                this.select.push(obj)
+            }
+        }
+        if (this.json.select.constructor === Array) {
+            this.json.select.forEach(element => {
+                if (typeof this.json.select == "string") {
+                    var object = this.json.select
+                    var obj = {}
+                    if (Object.values(this.json.aggregate).indexOf(object) != -1) {
+                        var obj = {};
+                        obj[object] = null;
+                        this.select.push(obj)
+                    }
+                    else {
+                        var obj = {};
+                        obj[object] = [];
+                        this.select.push(obj)
+                    }
+                }
+                if (typeof this.json.select == "object") {
+                    var object = Object.keys(this.json.select)[0]
+                    var obj = {};
+                    obj[object] = [this.json.select[object]];
+                    this.select.push(obj)
+                  
+                }
+            });
+           
+        }
+        if (typeof this.json.select == "object") {
+            var object = Object.keys(this.json.select)[0]
+            var obj = {};
+            obj[object] = [this.json.select[object]];
+            this.select.push(obj)
+        }
+    
+    }
+
+
+    /**
     *
     * @memberof Query
     */
@@ -186,14 +242,14 @@ class Query {
             const class1 = this.ontologyClasses[0]
             const class2 = this.ontologyClasses[1]
             // case of direct relation ship 
-            const query_relation = "MATCH(c1: OntologyClass { name: '"+class1+"'}), (c2: OntologyClass { name: '"+ class2+ "'}), p = shortestPath((c1) - [*] - (c2)) RETURN p"
+            const query_relation = "MATCH(c1: OntologyClass { name: '"+class1+"'}), (c2: OntologyClass { name: '"+ class2+ "'}), p = shortestPath((c1) - [*] -> (c2)) RETURN p"
             
             const resultPromise = session.writeTransaction(tx => tx.run(
                 query_relation));
                 
                 // console.log(query_relation);
                 
-                console.log("query relation", query_relation);
+            console.log("query relation", query_relation);
             return resultPromise
         }
     }
@@ -213,6 +269,45 @@ class Query {
                 result_object.p.segments[i].end.properties.name
             ])
         }
+        console.log(this.relationship);
+        
+    }
+
+    /**
+  *
+  * @memberof Query
+  */
+    async buildQueryMatch() {
+        var query_match ="MATCH "
+        console.log("enter build match");
+
+        var class1 = this.relationship[0][0]
+        var class2 = this.relationship[0][2]
+        var rel = this.relationship[0][1]
+        query_match += "("+item[class1]+":"+class1+")-[:"+rel+"]->("+item[class2]+":"+class2+")"
+        
+        for (let i = 1; i < this.relationship.length; i++) {
+            var class2 = this.relationship[i][2]
+            var rel = this.relationship[i][1]
+            query_match += "-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
+
+        }
+        console.log(query_match);
+        this.query_match = query_match
+        return Promise.resolve(this.query_match);
+
+    }
+
+    /**
+    *
+    * @memberof Query
+    */
+    async buildQueryWhere() {
+        console.log("enter build where", this.constraints);
+        
+        const constraint = this["constraints"][0]
+        this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
+        return Promise.resolve(this.query_where);
     }
 
     /**
@@ -231,52 +326,82 @@ class Query {
         
         var result = await this.findShortestPath()
         var tables_relationship = await this.findMultipleRelation(result)
-        console.log(this.relationship);
+        var query_match = await this.buildQueryMatch()      
         
-       
-            
-        if (false) {
-            const singleRecord = result.records[0]
-            const relationship = singleRecord.get(0);
-
-            
-            const query_match = "MATCH (" + item[class1] + ":" + class1 + ")-[:" + relationship + "]->(" + item[class2] + ":" + class2 +") "
-            
-            
+        if (this.constraints.length>0) {
+            var query_where = await this.buildQueryWhere()        
+        }
+        else {
+            var query_where = ""
         }
 
-            if (this["constraints"].length>0) {
-                const constraint = this["constraints"][0]
-                
-                const query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] +" "+constraint["operator"]+" '"+constraint["value"]+"'"
-                
-                // on application exit:
-                console.log(query_match + query_where);
-                this.query_match = query_match+ query_where
-                return Promise.resolve(query_match + query_where);
-                
-            }
-            this.query_match = query_match
-
-            return Promise.resolve(query_match );
+        console.log("\n\n");
+        console.log(query_match, query_where);
+        
+        
+        return Promise.resolve(query_match + query_where );
     }
     
     /**
      *
      *  @memberof Query
      */
-    buildReturn() {
-        return undefined;
+    async buildReturn() {
+        // console.log("enter build return", this.json.aggregate);
+        const aggregate = this.json.aggregate
+        const ontology = Object.keys(this.select[0])[0]
+        const value = this.select[0][ontology]
+        
+        this.query_return = "RETURN "
+
+        if (value == null) {
+            if ("count" in aggregate) {
+                this.query_return += "COUNT (" 
+            }
+
+            if ("distinct" in aggregate) {
+                this.query_return += "DISTINCT " 
+            }
+
+            this.query_return += item[this.json.select]
+
+            if ("count" in aggregate) {
+                this.query_return += ")"
+            }
+        }
+
+        else if (value.length>0) {
+            this.query_return += item[ontology]+"."+value[0]
+        }
+        
+        else{
+            this.query_return += item[ontology] +", "
+
+            if ("count" in aggregate) {
+                this.query_return += "COUNT ("
+                if ("distinct" in aggregate) {
+                    this.query_return += "DISTINCT "
+                }
+                this.query_return += item[aggregate.count] +")"
+                if ("sort" in aggregate) {
+                    this.query_return += " ORDER BY count(" + item[aggregate.count] + ") "+aggregate["sort"]+" "
+                }
+            }
+
+            else if ("distinct" in aggregate) {
+               this.query_return += "DISTINCT "
+               this.query_return += item[aggregate.count]
+            }
+
+            if ("limit" in aggregate) {
+                this.query_return += "LIMIT "+ aggregate.limit
+            }
+        }
+        console.log(this.query_return);
+        return Promise.resolve(this.query_return);
     }
 
-    /**
-     *
-     *
-     * @memberof Query
-     */
-    validateCypher() {
-
-    }
+ 
 
     /**
      *
@@ -304,7 +429,6 @@ class Query {
         // Cypher queries consist of two major components: a MATCH clause, and a
         // RETURN clause.
         var query_match = await this.buildMatch();
-        console.log("hehehfzbdjeffnenfce", query_match);
         
         this.buildReturn();
 
@@ -352,6 +476,11 @@ class Query {
         this.collectConstraints();
         // -> set constraints to [{"Protein": {"name": {"contains": "Phospholipase"} } }]
 
+        // Determine what should be return
+        this.collectSelect();
+        // -> set select to [[Species, complete], [Protein, name]]
+
+
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
         this.generateCypherQuery();
@@ -371,10 +500,10 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD);
 
-const q1 = new Query(examples.ex1, neo);
+const q4 = new Query(examples.ex4, neo);
 
-q1.retrieveSubgraph();
-console.log(q1['ontologyClasses']);
+q4.retrieveSubgraph();
+console.log("TESTTTTTTT", q4['select']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {
