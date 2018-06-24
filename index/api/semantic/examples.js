@@ -99,7 +99,7 @@ module.exports = {
                 }
             ]
         },
-        "aggregate": {
+        "post_treatment": {
             "bincount": {
                 "attribute": "name",
                 "order": "descending"

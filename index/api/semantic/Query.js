@@ -159,8 +159,10 @@ class Query {
         if (typeof this.json.select == "string") { 
             
             var object = this.json.select
+            console.log(object);
+            
             var obj = {}
-            if (Object.values(this.json.aggregate).indexOf(object) != -1 ) {
+            if (this.json.aggregate && Object.values(this.json.aggregate).indexOf(object) != -1 ) {
                 obj[object] = null;
                 this.select.push(obj)
             }
@@ -306,6 +308,9 @@ class Query {
         console.log("enter build where", this.constraints);
         
         const constraint = this["constraints"][0]
+        if (constraint.operator == "equals") {
+            constraint.operator = "="
+        }
         this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
         return Promise.resolve(this.query_where);
     }
@@ -376,26 +381,29 @@ class Query {
         
         else{
             this.query_return += item[ontology] +", "
-
-            if ("count" in aggregate) {
-                this.query_return += "COUNT ("
-                if ("distinct" in aggregate) {
-                    this.query_return += "DISTINCT "
+            if (aggregate) {
+                if ("count" in aggregate) {
+                    this.query_return += "COUNT ("
+                    if ("distinct" in aggregate) {
+                        this.query_return += "DISTINCT "
+                    }
+                    this.query_return += item[aggregate.count] +")"
+                    if ("sort" in aggregate) {
+                        this.query_return += " ORDER BY count(" + item[aggregate.count] + ") "+aggregate["sort"]+" "
+                    }
                 }
-                this.query_return += item[aggregate.count] +")"
-                if ("sort" in aggregate) {
-                    this.query_return += " ORDER BY count(" + item[aggregate.count] + ") "+aggregate["sort"]+" "
+    
+                else if ("distinct" in aggregate) {
+                   this.query_return = "RETURN DISTINCT "
+                   this.query_return += item[ontology]
                 }
+    
+                if ("limit" in aggregate) {
+                    this.query_return += "LIMIT "+ aggregate.limit
+                }
+                
             }
 
-            else if ("distinct" in aggregate) {
-               this.query_return += "DISTINCT "
-               this.query_return += item[aggregate.count]
-            }
-
-            if ("limit" in aggregate) {
-                this.query_return += "LIMIT "+ aggregate.limit
-            }
         }
         console.log(this.query_return);
         return Promise.resolve(this.query_return);
@@ -500,10 +508,10 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD);
 
-const q4 = new Query(examples.ex4, neo);
+const q6 = new Query(examples.ex6, neo);
 
-q4.retrieveSubgraph();
-console.log("TESTTTTTTT", q4['select']);
+q6.retrieveSubgraph();
+console.log("TESTTTTTTT", q6['select']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {
