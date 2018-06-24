@@ -1,16 +1,22 @@
 "use strict"
 
+// NOTE: You must create a config file named 'semantic.cfg.js' in this
+// directory. The format of this file looks like the following:
+
+// module.exports = {
+// 	 USER: 'user',
+// 	 PASSWORD: 'password',
+// 	 URI: 'bolt'
+// }
+
 const chai = require('chai');
 const expect = require('chai').expect;
 
 const { NeoAdapter, Query } = require('./Query');
 const examples = require('./examples');
+const { USER, PASSWORD, URI } = require('./semantic.cfg');
 
-const USER = 'neo4j';
-const PASSWORD = 'Gazaupouy12!';
-const URI = 'bolt://localhost:7687'
-
-const neo = new NeoAdapter(USER, PASSWORD);
+const neo = new NeoAdapter(USER, PASSWORD, URI);
 const q1 = new Query(examples.ex1, neo);
 const q2 = new Query(examples.ex2, neo);
 const q3 = new Query(examples.ex3, neo);
@@ -36,7 +42,7 @@ describe('Initialize query', () => {
 		expect(q2['constraints']).to.be.a("Array")
 		expect(q3['constraints']).to.be.a("Array")
 		expect(q4['constraints']).to.be.a("Array")
-	
+
         done()
 	})
     it("Should parses ontology classes correctly", (done) => {
@@ -49,9 +55,9 @@ describe('Initialize query', () => {
     it("Should parses constraints correctly", (done) => {
 		expect(q1['constraints'].length).to.equal(1)
 		expect(q1['constraints'][0]).to.eql({class:"Protein", attribute:"name", operator:"contains", value:"phospholipase"})
-		
+
 		expect(q2['constraints'].length).to.equal(0)
-		
+
 		expect(q3['constraints'].length).to.equal(1)
 		expect(q3['constraints'][0]).to.eql({class:"Protein", attribute:"name", operator:"contains", value:"Phospholipase A2"})
 
