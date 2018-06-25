@@ -442,6 +442,8 @@ class Query {
         var query_match = await this.buildMatch();
 
         this.buildReturn();
+        console.log(this.query_return);
+        
 
         this.joinClauses();
 
@@ -512,9 +514,9 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
-const q1 = new Query(examples.ex1, neo);
+const q4 = new Query(examples.ex4, neo);
 
-q1.retrieveSubgraph();
+q4.retrieveSubgraph();
 console.log("TESTTTTTTT", 76['select']);
 // console.log(q1['neo4j_adapter']['session']);
 
