@@ -141,16 +141,16 @@ class Query {
             var classes = Object.keys(this.json["declare"])
             for (let ontology of classes) {
                 const object = this.json["declare"][ontology][0]
-                
+
                 var new_constraint = {
                     class: ontology,
                     attribute: object.attribute,
                     operator: object.operator,
                     value: object.value,
-    
+
                 }
                 this.constraints.push(new_constraint)
-            
+
             }
         }
     }
@@ -439,7 +439,7 @@ class Query {
     async generateCypherQuery() {
         // Cypher queries consist of two major components: a MATCH clause, and a
         // RETURN clause.
-        var query_match = await this.buildMatch();
+        var query_match = await this.buildMatch(); // includes WHERE clause, if needed
 
         this.buildReturn();
         console.log(this.query_return);

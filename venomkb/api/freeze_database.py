@@ -328,17 +328,19 @@ def RUN_MAIN():
   ontology_classes = [
     "Protein",
     "Carbohydrate",
-    "Biological_Macromolecule",
-    "Inorganic_Molecule",
+    "BiologicalMacromolecule",
+    "InorganicMolecule",
     "Venom",
     "Mixture",
     "Molecule",
-    "Synthetic_Venom_Derivative",
+    "SyntheticVenomDerivative",
     "Species",
-    "Chemical_Compound",
+    "ChemicalCompound",
     "Thing",
     "Genome",  # <-- This isn't part of the ontology (yet)!
-    "Pfam"
+    "Pfam",
+    "SystemicEffect",
+    "VenomSeqData"
   ]
 
   data = VenomkbData()
