@@ -339,7 +339,8 @@ def RUN_MAIN():
     "Thing",
     "Genome",  # <-- This isn't part of the ontology (yet)!
     "Pfam",
-    "SystemicEffect"
+    "SystemicEffect",
+    "VenomSeqData"
   ]
 
   data = VenomkbData()

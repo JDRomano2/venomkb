@@ -52,6 +52,7 @@ class Neo4jWriter(object):
     self.is_a_subclass_relationship("Species", "Thing")
     self.is_a_subclass_relationship("Genome", "Thing")
     self.is_a_subclass_relationship("SystemicEffect", "Thing")
+    self.is_a_subclass_relationship("VenomSeqData", "Thing")
 
     # Explicit nonhierarchical relations
     self.add_ontology_class_relationship("Venom", "Molecule", "HAS_VENOM_COMPONENT")
