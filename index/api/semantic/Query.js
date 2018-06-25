@@ -4,6 +4,7 @@
 // the command line. Webpack and babel are not needed yet!
 
 const neo4j = require('../../../node_modules/neo4j-driver').v1
+const { USER, PASSWORD, URI } = require('./semantic.cfg');
 
 const examples = require("./examples");
 let item = {
@@ -136,15 +137,20 @@ class Query {
 
         // This will require editing as we go along...
         if ("declare" in this.json) {
-            var object = this.json["declare"][Object.keys(this.json["declare"])][0]
-            var new_constraint = {
-                class: Object.keys(this.json["declare"])[0],
-                attribute: object.attribute,
-                operator: object.operator,
-                value: object.value,
-
+            var classes = Object.keys(this.json["declare"])
+            for (let ontology of classes) {
+                const object = this.json["declare"][ontology][0]
+                
+                var new_constraint = {
+                    class: ontology,
+                    attribute: object.attribute,
+                    operator: object.operator,
+                    value: object.value,
+    
+                }
+                this.constraints.push(new_constraint)
+            
             }
-            this.constraints.push(new_constraint)
         }
     }
 
@@ -502,12 +508,12 @@ class Query {
 
 
 // Test the class out
-//const neo = new NeoAdapter(USER, PASSWORD);
+const neo = new NeoAdapter(USER, PASSWORD, URI);
 
-const q6 = new Query(examples.ex6, neo);
+const q1 = new Query(examples.ex1, neo);
 
-q6.retrieveSubgraph();
-console.log("TESTTTTTTT", q6['select']);
+q1.retrieveSubgraph();
+console.log("TESTTTTTTT", 76['select']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {

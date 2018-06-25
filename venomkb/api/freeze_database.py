@@ -338,7 +338,8 @@ def RUN_MAIN():
     "Chemical_Compound",
     "Venom",
     "Thing",
-    "Genome"  # <-- This isn't part of the ontology (yet)!
+    "Genome",  # <-- This isn't part of the ontology (yet)!
+    "Pfam" 
   ]
 
   data = VenomkbData()

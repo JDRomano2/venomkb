@@ -66,6 +66,8 @@ class Neo4jWriter(object):
     self.add_ontology_class_relationship("Protein", "Species", "PROTEIN_FROM_SPECIES")
     self.add_ontology_class_relationship("Species", "Genome", "SPECIES_HAS_GENOME")
     self.add_ontology_class_relationship("Genome", "Species", "GENOME_FROM_SPECIES")
+    self.add_ontology_class_relationship("Pfam", "Protein", "CONTAINS_PROTEIN")
+    self.add_ontology_class_relationship("Protein", "Pfam", "IN_FAMILY")
 
     pfam_added = []
     # add proteins
@@ -534,7 +536,8 @@ class Neo4jWriter(object):
     (protein_id, pfam) = payload
     statement = """MATCH (a:Protein {vkbid : {protein_id}}),
                 (b:Pfam  {name : {pfam}})
-                CREATE (a)-[r:IS_A]->(b)
+                CREATE (a)-[r:IN_FAMILY]->(b)
+                CREATE (b)-[q:CONTAINS_PROTEIN]->(a)
                 RETURN r"""
     result = tx.run(statement, {"protein_id": protein_id, "pfam": pfam})
     return result.single()[0]
