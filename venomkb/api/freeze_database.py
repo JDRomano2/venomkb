@@ -336,10 +336,9 @@ def RUN_MAIN():
     "Synthetic_Venom_Derivative",
     "Species",
     "Chemical_Compound",
-    "Venom",
     "Thing",
     "Genome",  # <-- This isn't part of the ontology (yet)!
-    "Pfam" 
+    "Pfam"
   ]
 
   data = VenomkbData()
@@ -360,6 +359,6 @@ if __name__ == '__main__':
   # > from venomkb.api import *
   # > RUN_MAIN()
   RUN_MAIN()
- 
 
-  
+
+
