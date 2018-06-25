@@ -40,25 +40,28 @@ class Neo4jWriter(object):
       self.ont_class_nodes(ontology_class)
 
     # Hierarchical relations
-    self.is_a_subclass_relationship("Protein", "Biological_Macromolecule")
-    self.is_a_subclass_relationship("Carbohydrate", "Biological_Macromolecule")
-    self.is_a_subclass_relationship("Biological_Macromolecule", "Molecule")
-    self.is_a_subclass_relationship("Inorganic_Molecule", "Molecule")
+    self.is_a_subclass_relationship("Protein", "BiologicalMacromolecule")
+    self.is_a_subclass_relationship("Carbohydrate", "BiologicalMacromolecule")
+    self.is_a_subclass_relationship("BiologicalMacromolecule", "Molecule")
+    self.is_a_subclass_relationship("InorganicMolecule", "Molecule")
     self.is_a_subclass_relationship("Venom", "Mixture")
     self.is_a_subclass_relationship("Molecule", "Chemical_Compound")
     self.is_a_subclass_relationship("Mixture", "Chemical_Compound")
-    self.is_a_subclass_relationship("Synthetic_Venom_Derivative", "Chemical_Compound")
-    self.is_a_subclass_relationship("Chemical_Compound", "Venom")
+    self.is_a_subclass_relationship("SyntheticVenomDerivative", "ChemicalCompound")
+    self.is_a_subclass_relationship("ChemicalCompound", "Venom")
     self.is_a_subclass_relationship("Species", "Thing")
     self.is_a_subclass_relationship("Genome", "Thing")
+    self.is_a_subclass_relationship("SystemicEffect", "Thing")
 
     # Explicit nonhierarchical relations
     self.add_ontology_class_relationship("Venom", "Molecule", "HAS_VENOM_COMPONENT")
     self.add_ontology_class_relationship("Molecule", "Venom", "HAS_DERIVATIVE_COMPOUND")
     self.add_ontology_class_relationship("Venom", "Species", "SPECIES_OF_ORIGIN")
     self.add_ontology_class_relationship("Species", "Venom", "HAS_VENOM")
-    self.add_ontology_class_relationship("Synthetic_Venom_Derivative", "Molecule", "IS_DERIVATIVE_OF")
-    self.add_ontology_class_relationship("Molecule", "Synthetic_Venom_Derivative", "HAS_DERIVATIVE_COMPOUND")
+    self.add_ontology_class_relationship("SyntheticVenomDerivative", "Molecule", "IS_DERIVATIVE_OF")
+    self.add_ontology_class_relationship("Molecule", "SyntheticVenomDerivative", "HAS_DERIVATIVE_COMPOUND")
+    self.add_ontology_class_relationship("SystemicEffect", "Protein", "INFLUENCED_BY_PROTEIN")
+    self.add_ontology_class_relationship("Protein", "SystemicEffect", "INFLUENCES_SYSTEMIC_EFFECT")
 
     # Imputed nonhierarchical relations
     # (i.e., "shortcuts for venomkb")
@@ -212,14 +215,14 @@ class Neo4jWriter(object):
       pfam = session.write_transaction(self._add_nodes_pfam, pfam)
       if self.verbose:
         print(pfam)
-  
+
   def systemic_effect_node(self, name, venomkb_id, eco_id):
     """This function create a systemic effect node into the graph
 
           Args:
             name (string): the systemic effect name
-            venomkb_id (string): venomkb_id of the systemic effect 
-            eco_id (string): 
+            venomkb_id (string): venomkb_id of the systemic effect
+            eco_id (string):
             verbose (boolean) : if true, print the result of the transaction
 
 
@@ -265,7 +268,7 @@ class Neo4jWriter(object):
           self._add_protein_peptide_relationship, protein_id)
       if self.verbose:
        print(relationship)
-  
+
   def protein_systemic_relationship(self, protein_id, systemic_id):
     """This function add a link between a protein and q systemic effect.
 
