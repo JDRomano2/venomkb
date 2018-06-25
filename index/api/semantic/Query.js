@@ -22,7 +22,7 @@ class NeoAdapter {
         this.password = password;
 
         this.driver = neo4j.driver(uri, neo4j.auth.basic(this.user, this.password));
-        this.session = this.driver.session();
+        // this.session = this.driver.session();
     }
 }
 
@@ -31,6 +31,7 @@ class Query {
     constructor(query_json, neo4j_adapter) {
         this.json = query_json;
         this.neo4j_adapter = neo4j_adapter;
+        this.session = this.neo4j_adapter.driver.session();
         this.ontologyClasses = [];
         this.constraints = [];
 
@@ -156,7 +157,7 @@ class Query {
 
             var object = this.json.select
             console.log(object);
-            
+
             var obj = {}
             if (this.json.aggregate && Object.values(this.json.aggregate).indexOf(object) != -1 ) {
                 obj[object] = null;
@@ -207,9 +208,9 @@ class Query {
     *
     * @memberof Query
     */
-    findDirectRelation() {
-        const session = this.neo4j_adapter.session
-        const driver = this.neo4j_adapter.driver
+    async findDirectRelation() {
+        // const session = this.neo4j_adapter.session
+        // const driver = this.neo4j_adapter.driver
 
         if (this.ontologyClasses.length == 2) {
 
@@ -217,7 +218,7 @@ class Query {
             const class2 = this.ontologyClasses[1]
             // case of direct relation ship
             const query_relation = "MATCH (" + item[class1] + ": " + class1 + ")-[r]->(" + item[class2] + ": " + class2 + ") return distinct(type(r))"
-            const resultPromise = session.writeTransaction(tx => tx.run(
+            const resultPromise = this.session.writeTransaction(tx => tx.run(
                 query_relation));
 
             // console.log(query_relation);
@@ -231,8 +232,8 @@ class Query {
     * @memberof Query
     */
     async findShortestPath() {
-        const session = this.neo4j_adapter.session
-        const driver = this.neo4j_adapter.driver
+        // const session = this.neo4j_adapter.session
+        // const driver = this.neo4j_adapter.driver
 
         if (this.ontologyClasses.length == 2) {
             console.log("entrer find path");
@@ -242,7 +243,8 @@ class Query {
             // case of direct relation ship
             const query_relation = "MATCH(c1: OntologyClass { name: '"+class1+"'}), (c2: OntologyClass { name: '"+ class2+ "'}), p = shortestPath((c1) - [*] -> (c2)) RETURN p"
 
-            const resultPromise = session.writeTransaction(tx => tx.run(
+            // Error: Neo4jError; can't begin a txn on session with open txn
+            const resultPromise = this.session.writeTransaction(tx => tx.run(
                 query_relation));
 
                 // console.log(query_relation);
@@ -388,20 +390,19 @@ class Query {
                         this.query_return += " ORDER BY count(" + item[aggregate.count] + ") "+aggregate["sort"]+" "
                     }
                 }
-    
+
                 else if ("distinct" in aggregate) {
                    this.query_return = "RETURN DISTINCT "
                    this.query_return += item[ontology]
                 }
-    
+
                 if ("limit" in aggregate) {
                     this.query_return += "LIMIT "+ aggregate.limit
                 }
-                
+
             }
 
         }
-        console.log(this.query_return);
         return Promise.resolve(this.query_return);
     }
 
@@ -441,6 +442,7 @@ class Query {
         // We also need to apply some validation to make sure that we've
         // constructed a valid cypher query.
         this.validateCypher();
+
     }
 
     /**
@@ -500,15 +502,6 @@ class Query {
     }
 }
 
-
-// Test the class out
-//const neo = new NeoAdapter(USER, PASSWORD);
-
-const q6 = new Query(examples.ex6, neo);
-
-q6.retrieveSubgraph();
-console.log("TESTTTTTTT", q6['select']);
-// console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {
     NeoAdapter,
