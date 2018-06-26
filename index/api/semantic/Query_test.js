@@ -187,13 +187,18 @@ describe('Test generate cypher query', () => {
 	})
 	it('Should return a correct answer', (done) => {
 		expect(q1["result"].length).to.equal(1)
-		expect(q1["result"]).to.include({"count" : 125})
+		expect(q1["result"][0]).to.include({"count" : 125})
 
 		expect(q2["result"].length).to.equal(2)
-		expect(q2["result"]).to.include({ vkbid: 'S8831072', name: 'Haplopelma hainanum', score: 5 }, { count: 292 })
+		expect(q2["result"][0]).to.include({ vkbid: 'S8831072', name: 'Haplopelma hainanum', score: 5 })
+		expect(q2["result"][1]).to.include({ count: 292 })
 		
 		expect(q3["result"].length).to.equal(81)
-	
+		
+		expect(q4["result"].length).to.equal(20)
+		expect(q5["result"].length).to.equal(42)
+		expect(q6["result"].length).to.equal(57)
+		expect(q7["result"].length).to.equal(4)
 		done()
 	})
 })

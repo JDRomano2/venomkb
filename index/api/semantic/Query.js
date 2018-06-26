@@ -509,52 +509,58 @@ class Query {
     * @memberof Query
     */
     async treatResult(result) {
-        var result = result.records[0]
-        var keys = result.keys
-        var result_object = result.toObject()
-        console.log(keys);
-        console.log(result_object);
-        
-        
-        
-        for (let k in keys) {
-            // var res = result_object[key]
+        for (let i in result.records) {
+            var result_tpm = result.records[i]
             
-            const ontology_classe = Object.values(item)
-            const key = keys[k]
-            const element = result_object[key]
-
+            var result_object = result_tpm.toObject()
+            var keys = Object.keys(result_object)
+            // console.log(keys);
+            // console.log(result_object);
             
-            if (key.includes(".")) {
-                const element_complete = key.split(".");
+            
+            
+            for (let k in keys) {
+                // var res = result_object[key]
                 
-                const attribut = element_complete[1]
-                const value = element
-                var temp = {}
-                temp[attribut] = value;
-                this.result.push(temp)
-            }
-
-            else if (ontology_classe.includes(key)) {
+                const ontology_classe = Object.values(item)
+                const key = keys[k]
+                const element = result_object[key]
                 
-                if (element.properties.score.low != 0 ) {
-                    element.properties.score = element.properties.score.low
-                }
-                else {
-                    element.properties.score = element.properties.score.high
-                }
-                this.result.push(element.properties )
-            }
-
-            if (key.includes("COUNT")) {
-                if (element["low"] != 0) {
-                    this.result.push({"count": element["low"]})
-                }
-                else {
-                    this.result.push({"count": result_object[key]["high"]})
-                }
                 
-            }
+                if (key.includes(".")) {
+                    const element_complete = key.split(".");
+                    
+                    const attribut = element_complete[1]
+                    const value = element
+                    var temp = {}
+                    temp[attribut] = value;
+                    this.result.push(temp)
+                }
+    
+                else if (ontology_classe.includes(key)) {
+                    if (element.properties.score) {
+                        
+                        if (element.properties.score.low != 0 ) {
+                            element.properties.score = element.properties.score.low
+                        }
+                        else {
+                            element.properties.score = element.properties.score.high
+                        }
+                    }
+                    this.result.push(element.properties )
+                }
+    
+                if (key.includes("COUNT")) {
+                    if (element["low"] != 0) {
+                        this.result.push({"count": element["low"]})
+                    }
+                    else {
+                        this.result.push({"count": result_object[key]["high"]})
+                    }
+                    
+                }
+            
+        }
                 
         }
         console.log("\n\n resultat", this.result);
@@ -624,9 +630,9 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
-const q3 = new Query(examples.ex3, neo);
+const q7 = new Query(examples.ex7, neo);
 
-q3.retrieveSubgraph();
+q7.retrieveSubgraph();
 // console.log("TESTTTTTTT", q6['relationship']);
 // console.log("TESTTTTTTT", q1['query_match']);
 // console.log("TESTTTTTTT", q1['query_where']);
