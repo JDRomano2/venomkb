@@ -28,6 +28,8 @@ class NeoAdapter {
 }
 
 
+
+
 class Query {
     constructor(query_json, neo4j_adapter) {
         this.json = query_json;
@@ -45,6 +47,9 @@ class Query {
         this.select = [];
         this.result = []
         this.expect = []
+
+        //for validation 
+        this.properties = []
 
         // {
         //     "class": "Protein",
@@ -77,6 +82,35 @@ class Query {
             default:
                 throw "Error---Type of \"select\" is not supported.";
         }
+    }
+
+
+
+    /**
+    *
+    * @memberof Query
+    */
+    async findPropertyKeys() {
+        const query = "CALL db.propertyKeys()"
+        const resultPromise = this.session.writeTransaction(tx => tx.run(
+                query));
+            return resultPromise
+    }
+
+
+    /**
+    *
+    * @memberof Query
+    */
+    async treatPropertyKeys(result) {
+
+        var result_object = result.records
+        for (let element of result_object) {
+            var res = element.toObject()
+            this.properties.push(res["propertyKey"])
+            
+        }
+        return Promise.resolve(this.properties)
     }
 
     /**
@@ -311,17 +345,18 @@ class Query {
         if (constraint.operator == "equals") {
             constraint.operator = "="
         }
-        this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "' "
+        this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
         
         for (let i = 1; i < this.constraints.length; i++) {
             const constraint = this["constraints"][i]
             if (constraint.operator == "equals") {
                 constraint.operator = "="
             }
-            this.query_where += "and " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
+            this.query_where += " and " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
 
             
         }
+        this.query_where += " "
         return Promise.resolve(this.query_where);
     }
 
@@ -394,7 +429,10 @@ class Query {
                     if ("distinct" in aggregate) {
                         this.query_return += "DISTINCT "
                     }
-                    this.query_return += item[aggregate.count] + ")"
+                    // if (attribut.included(aggregate.distinct)) {
+                        
+                    // }
+                    this.query_return += item[aggregate.count] +")"
                     if ("sort" in aggregate) {
                         this.query_return += " ORDER BY count(" + item[aggregate.count] + ") "+aggregate["sort"]+" "
                     }
@@ -444,10 +482,6 @@ class Query {
         var query_match = await this.buildMatch(); // includes WHERE clause, if needed
 
         this.buildReturn();
-
-       
-        
-
         this.joinClauses();
 
         // We also need to apply some validation to make sure that we've
@@ -464,8 +498,7 @@ class Query {
     }
 
     async executeQuery() {
-        const resultPromise = this.session.writeTransaction(tx => tx.run(
-            this.query));
+        const resultPromise = this.session.writeTransaction(tx => tx.run(this.query));
         return resultPromise
     }
 
@@ -476,34 +509,46 @@ class Query {
     * @memberof Query
     */
     async treatResult(result) {
-        var result_object = result.records
-        for (let element of result_object) {
-            var res = element.toObject()
+        var result = result.records[0]
+        var keys = result.keys
+        var result_object = result.toObject()
+        console.log(keys);
+        console.log(result_object);
+        
+        
+        
+        for (let k in keys) {
+            // var res = result_object[key]
             
             const ontology_classe = Object.values(item)
-            const key = Object.keys(res)[0]
+            const key = keys[k]
+            const element = result_object[key]
+
             
             if (key.includes(".")) {
                 const element_complete = key.split(".");
                 
                 const attribut = element_complete[1]
-                const value = res[key]
+                const value = element
                 var temp = {}
                 temp[attribut] = value;
                 this.result.push(temp)
-                
             }
+
             else if (ontology_classe.includes(key)) {
-                if (result_object[key].properties.score.low != 0 ) {
-                    result_object[key].properties.score = result_object[key].properties.score.low
+                
+                if (element.properties.score.low != 0 ) {
+                    element.properties.score = element.properties.score.low
                 }
                 else {
-                    result_object[key].properties.score = result_object[key].properties.score.high
+                    element.properties.score = element.properties.score.high
                 }
+                this.result.push(element.properties )
             }
+
             if (key.includes("COUNT")) {
-                if (result_object[key]["low"] != 0) {
-                    this.result.push({"count": result_object[key]["low"]})
+                if (element["low"] != 0) {
+                    this.result.push({"count": element["low"]})
                 }
                 else {
                     this.result.push({"count": result_object[key]["high"]})
@@ -511,7 +556,10 @@ class Query {
                 
             }
                 
-            }
+        }
+        console.log("\n\n resultat", this.result);
+        
+        return Promise.resolve(this.result)
         
     }
 
@@ -533,6 +581,10 @@ class Query {
      */
     async retrieveSubgraph() {
         // Determine the ontology classes spanning the subgraph
+        var result = await this.findPropertyKeys()
+        await this.treatPropertyKeys(result)
+        // console.log(this.properties);
+        
         this.collectOntologyClasses();
         // -> set ontologyClasses to ['Species', 'Protein']
 
@@ -545,12 +597,13 @@ class Query {
         this.collectSelect();
         // -> set select to [[Species, complete], [Protein, name]]
 
-
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
         await this.generateCypherQuery();
+        console.log("\n\n", this.query);
+        
         // console.log("\n\n");
-        console.log("relation", this.relationship);
+        // console.log("relation", this.relationship);
         // console.log(this.query_match, this.query_where);
         // console.log(this.query_return);
 
@@ -571,9 +624,9 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
-const q6 = new Query(examples.ex6, neo);
+const q3 = new Query(examples.ex3, neo);
 
-q6.retrieveSubgraph();
+q3.retrieveSubgraph();
 // console.log("TESTTTTTTT", q6['relationship']);
 // console.log("TESTTTTTTT", q1['query_match']);
 // console.log("TESTTTTTTT", q1['query_where']);

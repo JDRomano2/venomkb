@@ -172,7 +172,7 @@ describe('Test generate cypher query', () => {
 		expect(q4["query_where"]).to.equal("WHERE s.name contains 'Conus' ")
 		expect(q5["query_where"]).to.equal("WHERE s.name = 'Crotalus adamanteus' ")
 		expect(q6["query_where"]).to.equal("WHERE f.name = 'Reprolysin' ")
-		expect(q7["query_where"]).to.equal("WHERE s.name contains 'Conus' and se.name = 'Neuralgia'")
+		expect(q7["query_where"]).to.equal("WHERE s.name contains 'Conus' and se.name = 'Neuralgia' ")
 		done()
 	})
 	it('Should build a return string', (done) => {
@@ -187,7 +187,7 @@ describe('Test generate cypher query', () => {
 	})
 	it('Should return a correct answer', (done) => {
 		expect(q1["result"].length).to.equal(1)
-		expect(q1["result"]).to.include(632)
+		expect(q1["result"]).to.include({"count" : 125})
 
 		expect(q2["result"].length).to.equal(2)
 		expect(q2["result"]).to.include({ vkbid: 'S8831072', name: 'Haplopelma hainanum', score: 5 }, { count: 292 })
