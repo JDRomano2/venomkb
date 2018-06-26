@@ -25,16 +25,28 @@ const q5 = new Query(examples.ex5, neo);
 const q6 = new Query(examples.ex6, neo);
 const q7 = new Query(examples.ex7, neo);
 
-q1.retrieveSubgraph();
-q2.retrieveSubgraph();
-q3.retrieveSubgraph();
-q4.retrieveSubgraph();
-q5.retrieveSubgraph();
-q6.retrieveSubgraph();
-q7.retrieveSubgraph();
+
+async function initializeTest() {
+	await q1.retrieveSubgraph();
+	await q2.retrieveSubgraph();
+	await q3.retrieveSubgraph();
+	await q4.retrieveSubgraph();
+	await q5.retrieveSubgraph();
+	await q6.retrieveSubgraph();
+	await q7.retrieveSubgraph();
+	return Promise.resolve(0)
+}
+
 
 describe('Neo4j connection', () => {
-
+	it("Should initialize the test", (done) => {
+		initializeTest().then(status => {
+			expect(status).to.equals(0);
+			done()
+		}).catch((err) => {
+			done(err);
+		})
+	})
 });
 
 describe('Initialize query', () => {
@@ -80,14 +92,14 @@ describe('Initialize query', () => {
 		expect(q4['constraints'][0]).to.eql({class:"Species", attribute:"name", operator:"contains", value:"Conus"})
 
 		expect(q5['constraints'].length).to.equal(1)
-		expect(q5['constraints'][0]).to.eql({ class: "Species", attribute: "name", operator: "equals", value: "Crotalus adamanteus" })
+		expect(q5['constraints'][0]).to.eql({ class: "Species", attribute: "name", operator: "=", value: "Crotalus adamanteus" })
 
 		expect(q6['constraints'].length).to.equal(1)
-		expect(q6['constraints'][0]).to.eql({ class: "Pfam", attribute: "name", operator: "equals", value: "Reprolysin" })
+		expect(q6['constraints'][0]).to.eql({ class: "Pfam", attribute: "name", operator: "=", value: "Reprolysin" })
 
 		expect(q7['constraints'].length).to.equal(2)
 		expect(q7['constraints'][0]).to.eql({ class: "Species", attribute: "name", operator: "contains", value: "Conus" })
-		expect(q7['constraints'][1]).to.eql({ class: "SystemicEffect", attribute: "name", operator: "equals", value: "Neuralgia" })
+		expect(q7['constraints'][1]).to.eql({ class: "SystemicEffect", attribute: "name", operator: "=", value: "Neuralgia" })
 
         done()
 	})
@@ -103,7 +115,16 @@ describe('Initialize query', () => {
 		expect(q3['select']).to.eql([{ "Species": ["name"] }])
 
 		expect(q4['select'].length).to.equal(1)
-		expect(q4['select']).to.eql([{"Pfam": []}])
+		expect(q4['select']).to.eql([{"Pfam": null}])
+
+		expect(q5['select'].length).to.equal(1)
+		expect(q5['select']).to.eql([{ "Pfam": [] }])
+
+		expect(q6['select'].length).to.equal(1)
+		expect(q6['select']).to.eql([{ "Species": null }])
+
+		expect(q7['select'].length).to.equal(1)
+		expect(q7['select']).to.eql([{ "Species": []}])
 
 		done()
 	})
@@ -112,30 +133,46 @@ describe('Initialize query', () => {
 describe('Test generate cypher query', () => {
 	it('Should build a table of relationship', (done) => {
 		expect(q1['relationship'].length).to.equal(1)
-		expect(q1["relationship"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
+		expect(q1["relationship"][0]).to.include.ordered.members(['Protein', "PROTEIN_FROM_SPECIES", "Species"])
 
 		expect(q2['relationship'].length).to.equal(1)
-		expect(q2["relationship"]).to.equal([['Species', 'SPECIES_HAS_PROTEIN', 'Protein']])
+		expect(q2["relationship"][0]).to.include.ordered.members(['Species', 'SPECIES_HAS_PROTEIN', 'Protein'])
 
 		expect(q3['relationship'].length).to.equal(1)
-		expect(q3["relationship"]).to.eql([[ 'Protein', 'PROTEIN_FROM_SPECIES', 'Species']])
+		expect(q3["relationship"][0]).to.include.ordered.members(['Protein', 'PROTEIN_FROM_SPECIES', 'Species'])
 
 		expect(q4['relationship'].length).to.equal(2)
-		expect(q4["relationship"]).to.eql([['Species', 'SPECIES_HAS_PROTEIN', 'Protein'], ['Protein', 'IS_A', 'Pfam']])
+		expect(q4["relationship"][0]).to.include.ordered.members(['Species', 'SPECIES_HAS_PROTEIN', 'Protein'], ['Protein', 'IS_A', 'Pfam'])
+		
+		expect(q5['relationship'].length).to.equal(2)
+		expect(q5["relationship"][0]).to.include.ordered.members(['Species', 'SPECIES_HAS_PROTEIN', 'Protein'], ['Protein', 'IN_FAMILY', 'Pfam'])
+
+		expect(q6['relationship'].length).to.equal(2)
+		expect(q6["relationship"][0]).to.include.ordered.members(['Pfam', 'CONTAINS_PROTEIN', 'Protein'], ['Protein', 'PROTEIN_FROM_SPECIES', 'Species'])
+
+		expect(q7['relationship'].length).to.equal(2)
+		expect(q7["relationship"][0]).to.include.ordered.members(['Species', 'SPECIES_HAS_PROTEIN', 'Protein'], ['Protein', 'INFLUENCES_SYSTEMIC_EFFECT', 'SystemicEffect'])
+
 		done()
 	})
 	it('Should build a match string', (done) => {
 		expect(q1["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
-		expect(q2["query_match"]).to.equal("MATCH (s:Species)-[: SPECIES_HAS_PROTEIN]->(p:Protein)")
+		expect(q2["query_match"]).to.equal("MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)")
 		expect(q3["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
-		expect(q4["query_match"]).to.equal("MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)-[:IS_A]->(f:Pfam)")
+		expect(q4["query_match"]).to.equal("MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)-[:IN_FAMILY]->(f:Pfam)")
+		expect(q5["query_match"]).to.equal("MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)-[:IN_FAMILY]->(f:Pfam)")
+		expect(q6["query_match"]).to.equal("MATCH (f:Pfam)-[:CONTAINS_PROTEIN]->(p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
+		expect(q7["query_match"]).to.equal("MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)-[:INFLUENCES_SYSTEMIC_EFFECT]->(se:SystemicEffect)")
 		done()
 	})
 	it('Should build a where string', (done) => {
-		expect(q1["query_where"]).to.equal("WHERE p.name contains 'phospholipase'")
+		expect(q1["query_where"]).to.equal("WHERE p.name contains 'phospholipase' ")
 		expect(q2["query_where"]).to.equal("")
-		expect(q3["query_where"]).to.equal("WHERE p.name contains 'Phospholipase A2'")
-		expect(q4["query_where"]).to.equal("WHERE s.name contains 'Conus'")
+		expect(q3["query_where"]).to.equal("WHERE p.name contains 'Phospholipase A2' ")
+		expect(q4["query_where"]).to.equal("WHERE s.name contains 'Conus' ")
+		expect(q5["query_where"]).to.equal("WHERE s.name = 'Crotalus adamanteus' ")
+		expect(q6["query_where"]).to.equal("WHERE f.name = 'Reprolysin' ")
+		expect(q7["query_where"]).to.equal("WHERE s.name contains 'Conus' and se.name = 'Neuralgia'")
 		done()
 	})
 	it('Should build a return string', (done) => {
@@ -143,6 +180,20 @@ describe('Test generate cypher query', () => {
 		expect(q2["query_return"]).to.equal("RETURN s, COUNT (p) ORDER BY count(p) desc LIMIT 1")
 		expect(q3["query_return"]).to.equal("RETURN s.name")
 		expect(q4["query_return"]).to.equal("RETURN DISTINCT f.name")
+		expect(q5["query_return"]).to.equal("RETURN f")
+		expect(q6["query_return"]).to.equal("RETURN DISTINCT s")
+		expect(q7["query_return"]).to.equal("RETURN s")
+		done()
+	})
+	it('Should return a correct answer', (done) => {
+		expect(q1["result"].length).to.equal(1)
+		expect(q1["result"]).to.include(632)
+
+		expect(q2["result"].length).to.equal(2)
+		expect(q2["result"]).to.include({ vkbid: 'S8831072', name: 'Haplopelma hainanum', score: 5 }, { count: 292 })
+		
+		expect(q3["result"].length).to.equal(81)
+	
 		done()
 	})
 })

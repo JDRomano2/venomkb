@@ -37,11 +37,14 @@ class Query {
         this.constraints = [];
 
         // just for dev
-        this.query_match = "";
+        this.query_match = ""
+        this.query_where = ""
+        this.query_return = ""
+        this.query = ""
         this.relationship = [];
-        this.query_where = "";
-        this.query_return = "";
         this.select = [];
+        this.result = []
+        this.expect = []
 
         // {
         //     "class": "Protein",
@@ -106,7 +109,7 @@ class Query {
     /**
      *
      */
-    collectOntologyClasses() {
+    async collectOntologyClasses() {
         // All keys of this.json["declare"] should be ontology classes
         if ("declare" in this.json) {
             Object.keys(this.json["declare"]).map((cl) => {
@@ -132,7 +135,7 @@ class Query {
     /**
      *
      */
-    collectConstraints() {
+    async collectConstraints() {
         // We just push each of the key-value pairs in this.json["declare"]
         // into this.constraints, meaning we have a list of constraints
 
@@ -158,11 +161,10 @@ class Query {
     /**
      *
      */
-    collectSelect() {
+    async collectSelect() {
         if (typeof this.json.select == "string") {
 
             var object = this.json.select
-            console.log(object);
 
             var obj = {}
             if (this.json.aggregate && Object.values(this.json.aggregate).indexOf(object) != -1 ) {
@@ -242,7 +244,6 @@ class Query {
         // const driver = this.neo4j_adapter.driver
 
         if (this.ontologyClasses.length == 2) {
-            console.log("entrer find path");
 
             const class1 = this.ontologyClasses[0]
             const class2 = this.ontologyClasses[1]
@@ -255,7 +256,6 @@ class Query {
 
                 // console.log(query_relation);
 
-            console.log("query relation", query_relation);
             return resultPromise
         }
     }
@@ -275,17 +275,14 @@ class Query {
                 result_object.p.segments[i].end.properties.name
             ])
         }
-        console.log(this.relationship);
-
     }
 
     /**
-  *
-  * @memberof Query
-  */
+     *
+     * @memberof Query
+     */
     async buildQueryMatch() {
         var query_match ="MATCH "
-        console.log("enter build match");
 
         var class1 = this.relationship[0][0]
         var class2 = this.relationship[0][2]
@@ -298,7 +295,6 @@ class Query {
             query_match += "-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
 
         }
-        console.log(query_match);
         this.query_match = query_match
         return Promise.resolve(this.query_match);
 
@@ -309,13 +305,23 @@ class Query {
     * @memberof Query
     */
     async buildQueryWhere() {
-        console.log("enter build where", this.constraints);
+        // console.log("enter build where", this.constraints);
 
         const constraint = this["constraints"][0]
         if (constraint.operator == "equals") {
             constraint.operator = "="
         }
-        this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
+        this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "' "
+        
+        for (let i = 1; i < this.constraints.length; i++) {
+            const constraint = this["constraints"][i]
+            if (constraint.operator == "equals") {
+                constraint.operator = "="
+            }
+            this.query_where += "and " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
+
+            
+        }
         return Promise.resolve(this.query_where);
     }
 
@@ -343,9 +349,6 @@ class Query {
         else {
             var query_where = ""
         }
-
-        console.log("\n\n");
-        console.log(query_match, query_where);
 
 
         return Promise.resolve(query_match + query_where );
@@ -384,14 +387,14 @@ class Query {
         }
 
         else{
-            this.query_return += item[ontology] +", "
+            this.query_return += item[ontology] 
             if (aggregate) {
                 if ("count" in aggregate) {
-                    this.query_return += "COUNT ("
+                    this.query_return += ", COUNT ("
                     if ("distinct" in aggregate) {
                         this.query_return += "DISTINCT "
                     }
-                    this.query_return += item[aggregate.count] +")"
+                    this.query_return += item[aggregate.count] + ")"
                     if ("sort" in aggregate) {
                         this.query_return += " ORDER BY count(" + item[aggregate.count] + ") "+aggregate["sort"]+" "
                     }
@@ -420,8 +423,7 @@ class Query {
      * @memberof Query
      */
     joinClauses() {
-        // This is basically a string join operation, but we might run
-        // into issues as we go
+        this.query = this.query_match + this.query_where + this.query_return
     }
 
     /**
@@ -442,7 +444,8 @@ class Query {
         var query_match = await this.buildMatch(); // includes WHERE clause, if needed
 
         this.buildReturn();
-        console.log(this.query_return);
+
+       
         
 
         this.joinClauses();
@@ -460,8 +463,56 @@ class Query {
         console.log(JSON.stringify(this.json, null, 2));
     }
 
-    executeQuery() {
-        return undefined;
+    async executeQuery() {
+        const resultPromise = this.session.writeTransaction(tx => tx.run(
+            this.query));
+        return resultPromise
+    }
+
+
+
+    /**
+    *
+    * @memberof Query
+    */
+    async treatResult(result) {
+        var result_object = result.records
+        for (let element of result_object) {
+            var res = element.toObject()
+            
+            const ontology_classe = Object.values(item)
+            const key = Object.keys(res)[0]
+            
+            if (key.includes(".")) {
+                const element_complete = key.split(".");
+                
+                const attribut = element_complete[1]
+                const value = res[key]
+                var temp = {}
+                temp[attribut] = value;
+                this.result.push(temp)
+                
+            }
+            else if (ontology_classe.includes(key)) {
+                if (result_object[key].properties.score.low != 0 ) {
+                    result_object[key].properties.score = result_object[key].properties.score.low
+                }
+                else {
+                    result_object[key].properties.score = result_object[key].properties.score.high
+                }
+            }
+            if (key.includes("COUNT")) {
+                if (result_object[key]["low"] != 0) {
+                    this.result.push({"count": result_object[key]["low"]})
+                }
+                else {
+                    this.result.push({"count": result_object[key]["high"]})
+                }
+                
+            }
+                
+            }
+        
     }
 
     finishAggregation() {
@@ -480,7 +531,7 @@ class Query {
      * A query must be stored in `this.json`, but this should be taken care of
      * by the constructor.
      */
-    retrieveSubgraph() {
+    async retrieveSubgraph() {
         // Determine the ontology classes spanning the subgraph
         this.collectOntologyClasses();
         // -> set ontologyClasses to ['Species', 'Protein']
@@ -497,12 +548,18 @@ class Query {
 
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
-        this.generateCypherQuery();
+        await this.generateCypherQuery();
+        // console.log("\n\n");
+        console.log("relation", this.relationship);
+        // console.log(this.query_match, this.query_where);
+        // console.log(this.query_return);
 
         // Run the query on the graph database
         // (utilizes adapter we previously specified)
-        this.executeQuery();
-
+        var result = await this.executeQuery();
+        this.treatResult(result)
+        // console.log("\n\n");
+        // console.log("resultat", this.result);
         // Apply any final filtering steps or transformations that aren't yet
         // taken care of. We can build features into this as we encounter
         // scenarios that can't be handled by the cypher query alone.
@@ -514,10 +571,12 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
-const q4 = new Query(examples.ex4, neo);
+const q6 = new Query(examples.ex6, neo);
 
-q4.retrieveSubgraph();
-console.log("TESTTTTTTT", 76['select']);
+q6.retrieveSubgraph();
+// console.log("TESTTTTTTT", q6['relationship']);
+// console.log("TESTTTTTTT", q1['query_match']);
+// console.log("TESTTTTTTT", q1['query_where']);
 // console.log(q1['neo4j_adapter']['session']);
 
 module.exports = {

@@ -76,6 +76,7 @@ module.exports = {
             ]
         },
         "aggregate": {
+            "class": "Pfam",
             "distinct": "name"
         }
     },
@@ -131,6 +132,7 @@ module.exports = {
             ]
         },
         "aggregate": {
+            "class": "Species",
             "distinct": "name"
         }
     },
@@ -160,7 +162,7 @@ module.exports = {
                 }
             ]
         },
-        "aggregate": {
+        "post-treatment": {
             "exists": true
         }
     }
