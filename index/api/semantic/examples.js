@@ -142,7 +142,7 @@ module.exports = {
     // Query:
     // MATCH (s:Species)-[:HAS_VENOM_COMPONENT]->(p:Protein)-[:IS_A]->(f:Pfam)
     // WHERE f.name =~ 'Reprolysin'
-    // RETURN distinct f.name
+    // RETURN distinct s.name
 
     ex7: {
         "select": "Species",

@@ -412,6 +412,10 @@ class Query {
 
             this.query_return += item[this.json.select]
 
+            if ("distinct" in aggregate && this.properties.includes(this.json.aggregate.distinct)) {
+                this.query_return += "."+this.json.aggregate.distinct
+            }
+
             if ("count" in aggregate) {
                 this.query_return += ")"
             }
@@ -559,7 +563,6 @@ class Query {
                     }
                     
                 }
-            
         }
                 
         }
@@ -630,9 +633,9 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
-const q7 = new Query(examples.ex7, neo);
+const q4 = new Query(examples.ex4, neo);
 
-q7.retrieveSubgraph();
+q4.retrieveSubgraph();
 // console.log("TESTTTTTTT", q6['relationship']);
 // console.log("TESTTTTTTT", q1['query_match']);
 // console.log("TESTTTTTTT", q1['query_where']);

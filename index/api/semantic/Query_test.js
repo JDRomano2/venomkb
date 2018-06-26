@@ -69,7 +69,7 @@ describe('Initialize query', () => {
 
         done()
 	})
-    it("Should parses ontology classes correctly", (done) => {
+    it("Should parse ontology classes correctly", (done) => {
 		expect(q1['ontologyClasses']).to.include('Protein', 'Species')
 		expect(q2['ontologyClasses']).to.include('Protein', 'Species')
 		expect(q3['ontologyClasses']).to.include('Protein', 'Species')
@@ -79,7 +79,7 @@ describe('Initialize query', () => {
 		expect(q7['ontologyClasses']).to.include("Species", "SystemicEffect")
         done()
     })
-    it("Should parses constraints correctly", (done) => {
+    it("Should parse constraints correctly", (done) => {
 		expect(q1['constraints'].length).to.equal(1)
 		expect(q1['constraints'][0]).to.eql({class:"Protein", attribute:"name", operator:"contains", value:"phospholipase"})
 
@@ -103,7 +103,7 @@ describe('Initialize query', () => {
 
         done()
 	})
-	it("Should parses select correctly", (done) => {
+	it("Should parse select correctly", (done) => {
 		expect(q1['select'].length).to.equal(1)
 		expect(q1['select']).to.eql([{"Species": null}])
 
@@ -181,7 +181,7 @@ describe('Test generate cypher query', () => {
 		expect(q3["query_return"]).to.equal("RETURN s.name")
 		expect(q4["query_return"]).to.equal("RETURN DISTINCT f.name")
 		expect(q5["query_return"]).to.equal("RETURN f")
-		expect(q6["query_return"]).to.equal("RETURN DISTINCT s")
+		expect(q6["query_return"]).to.equal("RETURN DISTINCT s.name")
 		expect(q7["query_return"]).to.equal("RETURN s")
 		done()
 	})
