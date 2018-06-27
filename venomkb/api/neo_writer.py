@@ -63,6 +63,8 @@ class Neo4jWriter(object):
     self.add_ontology_class_relationship("Molecule", "SyntheticVenomDerivative", "HAS_DERIVATIVE_COMPOUND")
     self.add_ontology_class_relationship("SystemicEffect", "Protein", "INFLUENCED_BY_PROTEIN")
     self.add_ontology_class_relationship("Protein", "SystemicEffect", "INFLUENCES_SYSTEMIC_EFFECT")
+    self.add_ontology_class_relationship("Species", "VenomSeqData", "HAS_VENOMSEQ_DATASET")
+    self.add_ontology_class_relationship("VenomSeqData", "Species", "VENOMSEQ_DATA_FOR_SPECIES")
 
     # Imputed nonhierarchical relations
     # (i.e., "shortcuts for venomkb")
