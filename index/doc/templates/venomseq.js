@@ -143,6 +143,6 @@ v1 = {
         'NOLC1',
         'LDHB'
     ],
-    raw_data: {},
+    raw_data: "http://foo.bar/v1.csv.zip",
     out_links: []
 };
