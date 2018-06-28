@@ -426,6 +426,8 @@ class Query {
         }
     }
 
+
+   
     /**
      *
      * @memberof Query
@@ -485,10 +487,21 @@ class Query {
         const class2 = this.ontologyClasses[1]
 
 
-        // if (this.ontologyClasses.length == 2) {
-        // }
-        var result = await this.findShortestPathBetween2()
-        var tables_relationship = this.findMultipleRelation(result)
+        if (this.ontologyClasses.length > 1) {
+            var result = await this.findShortestPathBetween2()
+            var tables_relationship = this.findMultipleRelation(result)
+        }
+        if (this.ontologyClasses.length > 2) {
+            const ontology: ontology = this.ontologyClasses[2]
+            var ontology_linked = []
+            for (let relation of this.relationship) {
+                ontology_linked.push(relation[0])                
+                ontology_linked.push(relation[2])                
+            }
+            if (!ontology_linked.includes(ontology)) {
+                
+            }
+        }
         console.log("relationship", tables_relationship);
         
         this.buildQueryMatch()
