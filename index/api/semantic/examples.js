@@ -13,8 +13,12 @@ module.exports = {
             ]
         },
         "aggregate": {
-            "count": "Species",
-            "distinct" : "Species"
+            "distinct": {
+                "class": "Species"
+            },
+            "count": {
+                "class": "Species",
+            }
         
         }
     },
@@ -30,7 +34,9 @@ module.exports = {
     ex2: {
         "select": "Species",
         "aggregate": {
-            "count": "Protein",
+            "count": {
+                "class": "Protein",
+            },
             "sort": "desc",
             "limit": 1
         }
@@ -76,8 +82,10 @@ module.exports = {
             ]
         },
         "aggregate": {
-            "class": "Pfam",
-            "distinct": "name"
+            "distinct" : {
+                "class": "Pfam",
+                "attribute": "name"
+            }
         }
     },
     // Ask: 'Which protein families are in venom of species in the genus Conus?'
@@ -132,8 +140,10 @@ module.exports = {
             ]
         },
         "aggregate": {
-            "class": "Species",
-            "distinct": "name"
+            "distinct" : {
+                "class": "Species",
+                "attribute": "name"
+            }
         }
     },
     // Ask: 'Which species in VenomKB have at lest one protein from the
@@ -165,7 +175,7 @@ module.exports = {
         "post-treatment": {
             "exists": true
         }
-    }
+    },
     // Ask: 'Do any proteins from Conus species treat Neuralgia?'
     //
     // Query:
@@ -178,4 +188,37 @@ module.exports = {
     //
     // Expect:
     // boolean True
+
+    ex8: {
+        "select": [{"Species":"name"}, "Protein"],
+        "declare": {
+            "SystemicEffect": [
+                {
+                    "attribute": "name",
+                    "operator": "equals",
+                    "value": "Osteosarcoma"
+                }
+            ]
+        },
+        "aggregate": {
+            "distinct": {
+                "attribute" : "name",
+                "class": "Species"
+            },    
+            "count" : {
+                "class" : "Protein"
+            }
+        }
+    }
+    // Ask: 'What species and what proteins are related to Osteosarcoma?'
+    //
+    // Query:
+    //  MATCH(s: Species)- [: SPECIES_HAS_PROTEIN] -> (p: Protein) -[: INFLUENCES_SYSTEMIC_EFFECT] -> (e: SystemicEffect)
+    // WHERE e.name = 'Osteosarcoma'
+    // RETURN DISTINCT s.name, p
+    //
+    
+    // Expect:
+    // 1 species : "Crotalus viridis viridis"
+    // 1 protein : Zinc metalloproteinase-disintegrin-like crovidisin
 }
