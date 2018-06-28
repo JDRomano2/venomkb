@@ -38,7 +38,7 @@ interface aggregate_object {
 }
 
 interface aggregate {
-    count?: aggregate_object
+    count?: aggregate_object 
     distinct?: aggregate_object
     limit?: number
     sort?: string
@@ -122,13 +122,15 @@ class Query {
         const query = "CALL db.propertyKeys()"
         const resultPromise = await this.session.writeTransaction(tx => tx.run(
                 query));
-        return resultPromise
+                
+                return resultPromise
     }
 
     async findOntologyClasses(): Promise<neo4j_module.v1.StatementResult> {
         const query = "CALL db.labels()"
         const resultPromise = await this.session.writeTransaction(tx => tx.run(
             query));
+        
         return resultPromise
     }
 
@@ -157,10 +159,10 @@ class Query {
      *
      * @param {*} json
      */
-    static validateUserInput(json: input) {
-        validateJsonSchema(json);
-        validateSemantics(json);
-    }
+    // static validateUserInput(json: input) {
+    //     validateJsonSchema(json);
+    //     validateSemantics(json);
+    // }
 
     static validateJsonSchema(json: input) {
         // Todo
@@ -172,7 +174,7 @@ class Query {
 
     valideJson(json: input) {
         const categories = ["select", "declare", "aggregate", "post_treatment"]
-        const aggregates_valid = ["count", "distinct", "order", "limit"]
+        const aggregates_valid = ["count", "distinct", "sort", "limit"]
         const element = Object.keys(json)
 
         if (element.indexOf("select")== -1) {
@@ -215,7 +217,7 @@ class Query {
     collectOntologyClasses(): void {
         // All keys of this.json["declare"] should be ontology classes
         if (this.json.declare) {
-            var keys: Array<ontology> = Object.keys(this.json.declare)
+            var keys: Array<ontology> = <Array<ontology>>Object.keys(this.json.declare)
             for (let key of keys) {
                 this.pushOntologyClassIfNotExist(key);
             }
@@ -239,12 +241,12 @@ class Query {
                     this.pushOntologyClassIfNotExist(element);
                 }
                 else {
-                    this.pushOntologyClassIfNotExist(Object.keys(element)[0]);
+                    this.pushOntologyClassIfNotExist(<ontology>Object.keys(element)[0]);
                 }
             });
         }
         else {
-            this.pushOntologyClassIfNotExist(Object.keys(this.json.select)[0]);
+            this.pushOntologyClassIfNotExist(<ontology>Object.keys(this.json.select)[0]);
         }
     }
 
@@ -256,7 +258,7 @@ class Query {
         // into this.constraints, meaning we have a list of constraints
 
         if ("declare" in this.json) {
-            var classes: Array<ontology> = Object.keys(this.json["declare"])
+            var classes: Array<ontology> = <Array<ontology>>Object.keys(this.json["declare"])
             for (let i in classes) {
                 let ontology_class: ontology = classes[i]
                 const object = this.json["declare"][ontology_class][0]
@@ -278,24 +280,25 @@ class Query {
    *
    */
     collectSelect() {
+        console.log("Enter collect select", this.json.select);
+        
         if (typeof this.json.select == "string") {
-
+            
             var object = this.json.select
             var obj = {}
             const aggregate = this.json.aggregate
             if (aggregate) {
-                if (aggregate instanceof Array) {
-                    for (let agg of aggregate) {
-                        if (Object.values(agg).indexOf(object) != -1) {
-                            obj[object] = null;
-                            this.select.push(obj)
-                        }
-                        
-                    }
-                    
-                }
-                else if (Object.values(aggregate).indexOf(object) != -1) {
+                console.log("Select is a string");
+                if (this.json.aggregate.count && this.json.aggregate.count.class == object) {
                     obj[object] = null;
+                    this.select.push(obj)
+                }
+                else if (this.json.aggregate.distinct && this.json.aggregate.distinct.class == object) {
+                    obj[object] = null;
+                    this.select.push(obj)
+                }
+                else {
+                    obj[object] = [];
                     this.select.push(obj)
                 }
             }
@@ -354,7 +357,6 @@ class Query {
             obj[key] = value
             this.select.push(obj)
         }
-        return Promise.resolve(this.select)
     }
 
 
@@ -373,6 +375,8 @@ class Query {
             const class2 = this.ontologyClasses[1]
             // case of direct relation ship
             const query_relation = "MATCH (" + item[class1] + ": " + class1 + ")-[r]->(" + item[class2] + ": " + class2 + ") return distinct(type(r))"
+           console.log("Query relation", query_relation);
+           
             const resultPromise = await this.session.writeTransaction(tx => tx.run(
                 query_relation));
 
@@ -410,7 +414,7 @@ class Query {
     * @memberof Query
     */
     findMultipleRelation(result: neo4j_module.v1.StatementResult): void {
-        var result_object: neo4j_module.v1.Record = result.records[0].toObject()
+        var result_object = <any>result.records[0].toObject()
         var path_global = result_object.p.segments
 
         for (let i = 0; i < result_object.p.length; i++) {
@@ -429,13 +433,13 @@ class Query {
     buildQueryMatch(): void {
         var query_match ="MATCH "
 
-        var class1: ontology = this.relationship[0][0]
-        var class2: ontology = this.relationship[0][2]
+        var class1 = <ontology>this.relationship[0][0]
+        var class2 = <ontology>this.relationship[0][2]
         var rel = this.relationship[0][1]
         query_match += "("+item[class1]+":"+class1+")-[:"+rel+"]->("+item[class2]+":"+class2+")"
 
         for (let i = 1; i < this.relationship.length; i++) {
-            class2 = this.relationship[i][2]
+            class2 = <ontology>this.relationship[i][2]
             var rel = this.relationship[i][1]
             query_match += "-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
 
@@ -454,7 +458,7 @@ class Query {
         if (constraint.operator == "equals") {
             constraint.operator = "="
         }
-        this.query_where = "WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
+        this.query_where = " WHERE " + item[constraint.class] + "." + constraint["attribute"] + " " + constraint["operator"] + " '" + constraint["value"] + "'"
         
         for (let i = 1; i < this.constraints.length; i++) {
             const constraint = this["constraints"][i]
@@ -485,6 +489,8 @@ class Query {
         // }
         var result = await this.findShortestPathBetween2()
         var tables_relationship = this.findMultipleRelation(result)
+        console.log("relationship", tables_relationship);
+        
         this.buildQueryMatch()
 
         if (this.constraints.length>0) {
@@ -501,8 +507,15 @@ class Query {
     buildReturn(): void {
         // console.log("enter build return", this.json.aggregate);
         const aggregate = this.json.aggregate
-        const ontology: ontology = Object.keys(this.select[0])[0]
+        console.log("AAAAAA this.select", this.select);
+        
+        
+        const ontology = <ontology>Object.keys(this.select[0])[0]
+        console.log("AAAAAA", ontology);
+
         const value = this.select[0][ontology]
+        console.log(value);
+        
 
         this.query_return = "RETURN "
 
@@ -515,6 +528,9 @@ class Query {
                     this.query_return += item[aggregate.distinct.class]
                     if (aggregate.distinct.attribute) {
                         this.query_return += "." + aggregate.distinct.attribute +")"
+                    }
+                    else {
+                        this.query_return += ")"
                     }
                 }
                 // what if count and distinct refer to different class
@@ -531,7 +547,7 @@ class Query {
                 this.query_return += "DISTINCT "
                 this.query_return += item[aggregate.distinct.class]
                 if (aggregate.distinct.attribute) {
-                    this.query_return += "." + aggregate.distinct.attribute + ")"
+                    this.query_return += "." + aggregate.distinct.attribute 
                 }
             }
         }
@@ -707,10 +723,10 @@ class Query {
         console.log("Validate Json ", valide );
         
         var result = await this.findPropertyKeys()
-        await this.treatPropertyKeys(result)
+        this.treatPropertyKeys(result)
         // console.log(this.properties);
         var result = await this.findOntologyClasses()
-        await this.treatontologyClasses(result)
+        this.treatontologyClasses(result)
         
         this.collectOntologyClasses();
         // -> set ontologyClasses to ['Species', 'Protein']
@@ -726,7 +742,7 @@ class Query {
 
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
-        // await this.generateCypherQuery();
+        await this.generateCypherQuery();
         console.log("\n\n", this.query);
         
         console.log("\n\n");
@@ -759,7 +775,7 @@ q8.retrieveSubgraph();
 // console.log("TESTTTTTTT", q1['query_where']);
 // console.log(q1['neo4j_module.v1_adapter']['session']);
 
-module.exports = {
+export {
     NeoAdapter,
     Query
 }

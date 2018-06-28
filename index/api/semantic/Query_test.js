@@ -36,7 +36,10 @@ async function initializeTest() {
 	await q6.retrieveSubgraph();
 	await q7.retrieveSubgraph();
 	await q8.retrieveSubgraph();
-	return Promise.resolve(0)
+	return setTimeout(() => { 
+		console.log("helloooooooo");
+		
+		return Promise.resolve(0)}, 4000)
 }
 
 
@@ -181,14 +184,14 @@ describe('Test generate cypher query', () => {
 		done()
 	})
 	it('Should build a where string', (done) => {
-		expect(q1["query_where"]).to.equal("WHERE p.name contains 'phospholipase' ")
+		expect(q1["query_where"]).to.equal(" WHERE p.name contains 'phospholipase' ")
 		expect(q2["query_where"]).to.equal("")
-		expect(q3["query_where"]).to.equal("WHERE p.name contains 'Phospholipase A2' ")
-		expect(q4["query_where"]).to.equal("WHERE s.name contains 'Conus' ")
-		expect(q5["query_where"]).to.equal("WHERE s.name = 'Crotalus adamanteus' ")
-		expect(q6["query_where"]).to.equal("WHERE f.name = 'Reprolysin' ")
-		expect(q7["query_where"]).to.equal("WHERE s.name contains 'Conus' and se.name = 'Neuralgia' ")
-		expect(q8["query_where"]).to.equal("WHERE e.name = 'Osteosarcoma' ")
+		expect(q3["query_where"]).to.equal(" WHERE p.name contains 'Phospholipase A2' ")
+		expect(q4["query_where"]).to.equal(" WHERE s.name contains 'Conus' ")
+		expect(q5["query_where"]).to.equal(" WHERE s.name = 'Crotalus adamanteus' ")
+		expect(q6["query_where"]).to.equal(" WHERE f.name = 'Reprolysin' ")
+		expect(q7["query_where"]).to.equal(" WHERE s.name contains 'Conus' and se.name = 'Neuralgia' ")
+		expect(q8["query_where"]).to.equal(" WHERE e.name = 'Osteosarcoma' ")
 		done()
 	})
 	it('Should build a return string', (done) => {
