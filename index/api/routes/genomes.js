@@ -63,15 +63,15 @@ router.get('/:id', (req, res, next) => {
     return utils.sendStatusMessage(res, 400, "genome id not specified")
   }
   if (vkbid_reg.test(req.params.id)) {
-    console.log("Find by VenomKB id");
-    Genome.getByVenomKBId(req.params.id)
+    console.log("Find by VenomKB id", req.query);
+    Genome.getByVenomKBId(req.params.id, req.query.populate)
       .then(genome => {
         res.json(genome)
       })
       .catch()
   } else {
     console.log("Find by id");
-    Genome.getById(req.params.id)
+    Genome.getById(req.params.id, req.query.populate)
       .then(genome => {
         res.json(genome)
       })

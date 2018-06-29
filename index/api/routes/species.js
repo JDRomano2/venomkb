@@ -78,14 +78,14 @@ router.get('/:id', (req, res, next) => {
     }
     if (vkbid_reg.test(req.params.id)) {
         console.log("Find by VenomKB id");
-        Species.getByVenomKBId(req.params.id)
+        Species.getByVenomKBId(req.params.id, req.query.populate)
             .then(species => {
                 res.json(species)
             })
             .catch()
     } else {
         console.log("Find by id");
-        Species.getById(req.params.id)
+        Species.getById(req.params.id, req.query.populate)
             .then(species => {
                 res.json(species)
             })
