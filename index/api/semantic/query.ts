@@ -285,7 +285,6 @@ class Query {
    *
    */
     collectSelect() {
-        console.log("Enter collect select", this.json.select);
 
         if (typeof this.json.select == "string") {
 
@@ -349,7 +348,7 @@ class Query {
                     var value = Object.values(element)
                     var obj = {};
                     obj[key] = value
-                    console.log("AAAAAAAAAAAAAA", obj);
+                    // console.log("AAAAAAAAAAAAAA", obj);
                     this.select.push(obj)
 
                 }
@@ -386,7 +385,7 @@ class Query {
             const resultPromise = await this.session.writeTransaction(tx => tx.run(
                 query_relation));
 
-            console.log(query_relation);
+            // console.log(query_relation);
 
             return resultPromise
         }
@@ -508,7 +507,7 @@ class Query {
             }
         }
 
-        console.log("relationship", tables_relationship);
+        // console.log("relationship", tables_relationship);
 
         this.buildQueryMatch()
 
@@ -718,7 +717,7 @@ class Query {
             }
 
         }
-        console.log("\n\n resultat", this.result);
+        // console.log("\n\n resultat", this.result);
     }
 
     finishAggregation() {
@@ -757,7 +756,7 @@ class Query {
     async retrieveSubgraph() {
         // Determine the ontology classes spanning the subgraph
         var valide = this.valideJson(this.json)
-        console.log("Validate Json ", valide);
+        // console.log("Validate Json ", valide);
 
         var result = await this.findPropertyKeys()
         this.treatPropertyKeys(result)
@@ -780,21 +779,21 @@ class Query {
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
         await this.generateCypherQuery();
-        console.log("\n\n", this.query);
+        // console.log("\n\n", this.query);
 
         // console.log("\n\n");
         // console.log("constraints", this.constraints);
         // console.log("ontology", this.ontologyClasses);
-        console.log("select", this.select);
+        // console.log("select", this.select);
 
         // Run the query on the graph database
         // (utilizes adapter we previously specified)
         var result = await this.executeQuery();
         this.treatResult(result)
-        console.log("relationship", this.relationship);
+        // console.log("relationship", this.relationship);
 
         // console.log("\n\n");
-        // console.log("resultat", this.result);
+        console.log("resultat", this.result);
         // Apply any final filtering steps or transformations that aren't yet
         // taken care of. We can build features into this as we encounter
         // scenarios that can't be handled by the cypher query alone.
@@ -805,15 +804,15 @@ class Query {
 
 
 // Test the class out
-const neo = new NeoAdapter(config.USER, config.PASSWORD, config.URI);
+// const neo = new NeoAdapter(config.USER, config.PASSWORD, config.URI);
 
-const q8 = new Query(examples.ex8, neo);
+// const q8 = new Query(examples.ex8, neo);
 
-q8.retrieveSubgraph().then(() => {
-    console.log("finished");
-}).catch(err => {
-    console.log(err);
-})
+// q8.retrieveSubgraph().then(() => {
+//     console.log("finished");
+// }).catch(err => {
+//     console.log(err);
+// })
 // console.log("TESTTTTTTT", q6['relationship']);
 // console.log("TESTTTTTTT", q1['query_match']);
 // console.log("TESTTTTTTT", q1['query_where']);

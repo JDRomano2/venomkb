@@ -11,7 +11,7 @@ const VenomSeqSchema = new mongoose.Schema({
     species_ref: { type: mongoose.Schema.ObjectId, ref: 'Species' },
     dosage: Number,
     cell_line: String,
-    time_exposed: [Number],
+    times_exposed: [Number],
     genes_up: [String],
     genes_down: [String],
     raw_data: String,

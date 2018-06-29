@@ -19,22 +19,38 @@ const agent = require("../genomes/genomes")
 
 describe("VenomSeq model tests", () => {
     describe("VenomSeq add tests", () => {
-        it("Should add a venom_seq in the database", done => {
+        it("Should add a proteins in the database", done => {
             agent
                 .post("/proteins")
                 .send(objects.protein_linked)
-                .then(res => {
-                    return agent.post("/species").send(objects.species_linked)
-                })
-                .then(res => {
-                    return agent.post("/venom-seqs").send(objects.venom_seq)
-                })
                 .then(res => {
                     expect(res.statusCode).to.equal(200)
                     done()
                 })
                 .catch(done)
         })
+     
+        it("Should add a species in the database", done => {
+            agent
+                .post("/species")
+                .send(objects.species_linked)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done()
+                })
+                .catch(done)
+        })
+        it("Should add a venom_seq in the database", done => {
+            agent
+                .post("/venom-seq")
+                .send(objects.venom_seq)
+                .then(res => {
+                    expect(res.statusCode).to.equal(200)
+                    done()
+                })
+                .catch(done)
+        })
+
         it("Should find, using venomkb_id, the added venom_seqs in the database", done => {
             VenomSeq.getByVenomKBId(objects.venom_seq.venomkb_id)
                 .then(venom_seq => {
@@ -53,7 +69,7 @@ describe("VenomSeq model tests", () => {
         })
         it("Should get, using the venomkb_id the added venom_seq in the database", done => {
             agent
-                .get("/venom-seqs/" + objects.venom_seq.venomkb_id)
+                .get("/venom-seq/" + objects.venom_seq.venomkb_id)
                 .then(res => {
                     expect(res.statusCode).to.equal(200)
                     done()
@@ -62,7 +78,7 @@ describe("VenomSeq model tests", () => {
         })
         it("Should get, using the name the added venom_seq in the database", done => {
             agent
-                .get("/venom-seqs/search?name=" + objects.venom_seq.name)
+                .get("/venom-seq/search?name=" + objects.venom_seq.name)
                 .then(res => {
                     expect(res.statusCode).to.equal(200)
                     done()

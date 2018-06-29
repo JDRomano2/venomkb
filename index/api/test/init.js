@@ -26,48 +26,76 @@ const agent = chai.request.agent(server);
 describe('Initialize tests', () => {
     it("erase all species", (done) => {
         Species.remove({}, err => {
-            done(err)
+            if (err) {
+                console.log(err);
+                done(err)
+            }
+            done()
         })
-    })
+    }).timeout(5000)
     it("erase all proteins", (done) => {
         Protein.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
-    })
+    }).timeout(5000)
 
     it("erase all taxonomic", (done) => {
         Taxonomic.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
     it("erase all annotations", (done) => {
         Annotation.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
     it("erase all genomes", (done) => {
         Genome.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
     it("erase all outlinks", (done) => {
         Outlink.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
     it("erase all references", (done) => {
         Reference.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
      it("erase all systemic effect", (done) => {
         SystemicEffect.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
     it("erase all venomseq", (done) => {
         VenomSeq.remove({}, err => {
-            done(err)
+            if (err) {
+                done(err)
+            }
+            done()
         })
     })
 });

@@ -29,9 +29,18 @@ mongoose.Promise = global.Promise;
 //   .then(() =>  console.log('connection to MongoDB succesful'))
 //   .catch((err) => console.error(err));
 
-const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
-mongoose.connect(bdd_location)
 
+const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
+mongoose.connect(bdd_location).then(() => {
+  console.log('connection to MongoDB succesful');
+  mongoose.connection.db.collection("species").createIndex({ "name": "text" });
+  mongoose.connection.db.collection("proteins").createIndex({ "name": "text" });
+  mongoose.connection.db.collection("genomes").createIndex({ "name": "text" });
+  mongoose.connection.db.collection("systemiceffects").createIndex({ "name": "text" });
+  mongoose.connection.db.collection("venomseqs").createIndex({ "name": "text" });
+}).catch((err) => console.error(err));
+
+// Create Mongo text indexes
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));

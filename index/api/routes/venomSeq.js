@@ -116,6 +116,7 @@ router.post("/", function (req, res) {
                 dosage: req.body.dosage,
                 cell_line: req.body.cell_line,
                 raw_data: req.body.raw_data,
+                times_exposed: req.body.times_exposed,
             }
             return VenomSeq.add(new_venom_seq)
         })

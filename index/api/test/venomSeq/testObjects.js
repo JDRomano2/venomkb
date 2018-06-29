@@ -145,14 +145,8 @@ module.exports = {
         raw_data: "http://foo.bar/v1.csv.zip",
         out_links: []
     },
-    species_link: {
-        "lastUpdated": 1530210365719,
+    species_linked: {
         "name": "Naja nivea",
-        "out_links": {
-            "ncbi_taxonomy": {
-                "id": "8655"
-            }
-        },
         "common_name": "Cape cobra",
         "venomkb_id": "S8123548",
         "venom_ref": "V8123548",
@@ -166,7 +160,6 @@ module.exports = {
         "annotation_score": 4
     },
     protein_linked: {
-        "lastUpdated": 1530210450207,
         "description": "Binds with low affinity to muscular (alpha-1-beta-1-epsilon-delta/CHRNA1-CHRNB1-CHRNE-CHRND) and very low affinity to neuronal (alpha7) nicotinic acetylcholine receptor (nAChR).",
         "aa_sequence": "LRCLNCPEVFCRNFHTCRNGEKICFKRFDQRKLLGKRYTRGCAVTCPVAKPREIVECCSTDGCNR",
         "venomkb_id": "P6395789",
