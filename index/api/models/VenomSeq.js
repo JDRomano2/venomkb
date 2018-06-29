@@ -3,11 +3,11 @@ const Species = require('./Species');
 const OutLink = require('./Outlink');
 
 const SampleSchema = new mongoose.Schema({
-    sampleId: String,
-    plate: String,
-    well: String,
-    venom: String,
-    hrs: Number
+    SampleId: String,
+    Plate: String,
+    Well: String,
+    Venom: String,
+    Hrs: Number
 });
 
 const GeneSchema = new mongoose.Schema({
