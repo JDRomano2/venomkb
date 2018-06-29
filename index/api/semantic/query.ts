@@ -344,10 +344,12 @@ class Query {
 
                 }
                 else {
+                    
                     var key = Object.keys(element)[0]
                     var value = Object.values(element)
                     var obj = {};
                     obj[key] = value
+                    console.log("AAAAAAAAAAAAAA", obj);
                     this.select.push(obj)
 
                 }
@@ -384,7 +386,7 @@ class Query {
             const resultPromise = await this.session.writeTransaction(tx => tx.run(
                 query_relation));
 
-            // console.log(query_relation);
+            console.log(query_relation);
 
             return resultPromise
         }
@@ -506,11 +508,11 @@ class Query {
             }
         }
 
-        // console.log("relationship", tables_relationship);
+        console.log("relationship", tables_relationship);
 
         this.buildQueryMatch()
 
-        if (this.constraints.length > 0) {
+        if (this.constraints.length > 0 ) {
             this.buildQueryWhere()
         }
 
@@ -523,77 +525,101 @@ class Query {
      */
     buildReturn(): void {
         const aggregate = this.json.aggregate
-        const ontology = <ontology>Object.keys(this.select[0])[0]
-        const value = this.select[0][ontology]
-
-
         this.query_return = "RETURN "
+        for (let i in  this.select) {
+            
+            var select = this.select[i]
+            if (Number(i) > 0) {
+                this.query_return += ", "
+            }
 
-        if (value == null && aggregate) {
-
-            if (aggregate.count) {
-                this.query_return += "COUNT ("
-                if (aggregate.distinct && aggregate.count.class == aggregate.distinct.class) {
+            
+            const ontology = <ontology>Object.keys(select)[0]
+            const value = select[ontology]
+    
+    
+    
+            if (value == null && aggregate) {
+    
+                if (aggregate.count) {
+                    this.query_return += "COUNT ("
+                    if (aggregate.distinct && aggregate.count.class == aggregate.distinct.class) {
+                        this.query_return += "DISTINCT "
+                        this.query_return += item[aggregate.distinct.class]
+                        if (aggregate.distinct.attribute) {
+                            this.query_return += "." + aggregate.distinct.attribute + ")"
+                        }
+                        else {
+                            this.query_return += ")"
+                        }
+                    }
+                    
+                    else {
+                        
+                        this.query_return += item[aggregate.count.class]
+                        if (aggregate.count.attribute) {
+                            this.query_return += "." + aggregate.count.attribute + ")"
+                        }
+                        else {
+                            this.query_return += ")"
+                        }
+                    }
+                }
+    
+                else if (aggregate.distinct) {
                     this.query_return += "DISTINCT "
                     this.query_return += item[aggregate.distinct.class]
                     if (aggregate.distinct.attribute) {
-                        this.query_return += "." + aggregate.distinct.attribute + ")"
-                    }
-                    else {
-                        this.query_return += ")"
+                        this.query_return += "." + aggregate.distinct.attribute
                     }
                 }
-                // what if count and distinct refer to different class
-                // TODO
+            }
+    
+            else if (value.length > 0) {
+                
+                if (aggregate && aggregate.distinct) {
+
+                    this.query_return += "DISTINCT "
+                    this.query_return += item[aggregate.distinct.class]
+                    if (aggregate.distinct.attribute) {
+                        this.query_return += "." + aggregate.distinct.attribute
+                    }
+                }
                 else {
-                    this.query_return += item[aggregate.count.class]
-                    if (aggregate.count.attribute) {
-                        this.query_return += "." + aggregate.count.attribute + ")"
+
+                    this.query_return += item[ontology] + "." + value[0]
+                    for (let i = 1; i < select[ontology]; i++) {
+                        this.query_return += ", " + item[ontology] + "." + value[i]
                     }
                 }
             }
-
-            else if (aggregate.distinct) {
-                this.query_return += "DISTINCT "
-                this.query_return += item[aggregate.distinct.class]
-                if (aggregate.distinct.attribute) {
-                    this.query_return += "." + aggregate.distinct.attribute
-                }
-            }
-        }
-
-        else if (value.length > 0) {
-            this.query_return += item[ontology] + "." + value[0]
-            for (let i = 1; i < this.select[0][ontology]; i++) {
-                this.query_return += ", " + item[ontology] + "." + value[i]
-            }
-        }
-
-        else {
-            this.query_return += item[ontology]
-            if (aggregate) {
-                if (aggregate.count) {
-                    this.query_return += ", COUNT ("
-                    if (aggregate.distinct && aggregate.count.class == aggregate.distinct.class) {
-                        this.query_return += "DISTINCT "
-                        this.query_return += item[aggregate.distinct.class] + ")"
+    
+            else {
+                this.query_return += item[ontology]
+                if (aggregate) {
+                    if (aggregate.count) {
+                        this.query_return += ", COUNT ("
+                        if (aggregate.distinct && aggregate.count.class == aggregate.distinct.class) {
+                            this.query_return += "DISTINCT "
+                            this.query_return += item[aggregate.distinct.class] + ")"
+                        }
+                        else {
+                            this.query_return += item[aggregate.count.class] + ")"
+    
+                        }
+                        if (aggregate.sort) {
+                            this.query_return += " ORDER BY count(" + item[aggregate.count.class] + ") " + aggregate["sort"] + " "
+                        }
                     }
-                    else {
-                        this.query_return += item[aggregate.count.class] + ")"
-
+    
+                    else if ("distinct" in aggregate) {
+                        this.query_return = "RETURN DISTINCT "
+                        this.query_return += item[ontology]
                     }
-                    if (aggregate.sort) {
-                        this.query_return += " ORDER BY count(" + item[aggregate.count.class] + ") " + aggregate["sort"] + " "
+    
+                    if ("limit" in aggregate) {
+                        this.query_return += "LIMIT " + aggregate.limit
                     }
-                }
-
-                else if ("distinct" in aggregate) {
-                    this.query_return = "RETURN DISTINCT "
-                    this.query_return += item[ontology]
-                }
-
-                if ("limit" in aggregate) {
-                    this.query_return += "LIMIT " + aggregate.limit
                 }
             }
         }
@@ -619,35 +645,20 @@ class Query {
         // Deferring implementation until we have the other stuff working
     }
 
-    /**
-     *
-     */
-    async generateCypherQuery() {
-        // Cypher queries consist of two major components: a MATCH clause, and a
-        // RETURN clause.
-        var query_match = await this.buildMatch(); // includes WHERE clause, if needed
-
-        this.buildReturn();
-        this.joinClauses();
-
-        // We also need to apply some validation to make sure that we've
-        // constructed a valid cypher query.
-        this.validateCypher();
-
-    }
-
+    
     /**
      * Writes the current query to stdout (server-side)
      */
     logQuery() {
         console.log(JSON.stringify(this.json, null, 2));
     }
-
+    
     async executeQuery(): Promise<neo4j_module.v1.StatementResult> {
         const resultPromise = await this.session.writeTransaction(tx => tx.run(this.query));
         this.session.close();
         return resultPromise
     }
+    
 
 
 
@@ -663,8 +674,6 @@ class Query {
             var keys = Object.keys(result_object)
             // console.log(keys);
             // console.log(result_object);
-
-
 
             for (let k in keys) {
                 // var res = result_object[key]
@@ -718,6 +727,23 @@ class Query {
     }
 
     /**
+     *
+     */
+    async generateCypherQuery() {
+        // Cypher queries consist of two major components: a MATCH clause, and a
+        // RETURN clause.
+        var query_match = await this.buildMatch(); // includes WHERE clause, if needed
+
+        this.buildReturn();
+        this.joinClauses();
+
+        // We also need to apply some validation to make sure that we've
+        // constructed a valid cypher query.
+        this.validateCypher();
+
+    }
+
+    /**
      * Top-level method that executes the major logical components of a semantic
      * API query.
      *
@@ -754,17 +780,19 @@ class Query {
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
         await this.generateCypherQuery();
-        // console.log("\n\n", this.query);
+        console.log("\n\n", this.query);
 
         // console.log("\n\n");
         // console.log("constraints", this.constraints);
         // console.log("ontology", this.ontologyClasses);
-        // console.log("select", this.select);
+        console.log("select", this.select);
 
         // Run the query on the graph database
         // (utilizes adapter we previously specified)
         var result = await this.executeQuery();
         this.treatResult(result)
+        console.log("relationship", this.relationship);
+
         // console.log("\n\n");
         // console.log("resultat", this.result);
         // Apply any final filtering steps or transformations that aren't yet

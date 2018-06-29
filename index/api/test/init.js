@@ -19,6 +19,7 @@ const Genome = require('../models/Genome')
 const Outlink = require('../models/Outlink')
 const Reference = require('../models/Reference')
 const SystemicEffect = require('../models/SystemicEffect')
+const VenomSeq = require('../models/VenomSeq')
 
 const agent = chai.request.agent(server);
 
@@ -61,6 +62,11 @@ describe('Initialize tests', () => {
     })
      it("erase all systemic effect", (done) => {
         SystemicEffect.remove({}, err => {
+            done(err)
+        })
+    })
+    it("erase all venomseq", (done) => {
+        VenomSeq.remove({}, err => {
             done(err)
         })
     })

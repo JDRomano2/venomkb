@@ -230,7 +230,7 @@ describe('Test generate cypher query', () => {
 		expect(q7["relationship"][0]).to.include.ordered.members(['Species', 'SPECIES_HAS_PROTEIN', 'Protein'], ['Protein', 'INFLUENCES_SYSTEMIC_EFFECT', 'SystemicEffect'])
 
 		expect(q8['relationship'].length).to.equal(2)
-		expect(q8["relationship"][0]).to.include.ordered.members(['Species', 'SPECIES_HAS_PROTEIN', 'Protein'], ['Protein', 'INFLUENCES_SYSTEMIC_EFFECT', 'SystemicEffect'])
+		expect(q8["relationship"][0]).to.include.ordered.members(['SystemicEffect', 'INFLUENCED_BY_PROTEIN', 'Protein'], ['Protein', 'PROTEIN_FROM_SPECIES', 'Species'] )
 
 		done()
 	})
@@ -264,7 +264,7 @@ describe('Test generate cypher query', () => {
 		expect(q5["query_return"]).to.equal("RETURN f")
 		expect(q6["query_return"]).to.equal("RETURN DISTINCT s.name")
 		expect(q7["query_return"]).to.equal("RETURN s")
-		expect(q8["query_return"]).to.equal("RETURN DISTINCT s.name, p")
+		expect(q8["query_return"]).to.equal("RETURN DISTINCT s.name, COUNT(p)")
 		done()
 	})
 	it('Should return a correct answer', (done) => {
