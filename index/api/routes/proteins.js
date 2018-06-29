@@ -105,14 +105,14 @@ router.get('/:id', (req, res, next) => {
         console.log("Find by VenomKB id");
         console.log("coucou", req.query);
         
-        Protein.getByVenomKBId(req.params.id, req.query.populate)
+        Protein.getByVenomKBId(req.params.id)
             .then(protein => {
                 res.json(protein)
             })
             .catch()
     } else {
         console.log("Find by id");
-        Protein.getById(req.params.id, req.query.populate)
+        Protein.getById(req.params.id)
             .then(protein => {
                 res.json(protein)
             })

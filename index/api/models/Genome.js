@@ -120,12 +120,11 @@ Genome.getAll = () => {
 /**
  * Get an genome given its venomkb_id
  * @param {ObjectId} id  id of the genome to get
- * @param {String} path path to populate (leave blank if none)
  */
-Genome.getByVenomKBId = (venomkb_id, path) => {
+Genome.getByVenomKBId = (venomkb_id) => {
     return new Promise((resolve, reject) => {
         Genome.findOne({ venomkb_id: venomkb_id })
-            .populate(path || '')
+            .populate("out_links species_ref, literature_reference")
             .exec((err, genome) => {
                 if (err) {
                     reject(err);
@@ -139,12 +138,11 @@ Genome.getByVenomKBId = (venomkb_id, path) => {
 /**
  * Get an genome given its id
  * @param {ObjectId} id  id of the genome to get
- * @param {String} path path to populate (leave blank if none)
  */
-Genome.getById = (id, path) => {
+Genome.getById = (id) => {
     return new Promise((resolve, reject) => {
         Genome.findOne({ _id: id })
-            .populate(path || '')
+            .populate("out_links species_ref, literature_reference")
             .exec((err, genome) => {
                 if (err) {
                     reject(err);

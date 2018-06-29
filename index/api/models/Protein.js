@@ -321,12 +321,11 @@ Protein.getAll = () => {
 /**
  * Get an protein given its venomkb_id
  * @param {ObjectId} id  id of the protein to get
- * @param {String} path path to populate (leave blank if none)
  */
-Protein.getByVenomKBId = (venomkb_id, path) => {
+Protein.getByVenomKBId = (venomkb_id) => {
 	return new Promise((resolve, reject) => {
 		Protein.findOne({ venomkb_id: venomkb_id })
-			.populate(path || '')
+			.populate('out_links literature_references')
 			.exec((err, protein) => {
 				if (err) {
 					reject(err);
@@ -340,12 +339,11 @@ Protein.getByVenomKBId = (venomkb_id, path) => {
 /**
  * Get an protein given its id
  * @param {ObjectId} id  id of the protein to get
- * @param {String} path path to populate (leave blank if none)
  */
-Protein.getById = (id, path) => {
+Protein.getById = (id) => {
 	return new Promise((resolve, reject) => {
 		Protein.findOne({ _id: id })
-			.populate(path || '')
+			.populate('out_links literature_references')
 			.exec((err, protein) => {
 				if (err) {
 					reject(err);
