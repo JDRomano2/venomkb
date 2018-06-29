@@ -281,7 +281,7 @@ ProteinSchema.methods.addGOAnnotation = function (annotations) {
 		annotations.forEach(element => {
 				protein.go_annotations.push(element);
 		})
-			return protein.save()
+		return protein.save()
 	} else {
 		return Promise.reject({ message: "Annotations list must contain object" })
 	}

@@ -62,7 +62,7 @@ describe("VenomSeq model tests", () => {
                     expect(venom_seq.species_ref).to.be.an("object")
                     expect(venom_seq.genes_up.length).to.equal(objects.venom_seq.genes_up.length)
                     expect(venom_seq.genes_down.length).to.equal(objects.venom_seq.genes_down.length)
-                    expect(venom_seq.times_exposed.length).to.equal(objects.venom_seq.times_exposed.length)
+                    expect(venom_seq.samples.length).to.equal(objects.venom_seq.samples.length)
                     done()
                 })
                 .catch(done)

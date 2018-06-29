@@ -129,7 +129,7 @@ router.post("/", function (req, res) {
             }
         })
         .then((new_venom_seq) => {
-            // add literature reference
+            // add genes down
             if (req.body.genes_down) {
                 return new_venom_seq.addGenesDown(req.body.genes_down)
             } else {
@@ -137,7 +137,16 @@ router.post("/", function (req, res) {
             }
         })
         .then((new_venom_seq) => {
-            // add literature reference
+            // add samples
+            if (req.body.samples) {
+                
+                return new_venom_seq.addSamples(req.body.samples)
+            } else {
+                return Promise.resolve(new_venom_seq);
+            }
+        })
+        .then((new_venom_seq) => {
+            // add species linked
             if (req.body.species_ref) {
                 return new_venom_seq.addSpecies(req.body.species_ref)
             } else {
