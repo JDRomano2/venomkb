@@ -154,6 +154,7 @@ router.post("/", function (req, res) {
             if (protein) {
                 return Promise.reject({ message: "venomkb_id already exists" })
             }
+            return Promise.resolve();
         })
         .then(() => {
             // Create a new protein

@@ -103,11 +103,10 @@ router.post("/", function (req, res) {
   // Check if the genome already exists
   return Genome.getByVenomKBId(req.body.venomkb_id)
     .then(genome => {
-      console.log("try to find genome", genome);
-
       if (genome) {
         return Promise.reject({ message: "venomkb_id already exists" })
       }
+      return Promise.resolve();
     })
     .then(() => {
       // Create a new genome
@@ -117,7 +116,8 @@ router.post("/", function (req, res) {
         venomkb_id: req.body.venomkb_id,
         annotation_score: req.body.annotation_score,
         assembly_platform: req.body.assembly_platform,
-        project_homepage: req.project_homepage
+        project_homepage: req.body.project_homepage,
+        species_ref: req.body.species_ref
       }
       return Genome.add(new_genome)
     })
@@ -133,14 +133,6 @@ router.post("/", function (req, res) {
       // add literature reference
       if (req.body.out_links) {
         return new_genome.addOutLink(req.body.out_links)
-      } else {
-        return Promise.resolve(new_genome);
-      }
-    })
-    .then((new_genome) => {
-      // add literature reference
-      if (req.body.species_ref) {
-        return new_genome.addSpecies(req.body.species_ref)
       } else {
         return Promise.resolve(new_genome);
       }

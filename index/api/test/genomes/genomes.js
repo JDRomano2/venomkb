@@ -41,7 +41,7 @@ describe("Genome model tests", () => {
 					expect(genome.name).to.equal(objects.genome_test.name)
 					expect(genome.venomkb_id).to.equal(objects.genome_test.venomkb_id)
 					expect(genome.annotation_score).to.equal(objects.genome_test.annotation_score)
-					expect(genome.species_ref).to.be.an("object")
+					expect(genome.species_ref).to.equal(objects.genome_test.species_ref)
 					expect(genome.literature_reference).to.be.an("object")
 					expect(genome.out_links.length).to.equal(objects.genome_test.out_links.length)
 					done()

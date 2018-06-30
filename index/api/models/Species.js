@@ -19,7 +19,7 @@ const SpeciesSchema = new mongoose.Schema({
     species_image_url: String,
     venom: {
         name: { type: String, required: true },
-        proteins: [{ type: mongoose.Schema.ObjectId, ref: 'Protein' }],
+        proteins: [String],
         // proteins: [{ type: String, required: true }]
 
     },
@@ -151,19 +151,10 @@ SpeciesSchema.methods.addVenom = function (venom) {
     if ((venom.proteins.constructor === Array)) {
         const promises = [];
         venom.proteins.forEach(element => {
-            promises.push(new Promise((resolve, reject) => {
-                Protein.getByVenomKBId(element).then((protein) => {
-                    if (!protein) {
-                        reject({ message: "The protein venomkbId: " + element + " was not found in the database ... Please add it before" })
-                    }
-                    species.venom.proteins.push(protein._id)
-                    resolve();
-                }).catch(reject)
-            }))
+            species.venom.proteins.push(element)
+                
         })
-        return Promise.all(promises).then(() => {
-            return species.save()
-        });
+        return species.save()
     } else {
         return Promise.reject({ message: "Proteins field should be an array" })
     }
@@ -249,12 +240,11 @@ Species.getAll = () => {
 /**
  * Get an species given its venomkb_id
  * @param {String} venomkb_id venomkb_id of the species to get
- * @param {String} path path to populate (leave blank if none)
  */
-Species.getByVenomKBId = (venomkb_id, path) => {
+Species.getByVenomKBId = (venomkb_id) => {
     return new Promise((resolve, reject) => {
         Species.findOne({ venomkb_id: venomkb_id })
-            .populate(path || '')
+            .populate("taxonomic_lineage")
             .exec((err, species) => {
                 if (err) {
                     reject(err);

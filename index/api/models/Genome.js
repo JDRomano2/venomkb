@@ -10,7 +10,7 @@ const GenomeSchema = new mongoose.Schema({
     lastUpdated: { type: Date, default: Date.now},
     annotation_score: { type: Number, min: 1, max: 5, required: true },
     name: { type: String, required: true },
-    species_ref: { type: mongoose.Schema.ObjectId, ref: 'Species' },
+    species_ref: String,
     assembly_platform: String,
     project_homepage: String,
     literature_reference: { type: mongoose.Schema.ObjectId, ref: 'Reference' },
