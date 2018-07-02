@@ -10,10 +10,10 @@ const OutLinkSchema = new mongoose.Schema({
 });
 
 const SpeciesSchema = new mongoose.Schema({
-    venomkb_id: { type: String, index: true },
     lastUpdated: { type: Date, default: Date.now},
-    venom_ref: { type: String, required: true },
+    venomkb_id: { type: String, index: true },
     name: { type: String, required: true, unique: true },
+    venom_ref: { type: String, required: true },
     annotation_score: { type: Number, min: 1, max: 5, required: true },
     common_name: String,
     species_image_url: String,

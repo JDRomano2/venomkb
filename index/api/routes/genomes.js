@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
 
 /* GET /genomes/index */
 router.get('/index', (req, res, next) => {
-  genome.find({}, {venomkb_id: 1, name: 1, venom_ref: 1}).exec((err, genomes_ind) => {
+  genome.find({}, {venomkb_id: 1, name: 1, venom_ref: 1, annotation_score: 1}).exec((err, genomes_ind) => {
     if (err) return next(err);
     res.json(genomes_ind);
   });

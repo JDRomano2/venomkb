@@ -10,7 +10,7 @@ const SampleSchema = new mongoose.Schema({
     Hrs: Number
 });
 
-const GeneSchema = new mongoose.Schema({
+const VenomseqGeneSchema = new mongoose.Schema({
     entrezGeneId: String,
     baseMean: Number,
     log2FoldChange: Number,
@@ -26,12 +26,12 @@ const VenomSeqSchema = new mongoose.Schema({
     lastUpdated: { type: Date, default: Date.now},
     venomkb_id: { type: String, index: true },
     name: { type: String, required: true },
-    species_ref: { type: mongoose.Schema.ObjectId, ref: 'Species' },
+    species_ref: String,
     dosage: Number,
+    dosage_unit: String,
     cell_line: String,
-    times_exposed: [Number],
-    genes_up: [GeneSchema],
-    genes_down: [GeneSchema],
+    genes_up: [VenomseqGeneSchema],
+    genes_down: [VenomseqGeneSchema],
     samples: [SampleSchema],
     raw_data: String,
     out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]

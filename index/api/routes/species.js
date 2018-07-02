@@ -22,6 +22,18 @@ router.get('/', (req, res, next) => {
         })
 });
 
+
+/**
+ * Get a list of all species index
+ * @returns an array of species index containing venomkb_in, name and annotation score
+ */
+/* GET /species listing. */
+router.get('/index', (req, res, next) => {
+    Species.find({}, { venomkb_id: 1, name: 1, annotation_score: 1 }).exec((err, species_ind) => {
+        if (err) return next(err);
+        res.json(species_ind);
+    });
+});
 /**
  * Find all species that have a given pattern in their name
  * @param {Query} name full name or part of the name of the species

@@ -64,7 +64,8 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.87.0",
-    "serve-favicon": "~2.5.0"
+    "serve-favicon": "~2.5.0",
+    "vue-axios": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

@@ -116,7 +116,8 @@ router.post("/", function (req, res) {
                 dosage: req.body.dosage,
                 cell_line: req.body.cell_line,
                 raw_data: req.body.raw_data,
-                times_exposed: req.body.times_exposed,
+                dosage_unit: req.body.dosage_unit,
+                species_ref: req.body.species_ref
             }
             return VenomSeq.add(new_venom_seq)
         })
@@ -141,14 +142,6 @@ router.post("/", function (req, res) {
             if (req.body.samples) {
                 
                 return new_venom_seq.addSamples(req.body.samples)
-            } else {
-                return Promise.resolve(new_venom_seq);
-            }
-        })
-        .then((new_venom_seq) => {
-            // add species linked
-            if (req.body.species_ref) {
-                return new_venom_seq.addSpecies(req.body.species_ref)
             } else {
                 return Promise.resolve(new_venom_seq);
             }
