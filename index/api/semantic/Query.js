@@ -10,13 +10,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const neo4j_module = __importStar(require("neo4j-driver"));
+const config = __importStar(require("./semantic.cfg.js"));
+const examples = __importStar(require("./examples"));
 let item = {
     Protein: "p",
     Species: "s",
     Pfam: "f",
     SystemicEffect: "se",
     OntologyClass: "c",
-    Genome: "g"
+    Genome: "g",
+    VenomSeqData: "v"
 };
 var ontology;
 (function (ontology) {
@@ -616,18 +619,18 @@ class Query {
         // Build a string corresponding to the cypher query
         // (Probably the most complicated method in this class)
         await this.generateCypherQuery();
-        // console.log("\n\n", this.query);
-        // console.log("\n\n");
-        // console.log("constraints", this.constraints);
-        // console.log("ontology", this.ontologyClasses);
-        // console.log("select", this.select);
+        console.log("\n\n", this.query);
+        console.log("\n\n");
+        console.log("constraints", this.constraints);
+        console.log("ontology", this.ontologyClasses);
+        console.log("select", this.select);
         // Run the query on the graph database
         // (utilizes adapter we previously specified)
         var result = await this.executeQuery();
         this.treatResult(result);
-        // console.log("relationship", this.relationship);
+        console.log("relationship", this.relationship);
         // console.log("\n\n");
-        console.log("resultat", this.result);
+        console.log("\n\nresultat", this.result.length);
         // Apply any final filtering steps or transformations that aren't yet
         // taken care of. We can build features into this as we encounter
         // scenarios that can't be handled by the cypher query alone.
@@ -636,3 +639,11 @@ class Query {
     }
 }
 exports.Query = Query;
+// Test the class out
+const neo = new NeoAdapter(config.USER, config.PASSWORD, config.URI);
+const q9 = new Query(examples.ex9, neo);
+q9.retrieveSubgraph().then(() => {
+    console.log("finished!");
+}).catch(err => {
+    console.log(err);
+});

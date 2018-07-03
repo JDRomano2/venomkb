@@ -32,6 +32,7 @@ const q5 = new Query(examples.ex5, neo);
 const q6 = new Query(examples.ex6, neo);
 const q7 = new Query(examples.ex7, neo);
 const q8 = new Query(examples.ex8, neo);
+const q9 = new Query(examples.ex9, neo);
 
 
 async function initializeTest() {
@@ -43,6 +44,7 @@ async function initializeTest() {
 	await q6.retrieveSubgraph();
 	await q7.retrieveSubgraph();
 	await q8.retrieveSubgraph();
+	await q9.retrieveSubgraph();
 	return 0;
 }
 
@@ -68,6 +70,7 @@ describe('Initialize query', () => {
 		expect(q6['ontologyClasses']).to.be.a("Array")
 		expect(q7['ontologyClasses']).to.be.a("Array")
 		expect(q8['ontologyClasses']).to.be.a("Array")
+		expect(q9['ontologyClasses']).to.be.a("Array")
 
 		expect(q1['constraints']).to.be.a("Array")
 		expect(q2['constraints']).to.be.a("Array")
@@ -77,6 +80,7 @@ describe('Initialize query', () => {
 		expect(q6['constraints']).to.be.a("Array")
 		expect(q7['constraints']).to.be.a("Array")
 		expect(q8['constraints']).to.be.a("Array")
+		expect(q9['constraints']).to.be.a("Array")
 
 		done()
 	})
@@ -89,6 +93,7 @@ describe('Initialize query', () => {
 		expect(q6['ontologyClasses']).to.include("Species", "Pfam")
 		expect(q7['ontologyClasses']).to.include("Species", "SystemicEffect")
 		expect(q8['ontologyClasses']).to.include("Species", "Protein", "SystemicEffect")
+		expect(q9['ontologyClasses']).to.include("VenomSeqData", "Protein")
 		done()
 	})
 	it("Should parse constraints correctly", (done) => {
@@ -156,6 +161,15 @@ describe('Initialize query', () => {
 			value: "Osteosarcoma"
 		})
 
+		expect(q9['constraints'].length).to.equal(1)
+		expect(q9['constraints'][0]).to.eql({
+			class: "Protein",
+			attribute: "name",
+			operator: "contains",
+			value: "Phospholipase A2"
+		})
+
+
 		done()
 	})
 	it("Should parse select correctly", (done) => {
@@ -202,6 +216,11 @@ describe('Initialize query', () => {
 			"Protein": null
 		}])
 
+		expect(q9['select'].length).to.equal(1)
+		expect(q9['select']).to.eql([{
+			"VenomSeqData": ["genes_up"]
+		}])
+
 		done()
 	})
 });
@@ -232,6 +251,10 @@ describe('Test generate cypher query', () => {
 		expect(q8['relationship'].length).to.equal(2)
 		expect(q8["relationship"][0]).to.include.ordered.members(['SystemicEffect', 'INFLUENCED_BY_PROTEIN', 'Protein'], ['Protein', 'PROTEIN_FROM_SPECIES', 'Species'] )
 
+		expect(q9['relationship'].length).to.equal(2)
+		expect(q9["relationship"][0]).to.include.ordered.members(['Protein', 'PROTEIN_FROM_SPECIES', 'Species'],
+			['Species', 'HAS_VENOMSEQ_DATASET', 'VenomSeqData'] )
+
 		done()
 	})
 	it('Should build a match string', (done) => {
@@ -243,6 +266,7 @@ describe('Test generate cypher query', () => {
 		expect(q6["query_match"]).to.equal("MATCH (f:Pfam)-[:CONTAINS_PROTEIN]->(p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
 		expect(q7["query_match"]).to.equal("MATCH (s:Species)-[:SPECIES_HAS_PROTEIN]->(p:Protein)-[:INFLUENCES_SYSTEMIC_EFFECT]->(se:SystemicEffect)")
 		expect(q8["query_match"]).to.equal("MATCH (se:SystemicEffect)-[:INFLUENCED_BY_PROTEIN]->(p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
+		expect(q9["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)-[:HAS_VENOMSEQ_DATASET]->(v:VenomSeqData)")
 		done()
 	})
 	it('Should build a where string', (done) => {
@@ -254,6 +278,7 @@ describe('Test generate cypher query', () => {
 		expect(q6["query_where"]).to.equal(" WHERE f.name = 'Reprolysin' ")
 		expect(q7["query_where"]).to.equal(" WHERE s.name contains 'Conus' and se.name = 'Neuralgia' ")
 		expect(q8["query_where"]).to.equal(" WHERE se.name = 'Osteosarcoma' ")
+		expect(q9["query_where"]).to.equal(" WHERE p.name contains 'Phospholipase A2' ")
 		done()
 	})
 	it('Should build a return string', (done) => {
@@ -264,7 +289,8 @@ describe('Test generate cypher query', () => {
 		expect(q5["query_return"]).to.equal("RETURN f")
 		expect(q6["query_return"]).to.equal("RETURN DISTINCT s.name")
 		expect(q7["query_return"]).to.equal("RETURN s")
-		expect(q8["query_return"]).to.equal("RETURN DISTINCT s.name, COUNT(p)")
+		expect(q8["query_return"]).to.equal("RETURN DISTINCT s.name, COUNT (p)")
+		expect(q9["query_return"]).to.equal("RETURN v.genes_up")
 		done()
 	})
 	it('Should return a correct answer', (done) => {
@@ -290,6 +316,7 @@ describe('Test generate cypher query', () => {
 		expect(q6["result"].length).to.equal(57)
 		expect(q7["result"].length).to.equal(4)
 		expect(q8["result"].length).to.equal(2)
+		expect(q9["result"].length).to.equal(2)
 		done()
 	})
 })

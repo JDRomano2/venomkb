@@ -209,7 +209,7 @@ module.exports = {
                 "class" : "Protein"
             }
         }
-    }
+    },
     // Ask: 'What species and what proteins are related to Osteosarcoma?'
     //
     // Query:
@@ -221,4 +221,35 @@ module.exports = {
     // Expect:
     // 1 species : "Crotalus viridis viridis"
     // 1 protein : Zinc metalloproteinase-disintegrin-like crovidisin
+
+
+     ex9: {
+        "select": {"VenomSeqData": "genes_up"},
+        "declare": {
+            "Protein": [
+                {
+                    "attribute": "name",
+                    "operator": "contains",
+                    "value": "Phospholipase A2"
+                }
+            ]
+        }
+        
+    }
+    // Ask: 'For venom with a phospholipase A2 protein, which genes are upregulated in VenomSeq?'
+    //
+    // Query:
+    //  MATCH(p: Protein)- [: PROTEIN_FROM_SPECIES] -> (s: Species) -[: INFLUENCES_SYSTEMIC_EFFECT] -> (e: SystemicEffect)
+    // WHERE p.name CONTAINS 'Phospholipase A2'
+    // RETURN DISTINCT s.name, p
+    //
+
+    // Expect:
+    // 1 species : "Crotalus viridis viridis"
+    // 1 protein : Zinc metalloproteinase-disintegrin-like crovidisin
+
+
+
+
 }
+
