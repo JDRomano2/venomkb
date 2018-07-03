@@ -40,12 +40,11 @@ export function fetchData(venomkb_id) {
     const dataType = venomkb_id.charAt(0);
     switch (dataType) {
         case 'P':
-            console.log('Fetching protein:', venomkb_id);
             return dispatch => {
                 dispatch(requestData(venomkb_id));
                 return fetch(`${API_BASE}proteins/${venomkb_id}`)
                     .then(response => response.json())
-                    .then(json => dispatch(receiveData(venomkb_id, json[0])));
+                    .then(json => dispatch(receiveData(venomkb_id, json)));
             };
 
         case 'S':
@@ -53,7 +52,7 @@ export function fetchData(venomkb_id) {
                 dispatch(requestData(venomkb_id));
                 return fetch(`${API_BASE}species/${venomkb_id}`)
                     .then(response => response.json())
-                    .then(json => dispatch(receiveData(venomkb_id, json[0])));
+                    .then(json => dispatch(receiveData(venomkb_id, json)));
             };
 
         case 'G':
@@ -61,14 +60,14 @@ export function fetchData(venomkb_id) {
                 dispatch(requestData(venomkb_id));
                 return fetch(`${API_BASE}genomes/${venomkb_id}`)
                     .then(response => response.json())
-                    .then(json => dispatch(receiveData(venomkb_id, json[0])));
+                    .then(json => dispatch(receiveData(venomkb_id, json)));
             };
         case 'E':
             return dispatch => {
                 dispatch(requestData(venomkb_id));
                 return fetch(`${API_BASE}systemic-effects/${venomkb_id}`)
                     .then(response => response.json())
-                    .then(json => dispatch(receiveData(venomkb_id, json[0])));
+                    .then(json => dispatch(receiveData(venomkb_id, json)));
             };
         default:
             return 'Error: Bad Venomkb ID passed to fetchData()';

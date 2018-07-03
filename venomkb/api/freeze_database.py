@@ -15,6 +15,11 @@ from neo4j.v1 import GraphDatabase
 import time
 import unittest
 
+import json
+from pprint import pprint
+
+
+
 from . import neo_writer as ne
 
 ENVIRONMENT = 'DEV'
@@ -47,6 +52,7 @@ class VenomkbData(object):
     self.proteins = VenomkbData.fetch_proteins()
     self.species = VenomkbData.fetch_species()
     self.genomes = VenomkbData.fetch_genomes()
+    self.systemic_effects = VenomkbData.fetch_systemicEffects()
 
   @staticmethod
   def fetch_proteins():
@@ -67,6 +73,13 @@ class VenomkbData(object):
   @staticmethod
   def fetch_genomes():
     r = requests.get(VENOMKB_API + 'genomes')
+    print(r.status_code)
+    print(r.headers['content-type'])
+    print(r.encoding)
+    return r.json()
+  @staticmethod
+  def fetch_systemicEffects():
+    r = requests.get(VENOMKB_API + 'systemic-effects')
     print(r.status_code)
     print(r.headers['content-type'])
     print(r.encoding)
@@ -303,42 +316,88 @@ class NeoSimpleStat(object):
                 max(size( (n)-[]-() ) ) as Max_RelationshipCount"""
     return list(tx.run(statement))
 
-if __name__ == '__main__':
-  # properties = neo.print_information_protein("P0307338")
-  # neo = NeoSimpleStat(URI, USER, PASSWORD)
-  # neo.print_count_nodes()
-  # neo.print_genome("Lachesana tarabaevi")
-  # res = neo.print_statistics()
-  # print(res[0])
-  # unittest.main()
-  t1 = time.time()
 
-  # categories = ["Peptide", "Carbohydrate", "Biological_Macromolecule", "Inorganic_Molecule", "Whole_Venom_Extract", "Mixture", "Molecule", "Synthetic_Venom_Derivative", "Venomous_Organism", "Chemical_Compound", "Venom", "Thing"]
-  # neo = ne.Neo4jWriter(URI, USER, PASSWORD)
-  # for genome in data.genomes:
-  #     neo.genome(genome["name"], genome["venomkb_id"], genome["annotation_score"], genome["literature_reference"]["journal"],
-  #                 genome["out_links"]["ncbi_genome"]["link"], genome["species_ref"], verbose=True)
+def RUN_MAIN():
+  VERBOSE = True
 
+  t_start = time.time()
+
+  neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=VERBOSE)
+
+  # CRITICAL NOTE:
+  # Some of these classes follow different naming from the actual ontology
+  # Venomous_Organism -> Species
+  # Peptide -> Protein
+  # Whole_Venom_Extract -> Venom
+  # HOWEVER, THEIR SEMANTICS ARE ESSENTIALLY THE SAME
+  ontology_classes = [
+    "Protein",
+    "Carbohydrate",
+    "BiologicalMacromolecule",
+    "InorganicMolecule",
+    "Venom",
+    "Mixture",
+    "Molecule",
+    "SyntheticVenomDerivative",
+    "Species",
+    "ChemicalCompound",
+    "Thing",
+    "Genome",  # <-- This isn't part of the ontology (yet)!
+    "Pfam",
+    "SystemicEffect",
+    "VenomSeqData"
+  ]
 
   data = VenomkbData()
-  out_species = []
-  for species in data.species:
-    if 'out_links' in species:
-      for key in species["out_links"]:
-        if key not in out_species:
-          out_species.append(key)
-  print(out_species)
 
-  # neo.print_generate_graph(data.proteins, data.species, categories)
+  neo.generate_graph(data.proteins,
+                     data.species,
+                     data.genomes,
+                     data.systemic_effects,
+                     ontology_classes)
 
-  # # neo.purge()
-  # neo.print_category_nodes("Venomous_Organism")
-  # neo.print_category_nodes("Peptide")
-  # specie = data.species[0]
-  # neo.print_species(specie["name"], specie["venomkb_id"], specie["annotation_score"])
-  # protein = data.proteins[0]
-  # neo.print_protein(protein["name"], protein["venomkb_id"], protein["annotation_score"], protein["aa_sequence"], protein["out_links"]["UniProtKB"]["id"])
-  # neo.print_link(specie["name"],protein["venomkb_id"])
-  t2 = time.time()
-  total = t2 - t1
-  print("It takes ", total, " seconds")
+  t_end = time.time()
+  total = t_end - t_start
+  print("Graph representation of VenomKB built in {0} seconds".format(total))
+
+if __name__ == '__main__':
+  # TO RUN IN DEVELOPMENT MODE:
+  # (from ipython shell in root venomkb directory)
+  # > from venomkb.api import *
+  # > RUN_MAIN()
+  # RUN_MAIN()
+
+  with open(os.getcwd() + '/venomkb/api/venomseq.json') as f:
+    venomseq = json.load(f)
+    venomSeqData = []
+    for venom in venomseq:
+      if venom["species_ref"]:
+        new_venom = {}
+        new_venom["name"] = venom["name"]
+        new_venom["venomkb_id"] =  venom["venomkb_id"]
+        new_venom["species_ref"] = venom["species_ref"]
+        if venom["genes_up"]:
+          list_gene = []
+          for gene in venom["genes_up"]:
+            list_gene.append(gene["entrezGeneId"])
+          new_venom["genes_up"] = list_gene
+        else:
+          new_venom["genes_up"] = []
+        if venom["genes_down"]:
+          list_gene = []
+          for gene in venom["genes_down"]:
+            list_gene.append(gene["entrezGeneId"])
+          new_venom["genes_down"] = list_gene
+        else:
+           new_venom["genes_down"] = []
+        venomSeqData.append(new_venom)
+
+    print(venomSeqData[0])
+
+    neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=True)
+
+    for venom in venomSeqData : 
+      neo.venomSeqData(venom["name"], venom["venomkb_id"], venom["species_ref"], venom["genes_up"], venom["genes_down"])
+
+
+

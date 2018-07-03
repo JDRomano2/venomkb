@@ -8,5 +8,24 @@ const AnnotationSchema = new mongoose.Schema({
     evidence: String
 });
 
+Annotation = mongoose.model('Annotation', AnnotationSchema);
+//========================================
+// ADD
+//========================================
 
-module.exports = mongoose.model('Annotation', AnnotationSchema);
+/**
+ * Add an annotation to the database
+ * @param {Object} new_annotation to be added
+ */
+Annotation.add = new_annotation => {
+    console.log("enter add annotation fonction");
+
+    return new Promise((resolve, reject) => {
+        Annotation.create(new_annotation, (err, created_annotation) => {
+            if (err) reject(err)
+            resolve(created_annotation)
+        })
+    })
+}
+
+module.exports = Annotation
