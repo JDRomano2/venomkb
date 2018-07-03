@@ -1,6 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+class OutLink extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            resource_name: props.resource,
+            resource_id: props.id
+        };
+    }
+
+    render() {
+        return (
+            <li>{this.state.resource_name}: {this.state.resource_id}</li>
+        );
+    }
+}
+
 class OutLinks extends React.Component {
     constructor(props) {
         super(props);
@@ -13,10 +30,10 @@ class OutLinks extends React.Component {
     render() {
         const { outLinks } = this.state;
         const links = outLinks.map(link => {
-            let resource_name = link.resource;
+            let key = link.resource;
             let primary_id = link.primary_id;
             return (
-                <li>{resource_name}: {primary_id}</li>
+                <OutLink key={key} resource={key} id={primary_id} />
             );
         });
 

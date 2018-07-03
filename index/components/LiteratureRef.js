@@ -30,7 +30,7 @@ class LiteratureRef extends React.Component {
 }
 
 LiteratureRef.propTypes = {
-    pmid: PropTypes.string,
+    pmid: PropTypes.number,
     firstAuthor: PropTypes.string,
     journalName: PropTypes.string,
     title: PropTypes.string

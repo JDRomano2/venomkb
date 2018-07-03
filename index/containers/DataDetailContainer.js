@@ -164,7 +164,7 @@ DataDetailContainer.propTypes = {
     description: PropTypes.string,
     out_links: PropTypes.array,
     isFetching: PropTypes.bool.isRequired,
-    lastUpdated: PropTypes.number,
+    lastUpdated: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     name: PropTypes.string,
     common_name: PropTypes.string,

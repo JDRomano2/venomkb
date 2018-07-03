@@ -279,7 +279,7 @@ DataBasicView.propTypes = {
     common_name: PropTypes.string,
     dataType: PropTypes.string.isRequired,
     description: PropTypes.string,
-    out_links: PropTypes.object,
+    out_links: PropTypes.array,
     name: PropTypes.string.isRequired,
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,

@@ -8,14 +8,13 @@ class GoAnnotations extends React.Component {
         const { annotations } = this.props;
 
         const annotationsList = annotations.map((annot) => (
-            <div className="annotationsTile">
-                <GoAnnotation
-                    evidence={annot.evidence}
-                    id={annot.id}
-                    term={annot.term}
-                    project={annot.project}
-                />
-            </div>
+            <GoAnnotation
+                key={annot.id}
+                evidence={annot.evidence}
+                id={annot.id}
+                term={annot.term}
+                project={annot.project}
+            />
         ));
 
         return (

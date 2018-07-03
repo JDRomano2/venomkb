@@ -9,6 +9,7 @@ class LiteratureRefs extends React.Component {
 
         const refsList = refs.map((ref) => (
             <LiteratureRef
+                key={ref.pmid}
                 pmid={ref.pmid}
                 journalName={ref.journal_name}
                 firstAuthor={ref.first_author}
