@@ -60,7 +60,7 @@ describe("VenomSeq model tests", () => {
                     expect(venom_seq.dosage_unit).to.equal(objects.venom_seq.dosage_unit)
                     expect(venom_seq.cell_line).to.equal(objects.venom_seq.cell_line)
                     expect(venom_seq.raw_data).to.equal(objects.venom_seq.raw_data)
-                    expect(venom_seq.species_ref).to.equal(object.venom_seq.species_ref)
+                    expect(venom_seq.species_ref).to.equal(objects.venom_seq.species_ref)
                     expect(venom_seq.genes_up.length).to.equal(objects.venom_seq.genes_up.length)
                     expect(venom_seq.genes_down.length).to.equal(objects.venom_seq.genes_down.length)
                     expect(venom_seq.samples.length).to.equal(objects.venom_seq.samples.length)
