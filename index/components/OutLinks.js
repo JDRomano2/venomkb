@@ -12,15 +12,13 @@ class OutLinks extends React.Component {
 
     render() {
         const { outLinks } = this.state;
-        const links = [];
-        for (const key in outLinks) {
-            if (outLinks.hasOwnProperty(key)) {
-                const term = (outLinks[key].id === null) ? outLinks[key].attributes.name : outLinks[key].id;
-                links.push(
-                    <li>{key}: {term}</li>
-                );
-            }
-        }
+        const links = outLinks.map(link => {
+            let resource_name = link.resource;
+            let primary_id = link.primary_id;
+            return (
+                <li>{resource_name}: {primary_id}</li>
+            );
+        });
 
         return (
             <div>
@@ -33,7 +31,7 @@ class OutLinks extends React.Component {
 }
 
 OutLinks.propTypes = {
-    links: PropTypes.object
+    links: PropTypes.array
 };
 
 export default OutLinks;
