@@ -138,6 +138,8 @@ VenomSeqSchema.methods.addGenesUp = function (genes_up) {
         })
         return venom_seq.save()
     } else {
+        console.log(genes_up);
+        
         return Promise.reject({ message: "Genes up list must contain object" })
     }
 }
@@ -159,7 +161,8 @@ VenomSeqSchema.methods.addGenesDown = function (genes_down) {
         })
         return venom_seq.save()
     } else {
-        return Promise.reject({ message: "Genes up list must contain object" })
+        console.log(genes_down);
+        return Promise.reject({ message: "Genes down list must contain object" })
     }
 
 }

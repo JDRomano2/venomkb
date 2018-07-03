@@ -15,6 +15,11 @@ from neo4j.v1 import GraphDatabase
 import time
 import unittest
 
+import json
+from pprint import pprint
+
+
+
 from . import neo_writer as ne
 
 ENVIRONMENT = 'DEV'
@@ -360,7 +365,39 @@ if __name__ == '__main__':
   # (from ipython shell in root venomkb directory)
   # > from venomkb.api import *
   # > RUN_MAIN()
-  RUN_MAIN()
+  # RUN_MAIN()
+
+  with open(os.getcwd() + '/venomkb/api/venomseq.json') as f:
+    venomseq = json.load(f)
+    venomSeqData = []
+    for venom in venomseq:
+      if venom["species_ref"]:
+        new_venom = {}
+        new_venom["name"] = venom["name"]
+        new_venom["venomkb_id"] =  venom["venomkb_id"]
+        new_venom["species_ref"] = venom["species_ref"]
+        if venom["genes_up"]:
+          list_gene = []
+          for gene in venom["genes_up"]:
+            list_gene.append(gene["entrezGeneId"])
+          new_venom["genes_up"] = list_gene
+        else:
+          new_venom["genes_up"] = []
+        if venom["genes_down"]:
+          list_gene = []
+          for gene in venom["genes_down"]:
+            list_gene.append(gene["entrezGeneId"])
+          new_venom["genes_down"] = list_gene
+        else:
+           new_venom["genes_down"] = []
+        venomSeqData.append(new_venom)
+
+    print(venomSeqData[0])
+
+    neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=True)
+
+    for venom in venomSeqData : 
+      neo.venomSeqData(venom["name"], venom["venomkb_id"], venom["species_ref"], venom["genes_up"], venom["genes_down"])
 
 
 

@@ -95,9 +95,9 @@ router.post("/", function (req, res) {
     if (!req.body.venomkb_id) {
         return utils.sendStatusMessage(res, 400, "The venomkb_id field is empty")
     }
-    if (!req.body.species_ref) {
-        return utils.sendStatusMessage(res, 400, "The species_ref field is empty")
-    }
+    // if (!req.body.species_ref) {
+    //     return utils.sendStatusMessage(res, 400, "The species_ref field is empty")
+    // }
 
     // Check if the venom_seq already exists
     return VenomSeq.getByVenomKBId(req.body.venomkb_id)

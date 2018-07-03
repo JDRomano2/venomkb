@@ -207,6 +207,30 @@ class Neo4jWriter(object):
                                    journal, link, species_id))
             if self.verbose:
                 print(genome)
+    
+    def venomSeqData(self, name, venomkb_id, species_ref, genes_up, genes_down):
+        """This function create a genome node into the graph.
+        It links the node to the node with a "is instance of" link
+        It links the node to the correct species node with as "has genome" link
+
+              Args:
+                name (string): the protein's name
+                venomkb_id (string): a unique identifier for the protein, must start with a 'P'
+                score (int): an annotation score for the data between 1 and 5
+                journal (string): name of the journal
+                link (string): url that refers to the genome
+                species_id (string): the venomkb_id of the species linked
+                verbose (boolean) : if true, print the result of the transaction
+
+              Returns:
+                No return
+        """
+        with self._driver.session() as session:
+            venomSeq = session.write_transaction(
+                self._add_venomSeqData, (name, venomkb_id, species_ref,
+                                   genes_up, genes_down))
+            if self.verbose:
+                print(venomSeq)
 
     def ont_class_nodes(self, name):
         """This function create an ontology class node into the graph.
@@ -468,6 +492,18 @@ class Neo4jWriter(object):
             RETURN a.name +', '+ a.vkbid + ', from node ' + id(a)"""
         result = tx.run(statement, name=name, venomkb_id=venomkb_id,
                         score=score, journal=journal, link=link, species_id=species_id)
+        return result.single()[0]
+
+    @staticmethod
+    def _add_venomSeqData(tx, payload):
+        (name, venomkb_id, species_ref, genes_up, genes_down) = payload
+        statement = """MATCH (s:Species) WHERE s.vkbid = {species_ref}
+            CREATE (v:VenomSeqData {name : {name}, vkbid: {venomkb_id}, genes_up:{genes_up}, genes_down: {genes_down}})
+            CREATE (v)-[r:VENOMSEQ_DATA_FOR_SPECIES]->(s)
+            CREATE (s)-[q:HAS_VENOMSEQ_DATASET]->(v)
+            RETURN v.name +', '+ v.vkbid + ', from node ' + id(v)"""
+        result = tx.run(statement, name=name, venomkb_id=venomkb_id,
+                        genes_up=genes_up, genes_down=genes_down, species_ref=species_ref)
         return result.single()[0]
 
     @staticmethod

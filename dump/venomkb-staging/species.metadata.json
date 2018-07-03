@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"venomkb-staging.species"},{"v":2,"key":{"venomkb_id":1},"name":"venomkb_id","ns":"venomkb-staging.species"}]}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"venomkb-staging.species"},{"v":2,"key":{"venomkb_id":1},"name":"venomkb_id","ns":"venomkb-staging.species"},{"v":2,"unique":true,"key":{"name":1},"name":"name_1","ns":"venomkb-staging.species","background":true}]}
