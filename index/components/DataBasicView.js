@@ -264,6 +264,15 @@ class DataBasicView extends Component {
                         </Col>
                     </div>
                 );
+            case 'Q':
+                const species_link_q = '/' + (this.state.currentData.species_ref);
+                return (
+                    <div>
+                        <Col xs={12} md={7}>
+                            <h1>{name}</h1>
+                        </Col>
+                    </div>
+                );
             default:
                 return (
                     <div>
