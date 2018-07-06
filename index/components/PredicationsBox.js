@@ -50,7 +50,7 @@ class PredicationsBox extends React.Component {
 }
 
 PredicationsBox.propTypes = {
-    predications: PropTypes.array.isRequired
+    predications: PropTypes.array
 };
 
 export default PredicationsBox;
