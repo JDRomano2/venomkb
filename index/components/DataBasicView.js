@@ -233,7 +233,11 @@ class DataBasicView extends Component {
                     </div>
                 );
             case 'G':
+
                 const species_link_g = '/' + (this.state.currentData.species_ref);
+                console.log("SPECIES LINK: ", species_link_g);
+                const species_known = ( (species_link_g==='/') ? false : true );
+
                 return (
                     <div>
                         <Col xs={12} md={7}>
@@ -258,9 +262,16 @@ class DataBasicView extends Component {
                             </a>
 
                             <h2>Species</h2>
-                            <h4>
+                            {species_known ? (
+                                <h4>
                                 Organism: <Link to={species_link_g} onClick={this.loadSpeciesFromGenome}>({this.speciesName(this.state.currentData.species_ref)}) ({this.state.currentData.species_ref})</Link>
-                            </h4>
+                                </h4>
+                            ) : (
+                                <i>
+                                This species is not yet indexed in VenomKB!
+                                If you would like us to add it, please send an email to <a href="mailto:jdr2160@cumc.columbia.edu">the developers</a>.
+                                </i>
+                            )}
                         </Col>
                     </div>
                 );
