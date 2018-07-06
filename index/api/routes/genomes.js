@@ -38,11 +38,8 @@ router.get('/index', (req, res, next) => {
 /* GET /genomes/name */
 router.get('/search', (req, res, next) => {
   if (!req.query.name) {
-    console.log("You must enter a name");
     return utils.sendStatusMessage(res, 400, "genome name not specified")
-
   }
-  console.log("Find by name");
   Genome.getByName(req.query.name)
     .then(genome => {
       res.json(genome)
@@ -63,14 +60,12 @@ router.get('/:id', (req, res, next) => {
     return utils.sendStatusMessage(res, 400, "genome id not specified")
   }
   if (vkbid_reg.test(req.params.id)) {
-    console.log("Find by VenomKB id");
     Genome.getByVenomKBId(req.params.id)
       .then(genome => {
         res.json(genome)
       })
       .catch()
   } else {
-    console.log("Find by id");
     Genome.getById(req.params.id)
       .then(genome => {
         res.json(genome)
@@ -167,7 +162,7 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   genome.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
     if (err) return next(err);
-    console.log('genome deleted:');
+    console.log('Genome deleted:');
     console.log(genomes);
     res.json(genomes);
   });

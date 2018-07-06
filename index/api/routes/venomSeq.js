@@ -37,11 +37,9 @@ router.get('/index', (req, res, next) => {
 /* GET /venom_seqs/name */
 router.get('/search', (req, res, next) => {
     if (!req.query.name) {
-        console.log("You must enter a name");
         return utils.sendStatusMessage(res, 400, "venom_seq name not specified")
-
     }
-    console.log("Find by name");
+    console.log("Find VenomSeq data by name");
     VenomSeq.getByName(req.query.name)
         .then(venom_seq => {
             res.json(venom_seq)
@@ -62,14 +60,14 @@ router.get('/:id', (req, res, next) => {
         return utils.sendStatusMessage(res, 400, "venom_seq id not specified")
     }
     if (vkbid_reg.test(req.params.id)) {
-        console.log("Find by VenomKB id");
+        console.log("Find VenomSeq data by VenomKB id");
         VenomSeq.getByVenomKBId(req.params.id)
             .then(venom_seq => {
                 res.json(venom_seq)
             })
             .catch()
     } else {
-        console.log("Find by id");
+        console.log("Find VenomSeq data by id");
         VenomSeq.getById(req.params.id)
             .then(venom_seq => {
                 res.json(venom_seq)
@@ -102,8 +100,6 @@ router.post("/", function (req, res) {
     // Check if the venom_seq already exists
     return VenomSeq.getByVenomKBId(req.body.venomkb_id)
         .then(venom_seq => {
-            console.log("try to find venom_seq", venom_seq);
-
             if (venom_seq) {
                 return Promise.reject({ message: "venomkb_id already exists" })
             }
@@ -140,7 +136,7 @@ router.post("/", function (req, res) {
         .then((new_venom_seq) => {
             // add samples
             if (req.body.samples) {
-                
+
                 return new_venom_seq.addSamples(req.body.samples)
             } else {
                 return Promise.resolve(new_venom_seq);
@@ -166,7 +162,7 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     venom_seq.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
         if (err) return next(err);
-        console.log('venom_seq deleted:');
+        console.log('VenomSeq data deleted:');
         console.log(venom_seqs);
         res.json(venom_seqs);
     });
