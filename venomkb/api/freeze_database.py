@@ -365,7 +365,8 @@ if __name__ == '__main__':
   # (from ipython shell in root venomkb directory)
   # > from venomkb.api import *
   # > RUN_MAIN()
-  # RUN_MAIN()
+  RUN_MAIN()
+
 
   with open(os.getcwd() + '/venomkb/api/venomseq.json') as f:
     venomseq = json.load(f)
@@ -398,6 +399,3 @@ if __name__ == '__main__':
 
     for venom in venomSeqData : 
       neo.venomSeqData(venom["name"], venom["venomkb_id"], venom["species_ref"], venom["genes_up"], venom["genes_down"])
-
-
-

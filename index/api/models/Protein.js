@@ -94,44 +94,51 @@ ProteinSchema.methods.addOutLinks = function (out_links) {
 
 ProteinSchema.methods.updateOutLinks = function (out_links) {
 	const protein = this;
-	if ((out_links.constructor === Array)) {
+	if ((out_links instanceof Array)) {
 		const promises = [];
 		out_links.forEach(element=> {
 			promises.push(new Promise((resolve, reject) => {
-				return OutLink.findOne(element).exec().then(found=>{
-					if (found) {
-						return OutLink.update(found._id, element).then(resolve).catch(reject)
-					}
-					else {
-						return OutLink.add(element).then((out_link) => {
+				let query = {
+					primary_id: element.primary_id,
+					resource: element.resource,
+					shared: element.shared
+				}
+				return OutLink.findOne(query).exec().then(found=>{
+					if (!found) {
+						return OutLink.add(query).then((out_link) => {
 							protein.out_links.push(out_link._id);
 							resolve();
 						}).catch(reject)
-					}
-				})
-			}))
-		})
-		protein.out_links.forEach(element_id =>{
-			promises.push(new Promise((resolve, reject) => {
-				return OutLink.findOne(element_id).populate('proteins').exec().then((out_link) => {
-					let index = out_links.findIndex((element) => {
-						return element.resource == out_link.resource &&
-						element.primary_id == out_link.primary_id
-					})
-					if (index == -1 ) {
-						if (out_link.proteins.length == 1 ) {
-							return out_link.remove().then(()=> {
-								protein.out_links.splice(index,1)
-								resolve()
-							}).catch(reject)
-						}
-						protein.out_links.splice(index, 1)
 					}
 					resolve()
 				})
 			}))
 		})
+		let indexes = []
+		protein.out_links.forEach(element_id =>{
+			promises.push(new Promise((resolve, reject) => {
+				return OutLink.findOne(element_id).populate('proteins').exec().then((out_link) => {
+					console.log(element_id);
+					
+					let index = out_links.findIndex((element) => {
+						return element.resource == out_link.resource &&
+						element.primary_id == out_link.primary_id
+					})
+										
+					if (index == -1 ) {
+						let out_link_index = protein.out_links.findIndex((element) => { return element == element_id})
+						indexes.push(out_link_index)
+						return OutLink.delete(element_id).then(resolve).catch(reject)
+					}
+					resolve()
+				}).catch(reject)
+			}))
+		})
 		return Promise.all(promises).then(() => {
+			indexes = indexes.sort().reverse()
+			indexes.forEach(index => {
+				protein.out_links.splice(index, 1)
+			})
 			return protein.save()
 		});
 	} else {
@@ -211,61 +218,71 @@ ProteinSchema.methods.addReference = function (references) {
 }
 
 /**
- * Update references to a protein
+ * Update outlinks to a protein
  * @param {Array} references an array of references objects
  */
 
-ProteinSchema.methods.updateReference = function(references) {
-	if (!(references.constructor === Array)) {
-		return Promise.reject({ message: "References not a list" })
-	}
+ProteinSchema.methods.updateReference = function (references) {
 	const protein = this;
-	if (references.length === 0 || typeof references[0] == "object") {
+	if ((references instanceof Array)) {
 		const promises = [];
 		references.forEach(element => {
 			promises.push(new Promise((resolve, reject) => {
-				return Reference.getByPmid(element.pmid).then(found => {
-					if (found) {
-						return Reference.update(found._id, element).then(resolve).catch(reject)
-					}
-					else {
-						return Reference.add(element).then((reference) => {
+				let query = {
+					pmid: element.pmid,
+					title: element.title,
+					first_author: element.first_author,
+					authors: element.authors,
+					journal_name: element.journal_name,
+					doi: element.doi,
+					citation: element.citation,
+					date: element.date
+				}
+				return Reference.findOne(query).exec().then(found => {
+					if (!found) {
+						return Reference.add(query).then((reference) => {
 							protein.literature_references.push(reference._id);
 							resolve();
 						}).catch(reject)
-					}
-				})
-			}))
-		})
-		protein.literature_references.forEach(element_id => {
-			promises.push(new Promise((resolve, reject) => {
-				return Reference.findOne(element_id).populate('proteins').exec().then((reference) => {
-					let index = references.findIndex((element) => {
-						return element.pmid == reference.pmid &&
-							element.authors == reference.authors
-					})
-					if (index == -1) {
-						if (reference.proteins.length == 1) {
-							return reference.remove().then(() => {
-								protein.literature_references.splice(index, 1)
-								resolve()
-							}).catch(reject)
-						}
-						protein.literature_references.splice(index, 1)
 					}
 					resolve()
 				})
 			}))
 		})
+		let indexes = []
+		protein.literature_references.forEach(element_id => {
+			promises.push(new Promise((resolve, reject) => {
+				return Reference.findOne(element_id).populate('proteins').exec().then((reference) => {
+					let index = references.findIndex((element) => {
+						return element.title == reference.title &&
+							element.first_author == reference.first_author &&
+							element.authors == reference.authors &&
+							element.journal_name == reference.journal_name &&
+							element.pmid == reference.pmid &&
+							element.citation == reference.citation
+					})
+
+					if (index == -1) {
+						let reference_index = protein.literature_references.findIndex((element) => { return element == element_id })
+						indexes.push(reference_index)
+						return Reference.delete(element_id).then(resolve).catch(reject)
+					}
+					resolve()
+				}).catch(reject)
+			}))
+		})
 		return Promise.all(promises).then(() => {
+			indexes = indexes.sort().reverse()
+			indexes.forEach(index => {
+				protein.literature_references.splice(index, 1)
+			})
 			return protein.save()
 		});
 	} else {
-		return Promise.reject({ message: "References list must contain object" })
+		return Promise.reject({ message: "Reference field should be an array" })
 	}
 
 }
-
 /**
  * Add literature gene annotation to a protein
  * @param {Array} go_annotation an array of go_annotation objects
@@ -433,6 +450,27 @@ Protein.add = new_protein => {
  */
 Protein.update = (venomkb_id, updated_protein) => {
 	return Protein.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_protein).exec()
+}
+
+//========================================
+// DELETE
+//========================================
+
+/**
+ * Delete a reference
+ * @param {ObjectId} id reference id who needs to be removed from the database
+ */
+Protein.delete = id => {
+	return new Promise((resolve, reject) => {
+		Protein.findById(id).then(protein => {
+			return protein.remove(err => {
+				if (err) {
+					reject(err)
+				}
+				resolve()
+			})
+		})
+	})
 }
 
 

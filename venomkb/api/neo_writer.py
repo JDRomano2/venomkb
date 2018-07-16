@@ -89,10 +89,10 @@ class Neo4jWriter(object):
                     pfam_added.append(pfam)
                 self.pfam_relationship(protein["venomkb_id"], pfam)
 
-            if 'go_annotations' in protein:
-                for elt in protein["go_annotations"]:
-                    self.is_a_go_relation_and_node(
-                        protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
+            # if 'go_annotations' in protein:
+            #     for elt in protein["go_annotations"]:
+            #         self.is_a_go_relation_and_node(
+            #             protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
 
             if 'literature_predications' in protein:
                 if type(protein["literature_predications"][0]) == list:
@@ -212,6 +212,28 @@ class Neo4jWriter(object):
         """This function create a genome node into the graph.
         It links the node to the node with a "is instance of" link
         It links the node to the correct species node with as "has genome" link
+              Args:
+                name (string): the protein's name
+                venomkb_id (string): a unique identifier for the protein, must start with a 'P'
+                score (int): an annotation score for the data between 1 and 5
+                journal (string): name of the journal
+                link (string): url that refers to the genome
+                species_id (string): the venomkb_id of the species linked
+                verbose (boolean) : if true, print the result of the transaction
+              Returns:
+                No return
+        """
+        with self._driver.session() as session:
+            venomSeq = session.write_transaction(
+                self._add_venomSeqData, (name, venomkb_id, species_ref,
+                                         genes_up, genes_down))
+            if self.verbose:
+                print(venomSeq)
+
+    def gene(self, entrezGeneId,  pvalue, log2FoldChange, baseMean, venomkb_id):
+        """This function create a gene node into the graph.
+        It links the node to the node with a "is instance of" link
+        It links the node to the correct species node with as "has genome" link
 
               Args:
                 name (string): the protein's name
@@ -226,11 +248,11 @@ class Neo4jWriter(object):
                 No return
         """
         with self._driver.session() as session:
-            venomSeq = session.write_transaction(
-                self._add_venomSeqData, (name, venomkb_id, species_ref,
-                                   genes_up, genes_down))
+            gene = session.write_transaction(
+                self._add_gene, (entrezGeneId, pvalue,
+                                 log2FoldChange, baseMean, venomkb_id))
             if self.verbose:
-                print(venomSeq)
+                print(gene)
 
     def ont_class_nodes(self, name):
         """This function create an ontology class node into the graph.
@@ -505,6 +527,18 @@ class Neo4jWriter(object):
         result = tx.run(statement, name=name, venomkb_id=venomkb_id,
                         genes_up=genes_up, genes_down=genes_down, species_ref=species_ref)
         return result.single()[0]
+
+    @staticmethod
+    def _add_gene(tx, payload):
+        (entrezGeneId, pvalue, log2FoldChange, baseMean, venomkb_id) = payload
+        statement = """MATCH (v:VenomSeqData {vkbid : {venomkb_id}})
+        MERGE (h:Gene {entrezGeneId: {entrezGeneId}, pvalue: {pvalue}, log2FoldChange: {log2FoldChange}, baseMean: {baseMean}})
+        CREATE (v)-[r:HAS_GENE]->(h)
+        CREATE (h)-[q:IN_VENOM_SEQ]->(v)
+        RETURN h"""
+        result=tx.run(statement, entrezGeneId=entrezGeneId,
+                      pvalue=pvalue, log2FoldChange=log2FoldChange, baseMean=baseMean, venomkb_id=venomkb_id)
+        return result.single()
 
     @staticmethod
     def _add_nodes_systemic_effect(tx, payload):

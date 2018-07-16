@@ -52,6 +52,47 @@ OutLink.getAll = () => {
     })
 }
 
+/**
+ * returns all the Outlink that are shared
+ */
+OutLink.getByShared = () => {
+    return new Promise((resolve, reject) => {
+        OutLink.find({shared: true})
+            .exec((err, out_links) => {
+                if (err) reject(err)
+                resolve(out_links)
+            })
+    })
+}
+
+/**
+ * returns all the Outlink having a specific resource
+ * @param {String} resource  resource of the out links to get 
+ */
+OutLink.getByResource = (resource) => {
+    return new Promise((resolve, reject) => {
+        OutLink.find({resource: resource})
+            .exec((err, out_links) => {
+                if (err) reject(err)
+                resolve(out_links)
+            })
+    })
+}
+
+/**
+ * returns all the Outlink having a specific value
+ * @param {String} value  value of the out links to get 
+ */
+OutLink.getByPrimaryId = (value) => {
+    return new Promise((resolve, reject) => {
+        OutLink.find({ primary_id: value })
+            .exec((err, out_links) => {
+                if (err) reject(err)
+                resolve(out_links)
+            })
+    })
+}
+
 
 //========================================
 // ADD
@@ -98,16 +139,18 @@ OutLink.update = (id, updated_out_link) => {
  */
 OutLink.delete = id => {
     return new Promise((resolve, reject) => {
-        OutLink.getById(id).then(out_link => {
-            if (!species) {
-                reject({ status: "Empty" })
+        OutLink.findById(id).populate("proteins").then(out_link => {
+            if (out_link.proteins.length < 2) {
+                out_link.remove(err => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve()
+                })
             }
-            out_link.remove(err => {
-                if (err) {
-                    reject(err)
-                }
+            else {
                 resolve()
-            })
+            }
         })
     })
 }

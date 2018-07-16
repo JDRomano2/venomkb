@@ -9,7 +9,7 @@ const ReferenceSchema = new mongoose.Schema({
     journal_name: String,
     doi: { type: String, default: undefined },
     citation: String,
-    date: Date
+    date: String
 });
 
 ReferenceSchema.virtual('proteins', {
@@ -63,4 +63,30 @@ Reference.update = (id, updated_reference) => {
     return Reference.findOneAndUpdate({ _id: id }, updated_reference).exec()
 }
 
+
+//========================================
+// DELETE
+//========================================
+
+/**
+ * Delete a reference
+ * @param {ObjectId} id reference id who needs to be removed from the database
+ */
+Reference.delete = id => {
+    return new Promise((resolve, reject) => {
+        Reference.findById(id).populate("proteins").then(reference => {
+            if (reference.proteins.length < 2) {
+                reference.remove(err => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve()
+                })
+            }
+            else {
+                resolve()
+            }
+        })
+    })
+}
 module.exports = Reference;

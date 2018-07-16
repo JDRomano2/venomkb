@@ -90,14 +90,14 @@ router.get('/:id', (req, res, next) => {
     }
     if (vkbid_reg.test(req.params.id)) {
         console.log("Find by VenomKB id");
-        Species.getByVenomKBId(req.params.id, req.query.populate)
+        Species.getByVenomKBId(req.params.id)
             .then(species => {
                 res.json(species)
             })
             .catch()
     } else {
         console.log("Find by id");
-        Species.getById(req.params.id, req.query.populate)
+        Species.getById(req.params.id)
             .then(species => {
                 res.json(species)
             })
@@ -135,8 +135,6 @@ router.post("/", function (req, res) {
     }
 
     // Check if the species already exists
-    console.log("AAAAAAAAAAAA", req.body.venomkb_id);
-    
     return Species.getByVenomKBId(req.body.venomkb_id)
         .then(species => {
             if (species) {

@@ -11,14 +11,14 @@ const SampleSchema = new mongoose.Schema({
 });
 
 const VenomseqGeneSchema = new mongoose.Schema({
-    entrezGeneId: String,
+    entrezGeneId: {type: String, required: true},
     baseMean: Number,
     log2FoldChange: Number,
     lfcSE: Number,
     stat: Number,
     pvalue: Number,
     padj: Number,
-    symbol: String
+    symbol: { type: String, required: true, default: undefined}
 });
 
 // Schema to enforce consistent structure.

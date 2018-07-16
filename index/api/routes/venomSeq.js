@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 
 /* GET /venom_seqs/index */
 router.get('/index', (req, res, next) => {
-    venom_seq.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, venom_seqs_ind) => {
+    Venom_seq.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, venom_seqs_ind) => {
         if (err) return next(err);
         res.json(venom_seqs_ind);
     });
@@ -123,7 +123,7 @@ router.post("/", function (req, res) {
         })
         .then((new_venom_seq) => {
             // add genes_up
-            if (req.body.genes_up) {
+            if (req.body.genes_up && req.body.genes_up.length>0) {
                 return new_venom_seq.addGenesUp(req.body.genes_up)
             } else {
                 return Promise.resolve(new_venom_seq);
@@ -131,7 +131,7 @@ router.post("/", function (req, res) {
         })
         .then((new_venom_seq) => {
             // add genes down
-            if (req.body.genes_down) {
+            if (req.body.genes_down && req.body.genes_down.length > 0) {
                 return new_venom_seq.addGenesDown(req.body.genes_down)
             } else {
                 return Promise.resolve(new_venom_seq);

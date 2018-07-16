@@ -103,7 +103,6 @@ router.get('/:id', (req, res, next) => {
     }
     if (vkbid_reg.test(req.params.id)) {
         console.log("Find by VenomKB id");
-        console.log("coucou", req.query);
         
         Protein.getByVenomKBId(req.params.id)
             .then(protein => {
@@ -139,11 +138,6 @@ router.post("/", function (req, res) {
     if (!req.body.venom_ref) {
         return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
     }
-
-    if (typeof req.body.pdb_structure_known != "boolean") {
-        return utils.sendStatusMessage(res, 400, "The pdb_structure_know field is empty")
-    }
-
     if (!req.body.annotation_score) {
         return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
     }
@@ -231,9 +225,6 @@ router.post("/update/:id", function (req, res) {
         return utils.sendStatusMessage(res, 400, "The venom_ref field is empty")
     }
 
-    if (typeof req.body.pdb_structure_known === Boolean) {
-        return utils.sendStatusMessage(res, 400, "The pdb_structure_know field is empty")
-    }
     if (!req.body.annotation_score) {
         return utils.sendStatusMessage(res, 400, "The annotation score field is empty")
     }
@@ -301,6 +292,48 @@ router.post("/update/:id", function (req, res) {
             res.sendStatus(200)
         })
         .catch((err) => {
+            utils.sendErrorMessage(res, err);
+        })
+})
+
+/**
+ * Delete protein
+ * @param {Query} id id of the protein to delete
+*/
+router.delete("/:id", (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).send({
+            message: "Send a protein id"
+        })
+    }
+    return Protein.getById(req.params.id)
+        .then((protein) => {
+            if (protein.out_links) {
+                const promises = []
+                for (const out_link of protein.out_links) {
+                    promises.push(OutLink.delete(out_link._id))
+                }
+                return Promise.all(promises)
+            }   
+            return Promise.resolve(protein)
+        })
+        .then((protein) => {
+            if (protein.literature_references) {
+                const promises = []
+                for (const references of protein.literature_references) {
+                    promises.push(Reference.delete(references._id))
+                }
+                return Promise.all(promises)
+            }  
+            return Promise.resolve(protein)
+        })
+        .then(protein => {
+            return Protein.delete(req.params.id)
+        })
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch(err => {
             utils.sendErrorMessage(res, err);
         })
 })

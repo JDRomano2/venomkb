@@ -15,6 +15,7 @@ const species = require('./routes/species');
 const genomes = require('./routes/genomes');
 const systemicEffects = require('./routes/systemicEffects');
 const venomSeq = require('./routes/venomSeq');
+const outlinks = require('./routes/outlinks');
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use('/species', species);
 app.use('/genomes', genomes);
 app.use('/systemic-effects', systemicEffects);
 app.use('/venom-seq', venomSeq);
+app.use('/outlinks', outlinks);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

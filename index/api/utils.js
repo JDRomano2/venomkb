@@ -234,6 +234,19 @@ module.exports = {
         }
 
         return res
+    },
+
+    formatVenomSeqData(venomseq) {
+        for (let venom of venomseq) {
+            for (let gene of venom["genes_up"]) {
+                // if (!gene["symbol"])
+                //     console.log("no symbol", venom.venomkb_id, gene);
+                if (typeof gene != "object") {
+                    console.log("not an object", venom.venomkb_id, gene);
+                }
+            }
+            
+        }
     }
 
 };

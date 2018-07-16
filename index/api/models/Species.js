@@ -258,12 +258,11 @@ Species.getByVenomKBId = (venomkb_id) => {
 /**
  * Get an species given its id
  * @param {ObjectId} id  id of the species to get
- * @param {String} path path to populate (leave blank if none)
  */
-Species.getById = (id, path) => {
+Species.getById = (id) => {
     return new Promise((resolve, reject) => {
         Species.findOne({ _id: id })
-            .populate(path || '')
+            .populate("taxonomic_lineage")
             .exec((err, species) => {
                 if (err) {
                     reject(err);

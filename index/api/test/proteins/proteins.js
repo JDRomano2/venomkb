@@ -55,10 +55,42 @@ describe("Protein model tests", () => {
 			agent
 				.get("/proteins/" + objects.protein_test.venomkb_id)
 				.then(res => {
+					objects.protein_test._id = res.body._id
 					expect(res.statusCode).to.equal(200)
 					done()
 				})
 				.catch(done)
+		})
+		it("Should delete the added protein in the database", done => {
+			agent
+				.delete("/proteins/" + objects.protein_test._id)
+				.then(res => {
+					expect(res.statusCode).to.equal(200)
+					done()
+				})
+				.catch(done)
+		})
+		it("Should get the out_links and check that they have been removed", done => {
+			agent
+				.get("/outlinks/")
+				.then(res => {
+					expect(res.body.length).to.equal(0)
+					expect(res.statusCode).to.equal(200)
+					done()
+				})
+				.catch(done)
+		})
+		it("Should add a protein in the database", done => {
+			agent
+				.post("/proteins")
+				.send(objects.protein_test)
+				.then(res => {
+					expect(res.statusCode).to.equal(200)
+					done()
+				})
+				.catch(err => {
+					done(err)
+				})
 		})
 		it("Should add a protein in the database", done => {
 			agent
@@ -115,16 +147,6 @@ describe("Protein model tests", () => {
 			agent
 				.post("/proteins")
 				.send(objects.p_without_annotation_score)
-				.then(res => {
-					expect(res.statusCode).to.equal(400)
-					done()
-				})
-				.catch(done)
-		})
-		it("Should return 400 when try to add a protein without a pdb_structure_known", done => {
-			agent
-				.post("/proteins")
-				.send(objects.p_without_pdb_structure_known)
 				.then(res => {
 					expect(res.statusCode).to.equal(400)
 					done()
