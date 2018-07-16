@@ -302,9 +302,7 @@ router.post("/update/:id", function (req, res) {
 */
 router.delete("/:id", (req, res) => {
     if (!req.params.id) {
-        return res.status(400).send({
-            message: "Send a protein id"
-        })
+        return utils.sendStatusMessage(res, 400, "Cannot delete without a protein id")
     }
     return Protein.getById(req.params.id)
         .then((protein) => {

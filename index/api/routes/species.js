@@ -242,6 +242,7 @@ router.post("/update/:id", function (req, res) {
             return Species.update(req.body.venomkb_id, new_species)
         })
         .then((new_species) => {
+            
             // update taxonomic lineage
             if (req.body.taxonomic_lineage) {
                 return new_species.updateTaxonomic(req.body.taxonomic_lineage)
@@ -250,6 +251,8 @@ router.post("/update/:id", function (req, res) {
             }
         })
         .then((new_species) => {
+            console.log(new_species);
+            
             // update venom
             if (req.body.venom) {
                 return new_species.updateVenom(req.body.venom)
@@ -281,50 +284,34 @@ router.get('/index', (req, res, next) => {
     });
 });
 
-
-
-
 /**
- * Delete species
+ * Delete a species 
  * @param {Query} id id of the species to delete
 */
-router.delete("/", (req, res) => {
-    if (!req.query.id) {
-        return res.status(400).send({
-            message: "Send a species id"
-        })
+router.delete("/:id", (req, res) => {
+    if (!req.params.id) {
+        return utils.sendStatusMessage(res, 400, "Cannot delete without a species id")
     }
-
-    Species.delete(req.query.id)
+    return Species.getById(req.params.id)
+        .then((species) => {
+            if (species.taxonomic_lineage) {
+                const promises = []
+                for (const taxonomic of species.taxonomic_lineage) {
+                    promises.push(Taxonomic.delete(taxonomic._id))
+                }
+                return Promise.all(promises)
+            }
+            return Promise.resolve(species)
+        })
+        .then(species => {
+            return Species.delete(req.params.id)
+        })
         .then(() => {
             res.sendStatus(200)
         })
         .catch(err => {
-            if (err.status == "Empty") {
-                res.status(400).send({
-                    message: "The species does not exist"
-                })
-            } else {
-                return res.status(500).json(err.message)
-            }
+            utils.sendErrorMessage(res, err);
         })
 })
-// /* PUT /species/:id */
-// router.put('/:id', (req, res, next) => {
-//     species.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
-//         if (err) return next(err);
-//         res.json(species);
-//    });
-//
-//
-// * DELETE /species/:id */
-// uter.delete('/:id', (req, res, next) => {
-//   species.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
-//       if (err) return next(err);
-//      console.log('species deleted:');
-//       console.log(species);
-//       res.json(species);
-//   });
-// ;
 
 module.exports = router;

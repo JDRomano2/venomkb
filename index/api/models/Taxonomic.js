@@ -77,23 +77,24 @@ Taxonomic.update = (_id, updated_taxonomic) => {
 
 /**
  * Delete a taxonomic
- * @param {ObjectId} id taxonomic id who needs to be removed from the
+ * @param {ObjectId} id taxonomic id who needs to be removed from the database
  */
 Taxonomic.delete = id => {
     return new Promise((resolve, reject) => {
-        Taxonomic.getById(id).then(taxonomic => {
-            if (!taxonomic) {
-                reject({ status: "Empty" })
+        Taxonomic.findById(id).populate("species").then(taxonomic => {
+            if (taxonomic.species.length < 2) {
+                taxonomic.remove(err => {
+                    if (err) {
+                        reject(err)
+                    }
+                    resolve()
+                })
             }
-            taxonomic.remove(err => {
-                if (err) {
-                    reject(err)
-                }
+            else {
                 resolve()
-            })
+            }
         })
     })
 }
-
 
 module.exports = mongoose.model('Taxonomic', TaxonomicSchema);

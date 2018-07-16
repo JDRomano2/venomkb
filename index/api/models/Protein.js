@@ -110,7 +110,15 @@ ProteinSchema.methods.updateOutLinks = function (out_links) {
 							resolve();
 						}).catch(reject)
 					}
-					resolve()
+					else {
+						console.log(found);
+						let out_link_index = protein.out_links.findIndex((found) => { return found == found._id })
+						if (out_link_index == -1) {
+							protein.out_links.push(found._id);
+							resolve()
+						}
+						resolve()
+					}
 				})
 			}))
 		})
@@ -245,7 +253,15 @@ ProteinSchema.methods.updateReference = function (references) {
 							resolve();
 						}).catch(reject)
 					}
-					resolve()
+					else {
+						console.log(found);
+						let reference_index = protein.literature_references.findIndex((found) => { return found == found._id })
+						if (reference_index == -1) {
+							protein.literature_references.push(found._id);
+							resolve()
+						}
+						resolve()
+					}
 				})
 			}))
 		})

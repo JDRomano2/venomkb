@@ -75,57 +75,71 @@ SpeciesSchema.methods.addTaxonomic = function (taxonomic) {
  * @param {Array} taxonomic_lineage an array of taxonomic objects
  */
 
+/**
+ * Update outlinks to a species
+ * @param {Array} taxonomic_lineage an array of taxonomic_lineage objects
+ */
+
 SpeciesSchema.methods.updateTaxonomic = function (taxonomic_lineage) {
-    if (!(taxonomic_lineage.constructor === Array)) {
-        return Promise.reject({ message: "Taxonomic not a list" })
-    }
     const species = this;
-    if (taxonomic_lineage.length === 0 || typeof taxonomic_lineage[0] == "object") {
+    if ((taxonomic_lineage instanceof Array)) {
         const promises = [];
         taxonomic_lineage.forEach(element => {
             promises.push(new Promise((resolve, reject) => {
-                return Taxonomic.findOne(element).exec().then(found => {
-                    if (found) {
-                        if (species.taxonomic_lineage.indexOf(found._id) == -1) {
-                            species.taxonomic_lineage.push(found._id);
-                            resolve()
-                        }
-                    }
-                    else {
-                        return Taxonomic.add(element).then((taxonomic) => {
+                let query = {
+                    taxonName : element.taxonName,
+                    itis_tsn : element.itis_tsn,
+                    rankName : element.rankName
+                }
+                return Taxonomic.findOne(query).exec().then(found => {
+                    
+                    if (!found) {
+                        return Taxonomic.add(query).then((taxonomic) => {
                             species.taxonomic_lineage.push(taxonomic._id);
                             resolve();
                         }).catch(reject)
                     }
+                    else {
+                        console.log(found);
+                        let taxonomic_index = species.taxonomic_lineage.findIndex((found) => { return found == found._id })
+                        if (taxonomic_index == -1) {
+                            species.taxonomic_lineage.push(found._id);
+                            resolve()                            
+                        }
+                        resolve()
+                    }
                 })
             }))
         })
+        let indexes = []
         species.taxonomic_lineage.forEach(element_id => {
             promises.push(new Promise((resolve, reject) => {
                 return Taxonomic.findOne(element_id).populate('species').exec().then((taxonomic) => {
+
                     let index = taxonomic_lineage.findIndex((element) => {
-                        return element.taxonName == taxonomic.taxonName &&
-                            element.itis_tsn == taxonomic.itis_tsn &&
-                            element.rankName == taxonomic.rankName
+                        return element.taxonName == taxonomic.taxonName && 
+                        element.itis_tsn == taxonomic.itis_tsn &&
+                            element.rankName == taxonomic.rankName 
                     })
+
                     if (index == -1) {
-                        if (taxonomic.species.length == 1) {
-                            return taxonomic.remove().then(() => {
-                                species.taxonomic_lineage.splice(index, 1)
-                                resolve()
-                            }).catch(reject)
-                        }
-                        species.taxonomic_lineage.splice(index, 1)
+                        let taxonomic_index = species.taxonomic_lineage.findIndex((element) => { return element == element_id })
+                        indexes.push(taxonomic_index)
+                        return Taxonomic.delete(element_id).then(resolve).catch(reject)
                     }
                     resolve()
-                })
+                }).catch(reject)
             }))
         })
         return Promise.all(promises).then(() => {
+            indexes = indexes.sort().reverse()
+            indexes.forEach(index => {
+                species.taxonomic_lineage.splice(index, 1)
+            })
             return species.save()
         });
     } else {
-        return Promise.reject({ message: "Taxonomicfupdate list must contain object" })
+        return Promise.reject({ message: "Taxonomic field should be an array" })
     }
 
 }

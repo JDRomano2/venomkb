@@ -63,6 +63,27 @@ describe("Species model tests", () => {
 				})
 				.catch(done)
 		})
+		it("Should delete the added species in the database", done => {
+			agent
+				.delete("/species/" + objects.species_test._id)
+				.then(res => {
+					expect(res.statusCode).to.equal(200)
+					done()
+				})
+				.catch(done)
+		})
+		it("Should add the species in the database", done => {
+			agent
+				.post("/species")
+				.send(objects.species_test)
+				.then(res => {
+					expect(res.statusCode).to.equal(200)
+					done()
+				})
+				.catch(err => {
+					done(err)
+				})
+		})
 		it("Should return 400 when try to add a species with name that already exists in the database", done => {
 			agent
 				.post("/species")
