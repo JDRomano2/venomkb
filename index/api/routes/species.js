@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const species = require('../models/Species.js');
 const Species = require('../models/Species.js');
+const Taxonomic = require('../models/Taxonomic.js');
 const utils = require("../utils.js")
 
 

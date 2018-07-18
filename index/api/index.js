@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const errorhandler = require("errorhandler")
+const fileUpload = require("express-fileupload")
 
 const routes = require('./routes/index');
 const dbindexitems = require('./routes/dbindexitems');
@@ -30,6 +31,7 @@ mongoose.Promise = global.Promise;
 //   .then(() =>  console.log('connection to MongoDB succesful'))
 //   .catch((err) => console.error(err));
 
+app.use(fileUpload())
 
 const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
 mongoose.connect(bdd_location).then(() => {

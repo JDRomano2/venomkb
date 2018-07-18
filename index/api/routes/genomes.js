@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const genome = require('../models/Genome.js');
 const Genome = require('../models/Genome.js');
+const OutLink = require('../models/Outlink.js');
 const utils = require("../utils.js")
 
 const vkbid_reg = /G\d{7}/;
@@ -145,32 +145,35 @@ router.post("/", function (req, res) {
     })
 })
 
-/* POST /genomes */
-router.post('/', (req, res, next) => {
-  genome.create(req.body,  (err, genomes) => {
-    if (err) return next(err);
-    console.log('New genome created:');
-    console.log(genomes);
-    res.json(genomes);
-  });
-});
+/**
+ * Delete a genome 
+ * @param {Query} id id of the genome to delete
+*/
+router.delete("/:id", (req, res) => {
+  if (!req.params.id) {
+    return utils.sendStatusMessage(res, 400, "Cannot delete without a genome id")
+  }
+  return Genome.getById(req.params.id)
+    .then((genome) => {
+      if (genome.out_links) {
+        const promises = []
+        for (const out_link of genome.out_links) {
+          promises.push(OutLink.delete(out_link._id))
+        }
+        return Promise.all(promises)
+      }
+      return Promise.resolve(genome)
+    })
+    .then(genome => {
+      return Genome.delete(req.params.id)
+    })
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch(err => {
+      utils.sendErrorMessage(res, err);
+    })
+})
 
-/* PUT /genomes/:id */
-router.put('/:id', (req, res, next) => {
-  genome.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
-    if (err) return next(err);
-    res.json(genomes);
-  });
-});
-
-/* DELETE /genomes/:id */
-router.delete('/:id', (req, res, next) => {
-  genome.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
-    if (err) return next(err);
-    console.log('genome deleted:');
-    console.log(genomes);
-    res.json(genomes);
-  });
-});
 
 module.exports = router;

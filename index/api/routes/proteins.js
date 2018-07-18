@@ -208,6 +208,96 @@ router.post("/", function (req, res) {
 })
 
 /**
+     * Create new protein from file
+     * @param {Body} name
+     * @param {Body} description
+    */
+router.post("/file", function (req, res) {
+    // Check if all the necessary fields are there
+
+    if (!req.files)
+        return res.status(400).send('No files were uploaded.');
+
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let json_file = req.files.json_file;
+
+    json_file = JSON.parse(json_file.data.toString("utf-8"))
+
+    if (json_file instanceof Object) {
+        json_file = [json_file]
+    }
+
+    const promises = [];
+
+    json_file.forEach(protein => {
+        // Check if the protein already exists
+        promises.push(Protein.getByVenomKBId(protein.venomkb_id)
+            .then(protein => {
+                if (protein) {
+                    return Promise.reject({ message: "venomkb_id already exists" })
+                }
+                return Promise.resolve();
+            })
+            .then(() => {
+                // Create a new protein
+                var new_protein = {
+                    name: protein.name,
+                    lastUpdated: protein.lastUpdated,
+                    venomkb_id: protein.venomkb_id,
+                    common_name: protein.common_name,
+                    venom_ref: protein.venom_ref,
+                    annotation_score: protein.annotation_score,
+                    pdb_structure_known: protein.pdb_structure_known,
+                    description: protein.description,
+                    aa_sequence: protein.aa_sequence,
+                    pdb_image_url: protein.pdb_image_url
+                }
+                return Protein.add(new_protein)
+            })
+            .then((new_protein) => {
+                // add out links
+                if (protein.out_links) {
+                    return new_protein.addOutLinks(protein.out_links)
+                } else {
+                    return Promise.resolve(new_protein);
+                }
+            })
+            .then((new_protein) => {
+                // add literature predication
+    
+                if (protein.literature_predications) {
+                    return new_protein.addLiterature(protein.literature_predications)
+                } else {
+                    return Promise.resolve(new_protein);
+                }
+            })
+            .then((new_protein) => {
+                // add literature reference
+                if (protein.literature_references && protein.literature_references.length > 0) {
+                    return new_protein.addReference(protein.literature_references)
+                } else {
+                    return Promise.resolve(new_protein);
+                }
+            })
+            .then((new_protein) => {
+                // add go annotation
+                if (protein.go_annotations) {
+                    return new_protein.addGOAnnotation(protein.go_annotations)
+                } else {
+                    return Promise.resolve(new_protein);
+                }
+            }))
+    });
+    return Promise.all(promises)
+    .then(() => {
+        res.sendStatus(200)
+    })
+    .catch((err) => {
+        utils.sendErrorMessage(res, err);
+    })
+})
+
+/**
  * Update a protein
  * @param {Body} name
  * @param {Body} description

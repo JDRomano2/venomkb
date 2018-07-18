@@ -61,6 +61,16 @@ describe("Genome model tests", () => {
 			agent
 				.get("/genomes/search?name=" + objects.genome_test.name)
 				.then(res => {
+					objects.genome_test._id = res.body._id
+					expect(res.statusCode).to.equal(200)
+					done()
+				})
+				.catch(done)
+		})
+		it("Should delete the added genome in the database", done => {
+			agent
+				.delete("/genomes/" + objects.genome_test._id)
+				.then(res => {
 					expect(res.statusCode).to.equal(200)
 					done()
 				})

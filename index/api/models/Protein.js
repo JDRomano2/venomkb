@@ -18,7 +18,7 @@ const LiteratureSchema = new mongoose.Schema({
 	o_name: { type: String, required: true },
 	o_cui: { type: String, required: true },
 	o_type: { type: String, required: true },
-	id_pred: { type: String, required: true, unique: true, sparse: true },
+	id_pred: { type: String, required: true },
 	vkb_protein_ref: { type: String, required: true },
 	pmid: { type: Number, required: true },
 	toxprot_id: String,
@@ -473,8 +473,8 @@ Protein.update = (venomkb_id, updated_protein) => {
 //========================================
 
 /**
- * Delete a reference
- * @param {ObjectId} id reference id who needs to be removed from the database
+ * Delete a protein
+ * @param {ObjectId} id reference id of the protein which needs to be removed from the database
  */
 Protein.delete = id => {
 	return new Promise((resolve, reject) => {
