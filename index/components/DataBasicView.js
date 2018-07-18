@@ -90,8 +90,8 @@ class DataBasicView extends Component {
         const common_name = this.props.common_name;
         const dataType = this.props.selectedDatum.charAt(0);
 
-        console.log("LOADED DATA: ");
-        console.log(JSON.stringify(this.state.currentData, null, 2));
+        //console.log("LOADED DATA: ");
+        //console.log(JSON.stringify(this.state.currentData, null, 2));
 
         switch (dataType) {
             case 'P':
