@@ -35,11 +35,9 @@ router.get('/index', (req, res, next) => {
  */
 router.get('/search', (req, res, next) => {
   if (!req.query.name) {
-    console.log("You must enter a name");
     return utils.sendStatusMessage(res, 400, "systemic_effect name not specified")
-
   }
-  console.log("Find by name");
+  console.log("Find systemic effect by name");
   SystemicEffect.getByName(req.query.name)
     .then(systemic_effect => {
       res.json(systemic_effect)
@@ -59,14 +57,14 @@ router.get('/:id', (req, res, next) => {
     return utils.sendStatusMessage(res, 400, "systemic_effect id not specified")
   }
   if (vkbid_reg.test(req.params.id)) {
-    console.log("Find by VenomKB id");
+    console.log("Find systemic effect by VenomKB id");
     SystemicEffect.getByVenomKBId(req.params.id)
       .then(systemic_effect => {
         res.json(systemic_effect)
       })
       .catch()
   } else {
-    console.log("Find by id");
+    console.log("Find systemic effect by id");
     SystemicEffect.getById(req.params.id)
       .then(systemic_effect => {
         res.json(systemic_effect)
@@ -84,11 +82,9 @@ router.get('/:id', (req, res, next) => {
  */
 router.get('/search', (req, res, next) => {
   if (!req.query.name) {
-    console.log("You must enter a name");
     return utils.sendStatusMessage(res, 400, "systemic_effect name not specified")
-
   }
-  console.log("Find by name");
+  console.log("Find systemic effect by name");
   SystemicEffect.getByName(req.query.name)
 		.then(systemic_effect => {
       res.json(systemic_effect)
@@ -117,8 +113,6 @@ router.post("/", function (req, res) {
   // Check if the systemic_effect already exists
   return SystemicEffect.getByVenomKBId(req.body.venomkb_id)
     .then(systemic_effect => {
-      console.log("try to find systemic_effect", systemic_effect);
-
       if (systemic_effect) {
         return Promise.reject({ message: "venomkb_id already exists" })
       }
@@ -170,7 +164,7 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   systemic_effect.findByIdAndRemove(req.params.id, req.body, (err, todo) => {
     if (err) return next(err);
-    console.log('systemic_effect deleted:');
+    console.log('Systemic effect deleted:');
     console.log(systemic_effects);
     res.json(systemic_effects);
   });

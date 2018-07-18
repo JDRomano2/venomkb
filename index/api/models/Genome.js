@@ -180,8 +180,6 @@ Genome.getByName = (name, path) => {
                 if (err) {
                     reject(err);
                 }
-                console.log(genomes.length);
-
                 resolve(genomes);
             });
     });

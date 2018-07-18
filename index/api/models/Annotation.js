@@ -18,8 +18,6 @@ Annotation = mongoose.model('Annotation', AnnotationSchema);
  * @param {Object} new_annotation to be added
  */
 Annotation.add = new_annotation => {
-    console.log("enter add annotation fonction");
-
     return new Promise((resolve, reject) => {
         Annotation.create(new_annotation, (err, created_annotation) => {
             if (err) reject(err)

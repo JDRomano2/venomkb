@@ -42,11 +42,9 @@ router.get('/index', (req, res, next) => {
 /* GET /species/name */
 router.get('/search', (req, res, next) => {
     if (!req.query.name) {
-        console.log("You must enter a name");
         return utils.sendStatusMessage(res, 400, "species name not specified")
-
     }
-    console.log("Find by name");
+    console.log("Find species by name");
     Species.getByName(req.query.name)
         .then(species => {
             res.json(species)
@@ -64,11 +62,9 @@ router.get('/search', (req, res, next) => {
 /* GET /species/name */
 router.get('/search', (req, res, next) => {
     if (!req.query.name) {
-        console.log("You must enter a name");
         return utils.sendStatusMessage(res, 400, "species name not specified")
-
     }
-    console.log("Find by name");
+    console.log("Find species by name");
     Species.getByName(req.query.name)
         .then(species => {
             res.json(species.length)
@@ -89,15 +85,15 @@ router.get('/:id', (req, res, next) => {
         return utils.sendStatusMessage(res, 400, "species id not specified")
     }
     if (vkbid_reg.test(req.params.id)) {
-        console.log("Find by VenomKB id");
-        Species.getByVenomKBId(req.params.id)
+        console.log("Find species by VenomKB id");
+        Species.getByVenomKBId(req.params.id, req.query.populate)
             .then(species => {
                 res.json(species)
             })
             .catch()
     } else {
-        console.log("Find by id");
-        Species.getById(req.params.id)
+        console.log("Find species by MongoDB id");
+        Species.getById(req.params.id, req.query.populate)
             .then(species => {
                 res.json(species)
             })
@@ -134,7 +130,6 @@ router.post("/", function (req, res) {
         return utils.sendStatusMessage(res, 400, "The venom protein field is empty")
     }
 
-    // Check if the species already exists
     return Species.getByVenomKBId(req.body.venomkb_id)
         .then(species => {
             if (species) {
@@ -242,7 +237,7 @@ router.post("/update/:id", function (req, res) {
             return Species.update(req.body.venomkb_id, new_species)
         })
         .then((new_species) => {
-            
+
             // update taxonomic lineage
             if (req.body.taxonomic_lineage) {
                 return new_species.updateTaxonomic(req.body.taxonomic_lineage)
@@ -252,7 +247,7 @@ router.post("/update/:id", function (req, res) {
         })
         .then((new_species) => {
             console.log(new_species);
-            
+
             // update venom
             if (req.body.venom) {
                 return new_species.updateVenom(req.body.venom)
@@ -285,7 +280,7 @@ router.get('/index', (req, res, next) => {
 });
 
 /**
- * Delete a species 
+ * Delete a species
  * @param {Query} id id of the species to delete
 */
 router.delete("/:id", (req, res) => {

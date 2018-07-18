@@ -7,6 +7,34 @@ const getItisUrl = (tsn) => {
     return itisBaseUrl + tsn;
 };
 
+class LineageItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            taxon: props.taxon,
+            index: props.index,
+        };
+    }
+
+    render() {
+        const {
+            taxon,
+            index,
+        } = this.state;
+
+        return (
+            <div>
+                {Array(index).join(' ')}{taxon.rankName}: <a
+                href={getItisUrl(taxon.itis_tsn)}
+                target="_blank">
+                    {taxon.taxonName}
+                </a>
+            </div>
+        )
+    }
+}
+
 class TaxonomyDetail extends Component {
     constructor(props) {
         super(props);
@@ -22,13 +50,7 @@ class TaxonomyDetail extends Component {
     hierarchyList = () => {
         const lineage = this.props.taxonomic_lineage;
         const lineageItems = lineage.map((taxon, index) =>
-            <div>
-                {Array(index).join(' ')}{taxon.rankName}: <a
-                href={getItisUrl(taxon.itis_tsn)}
-                target="_blank">
-                    {taxon.taxonName}
-                </a>
-            </div>
+            <LineageItem taxon={taxon} index={index} key={index} />
         );
         return lineageItems;
     }

@@ -25,9 +25,7 @@ router.get('/', (req, res) => {
             proteins.forEach(element => {
                 element.data_type = "Protein"
             });
-           index = index.concat(proteins)
-            console.log(index);
-            
+            index = index.concat(proteins)
         })
         .then(Species.getIndex)
         .then( species => {

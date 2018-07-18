@@ -55,11 +55,9 @@ router.get('/index', (req, res, next) => {
 /* GET /proteins/name */
 router.get('/search', (req, res, next) => {
     if (!req.query.name) {
-        console.log("You must enter a name");
         return utils.sendStatusMessage(res, 400, "protein name not specified")
-
     }
-    console.log("Find by name");
+    console.log("Find protein by name");
     Protein.getByName(req.query.name)
         .then(protein => {
             res.json(protein)
@@ -77,11 +75,9 @@ router.get('/search', (req, res, next) => {
 /* GET /proteins/name */
 router.get('/count', (req, res, next) => {
     if (!req.query.name) {
-        console.log("You must enter a name");
         return utils.sendStatusMessage(res, 400, "protein name not specified")
-
     }
-    console.log("Find by name");
+    console.log("Count proteins by name match");
     Protein.getByName(req.query.name)
         .then(proteins => {
             res.json(proteins.length)
@@ -102,15 +98,14 @@ router.get('/:id', (req, res, next) => {
         return utils.sendStatusMessage(res, 400, "protein id not specified")
     }
     if (vkbid_reg.test(req.params.id)) {
-        console.log("Find by VenomKB id");
-        
+        console.log("Find protein by VenomKB id");
         Protein.getByVenomKBId(req.params.id)
             .then(protein => {
                 res.json(protein)
             })
             .catch()
     } else {
-        console.log("Find by id");
+        console.log("Find protein by id");
         Protein.getById(req.params.id)
             .then(protein => {
                 res.json(protein)
@@ -312,7 +307,7 @@ router.delete("/:id", (req, res) => {
                     promises.push(OutLink.delete(out_link._id))
                 }
                 return Promise.all(promises)
-            }   
+            }
             return Promise.resolve(protein)
         })
         .then((protein) => {
@@ -322,7 +317,7 @@ router.delete("/:id", (req, res) => {
                     promises.push(Reference.delete(references._id))
                 }
                 return Promise.all(promises)
-            }  
+            }
             return Promise.resolve(protein)
         })
         .then(protein => {

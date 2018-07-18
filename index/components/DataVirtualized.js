@@ -297,7 +297,6 @@ class DataVirtualized extends PureComponent {
     }
 
     render() {
-        console.log('Protein annotations:', this.state.systemicEffectProteinAnnotations);
         const list = List(this.state.filteredData);
 
         const sortedList = this._isSortEnabled()

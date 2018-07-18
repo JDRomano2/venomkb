@@ -109,8 +109,6 @@ VenomSeqSchema.methods.addSpecies = function (species_venomkb_id) {
     Species.getByVenomKBId(species_venomkb_id)
         .then((species) => {
             if (species) {
-                console.log("Species found", species._id);
-                
                 venom_seq.species_ref = species._id
                 return venom_seq.save()
             }
@@ -138,8 +136,6 @@ VenomSeqSchema.methods.addGenesUp = function (genes_up) {
         })
         return venom_seq.save()
     } else {
-        console.log(genes_up);
-        
         return Promise.reject({ message: "Genes up list must contain object" })
     }
 }
@@ -161,7 +157,6 @@ VenomSeqSchema.methods.addGenesDown = function (genes_down) {
         })
         return venom_seq.save()
     } else {
-        console.log(genes_down);
         return Promise.reject({ message: "Genes down list must contain object" })
     }
 

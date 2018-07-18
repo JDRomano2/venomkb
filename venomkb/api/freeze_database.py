@@ -368,7 +368,7 @@ if __name__ == '__main__':
   RUN_MAIN()
 
 
-  with open(os.getcwd() + '/venomkb/api/venomseq.json') as f:
+  with open(os.getcwd() + '/venomkb/semantic_api/venomseq.json') as f:
     venomseq = json.load(f)
     venomSeqData = []
     for venom in venomseq:
@@ -397,5 +397,5 @@ if __name__ == '__main__':
 
     neo = ne.Neo4jWriter(URI, USER, PASSWORD, verbose=True)
 
-    for venom in venomSeqData : 
+    for venom in venomSeqData :
       neo.venomSeqData(venom["name"], venom["venomkb_id"], venom["species_ref"], venom["genes_up"], venom["genes_down"])

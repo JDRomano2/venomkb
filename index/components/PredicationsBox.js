@@ -23,6 +23,9 @@ class PredicationsBox extends React.Component {
             accessor: 'pmid'
         }];
 
+        console.log("predications:");
+        console.log(this.props.predications);
+
         return (
             <div className="jdr-box">
                 <h3 style={{'display': 'inline-block'}}>Literature predications</h3><span
@@ -50,7 +53,7 @@ class PredicationsBox extends React.Component {
 }
 
 PredicationsBox.propTypes = {
-    predications: PropTypes.array.isRequired
+    predications: PropTypes.array
 };
 
 export default PredicationsBox;
