@@ -55,6 +55,73 @@ GenomeSchema.methods.addOutLink = function (out_links) {
 }
 
 /**
+ * Update outlinks to a genome
+ * @param {Array} out_links an array of out_links objects
+ */
+
+GenomeSchema.methods.updateOutLinks = function (out_links) {
+    const genome = this;
+    if ((out_links instanceof Array)) {
+        const promises = [];
+        out_links.forEach(element => {
+            promises.push(new Promise((resolve, reject) => {
+                let query = {
+                    primary_id: element.primary_id,
+                    resource: element.resource,
+                    shared: element.shared
+                }
+                return OutLink.findOne(query).exec().then(found => {
+                    if (!found) {
+                        return OutLink.add(query).then((out_link) => {
+                            genome.out_links.push(out_link._id);
+                            resolve();
+                        }).catch(reject)
+                    }
+                    else {
+                        console.log(found);
+                        let out_link_index = genome.out_links.findIndex((found) => { return found == found._id })
+                        if (out_link_index == -1) {
+                            genome.out_links.push(found._id);
+                            resolve()
+                        }
+                        resolve()
+                    }
+                })
+            }))
+        })
+        let indexes = []
+        genome.out_links.forEach(element_id => {
+            promises.push(new Promise((resolve, reject) => {
+                return OutLink.findOne(element_id).populate('genomes').exec().then((out_link) => {
+                    console.log(element_id);
+
+                    let index = out_links.findIndex((element) => {
+                        return element.resource == out_link.resource &&
+                            element.primary_id == out_link.primary_id
+                    })
+
+                    if (index == -1) {
+                        let out_link_index = genome.out_links.findIndex((element) => { return element == element_id })
+                        indexes.push(out_link_index)
+                        return OutLink.delete(element_id).then(resolve).catch(reject)
+                    }
+                    resolve()
+                }).catch(reject)
+            }))
+        })
+        return Promise.all(promises).then(() => {
+            indexes = indexes.sort().reverse()
+            indexes.forEach(index => {
+                genome.out_links.splice(index, 1)
+            })
+            return genome.save()
+        });
+    } else {
+        return Promise.reject({ message: "Out links field should be an array" })
+    }
+}
+
+/**
  * Add literature references to a genome
  * @param {Array} references an array of literature_reference objects
  */
@@ -199,6 +266,38 @@ Genome.add = new_genome => {
         Genome.create(new_genome, (err, created_genome) => {
             if (err) reject(err)
             resolve(created_genome)
+        })
+    })
+}
+
+//========================================
+// UPDATE
+//========================================
+/**
+ * Update a genome to the database
+ * @param {Object} updated_genome
+ */
+Genome.update = (venomkb_id, updated_genome) => {
+    return Genome.findOneAndUpdate({ venomkb_id: venomkb_id }, updated_genome).exec()
+}
+
+//========================================
+// DELETE
+//========================================
+
+/**
+ * Delete a genome
+ * @param {ObjectId} id genome id which needs to be removed from the database
+ */
+Genome.delete = id => {
+    return new Promise((resolve, reject) => {
+        Genome.findById(id).then(genome => {
+            return genome.remove(err => {
+                if (err) {
+                    reject(err)
+                }
+                resolve()
+            })
         })
     })
 }

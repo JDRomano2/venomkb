@@ -58,6 +58,7 @@ describe("Species model tests", () => {
 			agent
 				.get("/species/search?name=" + objects.species_test.name)
 				.then(res => {
+					objects.species_test._id = res.body._id
 					expect(res.statusCode).to.equal(200)
 					done()
 				})
