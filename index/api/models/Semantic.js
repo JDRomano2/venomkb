@@ -18,21 +18,21 @@ const SemanticSchema = new mongoose.Schema({
 
 const Semantic = mongoose.model('Semantic', SemanticSchema);
 
-Semantic.runQuery = async (query) => {
-    const q = new Query(query, neo);
+// Semantic.runQuery = async (query) => {
+//     const q = new Query(query, neo);
 
-    await q.retrieveSubgraph();
+//     await q.retrieveSubgraph();
 
-    const result = q['result'];
+//     const result = q['result'];
 
-    return {result};
-}
+//     return {result};
+// }
 
-Semantic.fetchFromQuery = (query_json) => {
-    return new Promise((resolve, reject) => {
-        Semantic.runQuery({query: query_json})
-    })
-}
+// Semantic.fetchFromQuery = (query_json) => {
+//     return new Promise((resolve, reject) => {
+//         Semantic.runQuery({query: query_json})
+//     })
+// }
 
 
 module.exports = Semantic;

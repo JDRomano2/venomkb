@@ -54,7 +54,7 @@ describe('Neo4j connection', () => {
 		}).catch((err) => {
 			done(err);
 		})
-	})
+	}).timeout(5000)
 });
 
 describe('Initialize query', () => {
