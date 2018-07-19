@@ -12,10 +12,7 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 
-const {
-	NeoAdapter,
-	Query
-} = require('./Query');
+const {	NeoAdapter, Query } = require('./Query');
 const examples = require('./examples');
 const {
 	USER,
