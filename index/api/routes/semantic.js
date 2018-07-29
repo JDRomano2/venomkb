@@ -14,8 +14,32 @@ const {
 
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
+
 /**
  * Send a json and return the answer
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/", function (req, res) {
+    
+    json = req.body;
+    console.log(json);
+    
+    const query = new Query(json, neo);
+    query.retrieveSubgraph().then(() => {
+        console.log(query["select"]);
+        res.json(query["result"]);
+    }).catch(err => {
+        console.log(err);
+        
+        res.status(500).send(err)
+    })
+})
+
+
+
+/**
+ * Send a json file and return the answer
  * @param {Body} name
  * @param {Body} description
 */
@@ -29,17 +53,15 @@ router.post("/file",async function (req, res) {
     let json_file = req.files.json_file;
     json_file = JSON.parse(json_file.data.toString("utf-8"))
 
-    console.log(json_file);
     const query = new Query(json_file, neo);
     await query.retrieveSubgraph();
-    res.json(query["result"]);
-
-
-
-
+    console.log(query["select"]);
     
- 
+    res.json(query["result"]);
 })
+
+
+
 
 
 

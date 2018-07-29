@@ -93,6 +93,7 @@ describe('Initialize query', () => {
 		expect(q9['ontologyClasses']).to.include("VenomSeqData", "Protein")
 		done()
 	})
+
 	it("Should parse constraints correctly", (done) => {
 		expect(q1['constraints'].length).to.equal(1)
 		expect(q1['constraints'][0]).to.eql({
@@ -213,6 +214,8 @@ describe('Initialize query', () => {
 			"Protein": null
 		}])
 
+		q8['select'] = [{ "Species": ["name"] }, {"Protein": null}]
+
 		expect(q9['select'].length).to.equal(1)
 		expect(q9['select']).to.eql([{
 			"VenomSeqData": ["genes_up"]
@@ -253,7 +256,12 @@ describe('Test generate cypher query', () => {
 			['Species', 'HAS_VENOMSEQ_DATASET', 'VenomSeqData'] )
 
 		done()
-	})
+
+		q8["relationship"][0] = [['SystemicEffect', 'INFLUENCED_BY_PROTEIN', 'Protein'], 
+								['Protein', 'PROTEIN_FROM_SPECIES', 'Species'] ]
+		})
+
+		
 	it('Should build a match string', (done) => {
 		expect(q1["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")
 		expect(q2["query_match"]).to.equal("MATCH (p:Protein)-[:PROTEIN_FROM_SPECIES]->(s:Species)")

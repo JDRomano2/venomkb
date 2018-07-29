@@ -172,7 +172,7 @@ module.exports = {
                 }
             ]
         },
-        "post-treatment": {
+        "post_treatment": {
             "exists": true
         }
     },
@@ -205,9 +205,9 @@ module.exports = {
                 "attribute" : "name",
                 "class": "Species"
             },    
-            "count" : {
-                "class" : "Protein"
-            }
+            // "count" : {
+            //     "class" : "Protein"
+            // }
         }
     },
     // Ask: 'What species and what proteins are related to Osteosarcoma?'
@@ -235,7 +235,7 @@ module.exports = {
             ]
         }
         
-    }
+    },
     // Ask: 'For venom with a phospholipase A2 protein, which genes are upregulated in VenomSeq?'
     //
     // Query:
@@ -247,7 +247,43 @@ module.exports = {
     // Expect:
     // 1 species : "Crotalus viridis viridis"
     // 1 protein : Zinc metalloproteinase-disintegrin-like crovidisin
+    ex10: {
+        "select": "Species",
+        "declare": {
+            "SystemicEffect": [
+                {
+                    "attribute": "name",
+                    "operator": "equals",
+                    "value": "Leukemia, Myelogenous, Chronic, BCR-ABL Positive"
+                }
+            ]
+        }, 
+        "aggregate": {
+            "distinct": {
+                "attribute": "name",
+                "class": "Species"
+            }
+        }
+    },
 
+    ex11: {
+        "select": "Species",
+        "declare": {
+            "SystemicEffect": [
+                {
+                    "attribute": "name",
+                    "operator": "equals",
+                    "value": "Neovascularization, Pathologic"
+                }
+            ]
+        },
+        "aggregate": {
+            "distinct": {
+                "attribute": "name",
+                "class": "Species"
+            }
+        }
+    }
 
 
 

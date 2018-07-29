@@ -1,0 +1,18 @@
+{
+    "select": "Species",
+    "declare": {
+        "SystemicEffect": [
+            {
+                "attribute": "name",
+                "operator": "equals",
+                "value": "Neovascularization, Pathologic"
+            }
+        ]
+    },
+    "aggregate": {
+        "distinct": {
+            "attribute": "name",
+            "class": "Species"
+        }
+    }
+}

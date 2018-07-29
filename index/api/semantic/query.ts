@@ -10,7 +10,7 @@ let item = {
     Protein: "p",
     Species: "s",
     Pfam: "f",
-    SystemicEffect: "se",
+    SystemicEffect: "se", 
     OntologyClass: "c",
     Genome: "g",
     VenomSeqData: "v"
@@ -22,7 +22,9 @@ enum ontology {
     Pfam = "Pfam",
     Species = "Species",
     Genome = "Genome",
-    SystemicEffect = "SystemicEffect"
+    SystemicEffect = "SystemicEffect",
+    VenomSeqData =  "VenomSeqData"
+
 }
 
 enum properties {
@@ -220,7 +222,7 @@ class Query {
     /** 
      *
      */
-    collectOntologyClasses(): void {
+    async collectOntologyClasses() {
         // All keys of this.json["declare"] should be ontology classes
         if (this.json.declare) {
             var keys: Array<ontology> = <Array<ontology>>Object.keys(this.json.declare)
@@ -259,15 +261,20 @@ class Query {
     /**
      *
      */
-    collectConstraints(): void {
+    async collectConstraints() {
         // We just push each of the key-value pairs in this.json["declare"]
         // into this.constraints, meaning we have a list of constraints
-
+        console.log("Enter contrainte AAAAAAAAAAAAAAAAAAAAAAAA");
+        
         if ("declare" in this.json) {
+            console.log("Enter contrainte BBBBBBBBBBBBBBBBBBBBBBB");
+
             var classes: Array<ontology> = <Array<ontology>>Object.keys(this.json["declare"])
+            
             for (let i in classes) {
                 let ontology_class: ontology = classes[i]
                 const object = this.json["declare"][ontology_class][0]
+                console.log("classes", object);
 
                 var new_constraint: constraint = {
                     class: ontology_class,
@@ -285,7 +292,7 @@ class Query {
     /**
    *
    */
-    collectSelect() {
+    async collectSelect() {
 
         if (typeof this.json.select == "string") {
 
@@ -437,17 +444,21 @@ class Query {
      */
     buildQueryMatch(): void {
         var query_match = "MATCH "
-
-        var class1 = <ontology>this.relationship[0][0]
-        var class2 = <ontology>this.relationship[0][2]
-        var rel = this.relationship[0][1]
-        query_match += "(" + item[class1] + ":" + class1 + ")-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
-
-        for (let i = 1; i < this.relationship.length; i++) {
-            class2 = <ontology>this.relationship[i][2]
-            var rel = this.relationship[i][1]
-            query_match += "-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
-
+        if (this.ontologyClasses.length == 1) {
+            query_match += "(" + item[this.ontologyClasses[0]] + ":" + this.ontologyClasses[0] + ")"
+        }
+        else {
+            var class1 = <ontology>this.relationship[0][0]
+            var class2 = <ontology>this.relationship[0][2]
+            var rel = this.relationship[0][1]
+            query_match += "(" + item[class1] + ":" + class1 + ")-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
+    
+            for (let i = 1; i < this.relationship.length; i++) {
+                class2 = <ontology>this.relationship[i][2]
+                var rel = this.relationship[i][1]
+                query_match += "-[:" + rel + "]->(" + item[class2] + ":" + class2 + ")"
+    
+            }
         }
         this.query_match = query_match
     }
@@ -485,29 +496,31 @@ class Query {
         // This method looks at this.ontologyClasses and writes
         // a MATCH clause that contains a subgraph with each of these classes
         // included.
-
-        const class1 = this.ontologyClasses[0]
-        const class2 = this.ontologyClasses[1]
-
-
         if (this.ontologyClasses.length > 1) {
-            var result = await this.findShortestPathBetween2(this.ontologyClasses[0], this.ontologyClasses[1])
-            var tables_relationship = this.findMultipleRelation(result)
-        }
-
-        if (this.ontologyClasses.length > 2) {
-            const ontology: ontology = this.ontologyClasses[2]
-            var ontology_linked = []
-            for (let relation of this.relationship) {
-                ontology_linked.push(relation[0])
-                ontology_linked.push(relation[2])
-            }
-            if (!ontology_linked.includes(ontology)) {
-                var result = await this.findShortestPathBetween2(this.ontologyClasses[1], this.ontologyClasses[2])
+            
+            const class1 = this.ontologyClasses[0]
+            const class2 = this.ontologyClasses[1]
+            
+            
+            if (this.ontologyClasses.length > 1) {
+                var result = await this.findShortestPathBetween2(this.ontologyClasses[0], this.ontologyClasses[1])
                 var tables_relationship = this.findMultipleRelation(result)
             }
+            
+            if (this.ontologyClasses.length > 2) {
+                const ontology: ontology = this.ontologyClasses[2]
+                var ontology_linked = []
+                for (let relation of this.relationship) {
+                    ontology_linked.push(relation[0])
+                    ontology_linked.push(relation[2])
+                }
+                if (!ontology_linked.includes(ontology)) {
+                    var result = await this.findShortestPathBetween2(this.ontologyClasses[1], this.ontologyClasses[2])
+                    var tables_relationship = this.findMultipleRelation(result)
+                }
+            }
         }
-
+            
         // console.log("relationship", tables_relationship);
 
         this.buildQueryMatch()
@@ -755,50 +768,49 @@ class Query {
      * by the constructor.
      */
     async retrieveSubgraph() {
-        // Determine the ontology classes spanning the subgraph
         var valide = this.valideJson(this.json)
-        // console.log("Validate Json ", valide);
-
-        var result = await this.findPropertyKeys()
-        this.treatPropertyKeys(result)
-        // console.log(this.properties);
-        var result = await this.findOntologyClasses()
-        this.treatontologyClasses(result)
-
-        this.collectOntologyClasses();
-        // -> set ontologyClasses to ['Species', 'Protein']
-
-        // Apply constraints to ontology classes when provided, such as
-        // filtering by name
-        this.collectConstraints();
-        // -> set constraints to [{"Protein": {"name": {"contains": "Phospholipase"} } }]
-
-        // Determine what should be return
-        this.collectSelect();
-        // -> set select to [[Species, complete], [Protein, name]]
-
-        // Build a string corresponding to the cypher query
-        // (Probably the most complicated method in this class)
-        await this.generateCypherQuery();
-        console.log("\n\n", this.query);
-
-        console.log("\n\n");
-        console.log("constraints", this.constraints);
-        console.log("ontology", this.ontologyClasses);
-        console.log("select", this.select);
-
-        // Run the query on the graph database
-        // (utilizes adapter we previously specified)
-        var result = await this.executeQuery();
-        this.treatResult(result)
-        console.log("relationship", this.relationship);
-
-        // console.log("\n\n");
-        console.log("\n\nresultat", this.result.length);
-        // Apply any final filtering steps or transformations that aren't yet
-        // taken care of. We can build features into this as we encounter
-        // scenarios that can't be handled by the cypher query alone.
-        this.finishAggregation();
+        if (valide) {
+            var result = await this.findPropertyKeys()
+            this.treatPropertyKeys(result)
+            var result = await this.findOntologyClasses()
+            this.treatontologyClasses(result)
+            
+            const promises =[]
+            promises.push(this.collectOntologyClasses())
+            promises.push(this.collectConstraints())
+            promises.push(this.collectSelect())
+    
+            // Apply constraints to ontology classes when provided, such as
+            // filtering by name
+            // -> set constraints to [{"Protein": {"name": {"contains": "Phospholipase"} } }]
+    
+            // Determine what should be return
+            // -> set select to [[Species, complete], [Protein, name]]
+    
+            // Build a string corresponding to the cypher query
+            // (Probably the most complicated method in this class)
+            await this.generateCypherQuery();
+            console.log("\n\n", this.query);
+    
+            console.log("\n\n");
+            console.log("constraints", this.constraints);
+            console.log("ontology", this.ontologyClasses);
+            console.log("select", this.select);
+    
+            // Run the query on the graph database
+            // (utilizes adapter we previously specified)
+            var result = await this.executeQuery();
+            this.treatResult(result)
+            console.log("relationship", this.relationship);
+    
+            // console.log("\n\n");
+            console.log("\n\nresultat", this.result);
+            // Apply any final filtering steps or transformations that aren't yet
+            // taken care of. We can build features into this as we encounter
+            // scenarios that can't be handled by the cypher query alone.
+            this.finishAggregation();
+            
+        }
         this.neo4j_adapter.driver.close();
     }
 }
@@ -807,9 +819,9 @@ class Query {
 // Test the class out
 const neo = new NeoAdapter(config.USER, config.PASSWORD, config.URI);
 
-const q9 = new Query(examples.ex9, neo);
+const q10 = new Query(examples.ex10, neo);
 
-q9.retrieveSubgraph().then(() => {
+q10.retrieveSubgraph().then(() => {
     console.log("finished!");
 }).catch(err => {
     console.log(err);
