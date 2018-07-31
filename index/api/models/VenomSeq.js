@@ -21,6 +21,15 @@ const VenomseqGeneSchema = new mongoose.Schema({
     symbol: { type: String, required: true, default: undefined}
 });
 
+
+const CmapConnectivitySchema = new mongoose.Schema({
+    pert_name: { type: String, required: true },
+    score: { type: Number, required: true },
+    type: { type: String, required: true },
+    atc_code : { type: String},
+    pubchem_id : {type: String}
+});
+
 // Schema to enforce consistent structure.
 const VenomSeqSchema = new mongoose.Schema({
     lastUpdated: { type: Date, default: Date.now},
@@ -34,7 +43,11 @@ const VenomSeqSchema = new mongoose.Schema({
     genes_down: [VenomseqGeneSchema],
     samples: [SampleSchema],
     raw_data: String,
-    out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
+    out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }],
+    cmap_connectivity : {
+        top_20: [CmapConnectivitySchema],
+        bottom_20: [CmapConnectivitySchema]
+    }
 });
 
 /**
@@ -93,6 +106,52 @@ VenomSeqSchema.methods.addSamples = function (sample_list) {
         return venom_seq.save()
     } else {
         return Promise.reject({ message: "Sample list must contain object" })
+    }
+}
+
+/**
+ * Add top 20 cmap connectivity to a venomseq
+ * @param {Array} top_20 an array of connectivity objects
+ */
+VenomSeqSchema.methods.addTopConnectivity = function (top_20) {
+    if (!(top_20 instanceof Array)) {
+        return Promise.reject({ message: "Top 20 not a list" })
+    }
+
+    const venom_seq = this;
+
+    if (typeof top_20[0] == "object") {
+        top_20.forEach(connectivity => {
+            venom_seq.cmap_connectivity.top_20.push(connectivity);
+        })
+        return venom_seq.save()
+        console.log(venom_seq);
+        
+    } else {
+        return Promise.reject({ message: "Top 20 must contain object" })
+    }
+}
+
+/**
+ * Add top 20 cmap connectivity to a venomseq
+ * @param {Array} bottom_20 an array of connectivity objects
+ */
+VenomSeqSchema.methods.addBottomConnectivity = function (bottom_20) {
+    if (!(bottom_20 instanceof Array)) {
+        return Promise.reject({ message: "Top 20 not a list" })
+    }
+
+    const venom_seq = this;
+
+    if (typeof bottom_20[0] == "object") {
+        bottom_20.forEach(connectivity => {
+            venom_seq.cmap_connectivity.bottom_20.push(connectivity);
+        })
+        return venom_seq.save()
+        console.log(venom_seq);
+
+    } else {
+        return Promise.reject({ message: "Top 20 must contain object" })
     }
 }
 

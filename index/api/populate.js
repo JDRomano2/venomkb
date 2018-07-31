@@ -8,6 +8,7 @@ const species_list = require('./species_06272017')
 const proteins = require('./proteins_06272017')
 const systemic_effects = require('./systemic')
 const venomseqs = require('./venomseq')
+const connectivity = require('./connectivity')
 
 const axios = require('axios')
 

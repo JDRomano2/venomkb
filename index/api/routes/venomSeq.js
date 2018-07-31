@@ -125,19 +125,35 @@ router.post("/", function (req, res) {
                 return Promise.resolve(new_venom_seq);
             }
         })
+        // .then((new_venom_seq) => {
+        //     // add genes down
+        //     if (req.body.genes_down && req.body.genes_down.length > 0) {
+        //         return new_venom_seq.addGenesDown(req.body.genes_down)
+        //     } else {
+        //         return Promise.resolve(new_venom_seq);
+        //     }
+        // })
         .then((new_venom_seq) => {
-            // add genes down
-            if (req.body.genes_down && req.body.genes_down.length > 0) {
-                return new_venom_seq.addGenesDown(req.body.genes_down)
+            // add samples
+            if (req.body.samples) {
+
+                return new_venom_seq.addSamples(req.body.samples)
             } else {
                 return Promise.resolve(new_venom_seq);
             }
         })
         .then((new_venom_seq) => {
             // add samples
-            if (req.body.samples) {
-
-                return new_venom_seq.addSamples(req.body.samples)
+            if (req.body.top_20) {
+                return new_venom_seq.addTopConnectivity(req.body.top_20)
+            } else {
+                return Promise.resolve(new_venom_seq);
+            }
+        })
+        .then((new_venom_seq) => {
+            // add samples
+            if (req.body.bottom_20) {
+                return new_venom_seq.addBottomConnectivity(req.body.bottom_20)
             } else {
                 return Promise.resolve(new_venom_seq);
             }

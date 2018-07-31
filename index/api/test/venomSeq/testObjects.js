@@ -6,6 +6,191 @@ module.exports = {
         "dosage": 0.0086132,
         "dosage_unit": "\u00b5g/\u00b5l",
         "cell_line": "IMR-32",
+        "top_20": [
+            {
+                "score": 2.0355584608924686,
+                "type": "ctl_vehicle",
+                "pert_name": "DMSO"
+            },
+            {
+                "score": 2.0349906477840976,
+                "type": "trt_sh",
+                "pert_name": "GPR179"
+            },
+            {
+                "score": 2.033530556934,
+                "type": "trt_sh",
+                "pert_name": "HIF1AN"
+            },
+            {
+                "score": 2.032638279192274,
+                "type": "trt_sh.css",
+                "pert_name": "talipexole"
+            },
+            {
+                "score": 2.0315837691338703,
+                "type": "trt_cp",
+                "pert_name": "BRD-K20093888"
+            },
+            {
+                "score": 2.031421536817193,
+                "type": "trt_sh",
+                "pert_name": "BRD-K35868313"
+            },
+            {
+                "score": 2.031097072183838,
+                "type": "trt_sh",
+                "pert_name": "UBTF"
+            },
+            {
+                "score": 2.030853723708822,
+                "type": "trt_sh",
+                "pert_name": "T-0070907"
+            },
+            {
+                "score": 2.030772607550483,
+                "type": "trt_sh",
+                "pert_name": "BRD-K01011412"
+            },
+            {
+                "score": 2.030610375233805,
+                "type": "trt_oe",
+                "pert_name": "SRMS"
+            },
+            {
+                "score": 2.0304481429171277,
+                "type": "trt_sh",
+                "pert_name": "BRD-K02917242"
+            },
+            {
+                "score": 2.0299614459670954,
+                "type": "trt_cp",
+                "pert_name": "BRD-K60379529"
+            },
+            {
+                "score": 2.0299614459670954,
+                "type": "trt_sh",
+                "pert_name": "ESRRA"
+            },
+            {
+                "score": 2.0295558651754018,
+                "type": "trt_cp",
+                "pert_name": "bethanechol"
+            },
+            {
+                "score": 2.0295558651754018,
+                "type": "trt_oe",
+                "pert_name": "F7"
+            },
+            {
+                "score": 2.0290691682253694,
+                "type": "trt_sh",
+                "pert_name": "MW-SHH-97"
+            },
+            {
+                "score": 2.028663587433676,
+                "type": "trt_cp",
+                "pert_name": "Broad-Sai-370"
+            },
+            {
+                "score": 2.0283391228003205,
+                "type": "trt_cp",
+                "pert_name": "ARPC3"
+            },
+            {
+                "score": 2.0280146581669656,
+                "type": "trt_sh",
+                "pert_name": "BRD-K47324077"
+            },
+            {
+                "score": 2.0280146581669656,
+                "type": "trt_cp",
+                "pert_name": "CAACGTC"
+            }
+        ],
+        "bottom_20": [
+            {
+                "score": -1.9594123372905297,
+                "pert_name": "DMSO"
+            },
+            {
+                "score": -1.9577088979654158,
+                "pert_name": "ADA"
+            },
+            {
+                "score": -1.9571410848570447,
+                "pert_name": "CHUK"
+            },
+            {
+                "score": -1.956978852540367,
+                "pert_name": "TTAAAGC"
+            },
+            {
+                "score": -1.956735504065351,
+                "pert_name": "BRD-K25807578"
+            },
+            {
+                "score": -1.9565732717486735,
+                "pert_name": "GRHPR"
+            },
+            {
+                "score": -1.955843226323625,
+                "pert_name": "HARS"
+            },
+            {
+                "score": -1.9554376455319313,
+                "pert_name": "DRAP1"
+            },
+            {
+                "score": -1.9553565293735922,
+                "pert_name": "GPRC5B"
+            },
+            {
+                "score": -1.9547076001068824,
+                "pert_name": "KLF6"
+            },
+            {
+                "score": -1.9546264839485437,
+                "pert_name": "TWIST1"
+            },
+            {
+                "score": -1.9544642516318662,
+                "pert_name": "BRD-K89288521"
+            },
+            {
+                "score": -1.9540586708401726,
+                "pert_name": "ABHD6"
+            },
+            {
+                "score": -1.9539775546818339,
+                "pert_name": "BRD-K81882789"
+            },
+            {
+                "score": -1.9538153223651564,
+                "pert_name": "MDM4"
+            },
+            {
+                "score": -1.9533286254151239,
+                "pert_name": "DUSP3"
+            },
+            {
+                "score": -1.9530852769401075,
+                "pert_name": "VU-0415010"
+            },
+            {
+                "score": -1.9525174638317364,
+                "pert_name": "BRD-K64255844"
+            },
+            {
+                "score": -1.951787418406688,
+                "pert_name": "KRT8"
+            },
+            {
+                "ATC code": "C02AA07",
+                "score": -1.9517063022483492,
+                "pert_name": "bietaserpine"
+            }
+        ],
         "genes_up": [
             {
                 "entrezGeneId": "1113",
@@ -1337,7 +1522,7 @@ module.exports = {
     },
     species_linked: {
         "name": "Naja nivea",
-        "common_name": "Cape cobra",
+        "common_pert_name": "Cape cobra",
         "venomkb_id": "S8123548",
         "venom_ref": "V8123548",
         "venom": {

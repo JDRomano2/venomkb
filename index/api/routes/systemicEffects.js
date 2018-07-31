@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 
 /* GET /systemic_effects/index */
 router.get('/index', (req, res, next) => {
-  systemic_effect.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, systemic_effects_ind) => {
+  SystemicEffect.find({}, { venomkb_id: 1, name: 1, venom_ref: 1 }).exec((err, systemic_effects_ind) => {
     if (err) return next(err);
     res.json(systemic_effects_ind);
   });

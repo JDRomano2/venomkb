@@ -89,10 +89,10 @@ class Neo4jWriter(object):
                     pfam_added.append(pfam)
                 self.pfam_relationship(protein["venomkb_id"], pfam)
 
-            # if 'go_annotations' in protein:
-            #     for elt in protein["go_annotations"]:
-            #         self.is_a_go_relation_and_node(
-            #             protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
+            if 'go_annotations' in protein:
+                for elt in protein["go_annotations"]:
+                    self.is_a_go_relation_and_node(
+                        protein["venomkb_id"], elt["evidence"], elt["term"], elt["id"], elt["project"])
 
             if 'literature_predications' in protein:
                 if type(protein["literature_predications"][0]) == list:

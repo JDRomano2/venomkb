@@ -1,11 +1,11 @@
 {
-    "select": [{"Species": "name"},{"Protein": "name"}],
+    "select": [{"Species": "name"},"Protein"],
     "declare": {
-        "Protein": [
+        "SystemicEffect": [
             {
                 "attribute": "name",
                 "operator": "equals",
-                "value": "Chlorotoxyn"
+                "value": "Brain Neoplasms"
             }
         ]
     },

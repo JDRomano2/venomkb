@@ -16,7 +16,7 @@ const neo = new NeoAdapter(USER, PASSWORD, URI);
 
 
 /**
- * Send a json and return the answer
+ * Send a json in the body and return the answer
  * @param {Body} name
  * @param {Body} description
 */
@@ -32,6 +32,30 @@ router.post("/", function (req, res) {
     }).catch(err => {
         console.log(err);
         
+        res.status(500).send(err)
+    })
+})
+
+/**
+ * The json is entered as a string in the url  and return the answer
+ * @param {Body} name
+ * @param {Body} description
+*/
+router.post("/url", function (req, res) {
+    // Check if all the necessary fields are there
+
+    if (!req.query.json)
+        return res.status(400).send('No json were sent');
+    json = JSON.parse(req.query.json);
+    console.log(json);
+
+    const query = new Query(json, neo);
+    query.retrieveSubgraph().then(() => {
+        console.log(query["select"]);
+        res.json(query["result"]);
+    }).catch(err => {
+        console.log(err);
+
         res.status(500).send(err)
     })
 })

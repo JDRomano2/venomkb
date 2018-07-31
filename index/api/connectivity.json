@@ -1,0 +1,4719 @@
+{
+    "Naja Nivea": {
+        "top": [
+            {
+                "score": 2.0355584608924686,
+                "type": "ctl_vehicle",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.0349906477840976,
+                "type": "trt_sh",
+                "name": "GPR179"
+            },
+            {
+                "score": 2.033530556934,
+                "type": "trt_sh",
+                "name": "HIF1AN"
+            },
+            {
+                "score": 2.032638279192274,
+                "type": "trt_sh.css",
+                "name": "talipexole"
+            },
+            {
+                "score": 2.0315837691338703,
+                "type": "trt_cp",
+                "name": "BRD-K20093888"
+            },
+            {
+                "score": 2.031421536817193,
+                "type": "trt_sh",
+                "name": "BRD-K35868313"
+            },
+            {
+                "score": 2.031097072183838,
+                "type": "trt_sh",
+                "name": "UBTF"
+            },
+            {
+                "score": 2.030853723708822,
+                "type": "trt_sh",
+                "name": "T-0070907"
+            },
+            {
+                "score": 2.030772607550483,
+                "type": "trt_sh",
+                "name": "BRD-K01011412"
+            },
+            {
+                "score": 2.030610375233805,
+                "type": "trt_oe",
+                "name": "SRMS"
+            },
+            {
+                "score": 2.0304481429171277,
+                "type": "trt_sh",
+                "name": "BRD-K02917242"
+            },
+            {
+                "score": 2.0299614459670954,
+                "type": "trt_cp",
+                "name": "BRD-K60379529"
+            },
+            {
+                "score": 2.0299614459670954,
+                "type": "trt_sh",
+                "name": "ESRRA"
+            },
+            {
+                "score": 2.0295558651754018,
+                "type": "trt_cp",
+                "name": "bethanechol"
+            },
+            {
+                "score": 2.0295558651754018,
+                "type": "trt_oe",
+                "name": "F7"
+            },
+            {
+                "score": 2.0290691682253694,
+                "type": "trt_sh",
+                "name": "MW-SHH-97"
+            },
+            {
+                "score": 2.028663587433676,
+                "type": "trt_cp",
+                "name": "Broad-Sai-370"
+            },
+            {
+                "score": 2.0283391228003205,
+                "type": "trt_cp",
+                "name": "ARPC3"
+            },
+            {
+                "score": 2.0280146581669656,
+                "type": "trt_sh",
+                "name": "BRD-K47324077"
+            },
+            {
+                "score": 2.0280146581669656,
+                "type": "trt_cp",
+                "name": "CAACGTC"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9594123372905297,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9577088979654158,
+                "name": "ADA"
+            },
+            {
+                "score": -1.9571410848570447,
+                "name": "CHUK"
+            },
+            {
+                "score": -1.956978852540367,
+                "name": "TTAAAGC"
+            },
+            {
+                "score": -1.956735504065351,
+                "name": "BRD-K25807578"
+            },
+            {
+                "score": -1.9565732717486735,
+                "name": "GRHPR"
+            },
+            {
+                "score": -1.955843226323625,
+                "name": "HARS"
+            },
+            {
+                "score": -1.9554376455319313,
+                "name": "DRAP1"
+            },
+            {
+                "score": -1.9553565293735922,
+                "name": "GPRC5B"
+            },
+            {
+                "score": -1.9547076001068824,
+                "name": "KLF6"
+            },
+            {
+                "score": -1.9546264839485437,
+                "name": "TWIST1"
+            },
+            {
+                "score": -1.9544642516318662,
+                "name": "BRD-K89288521"
+            },
+            {
+                "score": -1.9540586708401726,
+                "name": "ABHD6"
+            },
+            {
+                "score": -1.9539775546818339,
+                "name": "BRD-K81882789"
+            },
+            {
+                "score": -1.9538153223651564,
+                "name": "MDM4"
+            },
+            {
+                "score": -1.9533286254151239,
+                "name": "DUSP3"
+            },
+            {
+                "score": -1.9530852769401075,
+                "name": "VU-0415010"
+            },
+            {
+                "score": -1.9525174638317364,
+                "name": "BRD-K64255844"
+            },
+            {
+                "score": -1.951787418406688,
+                "name": "KRT8"
+            },
+            {
+                "ATC code": "C02AA07",
+                "score": -1.9517063022483492,
+                "name": "bietaserpine"
+            }
+        ]
+    },
+    "Synanceia horrida": {
+        "top": [
+            {
+                "score": -0.5,
+                "type": "trt_cp",
+                "name": "CCL2"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_sh",
+                "name": "IL24"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_sh",
+                "name": "NPDC1"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_sh",
+                "name": "DUSP1"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_cp",
+                "name": "CACNA1D"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_sh",
+                "name": "phenazopyridine"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_cp",
+                "name": "AK8"
+            },
+            {
+                "score": -0.5,
+                "type": "trt_cp",
+                "name": "GABRP"
+            },
+            {
+                "ATC code": "G04BE03",
+                "score": -0.5,
+                "type": "trt_cp",
+                "name": "sildenafil"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_sh",
+                "name": "GRPR"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_cp",
+                "name": "BRD-K24156250"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_cp",
+                "name": "CCND1"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_sh",
+                "name": "BRD-K96646082"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_cp",
+                "name": "BRD-K48230737"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_sh.css",
+                "name": "CASD1"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_oe",
+                "name": "DUSP22"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_sh",
+                "name": "TCACTAT"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_cp",
+                "name": "EYA1"
+            },
+            {
+                "score": -0.5000811161583387,
+                "type": "trt_oe",
+                "name": "DMSO"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.4999188838416613,
+                "name": "PD-184352"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "CTBP2"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "RFC2"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "VPS8"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "BAD"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "BRD-K58358247"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "MCM5"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "BRD-K42216874"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "wortmannin"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "GSK-1070916"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "POLR2F"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "BRD-K92801790"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "BRD-K58788895"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "ALAS1"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "KU-C104142"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "AAAGAAG"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "ESR1"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "C15ORF42"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "BRD-K80732408"
+            },
+            {
+                "score": -1.4999188838416613,
+                "name": "EGR1"
+            }
+        ]
+    },
+
+    
+    "Leiurus quinquestriatus": {
+        "top": [
+            {
+                "score": 2.022836129909459,
+                "type": "trt_sh.css",
+                "name": "ECI1"
+            },
+            {
+                "score": 2.020240412842619,
+                "type": "trt_sh",
+                "name": "NUP133"
+            },
+            {
+                "score": 2.0195914835759092,
+                "type": "trt_cp",
+                "name": "GFP"
+            },
+            {
+                "score": 2.018780321992522,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.017239114984086,
+                "type": "trt_sh",
+                "name": "GFP"
+            },
+            {
+                "score": 2.016752418034053,
+                "type": "trt_sh",
+                "name": "GALT"
+            },
+            {
+                "score": 2.0166713018757143,
+                "type": "ctl_vector",
+                "name": "morin"
+            },
+            {
+                "score": 2.0165090695590373,
+                "type": "trt_lig",
+                "name": "auranofin"
+            },
+            {
+                "score": 2.0163468372423594,
+                "type": "trt_sh",
+                "name": "BRD-K31784555"
+            },
+            {
+                "ATC code": "C04AD03",
+                "score": 2.015860140292327,
+                "type": "trt_cp",
+                "name": "pentoxifylline"
+            },
+            {
+                "score": 2.014481165600569,
+                "type": "trt_sh",
+                "name": "SCCPDH"
+            },
+            {
+                "score": 2.01440004944223,
+                "type": "trt_sh",
+                "name": "BRD-K79222491"
+            },
+            {
+                "score": 2.0139944686505364,
+                "type": "trt_cp",
+                "name": "BRD-K52904470"
+            },
+            {
+                "score": 2.013832236333859,
+                "type": "trt_sh.css",
+                "name": "LAMTOR3"
+            },
+            {
+                "score": 2.0135077717005037,
+                "type": "trt_sh",
+                "name": "CREB3L4"
+            },
+            {
+                "score": 2.013426655542165,
+                "type": "trt_sh",
+                "name": "BRD-K59470558"
+            },
+            {
+                "score": 2.013345539383826,
+                "type": "ctl_vehicle",
+                "name": "BRD-K39301663"
+            },
+            {
+                "score": 2.0132644232254875,
+                "type": "trt_cp",
+                "name": "TGTGATT"
+            },
+            {
+                "score": 2.012939958592132,
+                "type": "trt_cp",
+                "name": "TRAK2"
+            },
+            {
+                "score": 2.0124532616421,
+                "type": "trt_sh",
+                "name": "P4HA2"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9742436883903465,
+                "name": "TCAAACT"
+            },
+            {
+                "score": -1.9735136429652977,
+                "name": "RAC1"
+            },
+            {
+                "score": -1.9726213652235716,
+                "name": "BRD-K17375958"
+            },
+            {
+                "score": -1.9724591329068941,
+                "name": "QDPR"
+            },
+            {
+                "score": -1.9707556935817805,
+                "name": "RUVBL1"
+            },
+            {
+                "score": -1.9701878804734094,
+                "name": "LRPPRC"
+            },
+            {
+                "score": -1.969376718890022,
+                "name": "EMPTY_VECTOR"
+            },
+            {
+                "score": -1.9686466734649732,
+                "name": "SPP1"
+            },
+            {
+                "score": -1.9685655573066345,
+                "name": "PLK1"
+            },
+            {
+                "score": -1.9682410926732796,
+                "name": "CD-437"
+            },
+            {
+                "score": -1.9682410926732796,
+                "name": "CTSH"
+            },
+            {
+                "score": -1.967835511881586,
+                "name": "CDK11B"
+            },
+            {
+                "score": -1.9678355118815858,
+                "name": "BRD-K92317137"
+            },
+            {
+                "score": -1.9675921634065696,
+                "name": "TCAAATT"
+            },
+            {
+                "score": -1.9675921634065696,
+                "name": "ADCK3"
+            },
+            {
+                "score": -1.9670243502981983,
+                "name": "STAT1"
+            },
+            {
+                "score": -1.9670243502981983,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9669432341398596,
+                "name": "SA-1459172"
+            },
+            {
+                "ATC code": "N02BA11",
+                "score": -1.966213188714811,
+                "name": "diflunisal"
+            },
+            {
+                "score": -1.966213188714811,
+                "name": "TFAP2A"
+            }
+        ]
+    },
+    "Laticauda colubrina": {
+        "top": [
+            {
+                "score": 1.8316298940082198,
+                "type": "trt_sh",
+                "name": "piribedil"
+            },
+            {
+                "score": 1.8297642223664288,
+                "type": "trt_cp",
+                "name": "VU-0366037-2"
+            },
+            {
+                "score": 1.8294397577330739,
+                "type": "trt_sh",
+                "name": "ZNF444"
+            },
+            {
+                "score": 1.8275740860912828,
+                "type": "trt_cp",
+                "name": "RAB4A"
+            },
+            {
+                "score": 1.8274118537746051,
+                "type": "trt_cp",
+                "name": "TTGCCTG"
+            },
+            {
+                "score": 1.827168505299589,
+                "type": "trt_cp",
+                "name": "BRD-K53011428"
+            },
+            {
+                "score": 1.8240860912827168,
+                "type": "trt_sh",
+                "name": "CCAAAGT"
+            },
+            {
+                "score": 1.8229504650659747,
+                "type": "trt_cp",
+                "name": "SA-85268"
+            },
+            {
+                "score": 1.8227071165909583,
+                "type": "trt_cp",
+                "name": "CGP-53353"
+            },
+            {
+                "score": 1.8225448842742809,
+                "type": "trt_cp",
+                "name": "SRMS"
+            },
+            {
+                "score": 1.8223015357992645,
+                "type": "trt_cp",
+                "name": "PSH-010"
+            },
+            {
+                "score": 1.822139303482587,
+                "type": "trt_sh",
+                "name": "GBP2"
+            },
+            {
+                "score": 1.821490374215877,
+                "type": "trt_sh",
+                "name": "BRD-K14992578"
+            },
+            {
+                "score": 1.8203547479991349,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.820273631840796,
+                "type": "trt_cp",
+                "name": "GRPR"
+            },
+            {
+                "score": 1.8182457278823274,
+                "type": "trt_sh",
+                "name": "KU-C104488"
+            },
+            {
+                "score": 1.8182457278823274,
+                "type": "trt_cp",
+                "name": "CAMKK2"
+            },
+            {
+                "score": 1.8178401470906338,
+                "type": "trt_cp",
+                "name": "BRD-K60477859"
+            },
+            {
+                "score": 1.8178401470906338,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.817759030932295,
+                "type": "trt_sh",
+                "name": "PTPN11"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -2.163178671858101,
+                "name": "MCCC1"
+            },
+            {
+                "score": -2.162854207224746,
+                "name": "safrolglycol"
+            },
+            {
+                "score": -2.160826303266277,
+                "name": "FRAT2"
+            },
+            {
+                "score": -2.1600962578412286,
+                "name": "BRD-K04025047"
+            },
+            {
+                "score": -2.1598529093662124,
+                "name": "etanidazole"
+            },
+            {
+                "score": -2.159447328574519,
+                "name": "EMF-sumo1-6"
+            },
+            {
+                "score": -2.1586361669911316,
+                "name": "PGM1"
+            },
+            {
+                "score": -2.1582305861994375,
+                "name": "BRD-K45217009"
+            },
+            {
+                "score": -2.15806835388276,
+                "name": "curcumin"
+            },
+            {
+                "score": -2.1575816569327277,
+                "name": "BRD-K80822897"
+            },
+            {
+                "score": -2.157094959982695,
+                "name": "BRD-K58999277"
+            },
+            {
+                "score": -2.1570138438243562,
+                "name": "KCTD5"
+            },
+            {
+                "score": -2.156527146874324,
+                "name": "SOD1"
+            },
+            {
+                "score": -2.1561215660826303,
+                "name": "BRD-K48243375"
+            },
+            {
+                "score": -2.1561215660826303,
+                "name": "BRD-K28585560"
+            },
+            {
+                "score": -2.155878217607614,
+                "name": "HHEX"
+            },
+            {
+                "score": -2.155553752974259,
+                "name": "BRD-K55597137"
+            },
+            {
+                "score": -2.1553915206575818,
+                "name": "BRD-K38965110"
+            },
+            {
+                "score": -2.1553915206575818,
+                "name": "BRD-K75903201"
+            },
+            {
+                "score": -2.1549048237075494,
+                "name": "TXN"
+            }
+        ]
+    },
+    "Poecilotheria fasciata": {
+        "top": [
+            {
+                "score": 2.886374287980388,
+                "type": "trt_cp",
+                "name": "BRD-K61894884"
+            },
+            {
+                "score": 2.8862120556637105,
+                "type": "trt_sh",
+                "name": "USP32"
+            },
+            {
+                "score": 2.8855631263970007,
+                "type": "trt_sh",
+                "name": "CCL17"
+            },
+            {
+                "score": 2.883454106280193,
+                "type": "trt_sh",
+                "name": "EPRS"
+            },
+            {
+                "score": 2.883454106280193,
+                "type": "trt_sh",
+                "name": "NPK76-II-72-1"
+            },
+            {
+                "score": 2.883129641646838,
+                "type": "trt_sh",
+                "name": "TTGCGAA"
+            },
+            {
+                "ATC code": "N05AL05",
+                "score": 2.882886293171822,
+                "type": "trt_sh",
+                "name": "amisulpride"
+            },
+            {
+                "score": 2.882886293171822,
+                "type": "trt_sh",
+                "name": "BRD-K46381939"
+            },
+            {
+                "ATC code": [
+                    "E06QE59",
+                    "N01BB03"
+                ],
+                "score": 2.8828051770134833,
+                "type": "trt_sh",
+                "name": "mepivacaine"
+            },
+            {
+                "score": 2.882642944696806,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.882318480063451,
+                "type": "trt_sh",
+                "name": "BRD-K19629349"
+            },
+            {
+                "score": 2.8820751315884348,
+                "type": "trt_sh",
+                "name": "KGF"
+            },
+            {
+                "ATC code": "Y11SP15",
+                "score": 2.8820751315884348,
+                "type": "trt_sh",
+                "name": "clofibric-acid"
+            },
+            {
+                "score": 2.8820751315884348,
+                "type": "trt_sh",
+                "name": "POU2AF1"
+            },
+            {
+                "score": 2.8820751315884348,
+                "type": "trt_sh",
+                "name": "TAGACCA"
+            },
+            {
+                "score": 2.881994015430096,
+                "type": "trt_sh",
+                "name": "EMPTY_VECTOR"
+            },
+            {
+                "ATC code": [
+                    "S02AA16",
+                    "J01MA01",
+                    "S01AE01"
+                ],
+                "score": 2.8819128992717573,
+                "type": "trt_sh",
+                "name": "ofloxacin"
+            },
+            {
+                "score": 2.881912899271757,
+                "type": "trt_oe",
+                "name": "BRD-K59036917"
+            },
+            {
+                "score": 2.881020621530031,
+                "type": "trt_sh",
+                "name": "nor-2-chlorpromazine"
+            },
+            {
+                "score": 2.8805339245799986,
+                "type": "trt_sh",
+                "name": "NFE2L1"
+            }
+        ],
+        "bottom": [
+            {
+                "score": 0.0,
+                "name": "quinpirole"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKRIR"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKRIR"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKRIR"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKD2"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKD2"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCZ"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCZ"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCZ"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCZ"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCZ"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCZ"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCD"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCD"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKCD"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKACA"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKACA"
+            },
+            {
+                "score": 0.0,
+                "name": "PRKAA1"
+            },
+            {
+                "score": 0.0,
+                "name": "PRDX5"
+            },
+            {
+                "score": 0.0,
+                "name": "PRDX5"
+            }
+        ]
+    },
+    "Scolopendra subspinipes dehaani": {
+        "top": [
+            {
+                "score": 2.0001331731214926,
+                "type": "trt_sh",
+                "name": "WYE-125132"
+            },
+            {
+                "score": 2.000133173121492,
+                "type": "trt_cp",
+                "name": "GTDC1"
+            },
+            {
+                "score": 1.9988353145880726,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9985919661130565,
+                "type": "trt_cp",
+                "name": "NDUFA4"
+            },
+            {
+                "ATC code": "U96OL57",
+                "score": 1.9979430368463462,
+                "type": "trt_sh",
+                "name": "proxymetacaine"
+            },
+            {
+                "score": 1.9972941075796364,
+                "type": "trt_sh",
+                "name": "IL1R2"
+            },
+            {
+                "score": 1.997131875262959,
+                "type": "ctl_vehicle",
+                "name": "ZM-447439"
+            },
+            {
+                "score": 1.9970507591046203,
+                "type": "trt_cp",
+                "name": "FL-HDAC-025"
+            },
+            {
+                "score": 1.996807410629604,
+                "type": "trt_oe",
+                "name": "CHMP4A"
+            },
+            {
+                "score": 1.9966451783129266,
+                "type": "trt_sh.css",
+                "name": "RXFP4"
+            },
+            {
+                "score": 1.9957529005712003,
+                "type": "trt_cp",
+                "name": "RICTOR"
+            },
+            {
+                "score": 1.9956717844128615,
+                "type": "trt_cp",
+                "name": "BRD-K81365479"
+            },
+            {
+                "score": 1.995590668254523,
+                "type": "trt_sh",
+                "name": "VEGFA"
+            },
+            {
+                "score": 1.9955095520961843,
+                "type": "trt_cp",
+                "name": "AR"
+            },
+            {
+                "score": 1.9955095520961843,
+                "type": "trt_sh",
+                "name": "lacZ"
+            },
+            {
+                "score": 1.9951039713044905,
+                "type": "trt_sh",
+                "name": "BRD-K48193278"
+            },
+            {
+                "score": 1.9951039713044905,
+                "type": "trt_cp",
+                "name": "ARP-101"
+            },
+            {
+                "score": 1.9950228551461517,
+                "type": "trt_cp",
+                "name": "TAGCAAG"
+            },
+            {
+                "score": 1.9950228551461517,
+                "type": "trt_sh",
+                "name": "TGDS"
+            },
+            {
+                "score": 1.9944550420377807,
+                "type": "trt_oe",
+                "name": "2-(biphenyl-4-ylsulfonamido)pentanedioic-acid"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9951620896948608,
+                "name": "GTF2F2"
+            },
+            {
+                "score": -1.9936208826864246,
+                "name": "MDM2-inhibitor"
+            },
+            {
+                "score": -1.9928097211030371,
+                "name": "TXNRD1"
+            },
+            {
+                "score": -1.9926474887863597,
+                "name": "carbidopa"
+            },
+            {
+                "score": -1.992241907994666,
+                "name": "ROCK2"
+            },
+            {
+                "score": -1.9920796756779884,
+                "name": "PIP4K2B"
+            },
+            {
+                "score": -1.9919174433613112,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9913496302529399,
+                "name": "CGS-12066B"
+            },
+            {
+                "score": -1.9911873979362622,
+                "name": "PAX8"
+            },
+            {
+                "score": -1.9911062817779237,
+                "name": "ACCACCA"
+            },
+            {
+                "score": -1.9902140040361975,
+                "name": "SA-1473648"
+            },
+            {
+                "ATC code": "C10AA07",
+                "score": -1.9901328878778588,
+                "name": "rosuvastatin"
+            },
+            {
+                "score": -1.989808423244504,
+                "name": "PHRF1"
+            },
+            {
+                "score": -1.9895650747694875,
+                "name": "L-168049"
+            },
+            {
+                "score": -1.98940284245281,
+                "name": "PSMD8"
+            },
+            {
+                "score": -1.98940284245281,
+                "name": "SLC5A6"
+            },
+            {
+                "ATC code": "L01XE02",
+                "score": -1.9893217262944713,
+                "name": "gefitinib"
+            },
+            {
+                "score": -1.9892406101361326,
+                "name": "TL-HRAS-61"
+            },
+            {
+                "score": -1.989159493977794,
+                "name": "UBE2L6"
+            },
+            {
+                "score": -1.988835029344439,
+                "name": "MXI1"
+            }
+        ]
+    },
+    "Vespa crabro": {
+        "top": [
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "ZNF174"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "L-733060"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "PET112"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "2-(4-methoxybenzylthio)-6-methylpyrimidin-4-ol"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "SESN1"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_oe",
+                "name": "DMSO"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "BRD-K29309835"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "ETV7"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "CCDC85B"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "BRD-K74390607"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "ELAVL1"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "MEIS2"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_lig",
+                "name": "AT1-SHH-09"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "BRD-K34576879"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "RPS6"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "myriocin"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "alrestatin"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_cp",
+                "name": "ZNF436"
+            },
+            {
+                "score": -1.0,
+                "type": "trt_sh",
+                "name": "PRSS1"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9999188838416613,
+                "name": "BRD-K31194232"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "TATDN2"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "BRD-K44696931"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "UGCG"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "BRD-K09327126"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "NFYB"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "BRD-A47832959"
+            },
+            {
+                "ATC code": "P02CA01",
+                "score": -1.9999188838416613,
+                "name": "mebendazole"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "NAT1"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "MAPK13"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "CDCA7L"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "BRD-A13964793"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "ACVR1B"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "MSP"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "BRD-K80094052"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "MLN-8054"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "cyclopamine"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "brivanib"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "SB-221284"
+            },
+            {
+                "score": -1.9999188838416613,
+                "name": "DNPEP"
+            }
+        ]
+    },
+    "Linothele fallax": {
+        "top": [
+            {
+                "score": 1.8906670065819968,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.8898558449986096,
+                "type": "trt_sh",
+                "name": "BRD-K60667054"
+            },
+            {
+                "score": 1.8889635672568832,
+                "type": "trt_cp",
+                "name": "KLHDC9"
+            },
+            {
+                "score": 1.8866923148233985,
+                "type": "trt_sh",
+                "name": "atracurium"
+            },
+            {
+                "score": 1.8861245017150274,
+                "type": "trt_oe",
+                "name": "IMPDH1"
+            },
+            {
+                "ATC code": "L01BA03",
+                "score": 1.8853133401316398,
+                "type": "trt_sh",
+                "name": "raltitrexed"
+            },
+            {
+                "score": 1.8849077593399461,
+                "type": "trt_sh",
+                "name": "ADORA2B"
+            },
+            {
+                "score": 1.8848266431816074,
+                "type": "ctl_vector",
+                "name": "tyrphostin-1"
+            },
+            {
+                "score": 1.8836099008065266,
+                "type": "trt_cp",
+                "name": "GTF2A2"
+            },
+            {
+                "score": 1.8832854361731715,
+                "type": "trt_sh",
+                "name": "BRD-K51644197"
+            },
+            {
+                "score": 1.8829609715398163,
+                "type": "trt_sh",
+                "name": "BRD-K25344230"
+            },
+            {
+                "ATC code": "L01XE08",
+                "score": 1.8827987392231391,
+                "type": "trt_cp",
+                "name": "nilotinib"
+            },
+            {
+                "score": 1.882798739223139,
+                "type": "trt_sh",
+                "name": "CDK2"
+            },
+            {
+                "score": 1.8827176230648002,
+                "type": "trt_sh",
+                "name": "piperlongumine"
+            },
+            {
+                "score": 1.8823120422731066,
+                "type": "trt_cp",
+                "name": "BLVRA"
+            },
+            {
+                "score": 1.882149809956429,
+                "type": "trt_sh",
+                "name": "IL11"
+            },
+            {
+                "score": 1.882149809956429,
+                "type": "trt_cp",
+                "name": "NSC-95397"
+            },
+            {
+                "score": 1.8820686937980904,
+                "type": "trt_cp",
+                "name": "BRD-K99169187"
+            },
+            {
+                "score": 1.8819875776397517,
+                "type": "trt_cp",
+                "name": "NPTN"
+            },
+            {
+                "score": 1.8809330675813478,
+                "type": "trt_cp",
+                "name": "RFXANK"
+            }
+        ],
+        "bottom": [
+            {
+                "ATC code": "S01FA05",
+                "score": -2.104790488551034,
+                "name": "homatropine"
+            },
+            {
+                "score": -2.1046282562343563,
+                "name": "CFLAR"
+            },
+            {
+                "score": -2.1027625845925653,
+                "name": "BRD-K75990896"
+            },
+            {
+                "score": -2.102762584592565,
+                "name": "GADD45A"
+            },
+            {
+                "score": -2.102519236117549,
+                "name": "EXOC2"
+            },
+            {
+                "score": -2.1019514230091776,
+                "name": "CIT"
+            },
+            {
+                "score": -2.1005724483174193,
+                "name": "CABIN1"
+            },
+            {
+                "score": -2.0995179382590154,
+                "name": "RFP"
+            },
+            {
+                "score": -2.0984634282006116,
+                "name": "BRD-A66604020"
+            },
+            {
+                "score": -2.098301195883934,
+                "name": "HDAC10"
+            },
+            {
+                "score": -2.097733382775563,
+                "name": "PSAT1"
+            },
+            {
+                "ATC code": "N03AF01",
+                "score": -2.0975711504588856,
+                "name": "carbamazepine"
+            },
+            {
+                "score": -2.097408918142208,
+                "name": "CD40"
+            },
+            {
+                "score": -2.0972466858255308,
+                "name": "LGALS1"
+            },
+            {
+                "score": -2.097003337350514,
+                "name": "pelitinib"
+            },
+            {
+                "score": -2.096841105033837,
+                "name": "DSE"
+            },
+            {
+                "score": -2.0966788727171597,
+                "name": "ampyrone"
+            },
+            {
+                "score": -2.0962732919254656,
+                "name": "trichostatin-a"
+            },
+            {
+                "score": -2.0959488272921107,
+                "name": "BRD-K90849765"
+            },
+            {
+                "score": -2.0957865949754333,
+                "name": "BRD-K26233379"
+            }
+        ]
+    },
+    "Octopus macropus": {
+        "top": [
+            {
+                "score": 1.9984587929915638,
+                "type": "trt_sh",
+                "name": "BRD-K08043024"
+            },
+            {
+                "score": 1.9982154445165476,
+                "type": "trt_oe",
+                "name": "WZ-3105"
+            },
+            {
+                "score": 1.9979720960415315,
+                "type": "trt_cp",
+                "name": "AP1S2"
+            },
+            {
+                "score": 1.9969987021414664,
+                "type": "trt_cp",
+                "name": "pepstatin"
+            },
+            {
+                "score": 1.9939974042829332,
+                "type": "ctl_vehicle",
+                "name": "CD2BP2"
+            },
+            {
+                "score": 1.9927806619078519,
+                "type": "trt_sh",
+                "name": "GAPDH"
+            },
+            {
+                "score": 1.992456197274497,
+                "type": "trt_sh",
+                "name": "MAP3K1"
+            },
+            {
+                "score": 1.9922128487994808,
+                "type": "trt_sh",
+                "name": "anacardic-acid"
+            },
+            {
+                "score": 1.9918072680077872,
+                "type": "trt_cp",
+                "name": "FES"
+            },
+            {
+                "score": 1.9917261518494485,
+                "type": "trt_cp",
+                "name": "MELK"
+            },
+            {
+                "score": 1.9910772225827382,
+                "type": "trt_cp",
+                "name": "AGGGTTT"
+            },
+            {
+                "score": 1.9906716417910446,
+                "type": "trt_sh",
+                "name": "NBQX"
+            },
+            {
+                "score": 1.98969824789098,
+                "type": "trt_cp",
+                "name": "BRD-K69503483"
+            },
+            {
+                "score": 1.9896171317326412,
+                "type": "trt_sh",
+                "name": "MRPL12"
+            },
+            {
+                "score": 1.9896171317326412,
+                "type": "trt_cp",
+                "name": "BRD-K91063002"
+            },
+            {
+                "score": 1.9895360155743025,
+                "type": "trt_cp",
+                "name": "m-3M3FBS"
+            },
+            {
+                "score": 1.9894548994159635,
+                "type": "trt_oe",
+                "name": "SRF"
+            },
+            {
+                "score": 1.989292667099286,
+                "type": "trt_cp",
+                "name": "IL6"
+            },
+            {
+                "score": 1.9891304347826086,
+                "type": "trt_cp",
+                "name": "AZD-1152HQPA"
+            },
+            {
+                "score": 1.9888870863075925,
+                "type": "trt_sh",
+                "name": "ephedrine"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9976476314081766,
+                "name": "GIPC1"
+            },
+            {
+                "score": -1.9970798182998053,
+                "name": "OLIG3"
+            },
+            {
+                "score": -1.9963497728747566,
+                "name": "BRD-K93541117"
+            },
+            {
+                "score": -1.9963497728747566,
+                "name": "SRC-kinase-inhibitor-I"
+            },
+            {
+                "score": -1.9962686567164178,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9962686567164178,
+                "name": "ALDH3B2"
+            },
+            {
+                "score": -1.995295262816353,
+                "name": "HOXA5"
+            },
+            {
+                "score": -1.994970798182998,
+                "name": "RUNX1"
+            },
+            {
+                "score": -1.9932673588578846,
+                "name": "equilin"
+            },
+            {
+                "score": -1.9931862426995457,
+                "name": "BRD-K84792586"
+            },
+            {
+                "score": -1.9930240103828682,
+                "name": "CGP-12177"
+            },
+            {
+                "score": -1.9930240103828682,
+                "name": "PRKCA"
+            },
+            {
+                "score": -1.9930240103828682,
+                "name": "BRD-K27170250"
+            },
+            {
+                "score": -1.9926995457495131,
+                "name": "SHB"
+            },
+            {
+                "score": -1.992456197274497,
+                "name": "AS-605240"
+            },
+            {
+                "score": -1.9917261518494482,
+                "name": "BRD-K72700227"
+            },
+            {
+                "score": -1.9914828033744323,
+                "name": "ELK1"
+            },
+            {
+                "score": -1.9914016872160936,
+                "name": "reichstein"
+            },
+            {
+                "score": -1.9911583387410772,
+                "name": "BRD-K40910787"
+            },
+            {
+                "score": -1.9911583387410772,
+                "name": "UBE2V1"
+            }
+        ]
+    },
+    "Montivipera xanthina": {
+        "top": [
+            {
+                "score": 1.998724998862801,
+                "type": "trt_sh",
+                "name": "BRD-K59633395"
+            },
+            {
+                "score": 1.9973460241710423,
+                "type": "trt_sh",
+                "name": "RCAN1"
+            },
+            {
+                "score": 1.9973460241710423,
+                "type": "trt_sh",
+                "name": "SIRT2"
+            },
+            {
+                "score": 1.99685932722101,
+                "type": "ctl_vehicle",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9964537464293162,
+                "type": "ctl_vehicle",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9956583574322724,
+                "type": "trt_cp",
+                "name": "AGTATCA"
+            },
+            {
+                "score": 1.99556146868759,
+                "type": "trt_sh",
+                "name": "CREB1"
+            },
+            {
+                "score": 1.9954732677193743,
+                "type": "trt_sh",
+                "name": "GDNF"
+            },
+            {
+                "score": 1.995424823347033,
+                "type": "trt_cp",
+                "name": "CNPY3"
+            },
+            {
+                "score": 1.9953992363709125,
+                "type": "trt_cp",
+                "name": "AGCAGTG"
+            },
+            {
+                "score": 1.9948570102386616,
+                "type": "trt_sh",
+                "name": "CCRL2"
+            },
+            {
+                "score": 1.9947503071042028,
+                "type": "trt_sh",
+                "name": "ID2"
+            },
+            {
+                "score": 1.9945554030015278,
+                "type": "ctl_vector",
+                "name": "ACADSB"
+            },
+            {
+                "score": 1.9945069586291866,
+                "type": "trt_sh",
+                "name": "BRD-K78792702"
+            },
+            {
+                "score": 1.9943931706848503,
+                "type": "trt_oe",
+                "name": "LCK"
+            },
+            {
+                "score": 1.9942821123204133,
+                "type": "trt_cp",
+                "name": "BCL9"
+            },
+            {
+                "score": 1.9942592549241924,
+                "type": "trt_cp",
+                "name": "BRD-K39757396"
+            },
+            {
+                "score": 1.9941824939958315,
+                "type": "trt_cp",
+                "name": "RASSF1"
+            },
+            {
+                "score": 1.9939903194730557,
+                "type": "trt_cp",
+                "name": "P4HB"
+            },
+            {
+                "score": 1.9939875898931567,
+                "type": "trt_sh",
+                "name": "cinalukast"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9976247740119555,
+                "name": "E2F5"
+            },
+            {
+                "score": -1.9976247740119555,
+                "name": "PPP3R2"
+            },
+            {
+                "score": -1.9975436578536168,
+                "name": "BNIP1"
+            },
+            {
+                "score": -1.9970569609035844,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.996920315563027,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9965958509296722,
+                "name": "L-161982"
+            },
+            {
+                "score": -1.996570263953552,
+                "name": "OXSR1"
+            },
+            {
+                "score": -1.996099339589863,
+                "name": "PSAT1"
+            },
+            {
+                "score": -1.9960835670035195,
+                "name": "genistein"
+            },
+            {
+                "score": -1.9960024508451808,
+                "name": "quinine"
+            },
+            {
+                "score": -1.9959953660353036,
+                "name": "ITGB5"
+            },
+            {
+                "score": -1.9957846893462847,
+                "name": "ZBTB49"
+            },
+            {
+                "score": -1.9954346377368095,
+                "name": "GFP"
+            },
+            {
+                "score": -1.9953464367685936,
+                "name": "TBXA2R"
+            },
+            {
+                "score": -1.9950219721352385,
+                "name": "ZNF486"
+            },
+            {
+                "score": -1.9949963851591184,
+                "name": "BRD-A75769921"
+            },
+            {
+                "score": -1.9946719205257635,
+                "name": "BRD-K32927008"
+            },
+            {
+                "score": -1.9945423599950833,
+                "name": "BRD-K80932888"
+            },
+            {
+                "score": -1.9942690693139689,
+                "name": "BRD-K22127625"
+            },
+            {
+                "score": -1.9942178953617284,
+                "name": "GGCT"
+            }
+        ]
+    },
+    "Pterois volitans": {
+        "top": [
+            {
+                "score": 2.0359487727602397,
+                "type": "trt_oe",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.0346509142268197,
+                "type": "trt_cp",
+                "name": "SIM2"
+            },
+            {
+                "score": 2.0344075657518035,
+                "type": "trt_sh",
+                "name": "TGTCAAC"
+            },
+            {
+                "score": 2.0343264495934648,
+                "type": "trt_cp",
+                "name": "AFF4"
+            },
+            {
+                "score": 2.0329474749017065,
+                "type": "trt_sh",
+                "name": "BRD-K06568278"
+            },
+            {
+                "score": 2.0313251517349316,
+                "type": "trt_cp",
+                "name": "BRD-K77663706"
+            },
+            {
+                "score": 2.0305951063098826,
+                "type": "trt_sh",
+                "name": "KCNQ1"
+            },
+            {
+                "score": 2.0302706416765277,
+                "type": "trt_sh",
+                "name": "buflomedil"
+            },
+            {
+                "score": 2.0288916669847694,
+                "type": "trt_sh",
+                "name": "BRD-K63938928"
+            },
+            {
+                "score": 2.0288105508264302,
+                "type": "trt_cp",
+                "name": "BRD-K77786391"
+            },
+            {
+                "score": 2.0282427377180596,
+                "type": "trt_cp",
+                "name": "NVP-AEW541"
+            },
+            {
+                "score": 2.027999389243043,
+                "type": "trt_lig",
+                "name": "VAPB"
+            },
+            {
+                "score": 2.0279182730847043,
+                "type": "ctl_vector",
+                "name": "betamethasone-acetate"
+            },
+            {
+                "score": 2.027674924609688,
+                "type": "trt_sh",
+                "name": "BRD-K90198040"
+            },
+            {
+                "ATC code": "N07BA03",
+                "score": 2.0268637630263004,
+                "type": "trt_cp",
+                "name": "varenicline"
+            },
+            {
+                "score": 2.0266204145512843,
+                "type": "trt_cp",
+                "name": "ZNF611"
+            },
+            {
+                "score": 2.0266204145512843,
+                "type": "trt_cp",
+                "name": "AACACCT"
+            },
+            {
+                "score": 2.026458182234607,
+                "type": "trt_oe",
+                "name": "LASP1"
+            },
+            {
+                "score": 2.026133717601252,
+                "type": "trt_cp",
+                "name": "BRD-K28112517"
+            },
+            {
+                "score": 2.026052601442913,
+                "type": "trt_cp",
+                "name": "DL-PDMP"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9609688132228882,
+                "name": "MAPKAPK2"
+            },
+            {
+                "ATC code": "M03AA02",
+                "score": -1.9608065809062105,
+                "name": "tubocurarine"
+            },
+            {
+                "score": -1.9595898385311297,
+                "name": "NFRKB"
+            },
+            {
+                "score": -1.9593464900561133,
+                "name": "BRD-K91449148"
+            },
+            {
+                "score": -1.9590220254227584,
+                "name": "RASGRP4"
+            },
+            {
+                "score": -1.957886399206016,
+                "name": "BRD-K00442147"
+            },
+            {
+                "score": -1.9573997022559837,
+                "name": "PCM1"
+            },
+            {
+                "score": -1.9565074245142573,
+                "name": "PCMT1"
+            },
+            {
+                "score": -1.9564263083559186,
+                "name": "ERG"
+            },
+            {
+                "score": -1.9562640760392411,
+                "name": "BRD-K19331234"
+            },
+            {
+                "score": -1.9562640760392411,
+                "name": "O-1918"
+            },
+            {
+                "score": -1.9561829598809024,
+                "name": "IGFBP1"
+            },
+            {
+                "score": -1.9555340306141926,
+                "name": "EMPTY_VECTOR"
+            },
+            {
+                "score": -1.9545606367141277,
+                "name": "KDM5A"
+            },
+            {
+                "score": -1.95439840439745,
+                "name": "BRD-K10833576"
+            },
+            {
+                "score": -1.9540739397640952,
+                "name": "ZM-306416"
+            },
+            {
+                "score": -1.9539117074474177,
+                "name": "nafcillin"
+            },
+            {
+                "score": -1.953506126655724,
+                "name": "IRF2"
+            },
+            {
+                "score": -1.9534250104973852,
+                "name": "SD-8-006"
+            },
+            {
+                "score": -1.95310054586403,
+                "name": "BRD-K17446297"
+            }
+        ]
+    },
+    "Bombina variegata": {
+        "top": [
+            {
+                "score": 2.16877776668497,
+                "type": "trt_cp",
+                "name": "NFKB-activation-inhibitor-II"
+            },
+            {
+                "score": 2.167074327359856,
+                "type": "trt_sh",
+                "name": "STOCK1S-03920"
+            },
+            {
+                "score": 2.164640842609694,
+                "type": "trt_sh",
+                "name": "RAD50"
+            },
+            {
+                "ATC code": "A02BA03",
+                "score": 2.1642352618180003,
+                "type": "trt_cp",
+                "name": "famotidine"
+            },
+            {
+                "score": 2.163991913342984,
+                "type": "trt_cp",
+                "name": "CABIN1"
+            },
+            {
+                "score": 2.163748564867968,
+                "type": "trt_sh",
+                "name": "prazosin"
+            },
+            {
+                "ATC code": "A07EC01",
+                "score": 2.1620451255428543,
+                "type": "trt_cp",
+                "name": "sulfasalazine"
+            },
+            {
+                "score": 2.1619640093845156,
+                "type": "trt_cp",
+                "name": "AACGTAT"
+            },
+            {
+                "score": 2.161882893226177,
+                "type": "trt_sh",
+                "name": "NSDHL"
+            },
+            {
+                "score": 2.161801777067838,
+                "type": "trt_lig",
+                "name": "BRD-K69795440"
+            },
+            {
+                "score": 2.161315080117806,
+                "type": "trt_cp",
+                "name": "chlorthalidone"
+            },
+            {
+                "score": 2.161152847801128,
+                "type": "trt_cp",
+                "name": "PER1"
+            },
+            {
+                "score": 2.1608283831677735,
+                "type": "trt_cp",
+                "name": "Ro-19-4605"
+            },
+            {
+                "score": 2.1606661508510956,
+                "type": "trt_oe",
+                "name": "MIF"
+            },
+            {
+                "score": 2.160260570059402,
+                "type": "trt_cp",
+                "name": "CALML6"
+            },
+            {
+                "score": 2.1600983377427245,
+                "type": "trt_cp",
+                "name": "etofylline"
+            },
+            {
+                "score": 2.159936105426047,
+                "type": "trt_oe",
+                "name": "MSX1"
+            },
+            {
+                "score": 2.1597738731093696,
+                "type": "trt_sh",
+                "name": "GW-9662"
+            },
+            {
+                "score": 2.159611640792692,
+                "type": "trt_cp",
+                "name": "LIAS"
+            },
+            {
+                "score": 2.159206060000998,
+                "type": "trt_sh",
+                "name": "LEF1"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.8248140568062698,
+                "name": "ascorbic-acid"
+            },
+            {
+                "score": -1.8240028952228822,
+                "name": "TACC3"
+            },
+            {
+                "score": -1.8222183397394298,
+                "name": "DGKD"
+            },
+            {
+                "score": -1.8212449458393651,
+                "name": "BRD-K57836103"
+            },
+            {
+                "score": -1.8195415065142515,
+                "name": "BMS-191011"
+            },
+            {
+                "score": -1.8190548095642192,
+                "name": "HHEX"
+            },
+            {
+                "score": -1.819054809564219,
+                "name": "BRD-K38986089"
+            },
+            {
+                "score": -1.8188114610892028,
+                "name": "BRD-K86997557"
+            },
+            {
+                "score": -1.818162531822493,
+                "name": "HNF4G"
+            },
+            {
+                "score": -1.8177569510307992,
+                "name": "GAST"
+            },
+            {
+                "score": -1.817513602555783,
+                "name": "tert-butylhydroquinone"
+            },
+            {
+                "score": -1.8172702540807668,
+                "name": "ZK-164015"
+            },
+            {
+                "ATC code": "N04AA03",
+                "score": -1.8163779763390404,
+                "name": "metixene"
+            },
+            {
+                "score": -1.8160535117056857,
+                "name": "PBK"
+            },
+            {
+                "score": -1.815647930913992,
+                "name": "KU-C103428N"
+            },
+            {
+                "score": -1.8149990016472821,
+                "name": "BRD-K76595177"
+            },
+            {
+                "score": -1.8147556531722657,
+                "name": "CUL2"
+            },
+            {
+                "score": -1.8145123046972496,
+                "name": "ERO1L"
+            },
+            {
+                "score": -1.8141067239055557,
+                "name": "triamcinolone"
+            },
+            {
+                "score": -1.814025607747217,
+                "name": "CERS4"
+            }
+        ]
+    },
+    "Synanceia verrucosa": {
+        "top": [
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "Merck60"
+            },
+            {
+                "score": 0.0,
+                "type": "ctl_vehicle",
+                "name": "BRD-K79094264"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79157816"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79181721"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79219981"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79287095"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_oe",
+                "name": "BRD-K79356120"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79379353"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79422060"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79435297"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79460683"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79527000"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79579182"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79600112"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79609340"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79610347"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79625260"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K79684588"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "SA-1939936"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "BRD-K79838525"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -2.6624486264330525,
+                "name": "BRD-A84102390"
+            },
+            {
+                "score": -2.6618808133246805,
+                "name": "DMSO"
+            },
+            {
+                "ATC code": "P02DA01",
+                "score": -2.65936621241618,
+                "name": "niclosamide"
+            },
+            {
+                "score": -2.658149470041099,
+                "name": "APEX1"
+            },
+            {
+                "score": -2.6579872377244214,
+                "name": "CVF-SUMO-13"
+            },
+            {
+                "score": -2.6549859398658877,
+                "name": "MLN-8054"
+            },
+            {
+                "score": -2.6548237075492103,
+                "name": "SMARCA5"
+            },
+            {
+                "ATC code": "B01AC11",
+                "score": -2.6540936621241618,
+                "name": "iloprost"
+            },
+            {
+                "score": -2.652146874324032,
+                "name": "SULT1A3"
+            },
+            {
+                "score": -2.6513357127406447,
+                "name": "BRD-K74667984"
+            },
+            {
+                "score": -2.6510112481072894,
+                "name": "BRD-K74436011"
+            },
+            {
+                "score": -2.65036231884058,
+                "name": "perhexiline"
+            },
+            {
+                "score": -2.6488211118321434,
+                "name": "BRD-K47731572"
+            },
+            {
+                "score": -2.64452195544019,
+                "name": "CCNB2"
+            },
+            {
+                "score": -2.643710793856803,
+                "name": "CCDC85B"
+            },
+            {
+                "score": -2.6436296776984642,
+                "name": "PARL"
+            },
+            {
+                "score": -2.6431429807484315,
+                "name": "PLK1"
+            },
+            {
+                "score": -2.6428996322734153,
+                "name": "ETFB"
+            },
+            {
+                "score": -2.642169586848367,
+                "name": "PDIA4"
+            },
+            {
+                "score": -2.641682889898334,
+                "name": "BRD-K07616985"
+            }
+        ]
+    },
+    "Conus imperialis": {
+        "top": [
+            {
+                "score": 2.0006292753898745,
+                "type": "trt_cp",
+                "name": "FGB"
+            },
+            {
+                "score": 1.9999803461231642,
+                "type": "trt_cp",
+                "name": "TATTCAC"
+            },
+            {
+                "score": 1.9986013714314057,
+                "type": "trt_cp",
+                "name": "verrucarin-a"
+            },
+            {
+                "score": 1.9986013714314055,
+                "type": "trt_sh",
+                "name": "BRD-K46594703"
+            },
+            {
+                "score": 1.9971412805813085,
+                "type": "trt_sh",
+                "name": "LRRC32"
+            },
+            {
+                "score": 1.9966545836312757,
+                "type": "trt_sh",
+                "name": "RGS16"
+            },
+            {
+                "score": 1.9964923513145982,
+                "type": "trt_sh",
+                "name": "FABP1"
+            },
+            {
+                "score": 1.9964112351562597,
+                "type": "ctl_vehicle",
+                "name": "SOCS1"
+            },
+            {
+                "score": 1.995681189731211,
+                "type": "trt_sh",
+                "name": "CTNND1"
+            },
+            {
+                "score": 1.994788911989485,
+                "type": "trt_sh",
+                "name": "HES1"
+            },
+            {
+                "score": 1.9945455635144687,
+                "type": "trt_sh",
+                "name": "ADAM17"
+            },
+            {
+                "score": 1.9942210988811138,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9941399827227748,
+                "type": "trt_sh",
+                "name": "thioperamide"
+            },
+            {
+                "score": 1.9936920355299106,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9934099372977263,
+                "type": "trt_cp",
+                "name": "SOD1"
+            },
+            {
+                "score": 1.9934099372977263,
+                "type": "trt_sh",
+                "name": "BRD-K62219715"
+            },
+            {
+                "score": 1.9928808739465231,
+                "type": "trt_sh",
+                "name": "TGTCGTG"
+            },
+            {
+                "score": 1.9927610080310163,
+                "type": "trt_cp",
+                "name": "BRD-K43108514"
+            },
+            {
+                "score": 1.9927610080310163,
+                "type": "trt_sh",
+                "name": "BRD-K21237738"
+            },
+            {
+                "score": 1.992517659556,
+                "type": "trt_sh",
+                "name": "BRD-K07967886"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9950715682181726,
+                "name": "CB7950998"
+            },
+            {
+                "score": -1.9939359420014302,
+                "name": "BRD-K73006286"
+            },
+            {
+                "score": -1.9932058965763815,
+                "name": "SB-525334"
+            },
+            {
+                "score": -1.9931247804180428,
+                "name": "PRKCZ"
+            },
+            {
+                "score": -1.992962548101365,
+                "name": "ATP5O"
+            },
+            {
+                "score": -1.992719199626349,
+                "name": "SLC1A6"
+            },
+            {
+                "score": -1.9925569673096715,
+                "name": "FEN1"
+            },
+            {
+                "score": -1.9922325026763166,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.991259108776252,
+                "name": "GPI"
+            },
+            {
+                "score": -1.9902857148761868,
+                "name": "ARHGAP1"
+            },
+            {
+                "score": -1.9897566515249838,
+                "name": "ARRB1"
+            },
+            {
+                "score": -1.9897179017678157,
+                "name": "TCF4"
+            },
+            {
+                "score": -1.989675535366645,
+                "name": "PRKCZ"
+            },
+            {
+                "ATC code": [
+                    "A10BG02",
+                    "A10BD03"
+                ],
+                "score": -1.9894745532927993,
+                "name": "rosiglitazone"
+            },
+            {
+                "score": -1.9888256240260893,
+                "name": "PF-750"
+            },
+            {
+                "score": -1.988663391709412,
+                "name": "CSNK1A1"
+            },
+            {
+                "score": -1.9885822755510731,
+                "name": "FTSJ1"
+            },
+            {
+                "score": -1.9875277654926697,
+                "name": "meloxicam"
+            },
+            {
+                "score": -1.9875277654926695,
+                "name": "NFKBIE"
+            },
+            {
+                "score": -1.9869599523842985,
+                "name": "RIOK3"
+            }
+        ]
+    },
+    "Buthus occitanus": {
+        "top": [
+            {
+                "score": 0.0,
+                "type": "trt_cp",
+                "name": "Merck60"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82483257"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82602524"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82670191"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82726072"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82735282"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82781769"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82869745"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82870050"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82886296"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82911380"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82927587"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82933801"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K82963710"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K83001027"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K83045795"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K83047454"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K83098569"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K83216866"
+            },
+            {
+                "score": 0.0,
+                "type": "trt_sh",
+                "name": "BRD-K83365102"
+            }
+        ],
+        "bottom": [
+            {
+                "score": 0.0,
+                "name": "quinpirole"
+            },
+            {
+                "score": 0.0,
+                "name": "KRAS"
+            },
+            {
+                "score": 0.0,
+                "name": "KRAS"
+            },
+            {
+                "score": 0.0,
+                "name": "KRAS"
+            },
+            {
+                "score": 0.0,
+                "name": "KRAS"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KRAS"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KNDC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KLRC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KLRC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KLRC1"
+            },
+            {
+                "score": 0.0,
+                "name": "KLF7"
+            },
+            {
+                "score": 0.0,
+                "name": "KLF7"
+            }
+        ]
+    },
+    "Atractaspis sp": {
+        "top": [
+            {
+                "score": 1.9792613021847285,
+                "type": "trt_sh",
+                "name": "RGS4"
+            },
+            {
+                "score": 1.9752054942677915,
+                "type": "trt_oe",
+                "name": "GCLM"
+            },
+            {
+                "ATC code": "L04AX02",
+                "score": 1.9745565650010817,
+                "type": "trt_oe",
+                "name": "thalidomide"
+            },
+            {
+                "score": 1.9745565650010817,
+                "type": "trt_sh",
+                "name": "CEBPA"
+            },
+            {
+                "score": 1.9742321003677266,
+                "type": "trt_cp",
+                "name": "GPR78"
+            },
+            {
+                "score": 1.9735831711010168,
+                "type": "trt_sh",
+                "name": "Merck60"
+            },
+            {
+                "score": 1.9734209387843393,
+                "type": "trt_cp",
+                "name": "CDKN1A"
+            },
+            {
+                "score": 1.973177590309323,
+                "type": "ctl_vector",
+                "name": "CHEMBL-1222381"
+            },
+            {
+                "score": 1.972853125675968,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9725286610426132,
+                "type": "trt_sh",
+                "name": "GNAS"
+            },
+            {
+                "score": 1.971960847934242,
+                "type": "trt_sh",
+                "name": "ADAT1"
+            },
+            {
+                "score": 1.9718797317759031,
+                "type": "trt_sh",
+                "name": "UTP18"
+            },
+            {
+                "score": 1.9718797317759031,
+                "type": "trt_cp",
+                "name": "BRD-A47832959"
+            },
+            {
+                "score": 1.9714741509842093,
+                "type": "ctl_vehicle",
+                "name": "TRAF3"
+            },
+            {
+                "score": 1.9713930348258708,
+                "type": "trt_sh",
+                "name": "PJA1"
+            },
+            {
+                "score": 1.9712308025091934,
+                "type": "trt_cp",
+                "name": "BRD-K36951400"
+            },
+            {
+                "score": 1.9711496863508544,
+                "type": "ctl_vector",
+                "name": "DCPIB"
+            },
+            {
+                "score": 1.9710685701925157,
+                "type": "trt_sh",
+                "name": "MPI"
+            },
+            {
+                "score": 1.970095176292451,
+                "type": "trt_cp",
+                "name": "PEPD"
+            },
+            {
+                "score": 1.970014060134112,
+                "type": "trt_cp",
+                "name": "PRKACA"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -2.016196192948302,
+                "name": "RFC5"
+            },
+            {
+                "score": -2.015952844473286,
+                "name": "BMPR1A"
+            },
+            {
+                "score": -2.0148172182565434,
+                "name": "FER"
+            },
+            {
+                "score": -2.014006056673156,
+                "name": "UBE2L6"
+            },
+            {
+                "score": -2.0136815920398012,
+                "name": "BRD-K11759662"
+            },
+            {
+                "score": -2.013519359723124,
+                "name": "GFPT2"
+            },
+            {
+                "score": -2.013438243564785,
+                "name": "brucine"
+            },
+            {
+                "score": -2.0123837335063812,
+                "name": "lacZ"
+            },
+            {
+                "score": -2.0119781527146876,
+                "name": "gabazine"
+            },
+            {
+                "score": -2.0118970365563484,
+                "name": "BLNK"
+            },
+            {
+                "score": -2.010842526497945,
+                "name": "BAZ1B"
+            },
+            {
+                "score": -2.0107614103396063,
+                "name": "PTPN11"
+            },
+            {
+                "score": -2.01051806186459,
+                "name": "AT-7519"
+            },
+            {
+                "score": -2.009544667964525,
+                "name": "DMSO"
+            },
+            {
+                "score": -2.00922020333117,
+                "name": "TSPAN6"
+            },
+            {
+                "score": -2.0088957386978152,
+                "name": "BRD-K83003953"
+            },
+            {
+                "score": -2.0088957386978152,
+                "name": "lacZ"
+            },
+            {
+                "score": -2.0088146225394765,
+                "name": "CD1C"
+            },
+            {
+                "score": -2.008652390222799,
+                "name": "NK26-I-41-1"
+            },
+            {
+                "score": -2.0084901579061216,
+                "name": "BRD-K40758391"
+            }
+        ]
+    },
+    "Apis mellifera": {
+        "top": [
+            {
+                "score": 2.1056014394431006,
+                "type": "trt_sh",
+                "name": "PLCB4"
+            },
+            {
+                "score": 2.104303580909681,
+                "type": "trt_sh",
+                "name": "CBR3"
+            },
+            {
+                "score": 2.102600141584567,
+                "type": "trt_cp",
+                "name": "ADRA2C"
+            },
+            {
+                "score": 2.1018700961595185,
+                "type": "trt_cp",
+                "name": "BRD-K98384558"
+            },
+            {
+                "score": 2.1017889800011798,
+                "type": "trt_sh",
+                "name": "BRD-K35304243"
+            },
+            {
+                "score": 2.1012211668928087,
+                "type": "trt_sh.css",
+                "name": "PSMB2"
+            },
+            {
+                "score": 2.1012211668928087,
+                "type": "trt_cp",
+                "name": "BRD-K52682771"
+            },
+            {
+                "score": 2.1012211668928087,
+                "type": "trt_cp",
+                "name": "PSMB9"
+            },
+            {
+                "ATC code": [
+                    "H28UP18",
+                    "L01XX14",
+                    "D10AD01"
+                ],
+                "score": 2.100815586101115,
+                "type": "trt_cp",
+                "name": "tretinoin"
+            },
+            {
+                "score": 2.100815586101115,
+                "type": "trt_oe",
+                "name": "BRD-K96752129"
+            },
+            {
+                "ATC code": "L04AX04",
+                "score": 2.0996799598843725,
+                "type": "trt_cp",
+                "name": "lenalidomide"
+            },
+            {
+                "score": 2.0994366114093563,
+                "type": "trt_lig",
+                "name": "ZK-756326"
+            },
+            {
+                "score": 2.0984632175092917,
+                "type": "trt_sh",
+                "name": "POLR1A"
+            },
+            {
+                "score": 2.0977331720842427,
+                "type": "trt_sh",
+                "name": "ARG2"
+            },
+            {
+                "score": 2.0971653589758716,
+                "type": "trt_sh",
+                "name": "TAOK3"
+            },
+            {
+                "score": 2.0971653589758716,
+                "type": "trt_cp",
+                "name": "LRP1"
+            },
+            {
+                "score": 2.0968408943425167,
+                "type": "trt_sh",
+                "name": "BRD-K90410459"
+            },
+            {
+                "score": 2.0963541973924844,
+                "type": "ctl_vector",
+                "name": "tacedinaline"
+            },
+            {
+                "score": 2.0963541973924844,
+                "type": "trt_cp",
+                "name": "BRD-K82492171"
+            },
+            {
+                "score": 2.095705268125774,
+                "type": "trt_cp",
+                "name": "GRWD1"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.8906672172733172,
+                "name": "JMJD7-PLA2G4B"
+            },
+            {
+                "score": -1.8895315910565746,
+                "name": "E2F1"
+            },
+            {
+                "score": -1.8883148486814938,
+                "name": "BRD-A94675310"
+            },
+            {
+                "score": -1.8875036870981061,
+                "name": "BRD-K55077180"
+            },
+            {
+                "score": -1.8874225709397676,
+                "name": "LIN28A"
+            },
+            {
+                "score": -1.8873414547814287,
+                "name": "CTCAGGA"
+            },
+            {
+                "score": -1.8871792224647512,
+                "name": "BRD-K46594703"
+            },
+            {
+                "score": -1.8866114093563802,
+                "name": "montelukast"
+            },
+            {
+                "score": -1.8862869447230253,
+                "name": "bucladesine"
+            },
+            {
+                "score": -1.8858002477729925,
+                "name": "ACTN2"
+            },
+            {
+                "score": -1.8845835053979116,
+                "name": "BRD-K05649647"
+            },
+            {
+                "score": -1.8845835053979116,
+                "name": "IGFBP4"
+            },
+            {
+                "score": -1.8843401569228955,
+                "name": "SMARCA4"
+            },
+            {
+                "score": -1.8833667630228303,
+                "name": "CRABP1"
+            },
+            {
+                "score": -1.8832856468644918,
+                "name": "DNAJB12"
+            },
+            {
+                "score": -1.8831234145478142,
+                "name": "BRD-K65373229"
+            },
+            {
+                "score": -1.881257742906023,
+                "name": "INPP1"
+            },
+            {
+                "score": -1.8811766267476846,
+                "name": "LUCIFERASE"
+            },
+            {
+                "score": -1.8809332782726682,
+                "name": "BRD-K00484200"
+            },
+            {
+                "ATC code": "L01XE02",
+                "score": -1.8809332782726682,
+                "name": "gefitinib"
+            }
+        ]
+    },
+    "Rhinella marina": {
+        "top": [
+            {
+                "score": 2.038232749296993,
+                "type": "trt_sh",
+                "name": "BRD-K48662018"
+            },
+            {
+                "score": 2.035799264546831,
+                "type": "trt_cp",
+                "name": "CDK6"
+            },
+            {
+                "score": 2.0353936837551374,
+                "type": "trt_sh",
+                "name": "ERBB3"
+            },
+            {
+                "score": 2.0347447544884276,
+                "type": "trt_sh",
+                "name": "POU5F1"
+            },
+            {
+                "score": 2.0340958252217174,
+                "type": "trt_sh",
+                "name": "TERF2IP"
+            },
+            {
+                "score": 2.0332035474799914,
+                "type": "trt_sh",
+                "name": "BRD-K37061750"
+            },
+            {
+                "score": 2.0329601990049753,
+                "type": "trt_oe",
+                "name": "PTPLAD1"
+            },
+            {
+                "ATC code": "L01XX46",
+                "score": 2.0324735020549425,
+                "type": "trt_cp",
+                "name": "olaparib"
+            },
+            {
+                "score": 2.0321490374215876,
+                "type": "trt_sh",
+                "name": "GFP"
+            },
+            {
+                "ATC code": "N05AH03",
+                "score": 2.03198680510491,
+                "type": "trt_cp",
+                "name": "olanzapine"
+            },
+            {
+                "score": 2.031500108154878,
+                "type": "trt_oe",
+                "name": "EYA1"
+            },
+            {
+                "score": 2.031418991996539,
+                "type": "trt_sh",
+                "name": "CPE"
+            },
+            {
+                "score": 2.031175643521523,
+                "type": "trt_sh",
+                "name": "BRD-K48823327"
+            },
+            {
+                "score": 2.030851178888168,
+                "type": "trt_sh.css",
+                "name": "POLR3K"
+            },
+            {
+                "score": 2.0307700627298293,
+                "type": "trt_sh",
+                "name": "U-46619"
+            },
+            {
+                "score": 2.0306078304131514,
+                "type": "trt_sh",
+                "name": "UBAP2L"
+            },
+            {
+                "score": 2.0305267142548127,
+                "type": "trt_sh",
+                "name": "ITGAE"
+            },
+            {
+                "score": 2.0297155526714254,
+                "type": "trt_cp",
+                "name": "EMPTY_VECTOR"
+            },
+            {
+                "score": 2.0293910880380706,
+                "type": "trt_cp",
+                "name": "AMDHD2"
+            },
+            {
+                "score": 2.0291477395630544,
+                "type": "trt_sh",
+                "name": "TCCGAAC"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9586848366861345,
+                "name": "DAPK1"
+            },
+            {
+                "score": -1.957305861994376,
+                "name": "clobetasol"
+            },
+            {
+                "score": -1.9560891196192949,
+                "name": "BTBD3"
+            },
+            {
+                "score": -1.9547912610858749,
+                "name": "CLASRP"
+            },
+            {
+                "score": -1.9545479126108587,
+                "name": "RNF125"
+            },
+            {
+                "score": -1.9542234479775038,
+                "name": "SMNDC1"
+            },
+            {
+                "score": -1.953493402552455,
+                "name": "ZNF404"
+            },
+            {
+                "score": -1.9527633571274066,
+                "name": "BRD-K63770300"
+            },
+            {
+                "score": -1.9524388924940514,
+                "name": "A2M"
+            },
+            {
+                "score": -1.9517899632273417,
+                "name": "BRD-K54343811"
+            },
+            {
+                "score": -1.9516277309106642,
+                "name": "ELF3"
+            },
+            {
+                "score": -1.9514654985939868,
+                "name": "EVL"
+            },
+            {
+                "score": -1.9507354531689378,
+                "name": "CBX7"
+            },
+            {
+                "score": -1.950410988535583,
+                "name": "AACAAGT"
+            },
+            {
+                "score": -1.9503298723772442,
+                "name": "PI4K2B"
+            },
+            {
+                "score": -1.9499242915855504,
+                "name": "DVL1"
+            },
+            {
+                "score": -1.949113130002163,
+                "name": "HMGCS1"
+            },
+            {
+                "score": -1.9489508976854855,
+                "name": "BRD-K25870200"
+            },
+            {
+                "score": -1.9488697815271467,
+                "name": "BRD-K28890604"
+            },
+            {
+                "score": -1.948788665368808,
+                "name": "STXBP2"
+            }
+        ]
+    },
+    "Scorpio maurus": {
+        "top": [
+            {
+                "score": 2.002040267504459,
+                "type": "ctl_vehicle",
+                "name": "VEGFC"
+            },
+            {
+                "score": 2.002040267504459,
+                "type": "trt_cp",
+                "name": "HIF1A"
+            },
+            {
+                "score": 2.0000123635459905,
+                "type": "trt_cp",
+                "name": "blebbistatin"
+            },
+            {
+                "score": 1.9996067827542967,
+                "type": "trt_oe",
+                "name": "BRD-K97629076"
+            },
+            {
+                "score": 1.9980655757458607,
+                "type": "trt_cp",
+                "name": "TSC1"
+            },
+            {
+                "score": 1.9975788787958284,
+                "type": "trt_sh.css",
+                "name": "BRD-K34495954"
+            },
+            {
+                "score": 1.997416646479151,
+                "type": "trt_sh",
+                "name": "ETS1"
+            },
+            {
+                "score": 1.996767717212441,
+                "type": "ctl_vehicle",
+                "name": "VRK3"
+            },
+            {
+                "score": 1.996686601054102,
+                "type": "trt_sh",
+                "name": "BRD-K06715209"
+            },
+            {
+                "score": 1.9963621364207471,
+                "type": "trt_cp",
+                "name": "tyrphostin-AG-18"
+            },
+            {
+                "score": 1.9962810202624084,
+                "type": "trt_cp",
+                "name": "trichostatin-a"
+            },
+            {
+                "ATC code": "L01XX38",
+                "score": 1.9961999041040697,
+                "type": "trt_cp",
+                "name": "vorinostat"
+            },
+            {
+                "score": 1.9957132071540373,
+                "type": "ctl_vehicle",
+                "name": "ISOC1"
+            },
+            {
+                "score": 1.9957132071540373,
+                "type": "trt_sh",
+                "name": "COL4A5"
+            },
+            {
+                "score": 1.995064277887327,
+                "type": "trt_sh",
+                "name": "dimercaptosuccinic-acid"
+            },
+            {
+                "score": 1.995064277887327,
+                "type": "trt_cp",
+                "name": "VDR"
+            },
+            {
+                "score": 1.9949831617289884,
+                "type": "trt_cp",
+                "name": "LASS2"
+            },
+            {
+                "score": 1.9949020455706497,
+                "type": "trt_sh",
+                "name": "RU-24969"
+            },
+            {
+                "score": 1.9946586970956335,
+                "type": "trt_cp",
+                "name": "CAPN1"
+            },
+            {
+                "score": 1.994577580937295,
+                "type": "trt_cp",
+                "name": "BRD-K14302652"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.996337409328766,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9953640154287011,
+                "name": "SB-525334"
+            },
+            {
+                "score": -1.9950395507953465,
+                "name": "BRD-K93899689"
+            },
+            {
+                "score": -1.9943095053702975,
+                "name": "KIAA0317"
+            },
+            {
+                "score": -1.9934983437869103,
+                "name": "BRD-K44699604"
+            },
+            {
+                "score": -1.9930927629952162,
+                "name": "AAAGGAG"
+            },
+            {
+                "score": -1.9926060660451839,
+                "name": "BCL2L2"
+            },
+            {
+                "score": -1.9918760206201354,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9915515559867805,
+                "name": "COASY"
+            },
+            {
+                "score": -1.9914704398284417,
+                "name": "meloxicam"
+            },
+            {
+                "score": -1.9899292328200056,
+                "name": "BRD-K79619196"
+            },
+            {
+                "score": -1.9899292328200056,
+                "name": "BRD-K99169187"
+            },
+            {
+                "score": -1.9898481166616668,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9896047681866507,
+                "name": "GAK"
+            },
+            {
+                "score": -1.9893614197116345,
+                "name": "VPS26A"
+            },
+            {
+                "score": -1.9892803035532955,
+                "name": "BRD-K38061943"
+            },
+            {
+                "score": -1.9887124904449245,
+                "name": "BRD-K15923759"
+            },
+            {
+                "score": -1.9884691419699083,
+                "name": "PANK2"
+            },
+            {
+                "score": -1.9877390965448596,
+                "name": "selumetinib"
+            },
+            {
+                "score": -1.987252399594827,
+                "name": "BRD-K12411950"
+            }
+        ]
+    },
+    "Conus marmoreus": {
+        "top": [
+            {
+                "score": 1.9448896820246593,
+                "type": "trt_sh",
+                "name": "ID2"
+            },
+            {
+                "score": 1.9423750811161584,
+                "type": "trt_cp",
+                "name": "AICA-ribonucleotide"
+            },
+            {
+                "score": 1.9422939649578197,
+                "type": "trt_cp",
+                "name": "DCXR"
+            },
+            {
+                "score": 1.940914990266061,
+                "type": "trt_cp",
+                "name": "STK10"
+            },
+            {
+                "score": 1.9407527579493835,
+                "type": "trt_cp",
+                "name": "ITGB2"
+            },
+            {
+                "score": 1.9399415963659963,
+                "type": "trt_cp",
+                "name": "butabindide"
+            },
+            {
+                "score": 1.939941596365996,
+                "type": "trt_sh",
+                "name": "ribavirin"
+            },
+            {
+                "score": 1.9394548994159635,
+                "type": "trt_sh",
+                "name": "CHRM3"
+            },
+            {
+                "score": 1.9392115509409473,
+                "type": "trt_sh.css",
+                "name": "fluticasone-propionate"
+            },
+            {
+                "ATC code": "L01XE11",
+                "score": 1.9385626216742375,
+                "type": "trt_cp",
+                "name": "pazopanib"
+            },
+            {
+                "ATC code": "N05AX12",
+                "score": 1.9379948085658665,
+                "type": "trt_sh",
+                "name": "aripiprazole"
+            },
+            {
+                "score": 1.9367780661907852,
+                "type": "trt_oe",
+                "name": "GPR158"
+            },
+            {
+                "score": 1.9362913692407528,
+                "type": "trt_sh",
+                "name": "BRD-K54730162"
+            },
+            {
+                "score": 1.935966904607398,
+                "type": "trt_cp",
+                "name": "VDAC1"
+            },
+            {
+                "score": 1.9354802076573654,
+                "type": "trt_oe",
+                "name": "ZNF273"
+            },
+            {
+                "score": 1.9354802076573652,
+                "type": "trt_cp",
+                "name": "RHEB"
+            },
+            {
+                "score": 1.9353990914990264,
+                "type": "ctl_vehicle",
+                "name": "SMC4"
+            },
+            {
+                "score": 1.935317975340688,
+                "type": "ctl_vector",
+                "name": "curcumin"
+            },
+            {
+                "score": 1.9350746268656716,
+                "type": "trt_sh",
+                "name": "CDO1"
+            },
+            {
+                "score": 1.9347501622323167,
+                "type": "trt_cp",
+                "name": "telenzepine"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -2.0474042829331607,
+                "name": "SMARCB1"
+            },
+            {
+                "score": -2.046593121349773,
+                "name": "FGIN-1-27"
+            },
+            {
+                "score": -2.0451330304996755,
+                "name": "BRD-K73701691"
+            },
+            {
+                "score": -2.0448896820246594,
+                "name": "PF-431396"
+            },
+            {
+                "score": -2.044402985074627,
+                "name": "GW-0742"
+            },
+            {
+                "score": -2.0439974042829334,
+                "name": "BRD-K62455331"
+            },
+            {
+                "score": -2.0431862426995457,
+                "name": "CEP57"
+            },
+            {
+                "score": -2.042780661907852,
+                "name": "MAPK14"
+            },
+            {
+                "score": -2.0423750811161585,
+                "name": "ATTGACT"
+            },
+            {
+                "score": -2.04229396495782,
+                "name": "fexaramine"
+            },
+            {
+                "score": -2.041239454899416,
+                "name": "EMD"
+            },
+            {
+                "score": -2.0407527579493836,
+                "name": "IRF9"
+            },
+            {
+                "score": -2.039860480207657,
+                "name": "EED"
+            },
+            {
+                "ATC code": "C67CC89",
+                "score": -2.0396171317326415,
+                "name": "chaetocin"
+            },
+            {
+                "score": -2.0386437378325764,
+                "name": "EPHA2"
+            },
+            {
+                "score": -2.038481505515899,
+                "name": "NBQX"
+            },
+            {
+                "score": -2.0382381570408827,
+                "name": "DMSO"
+            },
+            {
+                "score": -2.0379136924075274,
+                "name": "GFP"
+            },
+            {
+                "score": -2.036129136924075,
+                "name": "TRAF1"
+            },
+            {
+                "score": -2.035399091499027,
+                "name": "BRD-K79532217"
+            }
+        ]
+    },
+    "Crotalus scutulatus sculatus": {
+        "top": [
+            {
+                "score": 2.0529598384887158,
+                "type": "trt_cp",
+                "name": "ST13"
+            },
+            {
+                "score": 2.0524731415386834,
+                "type": "trt_sh",
+                "name": "LCK"
+            },
+            {
+                "score": 2.0502018891051987,
+                "type": "trt_oe",
+                "name": "BRD-A65142661"
+            },
+            {
+                "score": 2.0499585406301826,
+                "type": "trt_cp",
+                "name": "HIF1A"
+            },
+            {
+                "score": 2.049877424471844,
+                "type": "trt_cp",
+                "name": "itopride"
+            },
+            {
+                "score": 2.0495529598384885,
+                "type": "trt_cp",
+                "name": "NVP-BEZ235"
+            },
+            {
+                "score": 2.04947184368015,
+                "type": "trt_sh",
+                "name": "BRD-K81647657"
+            },
+            {
+                "score": 2.0489040305717787,
+                "type": "trt_sh",
+                "name": "KIAA0317"
+            },
+            {
+                "score": 2.0486606820967626,
+                "type": "ctl_vehicle",
+                "name": "alpha-estradiol"
+            },
+            {
+                "score": 2.0484173336217464,
+                "type": "trt_cp",
+                "name": "TCEA1"
+            },
+            {
+                "score": 2.047768404355036,
+                "type": "trt_sh",
+                "name": "BRD-K14475668"
+            },
+            {
+                "score": 2.0476872881966974,
+                "type": "ctl_vector",
+                "name": "USP9X"
+            },
+            {
+                "score": 2.0476061720383587,
+                "type": "trt_cp",
+                "name": "KIAA0922"
+            },
+            {
+                "score": 2.047281707405004,
+                "type": "trt_sh",
+                "name": "NVP-TAE684"
+            },
+            {
+                "score": 2.0471194750883264,
+                "type": "trt_cp",
+                "name": "TUL_XXI035"
+            },
+            {
+                "score": 2.046064965029923,
+                "type": "trt_cp",
+                "name": "PRCC"
+            },
+            {
+                "score": 2.0456593842382294,
+                "type": "trt_cp",
+                "name": "RRAGB"
+            },
+            {
+                "score": 2.0446048741798255,
+                "type": "trt_sh",
+                "name": "PRKCA"
+            },
+            {
+                "score": 2.044037061071454,
+                "type": "trt_cp",
+                "name": "tetramisole"
+            },
+            {
+                "score": 2.0436314802797604,
+                "type": "trt_cp",
+                "name": "SCCPDH"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9425787728026533,
+                "name": "BRD-K71059148"
+            },
+            {
+                "score": -1.9407131011608625,
+                "name": "TBK1"
+            },
+            {
+                "score": -1.9394152426274425,
+                "name": "ZKSCAN4"
+            },
+            {
+                "ATC code": "N02CC03",
+                "score": -1.9385229648857165,
+                "name": "zolmitriptan"
+            },
+            {
+                "score": -1.9381173840940227,
+                "name": "BRD-K42170810"
+            },
+            {
+                "ATC code": [
+                    "L02AA01",
+                    "G03CC05",
+                    "G03CB02"
+                ],
+                "score": -1.937062874035619,
+                "name": "diethylstilbestrol"
+            },
+            {
+                "score": -1.9368195255606029,
+                "name": "SOCS2"
+            },
+            {
+                "score": -1.9359272478188767,
+                "name": "AP1B1"
+            },
+            {
+                "score": -1.935765015502199,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9352783185521667,
+                "name": "BRD-K40138205"
+            },
+            {
+                "score": -1.934629389285457,
+                "name": "NDUFB2"
+            },
+            {
+                "score": -1.934548273127118,
+                "name": "LUCIFERASE"
+            },
+            {
+                "score": -1.9344671569687792,
+                "name": "BRD-K29326853"
+            },
+            {
+                "score": -1.9344671569687792,
+                "name": "EPHB4"
+            },
+            {
+                "score": -1.933980460018747,
+                "name": "ranitidine"
+            },
+            {
+                "score": -1.9339804600187467,
+                "name": "BRD-K75688794"
+            },
+            {
+                "score": -1.9327637176436658,
+                "name": "BRD-K62283710"
+            },
+            {
+                "score": -1.9327637176436658,
+                "name": "HSD17B7"
+            },
+            {
+                "score": -1.9326014853269884,
+                "name": "BRD-K51696048"
+            },
+            {
+                "score": -1.9321147883769558,
+                "name": "SA-247615"
+            }
+        ]
+    },
+    "Argiope lobata": {
+        "top": [
+            {
+                "score": 1.997568246369887,
+                "type": "trt_sh",
+                "name": "AGT"
+            },
+            {
+                "score": 1.9964326201531446,
+                "type": "trt_oe",
+                "name": "BRD-K57836103"
+            },
+            {
+                "score": 1.9958648070447733,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9951347616197248,
+                "type": "trt_cp",
+                "name": "HIPK1"
+            },
+            {
+                "score": 1.9949725293030474,
+                "type": "trt_sh",
+                "name": "CSNK2A2"
+            },
+            {
+                "score": 1.9940802515613214,
+                "type": "trt_cp",
+                "name": "RNF7"
+            },
+            {
+                "score": 1.9937557869279663,
+                "type": "trt_cp",
+                "name": "BRD-K11266478"
+            },
+            {
+                "score": 1.993755786927966,
+                "type": "trt_sh",
+                "name": "WDR67"
+            },
+            {
+                "ATC code": "L01XE34",
+                "score": 1.9937418118594885,
+                "type": "trt_cp",
+                "name": "tivozanib"
+            },
+            {
+                "score": 1.9933362310677947,
+                "type": "ctl_vector",
+                "name": "AGATCTT"
+            },
+            {
+                "ATC code": "A10BB01",
+                "score": 1.9930117664344398,
+                "type": "trt_sh",
+                "name": "glibenclamide"
+            },
+            {
+                "score": 1.9929446253445788,
+                "type": "trt_cp",
+                "name": "BRD-K48116811"
+            },
+            {
+                "score": 1.9922006048510523,
+                "type": "trt_cp",
+                "name": "PPM1B"
+            },
+            {
+                "score": 1.9920383725343749,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9917950240593587,
+                "type": "trt_sh.css",
+                "name": "BRD-K48016779"
+            },
+            {
+                "score": 1.9916327917426813,
+                "type": "trt_sh",
+                "name": "GNG4"
+            },
+            {
+                "score": 1.9915516755843425,
+                "type": "ctl_vehicle",
+                "name": "AKAP8"
+            },
+            {
+                "score": 1.9911600698611265,
+                "type": "trt_sh",
+                "name": "DC-45-A2"
+            },
+            {
+                "score": 1.9906733729110941,
+                "type": "trt_sh",
+                "name": "GAL"
+            },
+            {
+                "score": 1.990430024436078,
+                "type": "trt_sh.css",
+                "name": "PRKCQ"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.9972403194964334,
+                "name": "RFC5"
+            },
+            {
+                "score": -1.9969969710214173,
+                "name": "BMPR1A"
+            },
+            {
+                "score": -1.9950501832212875,
+                "name": "UBE2L6"
+            },
+            {
+                "score": -1.9947257185879326,
+                "name": "BRD-K11759662"
+            },
+            {
+                "score": -1.9945634862712551,
+                "name": "GFPT2"
+            },
+            {
+                "score": -1.9945495112027771,
+                "name": "BRD-K05261220"
+            },
+            {
+                "score": -1.9944823701129164,
+                "name": "brucine"
+            },
+            {
+                "score": -1.994470126164488,
+                "name": "PRKACA"
+            },
+            {
+                "score": -1.99373834961939,
+                "name": "alclometasone"
+            },
+            {
+                "score": -1.9934278600545126,
+                "name": "lacZ"
+            },
+            {
+                "score": -1.993251652669357,
+                "name": "MEF2C"
+            },
+            {
+                "score": -1.993022279262819,
+                "name": "gabazine"
+            },
+            {
+                "score": -1.9930083041943412,
+                "name": "BRD-K62455331"
+            },
+            {
+                "score": -1.9929411631044802,
+                "name": "BLNK"
+            },
+            {
+                "score": -1.9928320968091857,
+                "name": "TTGCTCA"
+            },
+            {
+                "score": -1.9926698644925083,
+                "name": "SPAG7"
+            },
+            {
+                "score": -1.9919555252559868,
+                "name": "DMSO"
+            },
+            {
+                "score": -1.9918866530460766,
+                "name": "BAZ1B"
+            },
+            {
+                "score": -1.9918055368877379,
+                "name": "PTPN11"
+            },
+            {
+                "score": -1.9916293295025826,
+                "name": "AGGGTTT"
+            }
+        ]
+    },
+    "Bufo bufo": {
+        "top": [
+            {
+                "score": 1.9435094431849784,
+                "type": "trt_cp",
+                "name": "CD320"
+            },
+            {
+                "score": 1.942698281601591,
+                "type": "trt_sh.css",
+                "name": "S100B"
+            },
+            {
+                "score": 1.9422927008098974,
+                "type": "trt_sh",
+                "name": "BRD-K46555875"
+            },
+            {
+                "score": 1.9419682361765425,
+                "type": "trt_sh",
+                "name": "BCL6B"
+            },
+            {
+                "score": 1.9419682361765425,
+                "type": "trt_oe",
+                "name": "LRRK2"
+            },
+            {
+                "score": 1.9416437715431873,
+                "type": "trt_sh",
+                "name": "DMSO"
+            },
+            {
+                "score": 1.9415626553848486,
+                "type": "trt_oe",
+                "name": "MESP1"
+            },
+            {
+                "score": 1.9402647968514288,
+                "type": "trt_sh",
+                "name": "CAPN1"
+            },
+            {
+                "score": 1.94018368069309,
+                "type": "trt_sh",
+                "name": "RANBP9"
+            },
+            {
+                "score": 1.9398592160597352,
+                "type": "trt_sh",
+                "name": "ACTCTGT"
+            },
+            {
+                "score": 1.9396969837430578,
+                "type": "trt_sh",
+                "name": "ZNF589"
+            },
+            {
+                "score": 1.9392102867930252,
+                "type": "trt_cp",
+                "name": "wortmannin"
+            },
+            {
+                "score": 1.938966938318009,
+                "type": "trt_cp",
+                "name": "GADD45B"
+            },
+            {
+                "ATC code": "C08CA01",
+                "score": 1.938966938318009,
+                "type": "trt_sh.css",
+                "name": "amlodipine"
+            },
+            {
+                "score": 1.9388047060013316,
+                "type": "trt_sh",
+                "name": "ATP5S"
+            },
+            {
+                "score": 1.9387235898429926,
+                "type": "ctl_vector",
+                "name": "ANGPT1"
+            },
+            {
+                "score": 1.9378313121012667,
+                "type": "trt_sh.css",
+                "name": "NDUFS6"
+            },
+            {
+                "score": 1.9378313121012667,
+                "type": "trt_cp",
+                "name": "BRD-K99017327"
+            },
+            {
+                "score": 1.9374257313095729,
+                "type": "trt_oe",
+                "name": "SOX2"
+            },
+            {
+                "score": 1.9372634989928956,
+                "type": "trt_sh.css",
+                "name": "CLK1"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -2.0498390318312447,
+                "name": "MW-SHH-98"
+            },
+            {
+                "score": -2.04951456719789,
+                "name": "TTCTGAT"
+            },
+            {
+                "score": -2.04886563793118,
+                "name": "HDAC5"
+            },
+            {
+                "score": -2.0485411732978247,
+                "name": "POLE2"
+            },
+            {
+                "score": -2.0469999662893885,
+                "name": "BTK"
+            },
+            {
+                "score": -2.0461888047060013,
+                "name": "SNX6"
+            },
+            {
+                "score": -2.044728713855904,
+                "name": "PLK2"
+            },
+            {
+                "score": -2.0445664815392264,
+                "name": "HGS"
+            },
+            {
+                "score": -2.044404249222549,
+                "name": "PLK3"
+            },
+            {
+                "score": -2.044079784589194,
+                "name": "KCNQ1"
+            },
+            {
+                "score": -2.043349739164145,
+                "name": "TP53"
+            },
+            {
+                "score": -2.0432686230058064,
+                "name": "BRD-K60151881"
+            },
+            {
+                "score": -2.0423763452640804,
+                "name": "BRD-K88542532"
+            },
+            {
+                "score": -2.042214112947403,
+                "name": "AGTGCTT"
+            },
+            {
+                "score": -2.0421329967890642,
+                "name": "PRLR"
+            },
+            {
+                "score": -2.0421329967890642,
+                "name": "EMPTY_VECTOR"
+            },
+            {
+                "score": -2.0420518806307255,
+                "name": "ACAATAA"
+            },
+            {
+                "score": -2.0420518806307255,
+                "name": "atorvastatin"
+            },
+            {
+                "score": -2.0417274159973706,
+                "name": "NR1H3"
+            },
+            {
+                "score": -2.041646299839032,
+                "name": "ACACCAA"
+            }
+        ]
+    },
+    "Macrothele gigas": {
+        "top": [
+            {
+                "score": 2.111926067602491,
+                "type": "trt_sh",
+                "name": "PIAS3"
+            },
+            {
+                "score": 2.109979279802361,
+                "type": "trt_sh",
+                "name": "BRD-K26759399"
+            },
+            {
+                "score": 2.1098981636440226,
+                "type": "trt_sh.css",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.109654815169006,
+                "type": "ctl_vector",
+                "name": "DDIT3"
+            },
+            {
+                "score": 2.1095736990106673,
+                "type": "trt_sh",
+                "name": "GDPD5"
+            },
+            {
+                "score": 2.1094925828523285,
+                "type": "trt_sh.css",
+                "name": "BTG2"
+            },
+            {
+                "score": 2.1073835627355217,
+                "type": "trt_sh",
+                "name": "ARGLU1"
+            },
+            {
+                "score": 2.107302446577183,
+                "type": "trt_cp",
+                "name": "ZNF217"
+            },
+            {
+                "ATC code": [
+                    "L01XE22",
+                    "L01XE90"
+                ],
+                "score": 2.106572401152134,
+                "type": "trt_sh",
+                "name": "masitinib"
+            },
+            {
+                "score": 2.1060857042021013,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.105599007252069,
+                "type": "trt_cp",
+                "name": "DMSO"
+            },
+            {
+                "score": 2.104950077985359,
+                "type": "trt_oe",
+                "name": "PLK1"
+            },
+            {
+                "score": 2.1042200325603106,
+                "type": "trt_oe",
+                "name": "RAB1B"
+            },
+            {
+                "score": 2.103652219451939,
+                "type": "trt_sh.css",
+                "name": "BRD-K42489623"
+            },
+            {
+                "score": 2.102841057868552,
+                "type": "trt_cp",
+                "name": "tetracycline"
+            },
+            {
+                "score": 2.102759941710213,
+                "type": "trt_cp",
+                "name": "IKBKE"
+            },
+            {
+                "score": 2.1021110124435034,
+                "type": "trt_sh",
+                "name": "PFKL"
+            },
+            {
+                "score": 2.102111012443503,
+                "type": "trt_sh",
+                "name": "KIAA0753"
+            },
+            {
+                "score": 2.102111012443503,
+                "type": "trt_sh",
+                "name": "TGTCGCT"
+            },
+            {
+                "score": 2.1020298962851647,
+                "type": "trt_sh",
+                "name": "STX1A"
+            }
+        ],
+        "bottom": [
+            {
+                "score": -1.8838558921638944,
+                "name": "RAB31"
+            },
+            {
+                "score": -1.883693659847217,
+                "name": "DERL1"
+            },
+            {
+                "score": -1.8821524528387807,
+                "name": "TCCAGGA"
+            },
+            {
+                "score": -1.8806923619886837,
+                "name": "RFP"
+            },
+            {
+                "score": -1.88028678119699,
+                "name": "EIF2C3"
+            },
+            {
+                "score": -1.8795567357719412,
+                "name": "TATGCGG"
+            },
+            {
+                "score": -1.8792322711385863,
+                "name": "RGS18"
+            },
+            {
+                "ATC code": "V08AC07",
+                "score": -1.8769610187051016,
+                "name": "iocetamic-acid"
+            },
+            {
+                "score": -1.8756631601716818,
+                "name": "AKT1"
+            },
+            {
+                "score": -1.8750953470633105,
+                "name": "SA-1457810"
+            },
+            {
+                "ATC code": "C03DB02",
+                "score": -1.8750142309049718,
+                "name": "triamterene"
+            },
+            {
+                "score": -1.873959720846568,
+                "name": "POU5F1"
+            },
+            {
+                "score": -1.8737974885298905,
+                "name": "ZBTB45"
+            },
+            {
+                "score": -1.8737974885298905,
+                "name": "ACCTTCT"
+            },
+            {
+                "score": -1.8734730238965356,
+                "name": "BRD-K19499941"
+            },
+            {
+                "ATC code": "P01BA01",
+                "score": -1.873391907738197,
+                "name": "chloroquine"
+            },
+            {
+                "score": -1.8733107915798581,
+                "name": "WARS"
+            },
+            {
+                "score": -1.8729863269465032,
+                "name": "CDKN1C"
+            },
+            {
+                "score": -1.8729052107881645,
+                "name": "THBS1"
+            },
+            {
+                "score": -1.8722562815214545,
+                "name": "SSBP4"
+            }
+        ]
+    },
+    "Dendroaspis polylepis": {
+        "top": [
+            {
+                "score": 2.414638762708198,
+                "type": "trt_cp",
+                "name": "BOLA1"
+            },
+            {
+                "score": 2.414314298074843,
+                "type": "trt_sh",
+                "name": "BRD-K30837577"
+            },
+            {
+                "score": 2.413989833441488,
+                "type": "trt_sh",
+                "name": "EXO-1"
+            },
+            {
+                "score": 2.4139087172831495,
+                "type": "trt_sh",
+                "name": "AATCAGG"
+            },
+            {
+                "score": 2.413503136491456,
+                "type": "trt_sh",
+                "name": "CCL3L1"
+            },
+            {
+                "score": 2.4117996971663422,
+                "type": "trt_sh",
+                "name": "RITA"
+            },
+            {
+                "score": 2.411637464849665,
+                "type": "trt_sh",
+                "name": "MYCBP2"
+            },
+            {
+                "score": 2.411231884057971,
+                "type": "trt_sh",
+                "name": "BRD-K68319707"
+            },
+            {
+                "score": 2.4111507678996325,
+                "type": "trt_sh",
+                "name": "TFDP1"
+            },
+            {
+                "score": 2.4110696517412933,
+                "type": "trt_sh",
+                "name": "BRD-K16956545"
+            },
+            {
+                "score": 2.4101773739995673,
+                "type": "trt_sh",
+                "name": "NME1"
+            },
+            {
+                "score": 2.4100962578412286,
+                "type": "trt_sh",
+                "name": "dihydrosamidin"
+            },
+            {
+                "score": 2.4097717932078737,
+                "type": "trt_sh",
+                "name": "TPO"
+            },
+            {
+                "score": 2.409690677049535,
+                "type": "trt_sh",
+                "name": "ritanserin"
+            },
+            {
+                "score": 2.409447328574519,
+                "type": "trt_sh",
+                "name": "BNIP3L"
+            },
+            {
+                "ATC code": "L01CA01",
+                "score": 2.4087983993078086,
+                "type": "trt_sh",
+                "name": "vinblastine"
+            },
+            {
+                "score": 2.4086361669911316,
+                "type": "trt_sh",
+                "name": "LRP4"
+            },
+            {
+                "score": 2.408392818516115,
+                "type": "trt_sh",
+                "name": "MPP7"
+            },
+            {
+                "score": 2.408392818516115,
+                "type": "trt_sh",
+                "name": "BRD-K02694971"
+            },
+            {
+                "score": 2.40806835388276,
+                "type": "trt_sh",
+                "name": "DL-PDMP"
+            }
+        ],
+        "bottom": [
+            {
+                "score": 0.0,
+                "name": "quinpirole"
+            },
+            {
+                "score": 0.0,
+                "name": "P2RX4"
+            },
+            {
+                "score": 0.0,
+                "name": "P2RX4"
+            },
+            {
+                "score": 0.0,
+                "name": "P2RX4"
+            },
+            {
+                "score": 0.0,
+                "name": "OVOL2"
+            },
+            {
+                "score": 0.0,
+                "name": "OVOL2"
+            },
+            {
+                "score": 0.0,
+                "name": "OVOL2"
+            },
+            {
+                "score": 0.0,
+                "name": "OVCA2"
+            },
+            {
+                "score": 0.0,
+                "name": "OVCA2"
+            },
+            {
+                "score": 0.0,
+                "name": "OVCA2"
+            },
+            {
+                "score": 0.0,
+                "name": "P2RY12"
+            },
+            {
+                "score": 0.0,
+                "name": "OSR2"
+            },
+            {
+                "score": 0.0,
+                "name": "OSR2"
+            },
+            {
+                "score": 0.0,
+                "name": "OSR1"
+            },
+            {
+                "score": 0.0,
+                "name": "OSR1"
+            },
+            {
+                "score": 0.0,
+                "name": "OSR1"
+            },
+            {
+                "score": 0.0,
+                "name": "OSMR"
+            },
+            {
+                "score": 0.0,
+                "name": "OSMR"
+            },
+            {
+                "score": 0.0,
+                "name": "OSMR"
+            },
+            {
+                "score": 0.0,
+                "name": "OSGEP"
+            }
+        ]
+    }
+}

@@ -539,13 +539,11 @@ class Query {
     buildReturn(): void {
         const aggregate = this.json.aggregate
         this.query_return = "RETURN "
-        for (let i in  this.select) {
-            
+        for (let i in this.select) {
             var select = this.select[i]
             if (Number(i) > 0) {
                 this.query_return += ", "
             }
-
             
             const ontology = <ontology>Object.keys(select)[0]
             const value = select[ontology]

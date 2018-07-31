@@ -28,7 +28,13 @@ const SpeciesSchema = new mongoose.Schema({
     out_links: [OutLinkSchema],
     // out_links: {},
     // literature_references: []
-});
+}, { toJSON: { virtuals: true } });
+
+SpeciesSchema.virtual("venom_proteins", {
+    ref: "Protein",
+    localField: 'venom.proteins', // Find people where `localField`
+    foreignField: 'venomkb_id' // is equal to `foreignField`
+})
 
 /**
  * Add taxonomic_lineage to a species
@@ -258,7 +264,7 @@ Species.getAll = () => {
 Species.getByVenomKBId = (venomkb_id) => {
     return new Promise((resolve, reject) => {
         Species.findOne({ venomkb_id: venomkb_id })
-            .populate("taxonomic_lineage")
+            .populate("taxonomic_lineage venom_proteins")
             .exec((err, species) => {
                 if (err) {
                     reject(err);
