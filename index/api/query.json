@@ -1,0 +1,18 @@
+{
+    "select": [{"Species": "name"},{"Protein": "name"}],
+    "declare": {
+        "Protein": [
+            {
+                "attribute": "name",
+                "operator": "equals",
+                "value": "Chlorotoxyn"
+            }
+        ]
+    },
+    "aggregate": {
+        "distinct": {
+            "attribute": "name",
+            "class": "Species"
+        }
+    }
+}

@@ -15,26 +15,29 @@ html {
 }
 
 .active {
-    color: #FFF !;
+  color: #FFF !;
+}
+
+header .navbar {
+  border-radius: 0;
+  margin: 0;
+}
+
+header .navbar-nav {
+  font-family: 'Signika', sans-serif;
 }
 
 body {
-    font-size: 16px;
-    line-height: 1.5;
-    padding: 0;
-    height: 100%;
-    position: relative;
-}
-
-
-header .navbar {
-    border-radius: 0;
-    margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0;
+  height: 100%;
+  position: relative;
 }
 
 main {
-    min-height: 300px;
-    padding: 50px 50px;
+  min-height: 300px;
+  padding: 50px 50px;
 }
 
 #main-wrapper {
@@ -42,9 +45,9 @@ main {
 }
 
 .bottom-logos {
-    margin: auto;
-    position: absolute;
-    bottom: 40px;
+  margin: auto;
+  position: absolute;
+  bottom: 40px;
 }
 
 .bottom-text {
@@ -54,32 +57,32 @@ main {
 }
 
 .jumbotron {
-    border-radius:   6px;
+  border-radius:   6px;
 }
 
 button {
-    margin-right: 6px;
-    margin-left: 6px;
+  margin-right: 6px;
+  margin-left: 6px;
 }
 
 footer {
-    clear: both;
-    z-index: 10;
+  clear: both;
+  z-index: 10;
 
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    margin-top: 45px;
-    margin-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  margin-top: 45px;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 
-    border-top: 1px solid #eaeaea;
-    color: #777777;
-    background-color: #FFF;
+  border-top: 1px solid #eaeaea;
+  color: #777777;
+  background-color: #FFF;
 }
 
 
@@ -412,4 +415,8 @@ pre.taxonomy-detail {
 
 #news-item {
   padding-bottom: 6px;
+}
+
+#news {
+  font-family: 'Signika', sans-serif;
 }

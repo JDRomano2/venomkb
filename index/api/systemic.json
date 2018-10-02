@@ -1,0 +1,2735 @@
+[
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca70"
+        },
+        "name": "Carcinoma, Lewis Lung",
+        "proteins": [
+            "P8292027"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E4543132",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca71"
+        },
+        "name": "Thrombocytopenia",
+        "proteins": [
+            "P2026775",
+            "P2026775",
+            "P2026775",
+            "P0384160",
+            "P8979265"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6559296",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca72"
+        },
+        "name": "Macular Degeneration",
+        "proteins": [
+            "P2495544",
+            "P9366047"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7445117",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca73"
+        },
+        "name": "Severe Acute Respiratory Syndrome",
+        "proteins": [
+            "P6193558"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5837512",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca74"
+        },
+        "name": "Neovascularization, Pathologic",
+        "proteins": [
+            "P6189429",
+            "P7217169",
+            "P1629201",
+            "P8681763",
+            "P0228371",
+            "P7892654",
+            "P1631152"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8620085",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca75"
+        },
+        "name": "Long QT Syndrome",
+        "proteins": [
+            "P7083851",
+            "P7083851",
+            "P4886954"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7896728",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca76"
+        },
+        "name": "Chronic Pain",
+        "proteins": [
+            "P4531055",
+            "P7449454",
+            "P5440861"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6472675",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca77"
+        },
+        "name": "Thrombophilia",
+        "proteins": [
+            "P0897234"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1704430",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca78"
+        },
+        "name": "Paraplegia",
+        "proteins": [
+            "P4794405"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5315245",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca79"
+        },
+        "name": "Carcinoma, Ehrlich Tumor",
+        "proteins": [
+            "P7949303",
+            "P3885651",
+            "P2005907",
+            "P2596410",
+            "P5785610"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7898550",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca7a"
+        },
+        "name": "Tremor",
+        "proteins": [
+            "P1543521",
+            "P2161045"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7130331",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca7b"
+        },
+        "name": "Leukemia, Myelogenous, Chronic, BCR-ABL Positive",
+        "proteins": [
+            "P4888617",
+            "P2350249",
+            "P1710142",
+            "P8233341"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2130527",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca7c"
+        },
+        "name": "Ovarian Neoplasms",
+        "proteins": [
+            "P7217169",
+            "P7217169",
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6638985",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca7d"
+        },
+        "name": "Hypotension",
+        "proteins": [
+            "P2263478",
+            "P5606282",
+            "P8378885",
+            "P6120124",
+            "P8439114",
+            "P9919031",
+            "P2312393",
+            "P9946241",
+            "P8523162"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9185574",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca7e"
+        },
+        "name": "Hemoglobinuria, Paroxysmal",
+        "proteins": [
+            "P2495544",
+            "P9366047"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8099955",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca7f"
+        },
+        "name": "Thrombasthenia",
+        "proteins": [
+            "P0021049",
+            "P1266121"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9146122",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca80"
+        },
+        "name": "Atrial Fibrillation",
+        "proteins": [
+            "P4012089",
+            "P8042024"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5885457",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca81"
+        },
+        "name": "Prostatic Neoplasms",
+        "proteins": [
+            "P6715050",
+            "P1710142"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0505577",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca82"
+        },
+        "name": "Hemoglobinuria",
+        "proteins": [
+            "P9559134"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8409558",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca83"
+        },
+        "name": "Thrombosis",
+        "proteins": [
+            "P4230185",
+            "P8525081",
+            "P6862310",
+            "P3097392"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3651000",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca84"
+        },
+        "name": "Weight Loss",
+        "proteins": [
+            "P7217169"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5196237",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca85"
+        },
+        "name": "Bone Resorption",
+        "proteins": [
+            "P1278035",
+            "P2350249",
+            "P7360638",
+            "P1710142",
+            "P8233341",
+            "P1674800"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5455859",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca86"
+        },
+        "name": "Venous Thrombosis",
+        "proteins": [
+            "P3630008",
+            "P8262542"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1071666",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca87"
+        },
+        "name": "Occupational Diseases",
+        "proteins": [
+            "P2624532",
+            "P3179424"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9100195",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca88"
+        },
+        "name": "Poisoning",
+        "proteins": [
+            "P5899718",
+            "P9991917",
+            "P9447029",
+            "P1229212"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5593566",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca89"
+        },
+        "name": "Arrhythmias, Cardiac",
+        "proteins": [
+            "P1446795"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E4222718",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca8a"
+        },
+        "name": "Pancreatic Neoplasms",
+        "proteins": [
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E4191029",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca8b"
+        },
+        "name": "Brain Neoplasms",
+        "proteins": [
+            "P0228371",
+            "P0228371",
+            "P0228371",
+            "P0228371",
+            "P8692651",
+            "P9229862",
+            "P7877907"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7632094",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca8c"
+        },
+        "name": "Neurogenic Inflammation",
+        "proteins": [
+            "P8138781"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5151115",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca8d"
+        },
+        "name": "Neuralgia",
+        "proteins": [
+            "P7449454",
+            "P5440861",
+            "P1543521",
+            "P2161045",
+            "P2498375"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5810125",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca8e"
+        },
+        "name": "Sepsis",
+        "proteins": [
+            "P8525081"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6624083",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca8f"
+        },
+        "name": "Skin Neoplasms",
+        "proteins": [
+            "P1555309",
+            "P8990295",
+            "P3271048"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6464816",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca90"
+        },
+        "name": "Colonic Neoplasms",
+        "proteins": [
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0285072",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca91"
+        },
+        "name": "Anaphylaxis",
+        "proteins": [
+            "P6912376",
+            "P0231537",
+            "P9270162"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6539792",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca92"
+        },
+        "name": "Neoplasm Recurrence, Local",
+        "proteins": [
+            "P0228371"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3891061",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca93"
+        },
+        "name": "Uterine Cervical Neoplasms",
+        "proteins": [
+            "P0269126",
+            "P2572469",
+            "P4787867",
+            "P6194785"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0021043",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca94"
+        },
+        "name": "Spasm",
+        "proteins": [
+            "P4425282",
+            "P7694977"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9020857",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca95"
+        },
+        "name": "Seizures",
+        "proteins": [
+            "P8812492",
+            "P3077021",
+            "P0314897",
+            "P2757273",
+            "P4528361",
+            "P7694977"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8903091",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca96"
+        },
+        "name": "Sciatic Neuropathy",
+        "proteins": [
+            "P1592741",
+            "P5440861",
+            "P4440651"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5187255",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca97"
+        },
+        "name": "Chemical and Drug Induced Liver Injury",
+        "proteins": [
+            "P3341464"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7196272",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca98"
+        },
+        "name": "Heart Block",
+        "proteins": [
+            "P4012089"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9544747",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca99"
+        },
+        "name": "Urinary Bladder Neoplasms",
+        "proteins": [
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5760852",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca9a"
+        },
+        "name": "Lung Neoplasms",
+        "proteins": [
+            "P6189429",
+            "P6189429",
+            "P5892797",
+            "P2325804",
+            "P7217169",
+            "P7217169",
+            "P3271048",
+            "P9736348",
+            "P0368022",
+            "P0581495"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3705865",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca9b"
+        },
+        "name": "Ischemia",
+        "proteins": [
+            "P5047831",
+            "P4857491"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3795809",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca9c"
+        },
+        "name": "Neuroblastoma",
+        "proteins": [
+            "P2904696",
+            "P8454411",
+            "P7083851",
+            "P3757243",
+            "P8608637",
+            "P9229862",
+            "P7877907"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8730247",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca9d"
+        },
+        "name": "Spider Bites",
+        "proteins": [
+            "P7953251",
+            "P7345834",
+            "P1797972",
+            "P7445785",
+            "P2129653",
+            "P8606551"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8498569",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca9e"
+        },
+        "name": "Carcinoma",
+        "proteins": [
+            "P6189429",
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9319276",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eeca9f"
+        },
+        "name": "Leukemia L1210",
+        "proteins": [
+            "P5826928"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7263214",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa0"
+        },
+        "name": "Skin Diseases, Infectious",
+        "proteins": [
+            "P9419312"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9727978",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa1"
+        },
+        "name": "Chronic Disease",
+        "proteins": [
+            "P4440651",
+            "P2161045"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1510110",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa2"
+        },
+        "name": "Paralysis",
+        "proteins": [
+            "P5007222",
+            "P3723052",
+            "P7517675",
+            "P9255397",
+            "P3188710",
+            "P4959748",
+            "P0061988",
+            "P6101802",
+            "P3466097",
+            "P5035716",
+            "P4514253",
+            "P8523065",
+            "P4387398",
+            "P5517641",
+            "P5836091",
+            "P5084119",
+            "P3947521",
+            "P3150330",
+            "P2906605",
+            "P7300544",
+            "P1530825",
+            "P6218398",
+            "P0468789"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9170387",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa3"
+        },
+        "name": "Renal Insufficiency",
+        "proteins": [
+            "P5837112"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8383874",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa4"
+        },
+        "name": "Eosinophilia",
+        "proteins": [
+            "P6194785",
+            "P4440651"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9947790",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa5"
+        },
+        "name": "Pain",
+        "proteins": [
+            "P0566202",
+            "P1998607",
+            "P1998607",
+            "P9729921",
+            "P1592741",
+            "P8730020",
+            "P0395148",
+            "P3576214",
+            "P1073088",
+            "P0772103",
+            "P7449454",
+            "P5440861",
+            "P8439988",
+            "P1543521",
+            "P6194785",
+            "P3958759",
+            "P8138781",
+            "P4440651",
+            "P4440651",
+            "P8616038",
+            "P5366860",
+            "P2749265",
+            "P3593548",
+            "P2691286",
+            "P2161045",
+            "P6339262",
+            "P2498375"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8149464",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa6"
+        },
+        "name": "Liver Neoplasms",
+        "proteins": [
+            "P1700563",
+            "P3271048",
+            "P6264760",
+            "P6536355"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3952414",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa7"
+        },
+        "name": "Leishmaniasis",
+        "proteins": [
+            "P7101578"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2867944",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa8"
+        },
+        "name": "Neuritis",
+        "proteins": [
+            "P3990402",
+            "P4528361",
+            "P1144524"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6910931",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaa9"
+        },
+        "name": "Alzheimer Disease",
+        "proteins": [
+            "P9235706"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7534562",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaaa"
+        },
+        "name": "Edema",
+        "proteins": [
+            "P9180369",
+            "P7480221",
+            "P6413702",
+            "P4372416",
+            "P1212167",
+            "P6267802",
+            "P0836110",
+            "P1875316",
+            "P0174414",
+            "P0666500",
+            "P8414340",
+            "P5525551",
+            "P6304619",
+            "P3504453",
+            "P8442455",
+            "P8111453",
+            "P6481394",
+            "P7109593",
+            "P5402666",
+            "P9688850",
+            "P1734147",
+            "P1515545",
+            "P7779438",
+            "P5436413",
+            "P2798126",
+            "P4127643",
+            "P7491609",
+            "P6891896",
+            "P0957758",
+            "P5279035",
+            "P3482617",
+            "P2440152",
+            "P8095723",
+            "P2672431",
+            "P6460033",
+            "P7796681",
+            "P7796681",
+            "P8274041",
+            "P9683454",
+            "P9683454",
+            "P9241547",
+            "P0402668",
+            "P5912531",
+            "P3094970",
+            "P6710077",
+            "P0748527",
+            "P9208027",
+            "P3440199",
+            "P4733476",
+            "P0459066",
+            "P6874728",
+            "P7850546",
+            "P7993401",
+            "P6486875",
+            "P7547888",
+            "P6348888",
+            "P0971258",
+            "P0196155",
+            "P9175666",
+            "P2334734",
+            "P7544215",
+            "P2526157",
+            "P7060386",
+            "P7509900",
+            "P0374662",
+            "P1546014",
+            "P5790614",
+            "P7176505",
+            "P2583531",
+            "P5182099",
+            "P2366907",
+            "P6039905",
+            "P9326354",
+            "P8329308",
+            "P4133209",
+            "P2383655",
+            "P3204868",
+            "P8846859",
+            "P6457052",
+            "P1994663",
+            "P1994663",
+            "P0558897",
+            "P1841565",
+            "P6197231",
+            "P2866885",
+            "P8552353",
+            "P8852844"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6891037",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd7ed7fa81e78eecaab"
+        },
+        "name": "Neuromuscular Diseases",
+        "proteins": [
+            "P9741875"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7048368",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaac"
+        },
+        "name": "Blood Loss, Surgical",
+        "proteins": [
+            "P2308462",
+            "P2308462",
+            "P6608408",
+            "P6608408",
+            "P6608408",
+            "P2729099",
+            "P3870507",
+            "P2624859",
+            "P3909808"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3310612",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaad"
+        },
+        "name": "Carcinoma, Hepatocellular",
+        "proteins": [
+            "P1700563",
+            "P6264760",
+            "P6536355"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1304900",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaae"
+        },
+        "name": "Akathisia, Drug-Induced",
+        "proteins": [
+            "P1977010",
+            "P4034262",
+            "P8171527"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3719988",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaaf"
+        },
+        "name": "Liver Diseases",
+        "proteins": [
+            "P3341464"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1022425",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab0"
+        },
+        "name": "Hypertension",
+        "proteins": [
+            "P9750652",
+            "P3224650"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5214378",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab1"
+        },
+        "name": "Prostatic Hyperplasia",
+        "proteins": [
+            "P9919031"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8738766",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab2"
+        },
+        "name": "Hemorrhage",
+        "proteins": [
+            "P0600368",
+            "P7480221",
+            "P2211440",
+            "P0780014",
+            "P6598976",
+            "P3557068",
+            "P1882451",
+            "P3286256",
+            "P2308462",
+            "P6608408",
+            "P6608408",
+            "P7712821",
+            "P6816053",
+            "P3614946",
+            "P3397423",
+            "P8378885",
+            "P3504453",
+            "P8442455",
+            "P7344837",
+            "P7344837",
+            "P7344837",
+            "P6128219",
+            "P5276807",
+            "P7491609",
+            "P1842419",
+            "P6817221",
+            "P8095723",
+            "P0540347",
+            "P0540347",
+            "P0540347",
+            "P0540347",
+            "P6884709",
+            "P6884709",
+            "P1453627",
+            "P1453627",
+            "P0837173",
+            "P5111740",
+            "P0384160",
+            "P8979265",
+            "P2672431",
+            "P6460033",
+            "P1233287",
+            "P9683454",
+            "P2799238",
+            "P1846494",
+            "P2672317",
+            "P2994017",
+            "P0166039",
+            "P7272116",
+            "P5938046",
+            "P6795332",
+            "P2919021",
+            "P4808482",
+            "P1621301",
+            "P0402668",
+            "P0402668",
+            "P3888216",
+            "P3832883",
+            "P6652114",
+            "P8737798",
+            "P7783262",
+            "P2237306",
+            "P2237306",
+            "P7993401",
+            "P2487385",
+            "P6655212",
+            "P8948439",
+            "P9716563",
+            "P9716563",
+            "P0583699",
+            "P3423895",
+            "P3810587",
+            "P3973622",
+            "P8461511",
+            "P8285059",
+            "P3480967",
+            "P9759327",
+            "P7607396",
+            "P1994663",
+            "P4606420",
+            "P1610160",
+            "P5229934"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3261472",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab3"
+        },
+        "name": "Osteoporosis",
+        "proteins": [
+            "P6408283"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7102694",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab4"
+        },
+        "name": "Neurotoxicity Syndromes",
+        "proteins": [
+            "P6069168"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9512712",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab5"
+        },
+        "name": "Thrombophlebitis",
+        "proteins": [
+            "P0614804",
+            "P0535666"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0407461",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab6"
+        },
+        "name": "Melanoma",
+        "proteins": [
+            "P1555309",
+            "P6189429",
+            "P5892797",
+            "P2325804",
+            "P0751059",
+            "P6715050",
+            "P3271048",
+            "P3271048",
+            "P9736348",
+            "P3481368",
+            "P7891337",
+            "P3276741",
+            "P0368022"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5954952",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab7"
+        },
+        "name": "Blood Coagulation Disorders",
+        "proteins": [
+            "P0897234"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3554719",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab8"
+        },
+        "name": "Scorpion Stings",
+        "proteins": [
+            "P6966922",
+            "P8116934",
+            "P5803460",
+            "P2904696",
+            "P6850582",
+            "P8565083",
+            "P9214401",
+            "P6324614",
+            "P1615390",
+            "P2773629",
+            "P2110274",
+            "P6116873",
+            "P2759421",
+            "P8336141",
+            "P6983311",
+            "P9499478",
+            "P1796011",
+            "P6652965",
+            "P1322104",
+            "P4039666",
+            "P4601364",
+            "P4981024",
+            "P9091879",
+            "P3976919",
+            "P7480416",
+            "P3991308",
+            "P2324846",
+            "P0356435",
+            "P7791594",
+            "P8834740",
+            "P4935793",
+            "P7922477",
+            "P8938506",
+            "P7264530",
+            "P9095060",
+            "P7661010",
+            "P5455720",
+            "P1698386",
+            "P0595989",
+            "P5264392",
+            "P4675747",
+            "P6242653",
+            "P2713391",
+            "P8785024",
+            "P6527964",
+            "P6274562",
+            "P9499188",
+            "P0086313",
+            "P3525669",
+            "P7251104",
+            "P9864240",
+            "P8714515",
+            "P5754138",
+            "P4185485",
+            "P3424711",
+            "P7288695",
+            "P5838162",
+            "P0440125",
+            "P8837493",
+            "P0468511",
+            "P3585701",
+            "P1234212",
+            "P5548577"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8753139",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecab9"
+        },
+        "name": "Kidney Neoplasms",
+        "proteins": [
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2155250",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaba"
+        },
+        "name": "Diarrhea",
+        "proteins": [
+            "P6194785",
+            "P4440651"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2725983",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecabb"
+        },
+        "name": "Neuromuscular Junction Diseases",
+        "proteins": [
+            "P5131638",
+            "P2900059",
+            "P9794787",
+            "P2690244",
+            "P9541015",
+            "P4160436",
+            "P6259171",
+            "P1733900",
+            "P6273612",
+            "P1977733",
+            "P3576146"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5165681",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecabc"
+        },
+        "name": "Hypersensitivity",
+        "proteins": [
+            "P0337887",
+            "P1059979",
+            "P5398630",
+            "P5398630",
+            "P6363511",
+            "P5461952"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1624398",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecabd"
+        },
+        "name": "Inflammation",
+        "proteins": [
+            "P7480221",
+            "P1998607",
+            "P1278035",
+            "P0691470",
+            "P0666500",
+            "P2350249",
+            "P7360638",
+            "P0395148",
+            "P3576214",
+            "P1073088",
+            "P5505074",
+            "P1710142",
+            "P8233341",
+            "P0402668",
+            "P0402668",
+            "P0402668",
+            "P6710077",
+            "P1335339",
+            "P7993401",
+            "P1674800",
+            "P4185485",
+            "P1994663",
+            "P1994663",
+            "P1841565",
+            "P2498375"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3578406",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecabe"
+        },
+        "name": "Insulinoma",
+        "proteins": [
+            "P7577210"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3679471",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecabf"
+        },
+        "name": "Neoplasm Metastasis",
+        "proteins": [
+            "P1629201",
+            "P1629201",
+            "P6715050",
+            "P5979166",
+            "P3271048",
+            "P3271048",
+            "P7892654"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7040984",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac0"
+        },
+        "name": "Leukemia, T-Cell",
+        "proteins": [
+            "P0046980",
+            "P5826928"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2183810",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac1"
+        },
+        "name": "Brain Ischemia",
+        "proteins": [
+            "P9750652"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1926680",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac2"
+        },
+        "name": "Measles",
+        "proteins": [
+            "P6193558"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6213837",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac3"
+        },
+        "name": "Peripheral Nervous System Diseases",
+        "proteins": [
+            "P1592741",
+            "P4440651"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9146960",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac4"
+        },
+        "name": "Leukemia",
+        "proteins": [
+            "P6715050",
+            "P6408283"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2591095",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac5"
+        },
+        "name": "Breast Neoplasms",
+        "proteins": [
+            "P0046980",
+            "P1843810",
+            "P1629201",
+            "P2681708",
+            "P6715050",
+            "P6715050",
+            "P9574454"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5656457",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac6"
+        },
+        "name": "Erectile Dysfunction",
+        "proteins": [
+            "P3224650"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8248492",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac7"
+        },
+        "name": "Neoplasms, Experimental",
+        "proteins": [
+            "P0080354",
+            "P9468676",
+            "P2449729"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E4973240",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac8"
+        },
+        "name": "Leukemia, Promyelocytic, Acute",
+        "proteins": [
+            "P4888617",
+            "P2350249",
+            "P1710142",
+            "P8233341"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2144770",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecac9"
+        },
+        "name": "Constriction, Pathologic",
+        "proteins": [
+            "P4440651"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9760021",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaca"
+        },
+        "name": "Autoimmune Diseases",
+        "proteins": [
+            "P9714740",
+            "P0994063",
+            "P0437416",
+            "P5179705",
+            "P8127332",
+            "P9750652",
+            "P6814835",
+            "P9170368",
+            "P1260698"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6775864",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecacb"
+        },
+        "name": "Necrosis",
+        "proteins": [
+            "P1278035",
+            "P8494199",
+            "P5837112",
+            "P5837112",
+            "P6147595",
+            "P6840981",
+            "P0844711",
+            "P8414340",
+            "P1734147",
+            "P1515545",
+            "P7779438",
+            "P2350249",
+            "P7360638",
+            "P0751059",
+            "P5783445",
+            "P7953251",
+            "P7953251",
+            "P7953251",
+            "P8095723",
+            "P2079497",
+            "P2912857",
+            "P1710142",
+            "P1710142",
+            "P8233341",
+            "P8233341",
+            "P0748527",
+            "P7345834",
+            "P7345834",
+            "P1797972",
+            "P7445785",
+            "P7850546",
+            "P0257924",
+            "P2237306",
+            "P7993401",
+            "P9559134",
+            "P0196155",
+            "P1674800",
+            "P8692651",
+            "P8738685",
+            "P7445166",
+            "P7775635",
+            "P0146387",
+            "P5733110",
+            "P6039905",
+            "P2383655",
+            "P7767952",
+            "P8846859",
+            "P8846859",
+            "P5120294",
+            "P5458543",
+            "P1558752",
+            "P9294664",
+            "P6457052",
+            "P6457052",
+            "P1994663",
+            "P1317905",
+            "P2920387",
+            "P8679459"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5226750",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecacc"
+        },
+        "name": "Influenza, Human",
+        "proteins": [
+            "P6193558"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3116522",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecacd"
+        },
+        "name": "Lambert-Eaton Myasthenic Syndrome",
+        "proteins": [
+            "P5047831"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0856913",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecace"
+        },
+        "name": "Fasciculation",
+        "proteins": [
+            "P9235706",
+            "P9938871"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2164681",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecacf"
+        },
+        "name": "Sarcoma, Yoshida",
+        "proteins": [
+            "P1700563",
+            "P2350249",
+            "P7360638",
+            "P8233341",
+            "P6264760"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0713608",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad0"
+        },
+        "name": "Tetany",
+        "proteins": [
+            "P2616980",
+            "P8232980"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8393632",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad1"
+        },
+        "name": "Skin Diseases",
+        "proteins": [
+            "P7953251"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0340883",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad2"
+        },
+        "name": "Epilepsy",
+        "proteins": [
+            "P6163143",
+            "P1745998",
+            "P7119998",
+            "P2757273",
+            "P1255792"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1910960",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad3"
+        },
+        "name": "Disease Progression",
+        "proteins": [
+            "P7217169"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5677013",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad4"
+        },
+        "name": "Disseminated Intravascular Coagulation",
+        "proteins": [
+            "P8525081",
+            "P8525081",
+            "P3061937",
+            "P1260705"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0805687",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad5"
+        },
+        "name": "Staphylococcal Infections",
+        "proteins": [
+            "P9419312",
+            "P1723185",
+            "P2670166"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2276507",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad6"
+        },
+        "name": "Respiratory Insufficiency",
+        "proteins": [
+            "P2749265",
+            "P6069168",
+            "P2498375"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1699533",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad7"
+        },
+        "name": "Neoplasm Invasiveness",
+        "proteins": [
+            "P6189429",
+            "P7217169",
+            "P0228371",
+            "P9229862",
+            "P7877907",
+            "P3507226",
+            "P9731635"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8843749",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad8"
+        },
+        "name": "Neoplasms",
+        "proteins": [
+            "P1278035",
+            "P5047831",
+            "P8990295",
+            "P7217169",
+            "P2350249",
+            "P7360638",
+            "P0228371",
+            "P5440861",
+            "P1710142",
+            "P8233341",
+            "P6194785",
+            "P4440651",
+            "P1674800",
+            "P8184328"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2582807",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecad9"
+        },
+        "name": "Hypersensitivity, Immediate",
+        "proteins": [
+            "P4557822",
+            "P2624532",
+            "P3179424",
+            "P0231537",
+            "P9270162",
+            "P0665996"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6870885",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecada"
+        },
+        "name": "Peripheral Nerve Injuries",
+        "proteins": [
+            "P7449454"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8828109",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecadb"
+        },
+        "name": "Immune System Diseases",
+        "proteins": [
+            "P0691470",
+            "P4935793",
+            "P4185485"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1025916",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecadc"
+        },
+        "name": "Cerebral Infarction",
+        "proteins": [
+            "P8653817",
+            "P5683523"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8495895",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecadd"
+        },
+        "name": "Kidney Tubular Necrosis, Acute",
+        "proteins": [
+            "P0751059"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9921752",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecade"
+        },
+        "name": "Nervous System Diseases",
+        "proteins": [
+            "P7572001",
+            "P9750652",
+            "P0146387"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E4663686",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecadf"
+        },
+        "name": "Snake Bites",
+        "proteins": [
+            "P1219123",
+            "P4882861",
+            "P1882451",
+            "P1882451",
+            "P0046980",
+            "P4372416",
+            "P1659358",
+            "P2019935",
+            "P9932718",
+            "P5735287",
+            "P4678860",
+            "P0427020",
+            "P0559108",
+            "P9541470",
+            "P3326417",
+            "P8309132",
+            "P8809196",
+            "P2729917",
+            "P4661625",
+            "P9358046",
+            "P0561418",
+            "P6442986",
+            "P6509817",
+            "P8039978",
+            "P6654097",
+            "P7079628",
+            "P1544314",
+            "P7667556"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1926622",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae0"
+        },
+        "name": "Fibrosarcoma",
+        "proteins": [
+            "P7891337",
+            "P6339262"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7167105",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae1"
+        },
+        "name": "Leukemia, Erythroblastic, Acute",
+        "proteins": [
+            "P4163085"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6550155",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae2"
+        },
+        "name": "Heart Failure",
+        "proteins": [
+            "P4612760",
+            "P4612760",
+            "P4612760"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5839565",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae3"
+        },
+        "name": "Myocardial Reperfusion Injury",
+        "proteins": [
+            "P2495544",
+            "P9366047"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5222095",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae4"
+        },
+        "name": "Arthritis",
+        "proteins": [
+            "P2495544",
+            "P9180369",
+            "P9366047",
+            "P5683523"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6929596",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae5"
+        },
+        "name": "Genetic Diseases, Inborn",
+        "proteins": [
+            "P8681647"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5766395",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae6"
+        },
+        "name": "Lung Diseases",
+        "proteins": [
+            "P0402668",
+            "P0402668"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E4516652",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae7"
+        },
+        "name": "Hyperalgesia",
+        "proteins": [
+            "P0566202",
+            "P1998607",
+            "P7792729",
+            "P9167771",
+            "P8730020",
+            "P5525551",
+            "P0459066",
+            "P6874728",
+            "P4440651",
+            "P6486875",
+            "P0674631"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E5532906",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae8"
+        },
+        "name": "Disease Models, Animal",
+        "proteins": [
+            "P0566202",
+            "P6193558",
+            "P4531055",
+            "P4612760",
+            "P6163143",
+            "P1592741",
+            "P8990295",
+            "P0614804",
+            "P8730020",
+            "P2572469",
+            "P5177842",
+            "P4787867",
+            "P9208627",
+            "P0535666",
+            "P9419312",
+            "P2757273",
+            "P5440861",
+            "P6194785",
+            "P8525081",
+            "P8525081",
+            "P8138781",
+            "P4440651",
+            "P0711512",
+            "P8481184",
+            "P1052929",
+            "P8616038",
+            "P3593548",
+            "P3224650"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6986212",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecae9"
+        },
+        "name": "Irritable Bowel Syndrome",
+        "proteins": [
+            "P0566202",
+            "P8730020"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3287993",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaea"
+        },
+        "name": "Diabetes Mellitus, Type 2",
+        "proteins": [
+            "P4891754",
+            "P5730495"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1827267",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaeb"
+        },
+        "name": "Muscular Diseases",
+        "proteins": [
+            "P5007222",
+            "P9683454",
+            "P9683454",
+            "P5733110",
+            "P1994663"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2625014",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaec"
+        },
+        "name": "Diplopia",
+        "proteins": [
+            "P6194785",
+            "P4440651"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9491041",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaed"
+        },
+        "name": "Melanoma, Experimental",
+        "proteins": [
+            "P6189429",
+            "P5892797",
+            "P2325804",
+            "P8990295",
+            "P1629201",
+            "P4070535",
+            "P3271048",
+            "P3271048",
+            "P9736348",
+            "P7987768"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8846793",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaee"
+        },
+        "name": "Insect Bites and Stings",
+        "proteins": [
+            "P6912376",
+            "P9208627",
+            "P9469166",
+            "P4459513",
+            "P9673365",
+            "P1671594",
+            "P6363511",
+            "P5461952"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0162918",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaef"
+        },
+        "name": "Hepatitis B",
+        "proteins": [
+            "P6193558",
+            "P9419312",
+            "P0711512",
+            "P8481184",
+            "P1052929"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8258348",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf0"
+        },
+        "name": "Starvation",
+        "proteins": [
+            "P0691470",
+            "P7339385",
+            "P2110274",
+            "P4935793",
+            "P7595274",
+            "P9642981",
+            "P7661010",
+            "P6993598",
+            "P4185485"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2785188",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf1"
+        },
+        "name": "Kidney Diseases",
+        "proteins": [
+            "P5837112",
+            "P3347264"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E9142437",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf2"
+        },
+        "name": "Acute Pain",
+        "proteins": [
+            "P4531055"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E8045772",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf3"
+        },
+        "name": "Hyperkinesis",
+        "proteins": [
+            "P2665481",
+            "P5035716",
+            "P4514253",
+            "P8523065",
+            "P4387398",
+            "P5517641",
+            "P8571127",
+            "P6338012",
+            "P1530825"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0285862",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf4"
+        },
+        "name": "Glioma",
+        "proteins": [
+            "P8626451",
+            "P0228371",
+            "P0228371",
+            "P0228371",
+            "P0228371",
+            "P5979166",
+            "P5979166",
+            "P7083851",
+            "P3757243",
+            "P8608637"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1553053",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf5"
+        },
+        "name": "Osteosarcoma",
+        "proteins": [
+            "P4722144"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E2704966",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf6"
+        },
+        "name": "Glioblastoma",
+        "proteins": [
+            "P6715050"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E7068660",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf7"
+        },
+        "name": "Proteinuria",
+        "proteins": [
+            "P5837112"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E1278970",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf8"
+        },
+        "name": "Hemolysis",
+        "proteins": [
+            "P3553493",
+            "P5019286",
+            "P2117184",
+            "P1278035",
+            "P3781726",
+            "P7915415",
+            "P5240294",
+            "P2117987",
+            "P6026359",
+            "P0633805",
+            "P7817193",
+            "P0351819",
+            "P1151148",
+            "P5032104",
+            "P0731510",
+            "P6742302",
+            "P0997291",
+            "P6748895",
+            "P5837112",
+            "P5837112",
+            "P5837112",
+            "P6147595",
+            "P6147595",
+            "P3932806",
+            "P3932806",
+            "P1265641",
+            "P1265641",
+            "P5115191",
+            "P5115191",
+            "P8601814",
+            "P0196542",
+            "P0196542",
+            "P0196542",
+            "P0196542",
+            "P4448711",
+            "P1425230",
+            "P7454390",
+            "P2008324",
+            "P6901866",
+            "P3097393",
+            "P8990295",
+            "P1480181",
+            "P1480181",
+            "P1480181",
+            "P0174414",
+            "P8047195",
+            "P8922347",
+            "P9743166",
+            "P5749077",
+            "P8876810",
+            "P1583392",
+            "P6481394",
+            "P5196137",
+            "P0825290",
+            "P0825290",
+            "P7491609",
+            "P8626451",
+            "P2350249",
+            "P2350249",
+            "P7360638",
+            "P7360638",
+            "P6354094",
+            "P9523404",
+            "P6391165",
+            "P6030395",
+            "P9249180",
+            "P2215229",
+            "P3318006",
+            "P0673264",
+            "P5783445",
+            "P7953251",
+            "P7953251",
+            "P7953251",
+            "P8592678",
+            "P8874106",
+            "P0505090",
+            "P1698791",
+            "P6162733",
+            "P0540347",
+            "P2672431",
+            "P6460033",
+            "P6460033",
+            "P0537612",
+            "P2912857",
+            "P6291356",
+            "P9225220",
+            "P0831605",
+            "P0831605",
+            "P6219462",
+            "P2006654",
+            "P2006654",
+            "P4727497",
+            "P9863585",
+            "P1710142",
+            "P8233341",
+            "P8274041",
+            "P5045022",
+            "P9683454",
+            "P9683454",
+            "P7650301",
+            "P9241547",
+            "P4935834",
+            "P4402070",
+            "P9856550",
+            "P0131651",
+            "P2254212",
+            "P7026277",
+            "P9549928",
+            "P8525081",
+            "P8979872",
+            "P0748527",
+            "P7345834",
+            "P7345834",
+            "P1797972",
+            "P7445785",
+            "P6447843",
+            "P1335339",
+            "P8369279",
+            "P0459066",
+            "P6874728",
+            "P4111032",
+            "P6733687",
+            "P5696202",
+            "P0257924",
+            "P0711512",
+            "P3870528",
+            "P1052929",
+            "P4801493",
+            "P0732915",
+            "P8667651",
+            "P3133404",
+            "P6036308",
+            "P8079228",
+            "P1820727",
+            "P9593626",
+            "P8156633",
+            "P7176505",
+            "P8101420",
+            "P7394640",
+            "P0209641",
+            "P3943317",
+            "P3943317",
+            "P0137567",
+            "P6777778",
+            "P1723185",
+            "P9412548",
+            "P9145777",
+            "P9145777",
+            "P9145777",
+            "P5041385",
+            "P5041385",
+            "P4495444",
+            "P6288775",
+            "P7775635",
+            "P8849742",
+            "P2582158",
+            "P2467511",
+            "P3863321",
+            "P4130946",
+            "P2049183",
+            "P0146387",
+            "P0029781",
+            "P7280759",
+            "P8842643",
+            "P6165455",
+            "P5709828",
+            "P6618736",
+            "P4125278",
+            "P7723490",
+            "P8889872",
+            "P5129788",
+            "P2670166",
+            "P0526556",
+            "P7650478",
+            "P3703017",
+            "P4014439",
+            "P9310416",
+            "P3187412",
+            "P6069630",
+            "P3963504",
+            "P3039742",
+            "P7428244",
+            "P8640933",
+            "P8384192",
+            "P9930620",
+            "P4205067",
+            "P4205067",
+            "P4205067",
+            "P0021466",
+            "P8508910",
+            "P1473189",
+            "P7584662",
+            "P7742943",
+            "P5805812",
+            "P5805812",
+            "P1329011",
+            "P1329011",
+            "P3362089",
+            "P3362089",
+            "P3338267",
+            "P6605094",
+            "P6605094",
+            "P3604345",
+            "P1199536",
+            "P5490457",
+            "P8698314",
+            "P8695026",
+            "P6677345",
+            "P8451726",
+            "P2743430",
+            "P2111637",
+            "P8945108",
+            "P9681191",
+            "P7990705"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E6200905",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecaf9"
+        },
+        "name": "Sciatica",
+        "proteins": [
+            "P3990402",
+            "P4528361",
+            "P1144524"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E3044409",
+        "eco_id": "ECO_0000322"
+    },
+    {
+        "_id": {
+            "$oid": "59df8dd8ed7fa81e78eecafa"
+        },
+        "name": "Heart Diseases",
+        "proteins": [
+            "P7360638",
+            "P1343075",
+            "P8082370",
+            "P6204036",
+            "P1710142",
+            "P1915041",
+            "P7704420",
+            "P8233341",
+            "P1674800"
+        ],
+        "venoms": [],
+        "external_links": [],
+        "venomkb_id": "E0870492",
+        "eco_id": "ECO_0000322"
+    }
+]

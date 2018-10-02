@@ -144,7 +144,6 @@ function dataDetail(state = {
     isFetching: false,
     json: {}
 }, action) {
-    console.log(action.type, 'IN proteinDetail()');
     switch (action.type) {
         case types.REQUEST_DATA:
             return Object.assign({}, state, {

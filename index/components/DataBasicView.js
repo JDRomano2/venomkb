@@ -90,6 +90,9 @@ class DataBasicView extends Component {
         const common_name = this.props.common_name;
         const dataType = this.props.selectedDatum.charAt(0);
 
+        //console.log("LOADED DATA: ");
+        //console.log(JSON.stringify(this.state.currentData, null, 2));
+
         switch (dataType) {
             case 'P':
                 const species_link = '/' + (venom_ref.replace('V', 'S'));
@@ -230,7 +233,11 @@ class DataBasicView extends Component {
                     </div>
                 );
             case 'G':
+
                 const species_link_g = '/' + (this.state.currentData.species_ref);
+                console.log("SPECIES LINK: ", species_link_g);
+                const species_known = ( (species_link_g==='/') ? false : true );
+
                 return (
                     <div>
                         <Col xs={12} md={7}>
@@ -255,9 +262,25 @@ class DataBasicView extends Component {
                             </a>
 
                             <h2>Species</h2>
-                            <h4>
+                            {species_known ? (
+                                <h4>
                                 Organism: <Link to={species_link_g} onClick={this.loadSpeciesFromGenome}>({this.speciesName(this.state.currentData.species_ref)}) ({this.state.currentData.species_ref})</Link>
-                            </h4>
+                                </h4>
+                            ) : (
+                                <i>
+                                This species is not yet indexed in VenomKB!
+                                If you would like us to add it, please send an email to <a href="mailto:jdr2160@cumc.columbia.edu">the developers</a>.
+                                </i>
+                            )}
+                        </Col>
+                    </div>
+                );
+            case 'Q':
+                const species_link_q = '/' + (this.state.currentData.species_ref);
+                return (
+                    <div>
+                        <Col xs={12} md={7}>
+                            <h1>{name}</h1>
                         </Col>
                     </div>
                 );
@@ -276,7 +299,7 @@ DataBasicView.propTypes = {
     common_name: PropTypes.string,
     dataType: PropTypes.string.isRequired,
     description: PropTypes.string,
-    out_links: PropTypes.object,
+    out_links: PropTypes.array,
     name: PropTypes.string.isRequired,
     aa_sequence: PropTypes.string,
     venom_ref: PropTypes.string,

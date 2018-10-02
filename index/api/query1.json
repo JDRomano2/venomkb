@@ -1,0 +1,18 @@
+{
+    "select": [{"Species": "name"},"Protein"],
+    "declare": {
+        "SystemicEffect": [
+            {
+                "attribute": "name",
+                "operator": "equals",
+                "value": "Brain Neoplasms"
+            }
+        ]
+    },
+    "aggregate": {
+        "distinct": {
+            "attribute": "name",
+            "class": "Species"
+        }
+    }
+}
