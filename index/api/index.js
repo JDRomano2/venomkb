@@ -21,16 +21,8 @@ const semantic = require('./routes/semantic');
 
 const app = express();
 
-// const VENOMKB_STAGING_PW = process.env.VENOMKB_STAGING_PW;
-// const MONGO_IP = process.env.MONGO_IP;
-// console.log('VENOMKB_STAGING_PW: ', VENOMKB_STAGING_PW);
-// console.log('MONGO_IP: ', MONGO_IP);
-
 // MongoDB
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://venomkb-admin:' + VENOMKB_STAGING_PW + '@' + MONGO_IP + '/venomkb-staging')
-//   .then(() =>  console.log('connection to MongoDB succesful'))
-//   .catch((err) => console.error(err));
 
 app.use(fileUpload())
 
@@ -70,30 +62,5 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-// if (app.get('env') === 'development') {
-//   app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.send('error', {
-//       message: err.message,
-//       error: err
-//     });
-//   });
-// }
-
-// production error handler
-// no stacktraces leaked to user
-// app.use(function(err, req, res, next) {
-//   res.status(err.status || 500);
-//   res.send('error', {
-//     message: err.message,
-//     error: {}
-//   });
-// });
-
 
 module.exports = app;

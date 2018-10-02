@@ -59,7 +59,7 @@ const About = ({ match }) => (
                 <Button href="./venomseq">VenomSeq</Button>
                 <Button href="./whyvenoms">Why Venoms?</Button>
                 <Button href="./ontology">Venom Ontology</Button>
-                <Button>API</Button>
+                <Button href="./api">API</Button>
             </ButtonToolbar>
         </div>
 

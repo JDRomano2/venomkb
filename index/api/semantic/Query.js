@@ -64,7 +64,7 @@ class Query {
         this.relationship = [];
         this.select = [];
         this.result = [];
-        //for validation 
+        //for validation
         this.properties = [];
         this.ontology = [];
         // validate JSON (naive)
@@ -205,9 +205,7 @@ class Query {
     async collectConstraints() {
         // We just push each of the key-value pairs in this.json["declare"]
         // into this.constraints, meaning we have a list of constraints
-        console.log("Enter contrainte AAAAAAAAAAAAAAAAAAAAAAAA");
         if ("declare" in this.json) {
-            console.log("Enter contrainte BBBBBBBBBBBBBBBBBBBBBBB");
             var classes = Object.keys(this.json["declare"]);
             for (let i in classes) {
                 let ontology_class = classes[i];
@@ -648,12 +646,17 @@ class Query {
         this.neo4j_adapter.driver.close();
     }
 }
+
 exports.Query = Query;
+
 // Test the class out
-const neo = new NeoAdapter(config.USER, config.PASSWORD, config.URI);
-const q10 = new Query(examples.ex10, neo);
-q10.retrieveSubgraph().then(() => {
-    console.log("finished!");
-}).catch(err => {
-    console.log(err);
-});
+// set to 'true' to turn on
+if (false) {
+    const neo = new NeoAdapter(config.USER, config.PASSWORD, config.URI);
+    const q10 = new Query(examples.ex10, neo);
+    q10.retrieveSubgraph().then(() => {
+        console.log("finished!");
+    }).catch(err => {
+        console.log(err);
+    });
+}

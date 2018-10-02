@@ -14,6 +14,9 @@ const {
 
 const neo = new NeoAdapter(USER, PASSWORD, URI);
 
+router.get("/test", (req, res, next) => {
+    res.send('Hello (Semantic) World!');
+});
 
 /**
  * Send a json in the body and return the answer
@@ -21,23 +24,23 @@ const neo = new NeoAdapter(USER, PASSWORD, URI);
  * @param {Body} description
 */
 router.post("/", function (req, res) {
-    
+
     json = req.body;
     console.log(json);
-    
+
     const query = new Query(json, neo);
     query.retrieveSubgraph().then(() => {
         console.log(query["select"]);
         res.json(query["result"]);
     }).catch(err => {
         console.log(err);
-        
+
         res.status(500).send(err)
     })
 })
 
 /**
- * The json is entered as a string in the url  and return the answer
+ * The json is entered as a string in the url and return the answer
  * @param {Body} name
  * @param {Body} description
 */
@@ -80,7 +83,7 @@ router.post("/file",async function (req, res) {
     const query = new Query(json_file, neo);
     await query.retrieveSubgraph();
     console.log(query["select"]);
-    
+
     res.json(query["result"]);
 })
 
