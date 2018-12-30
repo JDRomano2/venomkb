@@ -7,7 +7,7 @@
     "test": "cross-env NODE_ENV='test' mocha index/api/test --exit --recursive",
     "start": "npm run dev",
     "api": "node ./index/bin/www",
-    "dev_api": "nodemon ./index/bin/www",
+    "dev_api": "node ./index/bin/www",
     "build": "rimraf dist && webpack --config ./webpack.prod.js --progress --profile --colors",
     "build_dev": "rimraf dist && webpack --config ./webpack.dev.js --progress --profile --colors",
     "dev": "concurrently \"npm run dev_server\" \"npm run dev_api\"",

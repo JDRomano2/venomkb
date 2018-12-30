@@ -28,6 +28,7 @@ function requestData(venomkb_id) {
 }
 
 function receiveData(venomkb_id, json) {
+    console.log("RECEIVE_DATA:", json);
     return {
         type: types.RECEIVE_DATA,
         venomkb_id,
@@ -38,6 +39,7 @@ function receiveData(venomkb_id, json) {
 
 export function fetchData(venomkb_id) {
     const dataType = venomkb_id.charAt(0);
+    console.log("FETCHING VENOMKB ID:", venomkb_id);
     switch (dataType) {
         case 'P':
             return dispatch => {

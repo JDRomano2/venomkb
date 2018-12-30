@@ -27,6 +27,8 @@ mongoose.Promise = global.Promise;
 app.use(fileUpload())
 
 const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("bdd_location:", bdd_location);
 mongoose.connect(bdd_location).then(() => {
   console.log('connection to MongoDB succesful');
   mongoose.connection.db.collection("species").createIndex({ "name": "text" });

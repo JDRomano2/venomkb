@@ -82,6 +82,9 @@ class DataDetailContainer extends Component {
             go_annotations
         } = this.props;
 
+        console.log("Data in DataDetailContainer:");
+        console.log(this.props);
+
         return (
             <div>
                 <div style={{marginBottom: '5px'}}>
