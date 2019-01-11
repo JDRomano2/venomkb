@@ -420,3 +420,17 @@ pre.taxonomy-detail {
 #news {
   font-family: 'Signika', sans-serif;
 }
+
+#declare-box {
+  border: 1px solid #333333;
+  border-radius: 4px;
+  margin: 12px 36px 12px 36px;
+  padding: 24px;
+}
+
+#aggregate-box {
+  border: 1px solid #333333;
+  border-radius: 4px;
+  margin: 12px 36px 12px 36px;
+  padding: 24px;
+}

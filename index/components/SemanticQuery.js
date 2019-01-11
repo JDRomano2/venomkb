@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button,
+  Form,
   FormGroup,
   FormControl,
   ControlLabel,
@@ -14,7 +15,42 @@ class DeclareField extends React.Component {
 
   render() {
     return (
-      <h3>Declare field</h3>
+      <div id='declare-box'>
+        <FormGroup controlId="testing">
+          <ControlLabel>Ontology class</ControlLabel>
+          <FormControl
+            componentClass="select"
+            placeholder="Choose an ontology class"
+          >
+            <option value="protein">Protein</option>
+            <option value="species">Species</option>
+            <option value="genome">Genome</option>
+          </FormControl>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Filter</ControlLabel>
+          <Form componentClass="fieldset" inline>
+            <FormControl
+              type="text"
+              placeholder="Enter attribute"
+              style={{width: '35%'}}
+            />
+            <FormControl
+              componentClass="select"
+              placeholder="Select an operator"
+              style={{width: '15%'}}
+            >
+              <option value="equals">equals</option>
+              <option value="contains">contains</option>
+            </FormControl>
+            <FormControl
+              type="text"
+              placeholder="Enter a value"
+              style={{width: '50%'}}
+            />
+          </Form>
+        </FormGroup>
+      </div>
     );
   }
 }
@@ -26,7 +62,36 @@ class AggregateField extends React.Component {
 
   render() {
     return (
-      <h3>Aggregate field</h3>
+      <div id='aggregate-box'>
+        <FormGroup>
+          <ControlLabel>Aggregation function</ControlLabel>
+          <FormControl componentClass="select">
+            <option value="distinct">distinct</option>
+            <option value="count">count</option>
+            <option value="sort">sort</option>
+          </FormControl>
+        </FormGroup>
+
+        <FormGroup>
+          <ControlLabel>Apply to:</ControlLabel>
+          <Form componentClass="fieldset" inline>
+            <FormControl
+              componentClass="select"
+              placeholder="Class"
+              style={{width: '40%'}}
+            >
+              <option value="protein">Protein</option>
+              <option value="species">Species</option>
+              <option value="genome">Genome</option>
+            </FormControl>
+            <FormControl
+              type="text"
+              placeholder="Attribute (optional)"
+              style={{width: '60%'}}
+            />
+          </Form>
+        </FormGroup>
+      </div>
     );
   }
 }
@@ -93,6 +158,14 @@ class SemanticQuery extends React.Component {
     });
   }
 
+  handleDeleteDeclareFieldClick = () => {
+    const dfs = this.state.declareFields;
+    dfs.pop();
+    this.setState({
+      declareFields: dfs,
+    });
+  }
+
   handleNewAggregateFieldClick = () => {
     const af = {
       'aggregation': ''
@@ -102,52 +175,78 @@ class SemanticQuery extends React.Component {
     });
   }
 
+  handleDeleteAggregateFieldClick = () => {
+    const afs = this.state.aggregateFields;
+    afs.pop();
+    this.setState({
+      aggregateFields: afs,
+    });
+  }
+
   render() {
     return (
-      <div>
-        <h2>Run a semantic API query</h2>
-        <form>
-          <div id='container'>
-            <FormGroup
-              controlId="dataSelect"
-            >
-              <ControlLabel>Select a data type</ControlLabel>
-              <FormControl componentClass="select" placeholder="data type">
-                <option value="protein">Protein</option>
-                <option value="species">Species</option>
-                <option value="genome">Genome</option>
-              </FormControl>
-            </FormGroup>
+      <div className='jumbotron'>
+        <div className='container'>
+          <h2>Submit a new Semantic API query</h2>
+          <form>
+            <div id='container'>
+              <FormGroup
+                controlId="dataSelect"
+              >
+                <ControlLabel>Select a data type</ControlLabel>
+                <FormControl componentClass="select" placeholder="data type">
+                  <option value="protein">Protein</option>
+                  <option value="species">Species</option>
+                  <option value="genome">Genome</option>
+                </FormControl>
+              </FormGroup>
 
-            <FormGroup
-              controlId="dataDeclare"
-            >
-              <ControlLabel>Set filters on related data</ControlLabel>
-              <div>
-                <EditableDeclareFields
-                  declareFields={this.state.declareFields}
+              <div className="hr"/>
+
+              <FormGroup
+                controlId="dataDeclare"
+              >
+                <ControlLabel>Apply filters to related data types</ControlLabel>
+                <div>
+                  <EditableDeclareFields
+                    declareFields={this.state.declareFields}
+                  />
+                  <Button
+                    onClick={this.handleNewDeclareFieldClick}
+                  >Add field</Button>
+                  {this.state.declareFields.length > 0 &&
+                    <Button
+                      onClick={this.handleDeleteDeclareFieldClick}
+                      bsStyle="danger"
+                    >Delete field</Button>
+                  }
+                </div>
+              </FormGroup>
+
+              <div className="hr"/>
+
+              <FormGroup
+                controlId="dataAggregate"
+              >
+                <ControlLabel>Run additional functions on the results (optional)</ControlLabel>
+                <EditableAggregateFields
+                  aggregateFields={this.state.aggregateFields}
                 />
                 <Button
-                  onClick={this.handleNewDeclareFieldClick}
+                  onClick={this.handleNewAggregateFieldClick}
                 >Add field</Button>
-              </div>
-            </FormGroup>
+                {this.state.aggregateFields.length > 0 &&
+                  <Button
+                    onClick={this.handleDeleteAggregateFieldClick}
+                    bsStyle="danger"
+                  >Delete field</Button>
+                }
+              </FormGroup>
+            </div>
 
-            <FormGroup
-              controlId="dataAggregate"
-            >
-              <ControlLabel>Run additional functions on the results</ControlLabel>
-              <EditableAggregateFields
-                aggregateFields={this.state.aggregateFields}
-              />
-              <Button
-                onClick={this.handleNewAggregateFieldClick}
-              >Add field</Button>
-            </FormGroup>
-          </div>
-
-          <Button type="submit">Submit query</Button>
-        </form>
+            <Button type="submit" bsSize="large">Submit query</Button>
+          </form>
+        </div>
       </div>
     );
   }
