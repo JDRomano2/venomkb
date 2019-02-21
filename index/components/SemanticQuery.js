@@ -25,6 +25,8 @@ class DeclareField extends React.Component {
             <option value="protein">Protein</option>
             <option value="species">Species</option>
             <option value="genome">Genome</option>
+            <option value="systemiceffect">SystemicEffect</option>
+            <option value="pfam">ProteinFamily</option>
           </FormControl>
         </FormGroup>
         <FormGroup>
@@ -69,6 +71,7 @@ class AggregateField extends React.Component {
             <option value="distinct">distinct</option>
             <option value="count">count</option>
             <option value="sort">sort</option>
+            <option value="exists">exists</option>
           </FormControl>
         </FormGroup>
 
@@ -83,6 +86,8 @@ class AggregateField extends React.Component {
               <option value="protein">Protein</option>
               <option value="species">Species</option>
               <option value="genome">Genome</option>
+              <option value="systemiceffect">SystemicEffect</option>
+              <option value="pfam">ProteinFamily</option>
             </FormControl>
             <FormControl
               type="text"
@@ -187,7 +192,10 @@ class SemanticQuery extends React.Component {
     return (
       <div className='jumbotron'>
         <div className='container'>
-          <h2>Submit a new Semantic API query</h2>
+          <h2>Submit a Semantic API query</h2>
+          <p style={{'fontSize': '11pt'}}>
+            For an explanation of the different fields and what they mean, see the documentation: <Button bsSize="xsmall" href="about/api">Semantic API Documentation</Button>
+          </p>
           <form>
             <div id='container'>
               <FormGroup
@@ -198,6 +206,8 @@ class SemanticQuery extends React.Component {
                   <option value="protein">Protein</option>
                   <option value="species">Species</option>
                   <option value="genome">Genome</option>
+                  <option value="systemiceffect">SystemicEffect</option>
+                  <option value="pfam">ProteinFamily</option>
                 </FormControl>
               </FormGroup>
 
