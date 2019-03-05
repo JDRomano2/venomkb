@@ -10,6 +10,7 @@ from urllib.request import urlopen
 from collections import defaultdict, OrderedDict
 from pathlib import Path
 from tqdm import tqdm
+from SPARQLWrapper import SPARQLWrapper, JSON
 
 onto = get_ontology("./venom_ontology_2.1.0-alpha.owl")
 onto.load()
@@ -19,6 +20,26 @@ INDIVIDUALS = list(onto.individuals())
 # TODO: these should be determined dynamically - it breaks when class hierarchy is changed
 PROTEIN_CLASS = CLASSES[6]
 SPECIES_CLASS = CLASSES[7]
+
+SPARQL = SPARQLWrapper("https://sparql.uniprot.org/sparql")
+ONM_TEMPLATE = """PREFIX up:<http://purl.uniprot.org/core/>
+SELECT ?onm
+WHERE {{
+    ?protein a up:Protein .
+    ?protein up:oldMnemonic ?onm .
+    ?protein up:mnemonic '{new_mnemonic}'
+}}"""
+
+def fetch_old_mnemonics(new_name):
+  SPARQL.setQuery(ONM_TEMPLATE.format(new_mnemonic=new_name))
+  SPARQL.setReturnFormat(JSON)
+  res = SPARQL.query().convert()
+  old_mnemonics = []
+  for result in res['results']['bindings']:
+    old_mnemonics.append(result['onm']['value'])
+  return old_mnemonics
+
+# E.g., H16A7_CYRHA
 
 print("Fetching current data from VenomKB API.")
 VKB_PROTS = json.load(urlopen("http://venomkb.org/api/proteins"))
@@ -34,26 +55,27 @@ def map_upacc_to_upname(accession):
   tab = pd.read_table(entry_strio)
   return(tab['Entry name'][0])
 
+
+depr = {
+  # FORMAT: 'NEW': 'DEPRECATED'
+  'CONPO': 'CONVT'
+}
+
+def remap_deprecated_name(name):
+  tax_part = name.split("_")[-1]
+  if tax_part in depr.keys():
+    new_name = name.replace(tax_part, depr[tax_part])
+    print("REMAPPING: {0} -> {1}".format(name, new_name))
+    return new_name
+  else:
+    return name
+
 print("Loading UniProtKB accession--> name map.")
-# look for file locally
-# MAP_PATH = Path("./data/up_acc2name.pkl")
-# if MAP_PATH.is_file():
-#   print("Map already cached locally - loading file.")
-#   with open("./data/up_acc2name.pkl", 'rb') as fp1:
-#     acc2name = pickle.load(fp1)
-# else:
-#   print("File not found - rebuilding from UniProtKB API.")
-#   print("  (this may take a while!)")
-#   acc2name = {}
-#   for v_p in tqdm(VKB_PROTS):
-#     acc = v_p['out_links']['UniProtKB']['id']
-#     acc2name[acc] = map_upacc_to_upname(acc)
-#   with open("./data/up_acc2name.pkl", 'wb') as fp2:
-#     pickle.dump(acc2name, fp2)
 acc2name = {}
 toxprot_meta = pd.read_csv("./data/toxprot_metadata.tsv", sep="\t")
 for index, row in toxprot_meta.iterrows():
   curr = list(row)
+  # Need to look for deprecated names!
   acc2name[curr[0]] = curr[1]
 
 # Start with Proteins as the fundamental datatype
@@ -79,9 +101,22 @@ for p in all_proteins:
 # Link current venomkb data to ontology output
 print("Merging existing ontology contents into data structures")
 for v_p in VKB_PROTS:
-  p_name = acc2name[v_p['out_links']['UniProtKB']['id']]
-  p_equiv = proteins_composed[p_name]
-  p_equiv['vkb_legacy'] = v_p
+  try:
+    p_name = acc2name[v_p['out_links']['UniProtKB']['id']]
+  except KeyError:
+    print("Can't process accession! {0}".format(v_p['out_links']['UniProtKB']['id']))
+  p_name_undepr = remap_deprecated_name(p_name)
+  try:
+    p_equiv = proteins_composed[p_name_undepr]
+    p_equiv['vkb_legacy'] = v_p
+  except KeyError:
+    print("Error: {0}".format(p_name_undepr))
+    # Check for deprecated names
+    old_mnemonics = fetch_old_mnemonics(p_name_undepr)
+    for omn in old_mnemonics:
+      if omn in proteins_composed.keys():
+        p_equiv = proteins_composed[omn]
+        p_equiv['vkb_legacy'] = v_p
 
 # TODO: add taxonomy to species
 
