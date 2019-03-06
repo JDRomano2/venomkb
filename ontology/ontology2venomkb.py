@@ -6,6 +6,7 @@ import os, sys
 import json
 import pandas as pd
 import pickle
+import time
 from urllib.request import urlopen
 from collections import defaultdict, OrderedDict
 from pathlib import Path
@@ -167,10 +168,25 @@ for v_s in VKB_SPECS:
 # START BUILDING THE JSON OBJECT (as a python dict for now)
 
 # PROTEINS FIRST
-for pr_n, pr in proteins_composed.items():
+print("Compiling Protein records...")
+for pr_n, pr in tqdm(proteins_composed.items()):
   vkbl = pr['vkb_legacy']
+  if 'lastUpdated' in vkbl:
+    lu_pre = vkbl['lastUpdated']
+  else:
+    lu_pre = int(time.time())
   pr['json'] = {
-
+    'venomkbId': vkbl['venomkb_id'],
+    'venomRef': vkbl['venom_ref'],
+    'proteinName': vkbl['name'],
+    'uniprotName': pr_n,
+    'pdbImageUrl': vkbl['pdb_image_url'],
+    'pdbStructureKnown': vkbl['pdb_structure_known'],
+    'aaSequence': vkbl['aa_sequence'],
+    'textDescription': vkbl['description'],
+    'annotationScore': vkbl['annotation_score'],
+    'created': lu_pre,
+    'lastUpdated': int(time.time())
   }
 
 
@@ -181,7 +197,8 @@ def get_prot_vkbids(prot_name_list):
   return vkbids
 
 # THEN SPECIES
-for sp_n, sp in species_composed.items():
+print("Compiling Species records...")
+for sp_n, sp in tqdm(species_composed.items()):
   vkbl = sp['vkb_legacy']
   sp['json'] = {
     'speciesName': sp_n,
@@ -191,7 +208,9 @@ for sp_n, sp in species_composed.items():
     'venom': {
       'proteins': get_prot_vkbids(prot_names)
     },
-
+    'annotationScore': vkbl['annotation_score'],
+    'created': vkbl['lastUpdated'],
+    'lastUpdated': int(time.time())
   }
 
 # TODO: Add GO annotations
