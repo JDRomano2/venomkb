@@ -268,3 +268,5 @@ _templates/
 venomkb-neo4j.cfg
 
 *.cfg.js
+
+.vscode/
