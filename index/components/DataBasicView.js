@@ -84,11 +84,21 @@ class DataBasicView extends Component {
             species_image_url,
             refs,
             predications,
-            go_annotations
+            go_annotations,
+            venom_proteins
         } = this.props;
 
         const common_name = this.props.common_name;
         const dataType = this.props.selectedDatum.charAt(0);
+
+        if (dataType === 'S') {
+            // We need to aggregate literature predications for all proteins
+            var species_predications = []
+            for (var i=0; i < venom_proteins.length; i++) {
+                species_predications = species_predications.concat(venom_proteins[i].literature_predications);
+            }
+            console.log("SPECIES PREDICATIONS:", species_predications);
+        }
 
         //console.log("LOADED DATA: ");
         //console.log(JSON.stringify(this.state.currentData, null, 2));
@@ -226,7 +236,7 @@ class DataBasicView extends Component {
 
                         <Col xs={12} md={12}>
                                 <PredicationsBox
-                                    predications={predications}
+                                    predications={species_predications}
                                 />
                         </Col>
 
@@ -314,7 +324,8 @@ DataBasicView.propTypes = {
     predications: PropTypes.array,
     go_annotations: PropTypes.array,
     proteins: PropTypes.array,
-    currentData: PropTypes.object
+    currentData: PropTypes.object,
+    venom_proteins: PropTypes.array
 };
 
 const mapStateToProps = (state) => {

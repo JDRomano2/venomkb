@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import ReactTooltip from 'react-tooltip';
 
+// Semtypes with high translational potential:
+const TRANS_STYPE_ABBRV = [
+    'gngm',
+    'dsyn'
+];
+
 // GOOD EXAMPLE OF DUPLICATES: P9587088
 class PredicationsBox extends React.Component {
     constructor(props) {
@@ -10,14 +16,23 @@ class PredicationsBox extends React.Component {
 
         this.state = {
             predications: props.predications,
-            predsDedup: this.collapseDuplicateRows(props.predications)
+            processedPreds: this.processPreds(props.predications)
         };
 
         //this.collapseDuplicateRows = this.collapseDuplicateRows.bind(this);
 
     }
 
+    processPreds(all_preds) {
+        var processedPreds = this.collapseDuplicateRows(all_preds);
+        //var processedPreds = this.inferClinicalRelevance(processedPreds);
+        return processedPreds;
+    }
+
     collapseDuplicateRows(preds) {
+        if (preds == null) {
+            return;
+        }
 
         var predsDedup = []
         var seen = []
@@ -26,8 +41,10 @@ class PredicationsBox extends React.Component {
             // fetch relevant components
             const subPred = {
                 s_name: preds[i].s_name,
+                s_type: preds[i].s_type,
                 predicate: preds[i].predicate,
                 o_name: preds[i].o_name,
+                o_type: preds[i].o_type,
                 pmid: preds[i].pmid
             }
             // compose identifier
@@ -40,8 +57,10 @@ class PredicationsBox extends React.Component {
                 // We haven't seen it yet
                 predsDedup[ident] = {
                     s_name: subPred.s_name,
+                    s_type: subPred.s_type,
                     predicate: subPred.predicate,
                     o_name: subPred.o_name,
+                    o_type: subPred.o_type,
                     pmid: [subPred.pmid] // HERE!
                 }
             }
@@ -50,6 +69,17 @@ class PredicationsBox extends React.Component {
         // Now convert it to an array:
         const predsDedupValues = Object.keys(predsDedup).map(function(k){return predsDedup[k]});
         return predsDedupValues;
+    }
+
+    inferClinicalRelevance(preds) {
+        return preds.filter(function(pred) {
+            console.log("TESTING TRANS RELEVANCE:", pred);
+            var s_type_test = TRANS_STYPE_ABBRV.includes(pred.s_type);
+            var o_type_test = TRANS_STYPE_ABBRV.includes(pred.o_type);
+            console.log("s_type_test:", s_type_test);
+            console.log("o_type_test:", o_type_test);
+            s_type_test || o_type_test
+        });
     }
 
     render() {
@@ -77,15 +107,15 @@ class PredicationsBox extends React.Component {
                     data-tip="Go to About > Predications for more information"
                 />
                 <ReactTooltip />
-                { !(this.state.predsDedup === undefined) &&
+                { !(this.state.processedPreds === undefined) &&
                 <ReactTable
-                    data={this.state.predsDedup}
+                    data={this.state.processedPreds}
                     columns={columns}
                     showPagination={false}
-                    defaultPageSize={this.state.predsDedup.length}
+                    defaultPageSize={this.state.processedPreds.length}
                 />
                 }
-                { (this.state.predsDedup === undefined) &&
+                { (this.state.processedPreds === undefined) &&
                 <div>
                     No predications present in VenomKB for this record.
                 </div>

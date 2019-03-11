@@ -79,7 +79,8 @@ class DataDetailContainer extends Component {
             species_image_url,
             literature_references,
             literature_predications,
-            go_annotations
+            go_annotations,
+            venom_proteins
         } = this.props;
 
         console.log("Data in DataDetailContainer:");
@@ -143,6 +144,7 @@ class DataDetailContainer extends Component {
                                     predications={literature_predications}
                                     refs={literature_references}
                                     go_annotations={go_annotations}
+                                    venom_proteins={venom_proteins}
                                 />
                             }
                             {(this.state.viewType === '2') &&
@@ -183,7 +185,8 @@ DataDetailContainer.propTypes = {
     viewType: PropTypes.string,
     literature_references: PropTypes.array,
     literature_predications: PropTypes.array,
-    go_annotations: PropTypes.array
+    go_annotations: PropTypes.array,
+    venom_proteins: PropTypes.array
 };
 
 
@@ -206,7 +209,8 @@ const mapStateToProps = (state) => {
         species_image_url,
         literature_references,
         literature_predications,
-        go_annotations
+        go_annotations,
+        venom_proteins
     } = currentData || {
         isFetching: true,
         name: '',
@@ -222,7 +226,8 @@ const mapStateToProps = (state) => {
         species_image_url: '',
         literature_references: [],
         literature_predications: [],
-        go_annotations: []
+        go_annotations: [],
+        venom_proteins: []
     };
 
     return {
@@ -244,7 +249,8 @@ const mapStateToProps = (state) => {
         species_image_url,
         literature_references,
         literature_predications,
-        go_annotations
+        go_annotations,
+        venom_proteins
     };
 };
 
