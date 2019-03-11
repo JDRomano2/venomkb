@@ -434,3 +434,7 @@ pre.taxonomy-detail {
   margin: 12px 36px 12px 36px;
   padding: 24px;
 }
+
+.algnright {
+  text-align: right;
+}

@@ -42,9 +42,11 @@ class PredicationsBox extends React.Component {
             const subPred = {
                 s_name: preds[i].s_name,
                 s_type: preds[i].s_type,
+                s_cui: preds[i].s_cui,
                 predicate: preds[i].predicate,
                 o_name: preds[i].o_name,
                 o_type: preds[i].o_type,
+                o_cui: preds[i].o_cui,
                 pmid: preds[i].pmid
             }
             // compose identifier
@@ -53,14 +55,18 @@ class PredicationsBox extends React.Component {
             if (predsDedup.hasOwnProperty(ident)) {
                 // We've already seen this predication
                 predsDedup[ident].pmid.push(subPred.pmid);
+                predsDedup[ident].occurrence_count++;
             } else {
                 // We haven't seen it yet
                 predsDedup[ident] = {
                     s_name: subPred.s_name,
                     s_type: subPred.s_type,
+                    s_cui: subPred.s_cui,
                     predicate: subPred.predicate,
                     o_name: subPred.o_name,
                     o_type: subPred.o_type,
+                    o_cui: subPred.o_cui,
+                    occurrence_count: 1,
                     pmid: [subPred.pmid] // HERE!
                 }
             }
@@ -87,14 +93,26 @@ class PredicationsBox extends React.Component {
             Header: 'Subject',
             accessor: 's_name'
         }, {
+            Header: 'Subject CUI',
+            accessor: 's_cui',
+            width: 100,
+            className: "algnright"
+        }, {
             Header: 'Predicate',
             accessor: 'predicate'
         }, {
             Header: 'Object',
             accessor: 'o_name'
         }, {
-            Header: 'PubMed ID',
-            accessor: 'pmid'
+            Header: 'Object CUI',
+            accessor: 'o_cui',
+            width: 100,
+            className: "algnright"
+        }, {
+            Header: 'Occurrence count',
+            accessor: 'occurrence_count',
+            width: 150,
+            className: "algnright"
         }];
 
         console.log(this.state);
