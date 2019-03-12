@@ -14,6 +14,7 @@ import AboutVenomseq from './AboutVenomseq';
 import AboutOntology from './AboutOntology';
 import AboutVenoms from './AboutVenoms';
 import AboutApi from './AboutApi';
+import AboutPredications from './AboutPredications';
 
 const AboutVenomKB = () =>
     <div className="jumbotron">
@@ -53,13 +54,14 @@ const About = ({ match }) => (
         <div className="jumbotron">
             <h2>Select a topic to learn more</h2>
 
-            <ButtonToolbar style={{display: 'flex', justifyContent: 'center'}}>
+            <ButtonToolbar style={{display: 'flex', justifyContent: 'center'}} size="sm">
                 <Button href="./venomkb">About VenomKB</Button>
                 <Button href="./features">Feature Map</Button>
                 <Button href="./venomseq">VenomSeq</Button>
                 <Button href="./whyvenoms">Why Venoms?</Button>
                 <Button href="./ontology">Venom Ontology</Button>
                 <Button href="./api">API</Button>
+                <Button href="./predications">Predications</Button>
             </ButtonToolbar>
         </div>
 
@@ -70,6 +72,7 @@ const About = ({ match }) => (
             <Route path={`${match.url}/ontology`} component={AboutOntology}/>
             <Route path={`${match.url}/whyvenoms`} component={AboutVenoms}/>
             <Route path={`${match.url}/api`} component={AboutApi}/>
+            <Route path={`${match.url}/predications`} component={AboutPredications}/>
             <Redirect exact from='/' to={`${match.url}/venomkb`}/>
         </Switch>
     </div>
