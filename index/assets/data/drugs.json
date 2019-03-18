@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Ziconotide",
+    "derived_from_protein": "P2161045",
+    "out_links": [
+      {
+        "database": "Drugbank",
+        "accession": "DB06283"
+      }
+    ]
+  },
+  {
+    "name": "Captopril",
+    "derived_from_protein": "",
+    "out_links": [
+      {
+        "database": "Drugbank",
+        "accession": "DB01197"
+      }
+    ]
+  },
+  {
+    "name": "Exenatide",
+    "derived_from_protein": "P5730495",
+    "out_links": [
+      {
+        "database": "Drugbank",
+        "accession": "DB01276"
+      }
+    ]
+  },
+  {
+    "name": "Eptifibatide",
+    "out_links": [
+      {
+        "database": "Drugbank",
+        "accession": "DB00063"
+      }
+    ]
+  },
+  {
+    "name": "Batroxobin",
+    "out_links": [
+      {
+        "database": "Drugbank",
+        "accession": "DB09005"
+      }
+    ]
+  }
+]

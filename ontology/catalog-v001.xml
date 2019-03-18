@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1551720904962" name="http://www.semanticweb.org/jdr2160/ontologies/2015/5/venom_ontology" uri="venom_ontology_2.1.0-alpha.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1552589657996" name="http://purl.uniprot.org/uniprot/" uri="data/Q9BPH4.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1552589657996" name="http://www.semanticweb.org/jdr2160/ontologies/2015/5/venom_ontology" uri="venom_ontology_2.1.0-alpha.owl"/>
     </group>
 </catalog>

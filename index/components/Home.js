@@ -54,17 +54,6 @@ const Home = () => (
         <li id="news-item">
           <b>June 25, 2017:</b> VenomKB v2.0 is live! Take a few
           minutes to check out the new features we've added.
-          <p>
-            If you would like to see the old version of VenomKB,
-            click on the following link:{' '}
-            <Button
-              bsStle="default"
-              bsSize="xsmall"
-              href="http://54.211.253.123"
-            >
-              VenomKB v1.0
-            </Button>
-          </p>
         </li>
       </ul>
     </div>
