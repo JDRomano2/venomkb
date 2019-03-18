@@ -6,8 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const errorhandler = require("errorhandler")
-const fileUpload = require("express-fileupload")
+const fileUpload = require("express-fileupload");
 
 const routes = require('./routes/index');
 const dbindexitems = require('./routes/dbindexitems');
@@ -26,7 +25,23 @@ mongoose.Promise = global.Promise;
 
 app.use(fileUpload())
 
-const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
+const VENOMKB_MONGO_DB = 'venomkb_format'
+const PROD_STRING = 'mongodb://'
+                    + 'venomkb:'
+                    + process.env.MONGO_PW
+                    + '@' + process.env.MONGO_IP
+                    + ':27017/' + VENOMKB_MONGO_DB
+                    + '?authSource=admin';
+
+var bdd_location;
+if (process.env.NODE_ENV == 'production') {
+  bdd_location = PROD_STRING;
+} else if (process.env.NODE_ENV == 'development') {
+  bdd_location = 'mongodb://localhost:27017/venomkb_format';
+} else {
+  console.error("Error: can't determine environment type - must be 'production' or 'development' (got '", process.env.NODE_ENV, "')");
+}
+//const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
 console.log("NODE_ENV:", process.env.NODE_ENV);
 console.log("bdd_location:", bdd_location);
 mongoose.connect(bdd_location).then(() => {
