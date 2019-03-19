@@ -19,10 +19,7 @@ const outlinks = require('./routes/outlinks');
 const semantic = require('./routes/semantic');
 
 const app = express();
-
-// MongoDB
 mongoose.Promise = global.Promise;
-
 app.use(fileUpload())
 
 const VENOMKB_MONGO_DB = 'venomkb_format'
@@ -33,18 +30,18 @@ const PROD_STRING = 'mongodb://'
                     + ':27017/' + VENOMKB_MONGO_DB
                     + '?authSource=admin';
 
-var bdd_location;
+var mongo_uri;
 if (process.env.NODE_ENV == 'production') {
-  bdd_location = PROD_STRING;
+  mongo_uri = PROD_STRING;
 } else if (process.env.NODE_ENV == 'development') {
-  bdd_location = 'mongodb://localhost:27017/venomkb_format';
+  mongo_uri = 'mongodb://localhost:27017/venomkb_format';
 } else {
   console.error("Error: can't determine environment type - must be 'production' or 'development' (got '", process.env.NODE_ENV, "')");
 }
 //const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
 console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("bdd_location:", bdd_location);
-mongoose.connect(bdd_location).then(() => {
+console.log("bdd_location:", mongo_uri);
+mongoose.connect(mongo_uri).then(() => {
   console.log('connection to MongoDB succesful');
   mongoose.connection.db.collection("species").createIndex({ "name": "text" });
   mongoose.connection.db.collection("proteins").createIndex({ "name": "text" });
