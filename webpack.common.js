@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: [
-        'babel-polyfill',
+        '@babel/polyfill',
         path.join(__dirname, 'venomkb.js')
     ],
 

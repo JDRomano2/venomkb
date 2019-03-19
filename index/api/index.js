@@ -38,11 +38,10 @@ if (process.env.NODE_ENV == 'production') {
 } else {
   console.error("Error: can't determine environment type - must be 'production' or 'development' (got '", process.env.NODE_ENV, "')");
 }
-//const bdd_location = process.env.NODE_ENV == 'test' ? 'mongodb://localhost:27017/venomkb-staging-test' : 'mongodb://localhost:27017/venomkb_format'
 console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("bdd_location:", mongo_uri);
-mongoose.connect(mongo_uri).then(() => {
-  console.log('connection to MongoDB succesful');
+console.log("PROD_STRING:", mongo_uri);
+mongoose.connect(mongo_uri, { useNewUrlParser: true, useCreateIndex: true }).then(() => {
+  console.log('Connection to MongoDB succesful');
   mongoose.connection.db.collection("species").createIndex({ "name": "text" });
   mongoose.connection.db.collection("proteins").createIndex({ "name": "text" });
   mongoose.connection.db.collection("genomes").createIndex({ "name": "text" });
@@ -52,7 +51,6 @@ mongoose.connect(mongo_uri).then(() => {
 
 // Create Mongo text indexes
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../img', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '100mb'}));
