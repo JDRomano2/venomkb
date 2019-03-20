@@ -103,7 +103,7 @@ class DataBasicView extends Component {
     //console.log(JSON.stringify(this.state.currentData, null, 2));
 
     switch (dataType) {
-    case 'P':
+    case 'P': {
       const species_link = '/' + (venom_ref.replace('V', 'S'));
 
       return (
@@ -186,7 +186,8 @@ class DataBasicView extends Component {
           }
         </div>
       );
-    case 'S':
+    }
+    case 'S': {
       return (
         <div style={{'marginTop': '10px'}}>
           <Col xs={12} md={7}>
@@ -241,9 +242,9 @@ class DataBasicView extends Component {
 
         </div>
       );
-    case 'G':
+    }
+    case 'G': {
       const species_link_g = '/' + (this.state.currentData.species_ref);
-      console.log("SPECIES LINK: ", species_link_g);
       const species_known = ( (species_link_g==='/') ? false : true );
 
       return (
@@ -283,8 +284,8 @@ class DataBasicView extends Component {
           </Col>
         </div>
       );
-    case 'Q':
-      const species_link_q = '/' + (this.state.currentData.species_ref);
+    }
+    case 'Q': {
       return (
         <div>
           <Col xs={12} md={7}>
@@ -292,12 +293,14 @@ class DataBasicView extends Component {
           </Col>
         </div>
       );
-    default:
+    }
+    default: {
       return (
         <div>
           ERROR! Invalid data type.
         </div>
       );
+    }
     }
   }
 }
