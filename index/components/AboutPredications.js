@@ -9,7 +9,7 @@ const AboutPredications = () =>
       <p>
         A <i>predication</i> is a logical construct that contains two or more arguments along with a meaningful relation between those arguments. In our case, we only consider predications that have two arguments, which we name the <i>subject</i> and the <i>object</i>, respectively. The specific relationship that links the subject to the object is known as the <i>predicate</i>. Predications are not symmetrical, so the order of the subject and object is important and generally cannot be reversed without changing the meaning. An example of a predication you might find in VenomKB is:
       </p>
-      <Alert variant="success" style={{"marginLeft": "75px", "marginRight": "75px"}}>
+      <Alert variant="success" style={{'marginLeft': '75px', 'marginRight': '75px'}}>
         <p>
           Alpha-Conotoxins <tt>INHIBITS</tt> Nicotinic Receptors
         </p>

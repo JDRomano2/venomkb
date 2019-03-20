@@ -5,7 +5,6 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock
 } from 'react-bootstrap';
 
 class DeclareField extends React.Component {
@@ -107,7 +106,7 @@ class EditableDeclareFields extends React.Component {
   }
 
   render() {
-    const declareFields = this.props.declareFields.map((declareField) =>(
+    const declareFields = this.props.declareFields.map(() =>(
       <DeclareField />
     ));
 
@@ -115,7 +114,7 @@ class EditableDeclareFields extends React.Component {
       <div id='declareFields'>
         {declareFields}
       </div>
-    )
+    );
   }
 }
 
@@ -125,7 +124,7 @@ class EditableAggregateFields extends React.Component {
   }
 
   render() {
-    const aggregateFields = this.props.aggregateFields.map((aggregateField) =>(
+    const aggregateFields = this.props.aggregateFields.map(() =>(
       <AggregateField />
     ));
 
@@ -133,7 +132,7 @@ class EditableAggregateFields extends React.Component {
       <div id='aggregateFields'>
         {aggregateFields}
       </div>
-    )
+    );
   }
 }
 
