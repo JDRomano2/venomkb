@@ -1,3 +1,3 @@
 ['.zip', '.pn'].forEach(ext => {
-    require.extensions[ext] = () => null;
+  require.extensions[ext] = () => null;
 });

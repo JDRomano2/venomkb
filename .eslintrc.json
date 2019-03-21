@@ -3,7 +3,8 @@
     "es6": true,
     "amd": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "mocha": true
   },
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
