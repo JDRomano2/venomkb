@@ -1,49 +1,96 @@
 [
   {
     "name": "Ziconotide",
+    "brand_names": ["Prialt"],
     "derived_from_protein": "P2161045",
     "out_links": [
       {
-        "database": "Drugbank",
-        "accession": "DB06283"
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB06283"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "N02BG08"
+      },
+      {
+        "database_or_taxonomy": "PubChem",
+        "identifier": "16135415"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "68503"
       }
     ]
   },
   {
     "name": "Captopril",
-    "derived_from_protein": "",
+    "brand_names": [],
+    "derived_from_protein": "P4997196",
     "out_links": [
       {
-        "database": "Drugbank",
-        "accession": "DB01197"
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB01197"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "C09AA01"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "1998"
       }
     ]
   },
   {
     "name": "Exenatide",
+    "brand_names": ["Bydureon", "Byetta"],
     "derived_from_protein": "P5730495",
     "out_links": [
       {
-        "database": "Drugbank",
-        "accession": "DB01276"
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB01276"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "A10BJ01"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "60548"
       }
     ]
   },
   {
     "name": "Eptifibatide",
+    "brand_names": ["Integrilin"],
+    "derived_from_protein": "P9692848",
     "out_links": [
       {
-        "database": "Drugbank",
-        "accession": "DB00063"
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB00063"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "B01AC16"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "75635"
       }
     ]
   },
   {
     "name": "Batroxobin",
+    "brand_names": [],
+    "derived_from_protein": "P4081991",
     "out_links": [
       {
-        "database": "Drugbank",
-        "accession": "DB09005"
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB09005"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "B02BX03"
       }
     ]
   }
