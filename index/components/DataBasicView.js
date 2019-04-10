@@ -15,6 +15,7 @@ import SpeciesImage from '../components/SpeciesImage.js';
 import PredicationsBox from '../components/PredicationsBox';
 import LiteratureRefs from '../components/LiteratureRefs';
 import GoAnnotations from '../components/GoAnnotations';
+import DerivedDrugs from '../components/DerivedDrugs';
 
 class DataBasicView extends Component {
   constructor(props) {
@@ -146,6 +147,15 @@ class DataBasicView extends Component {
                 aaSequence={aa_sequence}
                 fastaLabel={selectedDatum + ': ' + name + ' (' + this.speciesName(venom_ref.replace('V', 'S')) + ')'}
               />
+            </Col>
+
+            <Col xs={12} md={12}>
+              <div className="derivedDrugs">
+                <h3>Derived Drugs</h3>
+                <DerivedDrugs
+                  derivedDrugs={[]}
+                />
+              </div>
             </Col>
 
             <Col xs={12} md={12}>

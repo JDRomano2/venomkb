@@ -435,6 +435,11 @@ pre.taxonomy-detail {
   padding: 24px;
 }
 
+#drug-box {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .algnright {
   text-align: right;
 }

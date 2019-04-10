@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const fileUpload = require("express-fileupload");
+const fileUpload = require('express-fileupload');
 
 const routes = require('./routes/index');
 const dbindexitems = require('./routes/dbindexitems');
@@ -20,9 +20,9 @@ const semantic = require('./routes/semantic');
 
 const app = express();
 mongoose.Promise = global.Promise;
-app.use(fileUpload())
+app.use(fileUpload());
 
-const VENOMKB_MONGO_DB = 'venomkb_format'
+const VENOMKB_MONGO_DB = 'venomkb_format';
 const PROD_STRING = 'mongodb://'
                     + 'venomkb:'
                     + process.env.MONGO_PW
@@ -36,17 +36,14 @@ if (process.env.NODE_ENV == 'production') {
 } else if (process.env.NODE_ENV == 'development') {
   mongo_uri = 'mongodb://localhost:27017/venomkb_format';
 } else {
-  console.error("Error: can't determine environment type - must be 'production' or 'development' (got '", process.env.NODE_ENV, "')");
+  console.error('Error: can\'t determine environment type - must be \'production\' or \'development\' (got \'', process.env.NODE_ENV, '\')');
 }
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("PROD_STRING:", mongo_uri);
 mongoose.connect(mongo_uri, { useNewUrlParser: true, useCreateIndex: true }).then(() => {
-  console.log('Connection to MongoDB succesful');
-  mongoose.connection.db.collection("species").createIndex({ "name": "text" });
-  mongoose.connection.db.collection("proteins").createIndex({ "name": "text" });
-  mongoose.connection.db.collection("genomes").createIndex({ "name": "text" });
-  mongoose.connection.db.collection("systemiceffects").createIndex({ "name": "text" });
-  mongoose.connection.db.collection("venomseqs").createIndex({ "name": "text" });
+  mongoose.connection.db.collection('species').createIndex({ 'name': 'text' });
+  mongoose.connection.db.collection('proteins').createIndex({ 'name': 'text' });
+  mongoose.connection.db.collection('genomes').createIndex({ 'name': 'text' });
+  mongoose.connection.db.collection('systemiceffects').createIndex({ 'name': 'text' });
+  mongoose.connection.db.collection('venomseqs').createIndex({ 'name': 'text' });
 }).catch((err) => console.error(err));
 
 // Create Mongo text indexes

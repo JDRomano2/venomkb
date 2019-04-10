@@ -29,13 +29,15 @@
     ],
     "quotes": [
       "error",
-      "single"
+      "single",
+      {"allowTemplateLiterals": true}
     ],
     "semi": [
       "error",
       "always"
     ],
     "react/jsx-uses-vars": [2],
-    "react/jsx-uses-react": [2]
+    "react/jsx-uses-react": [2],
+    "no-console": ["error", { "allow": ["warn", "error"] } ]
   }
 }
