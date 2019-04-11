@@ -21,7 +21,7 @@ new WebpackDevServer(webpack(config), {
   }
 }).listen(3000, 'localhost', function foo(err) {
   if (err) {
-    console.log(err);
+    console.error(err);
   }
 
   console.log('Webpack dev server listening at localhost:3000');

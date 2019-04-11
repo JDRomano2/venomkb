@@ -100,9 +100,6 @@ class DataBasicView extends Component {
       }
     }
 
-    //console.log("LOADED DATA: ");
-    //console.log(JSON.stringify(this.state.currentData, null, 2));
-
     switch (dataType) {
     case 'P': {
       const species_link = '/' + (venom_ref.replace('V', 'S'));
