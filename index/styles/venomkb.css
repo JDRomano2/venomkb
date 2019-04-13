@@ -328,6 +328,16 @@ footer {
   margin-bottom: 16px;
 }
 
+#drug-box {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #A0B4B0;
+  border-radius: 4px;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding: 5px;
+}
+
 .proteins-list {
   font-family: monospace;
 }
@@ -435,11 +445,11 @@ pre.taxonomy-detail {
   padding: 24px;
 }
 
-#drug-box {
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
 .algnright {
   text-align: right;
+}
+
+.drug-button-toolbar {
+  justify-content: center;
+  display: flex;
 }
