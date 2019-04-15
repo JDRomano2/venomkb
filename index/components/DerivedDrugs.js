@@ -6,20 +6,17 @@ class DerivedDrugs extends React.Component {
   constructor(props) {
     super(props);
 
-    this.setState = {
-      derivedDrugs: [
-        'Drug1',
-        'Drug2',
-        'Drug3'
-      ]
+    this.state = {
+      drugs: this.props.drugs
     };
   }
 
   render() {
+    //TODO: Make it able to render an array of drugs instead of just one
     return (
       <div>
         <DerivedDrug
-          drugName={'Drug1'}
+          drug={this.state.drugs[0]}
         />
       </div>
     );

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const OutLink = require('./Outlink');
 const Reference = require('./Reference');
+//const DrugSchema = require('./Drug');
 
 // Schema to enforce consistent structure.
 const GOAnnotationSchema = new mongoose.Schema({
@@ -40,6 +41,7 @@ const ProteinSchema = new mongoose.Schema({
   literature_predications: [LiteratureSchema],
   literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
   go_annotations: [GOAnnotationSchema],
+  drug_refs: [{ type: mongoose.Schema.ObjectId, ref: 'Drug' }],
   out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
 });
 
@@ -354,7 +356,7 @@ Protein.getAll = () => {
 Protein.getByVenomKBId = (venomkb_id) => {
   return new Promise((resolve, reject) => {
     Protein.findOne({ venomkb_id: venomkb_id })
-      .populate('out_links literature_references')
+      .populate('out_links literature_references drug_refs')
       .exec((err, protein) => {
         if (err) {
           reject(err);

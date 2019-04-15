@@ -80,7 +80,8 @@ class DataDetailContainer extends Component {
       literature_references,
       literature_predications,
       go_annotations,
-      venom_proteins
+      venom_proteins,
+      drug_refs
     } = this.props;
 
     return (
@@ -142,6 +143,7 @@ class DataDetailContainer extends Component {
                                   refs={literature_references}
                                   go_annotations={go_annotations}
                                   venom_proteins={venom_proteins}
+                                  drugs={drug_refs}
                                 />
                           }
                           {(this.state.viewType === '2') &&
@@ -183,7 +185,8 @@ DataDetailContainer.propTypes = {
   literature_references: PropTypes.array,
   literature_predications: PropTypes.array,
   go_annotations: PropTypes.array,
-  venom_proteins: PropTypes.array
+  venom_proteins: PropTypes.array,
+  drug_refs: PropTypes.array
 };
 
 
@@ -207,7 +210,8 @@ const mapStateToProps = (state) => {
     literature_references,
     literature_predications,
     go_annotations,
-    venom_proteins
+    venom_proteins,
+    drug_refs
   } = currentData || {
     isFetching: true,
     name: '',
@@ -224,7 +228,8 @@ const mapStateToProps = (state) => {
     literature_references: [],
     literature_predications: [],
     go_annotations: [],
-    venom_proteins: []
+    venom_proteins: [],
+    drug_refs: []
   };
 
   return {
@@ -247,7 +252,8 @@ const mapStateToProps = (state) => {
     literature_references,
     literature_predications,
     go_annotations,
-    venom_proteins
+    venom_proteins,
+    drug_refs
   };
 };
 

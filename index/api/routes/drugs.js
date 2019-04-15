@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const DerivedDrug = require('../models/DerivedDrug');
+const Drug = require('../models/Drug');
 const utils = require('../utils.js');
 
 const vkbid_reg = /D\d{7}/;
 
 router.get('/', (req, res) => {
-  DerivedDrug.getAll()
-    .then(derivedDrugs => {
-      res.json(derivedDrugs);
+  Drug.getAll()
+    .then(drugs => {
+      res.json(drugs);
     })
     .catch(err => {
       return utils.sendStatusMessage(res, 500, err.message);
@@ -16,19 +16,19 @@ router.get('/', (req, res) => {
 });
 
 router.get('/index', (req, res, next) => {
-  DerivedDrug.find({}, { venomkb_id: 1, name: 1 }).exec((err, derived_drugs_ind) => {
+  Drug.find({}, { venomkb_id: 1, name: 1 }).exec((err, drugs_ind) => {
     if (err) return next(err);
-    res.json(derived_drugs_ind);
+    res.json(drugs_ind);
   });
 });
 
 router.get('/count', (req, res) => {
   if (!req.query.name) {
-    return utils.sendStatusMessage(res, 400, 'derived drug name not specified');
+    return utils.sendStatusMessage(res, 400, 'drug name not specified');
   }
-  DerivedDrug.getByName(req.query.name)
-    .then(derivedDrugs => {
-      res.json(derivedDrugs.length);
+  Drug.getByName(req.query.name)
+    .then(drugs => {
+      res.json(drugs.length);
     })
     .catch(err => {
       return utils.sendStatusMessage(res, 500, err.message);
@@ -37,21 +37,23 @@ router.get('/count', (req, res) => {
 
 router.get('/:id', (req, res) => {
   if (!req.params.id) {
-    return utils.sendStatusMessage(res, 400, 'derived drug id not specified');
+    return utils.sendStatusMessage(res, 400, 'drug id not specified');
   }
   if (vkbid_reg.test(req.params.id)) {
-    DerivedDrug.getByVenomKBId(req.params.id)
-      .then(derivedDrug => {
-        res.json(derivedDrug);
+    Drug.getByVenomKBId(req.params.id)
+      .then(drug => {
+        res.json(drug);
       })
       .catch();
   } else {
-    DerivedDrug.getById(req.params.id)
-      .then(derivedDrug => {
-        res.json(derivedDrug);
+    Drug.getById(req.params.id)
+      .then(drug => {
+        res.json(drug);
       })
       .catch(err => {
         return utils.sendStatusMessage(res, 500, err.message);
       });
   }
 });
+
+module.exports = router;

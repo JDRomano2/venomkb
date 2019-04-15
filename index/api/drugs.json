@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Ziconotide",
+    "brand_names": ["Prialt"],
+    "derived_from_protein": "P2161045",
+    "molecular_weight": "2639 g/mol",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Structural_formula_of_ziconotide.png/202px-Structural_formula_of_ziconotide.png",
+    "out_links": [
+      {
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB06283"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "N02BG08"
+      },
+      {
+        "database_or_taxonomy": "PubChem",
+        "identifier": "16135415"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "68503"
+      }
+    ]
+  },
+  {
+    "name": "Captopril",
+    "brand_names": [],
+    "derived_from_protein": "P4997196",
+    "molecular_weight": "217.29 g/mol",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Captopril_structure.svg/320px-Captopril_structure.svg.png",
+    "out_links": [
+      {
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB01197"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "C09AA01"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "1998"
+      }
+    ]
+  },
+  {
+    "name": "Exenatide",
+    "brand_names": ["Bydureon", "Byetta"],
+    "derived_from_protein": "P5730495",
+    "molecular_weight": "4186.63 g/mol",
+    "image_url": "https://www.ebi.ac.uk/chebi/displayImage.do;jsessionid=693EB1DC9DC48AB7983B17B4D92751E3?defaultImage=true&imageIndex=0&chebiId=64073",
+    "out_links": [
+      {
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB01276"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "A10BJ01"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "60548"
+      }
+    ]
+  },
+  {
+    "name": "Eptifibatide",
+    "brand_names": ["Integrilin"],
+    "derived_from_protein": "P9692848",
+    "molecular_weight": "831.96 g/mol",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Eptifibatide_structure.svg/266px-Eptifibatide_structure.svg.png",
+    "out_links": [
+      {
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB00063"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "B01AC16"
+      },
+      {
+        "database_or_taxonomy": "RxNorm",
+        "identifier": "75635"
+      }
+    ]
+  },
+  {
+    "name": "Batroxobin",
+    "brand_names": ["Defibrase"],
+    "derived_from_protein": "P4081991",
+    "molecular_weight": "25500 g/mol",
+    "out_links": [
+      {
+        "database_or_taxonomy": "Drugbank",
+        "identifier": "DB09005"
+      },
+      {
+        "database_or_taxonomy": "ATC",
+        "identifier": "B02BX03"
+      }
+    ]
+  }
+]

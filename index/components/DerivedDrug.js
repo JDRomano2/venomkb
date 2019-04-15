@@ -5,20 +5,7 @@ class DerivedDrug extends React.Component {
   constructor(props) {
     super(props);
 
-    const outLinks = [
-      {
-        'database_or_taxonomy': 'Drugbank',
-        'identifier': 'DB01276'
-      },
-      {
-        'database_or_taxonomy': 'ATC',
-        'identifier': 'A10BJ01'
-      },
-      {
-        'database_or_taxonomy': 'RxNorm',
-        'identifier': '60548'
-      }
-    ];
+    const outLinks = this.props.drug.out_links;
 
     var atcLink = outLinks.find(function(link) {
       return link['database_or_taxonomy'] === 'ATC';
@@ -31,10 +18,10 @@ class DerivedDrug extends React.Component {
     });
 
     this.state = {
-      drugName: 'Exenatide',
-      brandNames: ['Bydureon', 'Byetta'],
-      description: 'Exenatide is a medication used to treat type-2 diabetes mellitus, isolated from the saliva of the Gila monster (heloderma suspectum). It is a GLP-1 receptor agonist. It is currently being studied for efficacy in treating the symptoms of Parkinson\'s disease.',
-      molecularWeight: '25500 g/mol',
+      drugName: this.props.drug.name,
+      brandNames: this.props.drug.brand_names,
+      description: this.props.drug.description,
+      molecularWeight: this.props.drug.molecular_weight,
       atcLink: atcLink,
       drugbankLink: drugbankLink,
       rxnormLink: rxnormLink,

@@ -86,8 +86,12 @@ class DataBasicView extends Component {
       refs,
       predications,
       go_annotations,
-      venom_proteins
+      venom_proteins,
+      drugs
     } = this.props;
+
+    console.log('DRUGS:');
+    console.log(drugs);
 
     const common_name = this.props.common_name;
     const dataType = this.props.selectedDatum.charAt(0);
@@ -146,14 +150,16 @@ class DataBasicView extends Component {
               />
             </Col>
 
+            {!(drugs === undefined || drugs.length == 0) &&
             <Col xs={12} md={12}>
               <div className="derivedDrugs">
                 <h3>Derived Drugs</h3>
                 <DerivedDrugs
-                  derivedDrugs={[]}
+                  drugs={drugs}
                 />
               </div>
             </Col>
+            }
 
             <Col xs={12} md={12}>
               <div className="goAnnotations">
@@ -333,7 +339,8 @@ DataBasicView.propTypes = {
   go_annotations: PropTypes.array,
   proteins: PropTypes.array,
   currentData: PropTypes.object,
-  venom_proteins: PropTypes.array
+  venom_proteins: PropTypes.array,
+  drugs: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
