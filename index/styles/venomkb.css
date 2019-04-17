@@ -323,9 +323,11 @@ footer {
   border-style: solid;
   border-width: 1px;
   border-color: #cacaca;
-  padding:8px;
-  border-radius: 5px;
-  margin-bottom: 16px;
+  padding: 10px;
+  border-radius: 4px;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-bottom: 15px;
 }
 
 #drug-box {
@@ -335,7 +337,23 @@ footer {
   border-radius: 4px;
   margin-left: 25px;
   margin-right: 25px;
-  padding: 5px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+#target-box {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E2A991;
+  border-radius: 4px;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding: 10px;
+}
+
+#target-disease-table {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .proteins-list {
@@ -452,4 +470,8 @@ pre.taxonomy-detail {
 .drug-button-toolbar {
   justify-content: center;
   display: flex;
+}
+
+.ul {
+  text-decoration-line: underline;
 }

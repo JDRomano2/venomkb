@@ -38,6 +38,7 @@ class SequenceBox extends React.Component {
     const blastQueryUrl = blastQueryBase + this.props.aaSequence;
     return (
       <div className="jdr-box">
+        <h3>Amino Acid Sequence</h3>
         <div className="pull-right run-tools-button">
           <ButtonToolbar>
             <DropdownButton
@@ -58,7 +59,7 @@ class SequenceBox extends React.Component {
             </Button>
           </ButtonToolbar>
         </div>
-        <h3>Amino Acid Sequence</h3>
+
         <h4>Number of residues: {this.props.aaSequence.length}</h4>
         <div
           className="sequenceText"

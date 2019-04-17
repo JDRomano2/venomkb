@@ -3,12 +3,14 @@
     "protein_refs": ["P2161045"],
     "target_name": "Voltage-dependent N-type calcium channel",
     "target_synonyms": [
-
+      "N-type Ca2+ channel",
+      "Cav2.2"
     ],
     "target_description": "",
     "target_genes": [
       "CACNA1B"
     ],
+    "pdb_structure": "3DVE",
     "diseases_and_conditions": [
       {
         "name": "Pain",
@@ -26,6 +28,7 @@
     "target_genes": [
       "ACE"
     ],
+    "pdb_structure": "1O8A",
     "diseases_and_conditions": [
       {
         "name": "Hypertensive disease",
@@ -44,10 +47,11 @@
       "GLP-1 receptor",
       "GLP-1R"
     ],
-    "target_description": "",
+    "target_description": "Receptor protein found on cells in the pancreas, responsible for enhancing levels of glucose secreted into the blood. GLP1R is a G protein-coupled receptor, consisting of 1 extracellular and one transmembrane domain. Endogenous activators of the receptor in humans include GLP-1 and glucagon.",
     "target_genes": [
       "GLP1R"
     ],
+    "pdb_structure": "5VEX",
     "diseases_and_conditions": [
       {
         "name": "Diabetes Mellitus, Non-Insulin-Dependent",
@@ -71,6 +75,7 @@
       "ITGA2B",
       "ITGB3"
     ],
+    "pdb_structure": "1TYE",
     "diseases_and_conditions": [
       {
         "name": "Acute myocardial infarction",
@@ -98,6 +103,7 @@
       "FGB",
       "FGG"
     ],
+    "pdb_structure": "2HPC",
     "diseases_and_conditions": [
       {
         "name": "Hemorrhage",

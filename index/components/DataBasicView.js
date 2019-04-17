@@ -16,6 +16,7 @@ import PredicationsBox from '../components/PredicationsBox';
 import LiteratureRefs from '../components/LiteratureRefs';
 import GoAnnotations from '../components/GoAnnotations';
 import DerivedDrugs from '../components/DerivedDrugs';
+import Targets from './TargetActions';
 
 class DataBasicView extends Component {
   constructor(props) {
@@ -87,11 +88,11 @@ class DataBasicView extends Component {
       predications,
       go_annotations,
       venom_proteins,
-      drugs
+      drugs,
+      //targets
     } = this.props;
 
-    console.log('DRUGS:');
-    console.log(drugs);
+    const targets = [];
 
     const common_name = this.props.common_name;
     const dataType = this.props.selectedDatum.charAt(0);
@@ -156,6 +157,18 @@ class DataBasicView extends Component {
                 <h3>Derived Drugs</h3>
                 <DerivedDrugs
                   drugs={drugs}
+                />
+              </div>
+            </Col>
+            }
+
+            {/* {!(targets === undefined || targets.length == 0) && */}
+            {!(targets === undefined) &&
+            <Col xs={12} md={12}>
+              <div className="targets">
+                <h3>Protein targets</h3>
+                <Targets
+                  targets={targets}
                 />
               </div>
             </Col>
@@ -340,7 +353,8 @@ DataBasicView.propTypes = {
   proteins: PropTypes.array,
   currentData: PropTypes.object,
   venom_proteins: PropTypes.array,
-  drugs: PropTypes.array
+  drugs: PropTypes.array,
+  targets: PropTypes.array
 };
 
 const mapStateToProps = (state) => {

@@ -81,7 +81,8 @@ class DataDetailContainer extends Component {
       literature_predications,
       go_annotations,
       venom_proteins,
-      drug_refs
+      drug_refs,
+      targets
     } = this.props;
 
     return (
@@ -144,6 +145,7 @@ class DataDetailContainer extends Component {
                                   go_annotations={go_annotations}
                                   venom_proteins={venom_proteins}
                                   drugs={drug_refs}
+                                  targets={targets}
                                 />
                           }
                           {(this.state.viewType === '2') &&
@@ -168,7 +170,6 @@ DataDetailContainer.propTypes = {
   description: PropTypes.string,
   out_links: PropTypes.array,
   isFetching: PropTypes.bool.isRequired,
-  //lastUpdated: PropTypes.number, <-- we need to make the type consistent
   dispatch: PropTypes.func.isRequired,
   name: PropTypes.string,
   common_name: PropTypes.string,
@@ -211,7 +212,8 @@ const mapStateToProps = (state) => {
     literature_predications,
     go_annotations,
     venom_proteins,
-    drug_refs
+    drug_refs,
+    targets
   } = currentData || {
     isFetching: true,
     name: '',
@@ -229,7 +231,8 @@ const mapStateToProps = (state) => {
     literature_predications: [],
     go_annotations: [],
     venom_proteins: [],
-    drug_refs: []
+    drug_refs: [],
+    targets: [],
   };
 
   return {
@@ -253,7 +256,8 @@ const mapStateToProps = (state) => {
     literature_predications,
     go_annotations,
     venom_proteins,
-    drug_refs
+    drug_refs,
+    targets
   };
 };
 
