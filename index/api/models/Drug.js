@@ -86,7 +86,3 @@ Drug.add = new__drug => {
 };
 
 module.exports = Drug;
-// module.exports = {
-//   Drug: Drug,
-//   DrugSchema: DrugSchema
-// };

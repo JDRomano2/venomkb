@@ -1,0 +1,112 @@
+[
+  {
+    "protein_refs": ["P2161045"],
+    "target_name": "Voltage-dependent N-type calcium channel",
+    "target_synonyms": [
+
+    ],
+    "target_description": "",
+    "target_genes": [
+      "CACNA1B"
+    ],
+    "diseases_and_conditions": [
+      {
+        "name": "Pain",
+        "umls_cui": "C0006138"
+      }
+    ]
+  },
+  {
+    "protein_refs": ["P4997196"],
+    "target_name": "Angiotensin converting enzyme",
+    "target_synonyms": [
+      "ACE"
+    ],
+    "target_description": "",
+    "target_genes": [
+      "ACE"
+    ],
+    "diseases_and_conditions": [
+      {
+        "name": "Hypertensive disease",
+        "umls_cui": "C0020538"
+      },
+      {
+        "name": "Congestive heart failure",
+        "umls_cui": "C0018802"
+      }
+    ]
+  },
+  {
+    "protein_refs": ["P5730495"],
+    "target_name": "Glucagon-like peptide 1 receptor",
+    "target_synonyms": [
+      "GLP-1 receptor",
+      "GLP-1R"
+    ],
+    "target_description": "",
+    "target_genes": [
+      "GLP1R"
+    ],
+    "diseases_and_conditions": [
+      {
+        "name": "Diabetes Mellitus, Non-Insulin-Dependent",
+        "umls_cui": "C0011860"
+      },
+      {
+        "name": "Irritable Bowel Syndrome",
+        "umls_cui": "C0022104"
+      }
+    ]
+  },
+  {
+    "protein_refs": ["P9692848"],
+    "target_name": "Glycoprotein IIb/IIIa receptor",
+    "target_synonyms": [
+      "Fibrinogen receptor",
+      "Alpha(IIb)beta(3) integrin receptor"
+    ],
+    "target_description": "",
+    "target_genes": [
+      "ITGA2B",
+      "ITGB3"
+    ],
+    "diseases_and_conditions": [
+      {
+        "name": "Acute myocardial infarction",
+        "umls_cui": "C0155626"
+      },
+      {
+        "name": "Angina Pectoris",
+        "umls_cui": "C0002962"
+      },
+      {
+        "name": "Arteriosclerosis",
+        "umls_cui": "C0003850"
+      }
+    ]
+  },
+  {
+    "protein_refs": ["P4081991"],
+    "target_name": "Fibrin",
+    "target_synonyms": [
+      "Factor Ia"
+    ],
+    "target_description": "",
+    "target_genes": [
+      "FGA",
+      "FGB",
+      "FGG"
+    ],
+    "diseases_and_conditions": [
+      {
+        "name": "Hemorrhage",
+        "umls_cui": "C0019080"
+      },
+      {
+        "name": "Hematological disease",
+        "umls_cui": "C0018939"
+      }
+    ]
+  }
+]

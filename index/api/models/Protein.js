@@ -27,6 +27,11 @@ const LiteratureSchema = new mongoose.Schema({
   SID: String
 });
 
+const TargetActionSchema = new mongoose.Schema({
+  target: { type: mongoose.Schema.ObjectId, ref: 'Target' },
+  mode_of_action: String
+});
+
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
   lastUpdated: { type: Date, default: Date.now},
@@ -42,6 +47,7 @@ const ProteinSchema = new mongoose.Schema({
   literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
   go_annotations: [GOAnnotationSchema],
   drug_refs: [{ type: mongoose.Schema.ObjectId, ref: 'Drug' }],
+  target_actions: [TargetActionSchema],
   out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
 });
 
