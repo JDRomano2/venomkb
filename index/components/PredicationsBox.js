@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import ReactTooltip from 'react-tooltip';
 
-// Semtypes with high translational potential:
-const TRANS_STYPE_ABBRV = [
+// Semtypes with clinical meaning
+const CLIN_SEMTYPES = [
+  'dsyn',
   'gngm',
-  'dsyn'
+  'aapp',
 ];
+
+function inferClinicalRelevance(row_data) {
+  var s_type_test = CLIN_SEMTYPES.includes(row_data.s_type);
+  var o_type_test = CLIN_SEMTYPES.includes(row_data.o_type);
+  return (s_type_test || o_type_test);
+}
 
 // GOOD EXAMPLE OF DUPLICATES: P9587088
 class PredicationsBox extends React.Component {
@@ -80,13 +87,7 @@ class PredicationsBox extends React.Component {
     return predsDedupValues;
   }
 
-  inferClinicalRelevance(preds) {
-    return preds.filter(function(pred) {
-      var s_type_test = TRANS_STYPE_ABBRV.includes(pred.s_type);
-      var o_type_test = TRANS_STYPE_ABBRV.includes(pred.o_type);
-      s_type_test || o_type_test;
-    });
-  }
+
 
   render() {
     const columns = [{
@@ -122,13 +123,22 @@ class PredicationsBox extends React.Component {
           style={{'marginLeft': '5px'}}
           data-tip="Go to About > Predications for more information"
         />
-        <ReactTooltip />
+        <ReactTooltip /><br />
+        <i>(Note: Rows in bold describe translationally relevant concepts)</i>
         { !(this.state.processedPreds === undefined) &&
         <ReactTable
           data={this.state.processedPreds}
           columns={columns}
           showPagination={false}
           defaultPageSize={this.state.processedPreds.length}
+          getTrProps={(state, rowInfo, column) => {
+            console.log(rowInfo.row);
+            return {
+              style: {
+                fontWeight: inferClinicalRelevance(rowInfo.row._original) ? 'bold' : ''
+              }
+            };
+          }}
         />
         }
         { (this.state.processedPreds === undefined) &&

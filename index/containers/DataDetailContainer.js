@@ -82,7 +82,7 @@ class DataDetailContainer extends Component {
       go_annotations,
       venom_proteins,
       drug_refs,
-      targets
+      target_actions
     } = this.props;
 
     return (
@@ -145,7 +145,7 @@ class DataDetailContainer extends Component {
                                   go_annotations={go_annotations}
                                   venom_proteins={venom_proteins}
                                   drugs={drug_refs}
-                                  targets={targets}
+                                  target_actions={target_actions}
                                 />
                           }
                           {(this.state.viewType === '2') &&
@@ -213,7 +213,7 @@ const mapStateToProps = (state) => {
     go_annotations,
     venom_proteins,
     drug_refs,
-    targets
+    target_actions,
   } = currentData || {
     isFetching: true,
     name: '',
@@ -232,7 +232,7 @@ const mapStateToProps = (state) => {
     go_annotations: [],
     venom_proteins: [],
     drug_refs: [],
-    targets: [],
+    target_actions: [],
   };
 
   return {
@@ -257,7 +257,7 @@ const mapStateToProps = (state) => {
     go_annotations,
     venom_proteins,
     drug_refs,
-    targets
+    target_actions
   };
 };
 

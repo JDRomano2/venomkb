@@ -18,6 +18,7 @@ const venomSeq = require('./routes/venomSeq');
 const outlinks = require('./routes/outlinks');
 const semantic = require('./routes/semantic');
 const drugs = require('./routes/drugs');
+const targets = require('./routes/targets');
 
 const app = express();
 mongoose.Promise = global.Promise;
@@ -46,6 +47,7 @@ mongoose.connect(mongo_uri, { useNewUrlParser: true, useCreateIndex: true }).the
   mongoose.connection.db.collection('systemiceffects').createIndex({ 'name': 'text' });
   mongoose.connection.db.collection('venomseqs').createIndex({ 'name': 'text' });
   mongoose.connection.db.collection('drugs').createIndex({ 'name': 'text' });
+  mongoose.connection.db.collection('targets').createIndex({ 'name': 'text' });
 }).catch((err) => console.error(err));
 
 // Create Mongo text indexes
@@ -67,6 +69,7 @@ app.use('/venom-seq', venomSeq);
 app.use('/outlinks', outlinks);
 app.use('/semantic', semantic);
 app.use('/drugs', drugs);
+app.use('/targets', targets);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

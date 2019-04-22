@@ -25,14 +25,23 @@ class DerivedDrug extends React.Component {
       atcLink: atcLink,
       drugbankLink: drugbankLink,
       rxnormLink: rxnormLink,
-      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Exenatide.svg/175px-Exenatide.svg.png',
+      image_url: this.props.drug.image_url,
     };
   }
 
   render() {
+    var rxnormFlag = true;
+    var rxnormUrl = ''
+
     const atcUrl = `https://www.whocc.no/atc_ddd_index/?code=${this.state.atcLink['identifier']}&showdescription=yes`;
     const drugbankUrl = `https://www.drugbank.ca/drugs/${this.state.drugbankLink['identifier']}`;
-    const rxnormUrl = `https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=${this.state.rxnormLink['identifier']}`;
+    try {
+      rxnormUrl = `https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=${this.state.rxnormLink['identifier']}`;
+    } catch(err) {
+      rxnormFlag = false;
+    }
+
+    console.log(this.state.image_url);
 
     return (
       <div id='drug-box'>
@@ -59,17 +68,26 @@ class DerivedDrug extends React.Component {
                 bsStyle='primary'>
                   Drugbank ID: {this.state.drugbankLink['identifier']}
               </Button>
-              <Button
-                href={rxnormUrl}
-                target='_blank'
-                bsStyle='primary'>
-                  RxNorm RXCUI: {this.state.rxnormLink['identifier']}
-              </Button>
+              {rxnormFlag &&
+                <Button
+                  href={rxnormUrl}
+                  target='_blank'
+                  bsStyle='primary'>
+                    RxNorm RXCUI: {this.state.rxnormLink['identifier']}
+                </Button>
+              }
             </ButtonToolbar>
           </Media.Body>
 
           <Media.Right>
-            <img src={this.state.image_url} width={175} height={240}/>
+            {!(this.state.image_url === undefined) ? (
+              <img src={this.state.image_url} width={200} height={240}/>
+            ) : (
+              <div style={{ 'width': 200, 'height': 240, 'text-align': 'center'}}>
+                <i>No image available</i>
+              </div>
+            )
+            }
           </Media.Right>
         </Media>
 

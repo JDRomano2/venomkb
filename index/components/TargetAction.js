@@ -2,31 +2,6 @@ import React from 'react';
 import ReactTable from 'react-table';
 import { Media } from 'react-bootstrap';
 
-const exampleTarget = {
-  protein_refs: ['P5730495'],
-  target_name: 'Glucagon-like peptide 1 receptor',
-  target_synonyms: [
-    'GLP-1 receptor',
-    'GLP-1R'
-  ],
-  target_description: 'Receptor protein found on cells in the pancreas, responsible for enhancing levels of glucose secreted into the blood. GLP1R is a G protein-coupled receptor, consisting of 1 extracellular and one transmembrane domain. Endogenous activators of the receptor in humans include GLP-1 and glucagon.',
-  target_genes: [
-    'GLP1R'
-  ],
-  pdb_structure: '5VEX',
-  image_url: 'https://cdn.rcsb.org/images/rutgers/ve/5vex/5vex.pdb1-500.jpg',
-  diseases_and_conditions: [
-    {
-      name: 'Diabetes Mellitus, Non-Insulin-Dependent',
-      umls_cui: 'C0011860'
-    },
-    {
-      name: 'Irritable Bowel Syndrome',
-      umls_cui: 'C0022104'
-    }
-  ]
-};
-
 const modeOfAction = 'Inhibition';
 
 class TargetAction extends React.Component {
@@ -34,7 +9,7 @@ class TargetAction extends React.Component {
     super(props);
 
     this.state = {
-      target: exampleTarget,
+      target: this.props.targetAction,
       modeOfAction: modeOfAction,
     };
   }

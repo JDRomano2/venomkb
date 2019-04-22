@@ -7,11 +7,12 @@ class TargetActions extends React.Component {
     super(props);
 
     this.state = {
-      target_actions: this.props.targets
+      target_actions: this.props.target_actions
     };
   }
 
   render() {
+
     return (
       <div>
         <TargetAction

@@ -89,10 +89,12 @@ class DataBasicView extends Component {
       go_annotations,
       venom_proteins,
       drugs,
-      //targets
+      target_actions,
     } = this.props;
 
-    const targets = [];
+    //const targets = [];
+
+    //console.log('TARGETS: ', targets);
 
     const common_name = this.props.common_name;
     const dataType = this.props.selectedDatum.charAt(0);
@@ -163,12 +165,12 @@ class DataBasicView extends Component {
             }
 
             {/* {!(targets === undefined || targets.length == 0) && */}
-            {!(targets === undefined) &&
+            {!(target_actions === undefined) &&
             <Col xs={12} md={12}>
               <div className="targets">
                 <h3>Protein targets</h3>
                 <Targets
-                  targets={targets}
+                  target_actions={target_actions}
                 />
               </div>
             </Col>
@@ -205,7 +207,7 @@ class DataBasicView extends Component {
             />
 
             <Col xs={12} md={12}>
-              <h3>External databases</h3>
+              <h3>External database identifiers</h3>
               <OutLinks links={out_links} />
             </Col>
           </div>

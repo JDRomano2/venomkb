@@ -27,10 +27,10 @@ const LiteratureSchema = new mongoose.Schema({
   SID: String
 });
 
-const TargetActionSchema = new mongoose.Schema({
-  target: { type: mongoose.Schema.ObjectId, ref: 'Target' },
-  mode_of_action: String
-});
+// const TargetActionSchema = new mongoose.Schema({
+//   target: { type: mongoose.Schema.ObjectId, ref: 'Target' },
+//   action: String
+// });
 
 // Schema to enforce consistent structure.
 const ProteinSchema = new mongoose.Schema({
@@ -47,7 +47,8 @@ const ProteinSchema = new mongoose.Schema({
   literature_references: [{ type: mongoose.Schema.ObjectId, ref: 'Reference' }],
   go_annotations: [GOAnnotationSchema],
   drug_refs: [{ type: mongoose.Schema.ObjectId, ref: 'Drug' }],
-  target_actions: [TargetActionSchema],
+  // target_actions: [{ type: TargetActionSchema, }],
+  target_actions: [{ type: mongoose.Schema.ObjectId, ref: 'Target' }],
   out_links: [{ type: mongoose.Schema.ObjectId, ref: 'OutLink' }]
 });
 
@@ -362,7 +363,13 @@ Protein.getAll = () => {
 Protein.getByVenomKBId = (venomkb_id) => {
   return new Promise((resolve, reject) => {
     Protein.findOne({ venomkb_id: venomkb_id })
-      .populate('out_links literature_references drug_refs')
+      .populate('out_links')
+      .populate('literature_references')
+      .populate('drug_refs')
+      .populate({
+        path: 'target_actions',
+        populate: { path: 'target' }
+      })
       .exec((err, protein) => {
         if (err) {
           reject(err);
@@ -371,6 +378,20 @@ Protein.getByVenomKBId = (venomkb_id) => {
       });
   });
 };
+// Protein.getByVenomKBId = (venomkb_id) => {
+//   return new Promise((resolve, reject) => {
+//     Protein.findOne({ venomkb_id: venomkb_id })
+//       .populate('out_links')
+//       .populate('literature_references')
+//       .populate('drug_refs')
+//       .exec((err, protein) => {
+//         if (err) {
+//           reject(err);
+//         }
+//         resolve(protein);
+//       });
+//   });
+// };
 
 
 /**
