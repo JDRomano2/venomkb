@@ -94,7 +94,7 @@ class DataBasicView extends Component {
 
     //const targets = [];
 
-    //console.log('TARGETS: ', targets);
+    console.log('TARGETS: ', target_actions);
 
     const common_name = this.props.common_name;
     const dataType = this.props.selectedDatum.charAt(0);
@@ -165,7 +165,7 @@ class DataBasicView extends Component {
             }
 
             {/* {!(targets === undefined || targets.length == 0) && */}
-            {!(target_actions === undefined) &&
+            {!(target_actions.length == 0) &&
             <Col xs={12} md={12}>
               <div className="targets">
                 <h3>Protein targets</h3>

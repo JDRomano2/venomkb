@@ -132,7 +132,6 @@ class PredicationsBox extends React.Component {
           showPagination={false}
           defaultPageSize={this.state.processedPreds.length}
           getTrProps={(state, rowInfo, column) => {
-            console.log(rowInfo.row);
             return {
               style: {
                 fontWeight: inferClinicalRelevance(rowInfo.row._original) ? 'bold' : ''

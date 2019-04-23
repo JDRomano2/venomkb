@@ -15,6 +15,8 @@ class TargetAction extends React.Component {
   }
 
   render() {
+    console.log(this.state.target);
+
     const pdb_structure = ['http://www.rcsb.org/structure/',this.state.target.pdb_structure].join('');
 
     const columns = [{
