@@ -36,7 +36,7 @@
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.11",
-    "mongoose": "^5.4.19",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "neo4j-driver": "^1.7.3",
     "rc-slider": "^8.6.7",
